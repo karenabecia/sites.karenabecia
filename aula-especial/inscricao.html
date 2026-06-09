@@ -32,7 +32,6 @@
       min-height: 100vh;
     }
 
-    /* Header */
     .header {
       background: var(--branco);
       padding: 18px 24px;
@@ -42,7 +41,6 @@
     }
     .header img { height: 44px; }
 
-    /* Hero */
     .hero {
       flex: 1;
       display: flex;
@@ -61,12 +59,13 @@
       text-align: center;
     }
 
+    /* Badge */
     .badge-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 24px;
+      gap: 7px;
+      margin-bottom: 28px;
     }
     .badge-aluno {
       display: inline-flex;
@@ -74,34 +73,32 @@
       gap: 8px;
       background: var(--laranja);
       border-radius: 50px;
-      padding: 8px 22px;
+      padding: 9px 24px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--branco);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
     .badge-aluno .dot {
       width: 7px; height: 7px;
-      background: var(--branco);
+      background: rgba(255,255,255,0.75);
       border-radius: 50%;
-      display: inline-block;
-      opacity: 0.8;
+      flex-shrink: 0;
     }
     .badge-subtexto {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: #9CA3AF;
       text-decoration: line-through;
       font-style: italic;
     }
 
     .hero-tag {
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: var(--laranja);
       margin-bottom: 12px;
     }
@@ -109,7 +106,7 @@
     .hero-titulo {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: clamp(1.55rem, 4vw, 2.1rem);
+      font-size: clamp(1.5rem, 4vw, 2.05rem);
       color: var(--texto);
       line-height: 1.25;
       margin-bottom: 20px;
@@ -117,13 +114,12 @@
     .hero-titulo span { color: var(--laranja); }
 
     .hero-desc {
-      font-size: 0.97rem;
+      font-size: 0.96rem;
       color: #3B4558;
       line-height: 1.65;
       margin-bottom: 28px;
     }
 
-    /* Benefício destaque */
     .beneficio-destaque {
       background: linear-gradient(135deg, #FFF8F0 0%, #FFF3E0 100%);
       border-left: 4px solid var(--laranja);
@@ -139,13 +135,12 @@
     }
     .beneficio-destaque p span { color: var(--laranja); }
 
-    /* Info da aula */
     .info-aula {
       display: flex;
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .info-pill {
       display: flex;
@@ -158,11 +153,7 @@
       font-weight: 600;
       color: var(--texto);
     }
-    .info-pill .icon {
-      font-size: 1rem;
-    }
 
-    /* Aviso sem replay */
     .aviso-replay {
       background: #FFF0F0;
       border: 1.5px dashed #E05252;
@@ -174,7 +165,6 @@
       font-weight: 500;
     }
 
-    /* Botão CTA */
     .btn-cta {
       display: inline-flex;
       align-items: center;
@@ -200,10 +190,10 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(87,185,92,0.45);
     }
-    .btn-cta .arrow { font-size: 1.1rem; transition: transform 0.2s; }
+    .btn-cta .arrow { transition: transform 0.2s; }
     .btn-cta:hover .arrow { transform: translateX(4px); }
 
-    /* ─── MODAL / POPUP ─── */
+    /* ─── MODAL ─── */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -229,14 +219,13 @@
     }
     @keyframes modalIn {
       from { opacity: 0; transform: scale(0.94) translateY(12px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
     }
 
     .modal-fechar {
       position: absolute;
       top: 16px; right: 20px;
-      background: none;
-      border: none;
+      background: none; border: none;
       font-size: 1.5rem;
       cursor: pointer;
       color: #9CA3AF;
@@ -269,9 +258,7 @@
       margin-bottom: 28px;
     }
 
-    .form-grupo {
-      margin-bottom: 16px;
-    }
+    .form-grupo { margin-bottom: 16px; }
     .form-grupo label {
       display: block;
       font-size: 0.82rem;
@@ -317,15 +304,8 @@
       margin-top: 8px;
       box-shadow: 0 6px 20px rgba(255,112,0,0.3);
     }
-    .btn-enviar:hover {
-      background: var(--laranja-escuro);
-      transform: translateY(-1px);
-    }
-    .btn-enviar:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .btn-enviar:hover { background: var(--laranja-escuro); transform: translateY(-1px); }
+    .btn-enviar:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
     .form-privacidade {
       text-align: center;
@@ -334,7 +314,6 @@
       margin-top: 12px;
     }
 
-    /* Mensagem de erro */
     .msg-erro {
       display: none;
       background: #FFF0F0;
@@ -356,117 +335,103 @@
     }
     #page-confirmacao.ativa { display: flex; }
 
-    .confirmacao-hero {
+    .confirmacao-secao {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 56px 24px;
     }
 
-    .confirmacao-card {
-      background: var(--branco);
-      border-radius: 24px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+    .confirmacao-conteudo {
       max-width: 580px;
       width: 100%;
-      padding: 48px 44px;
       text-align: center;
     }
 
     .confirmacao-icone {
-      width: 72px; height: 72px;
-      background: linear-gradient(135deg, #E8F8E9, #C6F0C8);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 20px;
-      animation: pulse 2s infinite;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: bounce 0.6s ease;
     }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(87,185,92,0.3); }
-      50% { box-shadow: 0 0 0 14px rgba(87,185,92,0); }
+    @keyframes bounce {
+      0%   { transform: scale(0.5); opacity: 0; }
+      70%  { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    .confirmacao-card h1 {
+    .confirmacao-conteudo h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-size: clamp(1.5rem, 4vw, 2rem);
       color: var(--texto);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      line-height: 1.25;
     }
-    .confirmacao-card h1 span { color: var(--verde); }
+    .confirmacao-conteudo h1 span { color: var(--verde); }
 
-    .confirmacao-card .sub {
-      font-size: 0.95rem;
+    .confirmacao-conteudo .sub {
+      font-size: 1rem;
       color: #4B5563;
-      line-height: 1.6;
-      margin-bottom: 32px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Lembrete da aula */
-    .lembrete-box {
-      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-      border-radius: 16px;
-      padding: 28px 24px;
-      margin-bottom: 28px;
-      text-align: left;
-      position: relative;
-      overflow: hidden;
-    }
-    .lembrete-box::before {
-      content: '';
-      position: absolute;
-      top: -20px; right: -20px;
-      width: 100px; height: 100px;
-      background: var(--laranja);
-      border-radius: 50%;
-      opacity: 0.12;
-    }
-
-    .lembrete-label {
+    /* Infos soltas na página */
+    .confirmacao-lembrete-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
       font-size: 0.72rem;
-      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--laranja);
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
 
-    .lembrete-titulo {
+    .confirmacao-tema {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.05rem;
-      color: #F8FAFC;
-      margin-bottom: 16px;
-      line-height: 1.35;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--texto);
+      margin-bottom: 20px;
+      line-height: 1.3;
     }
 
-    .lembrete-infos {
+    .confirmacao-pills {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
-    .lembrete-info-item {
+    .confirmacao-pill {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 0.87rem;
-      color: #CBD5E1;
+      gap: 7px;
+      background: var(--branco);
+      border: 1.5px solid #E5E7EB;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--texto);
     }
-    .lembrete-info-item .icon { font-size: 1rem; }
 
-    .lembrete-alerta {
-      margin-top: 16px;
-      background: rgba(255,112,0,0.15);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 0.8rem;
-      color: #FED7AA;
+    .confirmacao-aviso {
+      font-size: 0.82rem;
+      color: #C0392B;
       font-weight: 500;
+      margin-bottom: 36px;
+      background: #FFF0F0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: inline-block;
     }
 
-    /* Botão agenda */
     .btn-agenda {
       display: inline-flex;
       align-items: center;
@@ -477,15 +442,16 @@
       font-family: 'Poppins', sans-serif;
       font-size: 1rem;
       font-weight: 600;
-      padding: 16px 36px;
+      padding: 16px 40px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       text-decoration: none;
       width: 100%;
+      max-width: 360px;
       transition: all 0.2s;
       box-shadow: 0 6px 20px rgba(255,112,0,0.3);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .btn-agenda:hover {
       background: var(--laranja-escuro);
@@ -494,9 +460,8 @@
     }
 
     .confirmacao-nota {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #9CA3AF;
-      margin-top: 4px;
     }
 
     /* Footer */
@@ -508,11 +473,10 @@
       opacity: 0.45;
     }
 
-    /* Responsive */
     @media (max-width: 520px) {
-      .hero-card, .confirmacao-card { padding: 32px 24px; }
+      .hero-card { padding: 32px 24px; }
       .modal { padding: 32px 24px; }
-      .info-aula { flex-direction: column; align-items: center; }
+      .info-aula, .confirmacao-pills { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -524,7 +488,7 @@
 <div id="page-main">
 
   <div class="header">
-    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/.png" alt=" Karen Abecia" />
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-claro/escola.png" alt="Escola Karen Abecia" />
   </div>
 
   <section class="hero">
@@ -546,7 +510,7 @@
       </h1>
 
       <p class="hero-desc">
-        Participe da aula ao vivo e libere <strong>+30 dias de acesso à nova versão do DashWay</strong>. 
+        Participe da aula ao vivo e libere <strong>+30 dias de acesso à nova versão do DashWay</strong>.
         A entrega acontece para quem estiver presente — sem exceção.
       </p>
 
@@ -555,8 +519,8 @@
       </div>
 
       <div class="info-aula">
-        <div class="info-pill"><span class="icon">📅</span> 16/06 — Segunda-feira</div>
-        <div class="info-pill"><span class="icon">🕗</span> 20h (horário de Brasília)</div>
+        <div class="info-pill">📅 16/06 — Segunda-feira</div>
+        <div class="info-pill">🕗 20h (horário de Brasília)</div>
       </div>
 
       <div class="aviso-replay">
@@ -591,21 +555,18 @@
         <label for="nome">Seu nome</label>
         <input type="text" id="nome" name="nome" placeholder="Como prefere ser chamado(a)?" required />
       </div>
-
       <div class="form-grupo">
         <label for="email">Melhor e-mail</label>
         <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required />
       </div>
-
       <div class="form-grupo">
         <label for="whatsapp">WhatsApp (com DDD)</label>
         <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required />
       </div>
-
       <button type="submit" class="btn-enviar" id="btn-enviar">
         <span id="btn-texto">Confirmar minha participação →</span>
       </button>
-      <div class="msg-erro" id="msg-erro">Ops! Ocorreu um erro ao enviar. Tente novamente.</div>
+      <div class="msg-erro" id="msg-erro"></div>
     </form>
 
     <p class="form-privacidade">🔒 Seus dados estão seguros e não serão compartilhados.</p>
@@ -619,31 +580,35 @@
 <div id="page-confirmacao">
 
   <div class="header">
-    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/escola.png" alt="Escola Karen Abecia" />
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-claro/escola.png" alt="Escola Karen Abecia" />
   </div>
 
-  <section class="confirmacao-hero">
-    <div class="confirmacao-card">
+  <section class="confirmacao-secao">
+    <div class="confirmacao-conteudo">
 
-      <div class="confirmacao-icone">✅</div>
+      <span class="confirmacao-icone">✅</span>
 
-      <h1>Inscrição confirmada! <span>Você está dentro.</span></h1>
+      <h1>Inscrição confirmada!<br/><span>Você está dentro.</span></h1>
+
       <p class="sub">
-        Sua vaga está garantida. Agora é só aparecer ao vivo no dia e horário certos — e seu acesso ao DashWay será liberado.
+        Sua vaga está garantida. Agora é só aparecer ao vivo no dia e horário certos — e seu acesso ao DashWay será liberado na hora.
       </p>
 
-      <div class="lembrete-box">
-        <p class="lembrete-label">📌 Lembrete da aula</p>
-        <p class="lembrete-titulo">Aposente sua apresentação de resultados e use apenas I.A.</p>
-        <div class="lembrete-infos">
-          <div class="lembrete-info-item"><span class="icon">📅</span> Segunda-feira, 16 de junho</div>
-          <div class="lembrete-info-item"><span class="icon">🕗</span> 20h00 (horário de Brasília)</div>
-          <div class="lembrete-info-item"><span class="icon">🎁</span> +30 dias de acesso ao DashWay para quem estiver ao vivo</div>
-        </div>
-        <div class="lembrete-alerta">
-          ⚠️ Não tem replay. Só quem estiver presente ao vivo recebe o acesso.
-        </div>
+      <p class="confirmacao-lembrete-titulo">📌 Lembrete da aula</p>
+
+      <p class="confirmacao-tema">Aposente sua apresentação de resultados e use apenas I.A.</p>
+
+      <div class="confirmacao-pills">
+        <div class="confirmacao-pill">📅 Segunda-feira, 16 de junho</div>
+        <div class="confirmacao-pill">🕗 20h00 — horário de Brasília</div>
+        <div class="confirmacao-pill">🎁 +30 dias de acesso ao DashWay</div>
       </div>
+
+      <div class="confirmacao-aviso">
+        ⚠️ Não tem replay — só quem estiver ao vivo recebe o acesso.
+      </div>
+
+      <br/>
 
       <a href="https://stripo.email/pt/calendar-links/368522c2-1e00-4d26-b97f-9ad0558addfb/" target="_blank" class="btn-agenda">
         📅 Adicionar à minha agenda
@@ -660,32 +625,26 @@
 
 
 <script>
-  // ─── CONFIGURAÇÃO ───────────────────────────────────────────────
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOXuRqUviMauL_Hs3mEA5bqargo0VYvzvyv8IAyBJvA7tx4a8WxgIX2khXxiKwDuJ/exec";
-  // ─────────────────────────────────────────────────────────────────
 
   function abrirModal() {
     document.getElementById('modal-inscricao').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
   function fecharModal() {
     document.getElementById('modal-inscricao').classList.remove('open');
     document.body.style.overflow = '';
   }
-
   function fecharModalFora(e) {
     if (e.target === document.getElementById('modal-inscricao')) fecharModal();
   }
-
-  // Fechar com ESC
   document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
 
   // Máscara WhatsApp
   document.getElementById('whatsapp').addEventListener('input', function() {
     let v = this.value.replace(/\D/g, '');
     if (v.length > 11) v = v.slice(0, 11);
-    if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+    if (v.length > 6)      v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
     else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
     else if (v.length > 0) v = '(' + v;
     this.value = v;
@@ -693,44 +652,37 @@
 
   async function enviarFormulario(e) {
     e.preventDefault();
-    const btn = document.getElementById('btn-enviar');
-    const btnTexto = document.getElementById('btn-texto');
+    const btn     = document.getElementById('btn-enviar');
+    const btnTxt  = document.getElementById('btn-texto');
     const msgErro = document.getElementById('msg-erro');
 
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const nome     = document.getElementById('nome').value.trim();
+    const email    = document.getElementById('email').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
-
     if (!nome || !email || !whatsapp) return;
 
     btn.disabled = true;
-    btnTexto.textContent = 'Enviando...';
+    btnTxt.textContent = 'Enviando...';
     msgErro.classList.remove('visivel');
 
-    // Monta URL com parâmetros (GET funciona melhor com Apps Script + no-cors)
     const params = new URLSearchParams({
-      nome: nome,
-      email: email,
-      whatsapp: whatsapp,
+      nome, email, whatsapp,
       data_inscricao: new Date().toLocaleString('pt-BR')
     });
 
     try {
-      // no-cors: o Apps Script recebe, mas não retornamos status — por isso
-      // aguardamos o fetch e depois consideramos sucesso e redirecionamos.
+      // no-cors: Apps Script recebe normalmente, resposta fica opaca no browser
       await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
         method: 'GET',
         mode: 'no-cors'
       });
-      // Pequeno delay para garantir que o Apps Script processou
-      setTimeout(() => mostrarConfirmacao(), 400);
+      // Aguarda 500ms para garantir que o script processou antes de redirecionar
+      setTimeout(mostrarConfirmacao, 500);
     } catch (err) {
-      // Mesmo com erro de rede, o Apps Script pode ter gravado (opaque response)
-      // então ainda redirecionamos após um fetch falho de rede real
       msgErro.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
       msgErro.classList.add('visivel');
       btn.disabled = false;
-      btnTexto.textContent = 'Confirmar minha participação →';
+      btnTxt.textContent = 'Confirmar minha participação →';
     }
   }
 
