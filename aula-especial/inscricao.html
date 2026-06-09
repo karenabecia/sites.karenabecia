@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aula Especial — Aposente sua Apresentação de Resultados | DashWay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --laranja: #FF7000;
+      --verde: #57B95C;
+      --fundo: #F0F0F0;
+      --branco: #FFFFFF;
+      --texto: #020617;
+      --laranja-escuro: #D95F00;
+      --verde-escuro: #3E9444;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* ─── PÁGINA PRINCIPAL ─── */
+    #page-main {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--branco);
+      padding: 18px 24px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 3px solid var(--laranja);
+    }
+    .header img { height: 44px; }
+
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .hero-card {
+      background: var(--branco);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+      max-width: 660px;
+      width: 100%;
+      padding: 48px 44px;
+      text-align: center;
+    }
+
+    .badge-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+    .badge-aluno {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--laranja);
+      border-radius: 50px;
+      padding: 8px 22px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--branco);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .badge-aluno .dot {
+      width: 7px; height: 7px;
+      background: var(--branco);
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.8;
+    }
+    .badge-subtexto {
+      font-size: 0.76rem;
+      color: #9CA3AF;
+      text-decoration: line-through;
+      font-style: italic;
+    }
+
+    .hero-tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--laranja);
+      margin-bottom: 12px;
+    }
+
+    .hero-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.55rem, 4vw, 2.1rem);
+      color: var(--texto);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .hero-titulo span { color: var(--laranja); }
+
+    .hero-desc {
+      font-size: 0.97rem;
+      color: #3B4558;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    /* Benefício destaque */
+    .beneficio-destaque {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFF3E0 100%);
+      border-left: 4px solid var(--laranja);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .beneficio-destaque p {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--texto);
+    }
+    .beneficio-destaque p span { color: var(--laranja); }
+
+    /* Info da aula */
+    .info-aula {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .info-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--fundo);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--texto);
+    }
+    .info-pill .icon {
+      font-size: 1rem;
+    }
+
+    /* Aviso sem replay */
+    .aviso-replay {
+      background: #FFF0F0;
+      border: 1.5px dashed #E05252;
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 32px;
+      font-size: 0.83rem;
+      color: #C0392B;
+      font-weight: 500;
+    }
+
+    /* Botão CTA */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--verde);
+      color: var(--branco);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 17px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 6px 24px rgba(87,185,92,0.35);
+    }
+    .btn-cta:hover {
+      background: var(--verde-escuro);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(87,185,92,0.45);
+    }
+    .btn-cta .arrow { font-size: 1.1rem; transition: transform 0.2s; }
+    .btn-cta:hover .arrow { transform: translateX(4px); }
+
+    /* ─── MODAL / POPUP ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--branco);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 36px;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-fechar {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #9CA3AF;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-fechar:hover { color: var(--texto); }
+
+    .modal-icone {
+      width: 56px; height: 56px;
+      background: #FFF3E0;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 16px;
+    }
+
+    .modal h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--texto);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .modal .modal-sub {
+      font-size: 0.85rem;
+      color: #6B7280;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .form-grupo {
+      margin-bottom: 16px;
+    }
+    .form-grupo label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--texto);
+      margin-bottom: 6px;
+    }
+    .form-grupo input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      color: var(--texto);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #FAFAFA;
+      outline: none;
+    }
+    .form-grupo input:focus {
+      border-color: var(--laranja);
+      box-shadow: 0 0 0 3px rgba(255,112,0,0.12);
+      background: var(--branco);
+    }
+    .form-grupo input::placeholder { color: #B0B7C3; }
+
+    .btn-enviar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px;
+      background: var(--laranja);
+      color: var(--branco);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 6px 20px rgba(255,112,0,0.3);
+    }
+    .btn-enviar:hover {
+      background: var(--laranja-escuro);
+      transform: translateY(-1px);
+    }
+    .btn-enviar:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-privacidade {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9CA3AF;
+      margin-top: 12px;
+    }
+
+    /* Mensagem de erro */
+    .msg-erro {
+      display: none;
+      background: #FFF0F0;
+      border: 1px solid #FECACA;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #DC2626;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .msg-erro.visivel { display: block; }
+
+    /* ─── PÁGINA DE CONFIRMAÇÃO ─── */
+    #page-confirmacao {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    #page-confirmacao.ativa { display: flex; }
+
+    .confirmacao-hero {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .confirmacao-card {
+      background: var(--branco);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+      max-width: 580px;
+      width: 100%;
+      padding: 48px 44px;
+      text-align: center;
+    }
+
+    .confirmacao-icone {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #E8F8E9, #C6F0C8);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 20px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(87,185,92,0.3); }
+      50% { box-shadow: 0 0 0 14px rgba(87,185,92,0); }
+    }
+
+    .confirmacao-card h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      color: var(--texto);
+      margin-bottom: 12px;
+    }
+    .confirmacao-card h1 span { color: var(--verde); }
+
+    .confirmacao-card .sub {
+      font-size: 0.95rem;
+      color: #4B5563;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* Lembrete da aula */
+    .lembrete-box {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .lembrete-box::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 100px; height: 100px;
+      background: var(--laranja);
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+
+    .lembrete-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--laranja);
+      margin-bottom: 10px;
+    }
+
+    .lembrete-titulo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #F8FAFC;
+      margin-bottom: 16px;
+      line-height: 1.35;
+    }
+
+    .lembrete-infos {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .lembrete-info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.87rem;
+      color: #CBD5E1;
+    }
+    .lembrete-info-item .icon { font-size: 1rem; }
+
+    .lembrete-alerta {
+      margin-top: 16px;
+      background: rgba(255,112,0,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #FED7AA;
+      font-weight: 500;
+    }
+
+    /* Botão agenda */
+    .btn-agenda {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--laranja);
+      color: var(--branco);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      width: 100%;
+      transition: all 0.2s;
+      box-shadow: 0 6px 20px rgba(255,112,0,0.3);
+      margin-bottom: 12px;
+    }
+    .btn-agenda:hover {
+      background: var(--laranja-escuro);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(255,112,0,0.4);
+    }
+
+    .confirmacao-nota {
+      font-size: 0.8rem;
+      color: #9CA3AF;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--texto);
+      opacity: 0.45;
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .hero-card, .confirmacao-card { padding: 32px 24px; }
+      .modal { padding: 32px 24px; }
+      .info-aula { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!--            PÁGINA PRINCIPAL            -->
+<!-- ═══════════════════════════════════════ -->
+<div id="page-main">
+
+  <div class="header">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/logo.png" alt="Escola Karen Abecia" />
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+
+      <div class="badge-wrapper">
+        <div class="badge-aluno">
+          <span class="dot"></span>
+          Aula Especial de Alunos
+        </div>
+        <span class="badge-subtexto">pode ser sua última aula</span>
+      </div>
+
+      <p class="hero-tag">Aula ao vivo</p>
+
+      <h1 class="hero-titulo">
+        Aposente sua apresentação de resultados<br/>
+        <span>e use apenas I.A.</span>
+      </h1>
+
+      <p class="hero-desc">
+        Participe da aula ao vivo e libere <strong>+30 dias de acesso à nova versão do DashWay</strong>. 
+        A entrega acontece para quem estiver presente — sem exceção.
+      </p>
+
+      <div class="beneficio-destaque">
+        <p>🎁 Ao participar ao vivo, você ganha <span>+30 dias de acesso ao DashWay</span> — a nova versão já com I.A. integrada.</p>
+      </div>
+
+      <div class="info-aula">
+        <div class="info-pill"><span class="icon">📅</span> 16/06 — Segunda-feira</div>
+        <div class="info-pill"><span class="icon">🕗</span> 20h (horário de Brasília)</div>
+      </div>
+
+      <div class="aviso-replay">
+        ⚠️ Não tem replay. A aula não fica gravada. Só libera o acesso quem estiver ao vivo.
+      </div>
+
+      <button class="btn-cta" onclick="abrirModal()">
+        Liberar meu acesso <span class="arrow">»</span>
+      </button>
+
+    </div>
+  </section>
+
+  <footer>© Todos os direitos reservados para Escola Karen Abecia — 2025</footer>
+
+</div><!-- /page-main -->
+
+
+<!-- ═══════════════════════════════════════ -->
+<!--           MODAL DE INSCRIÇÃO           -->
+<!-- ═══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-inscricao" onclick="fecharModalFora(event)">
+  <div class="modal">
+    <button class="modal-fechar" onclick="fecharModal()" aria-label="Fechar">×</button>
+
+    <div class="modal-icone">🚀</div>
+    <h2>Garanta sua vaga na aula</h2>
+    <p class="modal-sub">Preencha os dados abaixo para confirmar sua participação</p>
+
+    <form id="form-inscricao" onsubmit="enviarFormulario(event)">
+      <div class="form-grupo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Como prefere ser chamado(a)?" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="email">Melhor e-mail</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="whatsapp">WhatsApp (com DDD)</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required />
+      </div>
+
+      <button type="submit" class="btn-enviar" id="btn-enviar">
+        <span id="btn-texto">Confirmar minha participação →</span>
+      </button>
+      <div class="msg-erro" id="msg-erro">Ops! Ocorreu um erro ao enviar. Tente novamente.</div>
+    </form>
+
+    <p class="form-privacidade">🔒 Seus dados estão seguros e não serão compartilhados.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!--        PÁGINA DE CONFIRMAÇÃO           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="page-confirmacao">
+
+  <div class="header">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/logo.png" alt="Escola Karen Abecia" />
+  </div>
+
+  <section class="confirmacao-hero">
+    <div class="confirmacao-card">
+
+      <div class="confirmacao-icone">✅</div>
+
+      <h1>Inscrição confirmada! <span>Você está dentro.</span></h1>
+      <p class="sub">
+        Sua vaga está garantida. Agora é só aparecer ao vivo no dia e horário certos — e seu acesso ao DashWay será liberado.
+      </p>
+
+      <div class="lembrete-box">
+        <p class="lembrete-label">📌 Lembrete da aula</p>
+        <p class="lembrete-titulo">Aposente sua apresentação de resultados e use apenas I.A.</p>
+        <div class="lembrete-infos">
+          <div class="lembrete-info-item"><span class="icon">📅</span> Segunda-feira, 16 de junho</div>
+          <div class="lembrete-info-item"><span class="icon">🕗</span> 20h00 (horário de Brasília)</div>
+          <div class="lembrete-info-item"><span class="icon">🎁</span> +30 dias de acesso ao DashWay para quem estiver ao vivo</div>
+        </div>
+        <div class="lembrete-alerta">
+          ⚠️ Não tem replay. Só quem estiver presente ao vivo recebe o acesso.
+        </div>
+      </div>
+
+      <a href="https://stripo.email/pt/calendar-links/368522c2-1e00-4d26-b97f-9ad0558addfb/" target="_blank" class="btn-agenda">
+        📅 Adicionar à minha agenda
+      </a>
+
+      <p class="confirmacao-nota">Coloque na agenda para não esquecer — te vejo lá! 👋</p>
+
+    </div>
+  </section>
+
+  <footer>© Todos os direitos reservados para Escola Karen Abecia — 2025</footer>
+
+</div><!-- /page-confirmacao -->
+
+
+<script>
+  // ─── CONFIGURAÇÃO ───────────────────────────────────────────────
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOXuRqUviMauL_Hs3mEA5bqargo0VYvzvyv8IAyBJvA7tx4a8WxgIX2khXxiKwDuJ/exec";
+  // ─────────────────────────────────────────────────────────────────
+
+  function abrirModal() {
+    document.getElementById('modal-inscricao').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-inscricao').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function fecharModalFora(e) {
+    if (e.target === document.getElementById('modal-inscricao')) fecharModal();
+  }
+
+  // Fechar com ESC
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+
+  // Máscara WhatsApp
+  document.getElementById('whatsapp').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+    else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    else if (v.length > 0) v = '(' + v;
+    this.value = v;
+  });
+
+  async function enviarFormulario(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-enviar');
+    const btnTexto = document.getElementById('btn-texto');
+    const msgErro = document.getElementById('msg-erro');
+
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+
+    if (!nome || !email || !whatsapp) return;
+
+    btn.disabled = true;
+    btnTexto.textContent = 'Enviando...';
+    msgErro.classList.remove('visivel');
+
+    // Monta URL com parâmetros (GET funciona melhor com Apps Script + no-cors)
+    const params = new URLSearchParams({
+      nome: nome,
+      email: email,
+      whatsapp: whatsapp,
+      data_inscricao: new Date().toLocaleString('pt-BR')
+    });
+
+    try {
+      // no-cors: o Apps Script recebe, mas não retornamos status — por isso
+      // aguardamos o fetch e depois consideramos sucesso e redirecionamos.
+      await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors'
+      });
+      // Pequeno delay para garantir que o Apps Script processou
+      setTimeout(() => mostrarConfirmacao(), 400);
+    } catch (err) {
+      // Mesmo com erro de rede, o Apps Script pode ter gravado (opaque response)
+      // então ainda redirecionamos após um fetch falho de rede real
+      msgErro.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+      msgErro.classList.add('visivel');
+      btn.disabled = false;
+      btnTexto.textContent = 'Confirmar minha participação →';
+    }
+  }
+
+  function mostrarConfirmacao() {
+    fecharModal();
+    document.getElementById('page-main').style.display = 'none';
+    const pag = document.getElementById('page-confirmacao');
+    pag.style.display = 'flex';
+    pag.classList.add('ativa');
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
