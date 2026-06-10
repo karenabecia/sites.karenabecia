@@ -59,23 +59,6 @@
       width: auto;
     }
 
-    .header-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--text-main);
-      line-height: 1.2;
-    }
-
-    .header-title span {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--brand-orange);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
     /* ─── Hero ──────────────────────────────────────────── */
     .hero {
       background: linear-gradient(135deg, var(--brand-orange) 0%, #e05f00 100%);
@@ -245,6 +228,52 @@
 
     .calendar-body {
       padding: 20px;
+    }
+
+    /* Layout calendário + legenda lado a lado */
+    .calendar-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Grade ocupa 60% */
+    .calendar-layout .calendar-grid {
+      flex: 0 0 60%;
+    }
+
+    /* Legenda ocupa o restante */
+    .calendar-layout .events-list {
+      flex: 1;
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .events-list-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 660px) {
+      .calendar-layout {
+        flex-direction: column;
+      }
+      .calendar-layout .calendar-grid {
+        flex: none;
+        width: 100%;
+      }
+      .calendar-layout .events-list {
+        border-top: 1px solid rgba(2,6,23,0.07);
+        padding-top: 16px;
+        margin-top: 4px;
+        width: 100%;
+      }
     }
 
     /* Grade dos dias da semana */
@@ -424,10 +453,6 @@
         alt="Logo DashEagles"
         onerror="this.style.display='none'"
       >
-      <div class="header-title">
-        DashEagles
-        <span>Mentoria</span>
-      </div>
     </a>
   </header>
 
@@ -440,7 +465,131 @@
   <!-- ── Conteúdo principal ─────────────────────────── -->
   <main>
 
-    <!-- SEÇÃO: Acesso Rápido -->
+    <!-- SEÇÃO: Calendário (primeiro) -->
+    <section>
+      <h2 class="section-title">Agenda de Junho · 2026</h2>
+      <p class="section-subtitle">Compromissos do mês — não perde nenhum encontro importante.</p>
+
+      <div class="calendar-wrapper">
+
+        <div class="calendar-header">
+          <h3>📆 Junho 2026</h3>
+        </div>
+
+        <div class="calendar-body">
+
+          <!-- Layout lado a lado: grade + legenda -->
+          <div class="calendar-layout">
+
+            <!-- Grade do calendário de junho -->
+            <div class="calendar-grid">
+
+              <!-- Cabeçalho dias da semana -->
+              <div class="cal-weekday">Dom</div>
+              <div class="cal-weekday">Seg</div>
+              <div class="cal-weekday">Ter</div>
+              <div class="cal-weekday">Qua</div>
+              <div class="cal-weekday">Qui</div>
+              <div class="cal-weekday">Sex</div>
+              <div class="cal-weekday">Sáb</div>
+
+              <!-- Semana 1: 01/06 = segunda-feira (col 2) -->
+              <div class="cal-day empty"></div>
+              <div class="cal-day"><span class="cal-day-num">1</span></div>
+              <div class="cal-day"><span class="cal-day-num">2</span></div>
+              <div class="cal-day"><span class="cal-day-num">3</span></div>
+              <div class="cal-day"><span class="cal-day-num">4</span></div>
+              <div class="cal-day"><span class="cal-day-num">5</span></div>
+              <div class="cal-day"><span class="cal-day-num">6</span></div>
+
+              <!-- Semana 2 -->
+              <div class="cal-day"><span class="cal-day-num">7</span></div>
+              <div class="cal-day"><span class="cal-day-num">8</span></div>
+              <div class="cal-day has-event"><span class="cal-day-num">9</span><div class="cal-dot"></div></div>
+              <div class="cal-day"><span class="cal-day-num">10</span></div>
+              <div class="cal-day"><span class="cal-day-num">11</span></div>
+              <div class="cal-day"><span class="cal-day-num">12</span></div>
+              <div class="cal-day"><span class="cal-day-num">13</span></div>
+
+              <!-- Semana 3 -->
+              <div class="cal-day"><span class="cal-day-num">14</span></div>
+              <div class="cal-day"><span class="cal-day-num">15</span></div>
+              <div class="cal-day"><span class="cal-day-num">16</span></div>
+              <div class="cal-day has-event"><span class="cal-day-num">17</span><div class="cal-dot"></div></div>
+              <div class="cal-day"><span class="cal-day-num">18</span></div>
+              <div class="cal-day"><span class="cal-day-num">19</span></div>
+              <div class="cal-day"><span class="cal-day-num">20</span></div>
+
+              <!-- Semana 4 -->
+              <div class="cal-day"><span class="cal-day-num">21</span></div>
+              <div class="cal-day"><span class="cal-day-num">22</span></div>
+              <div class="cal-day has-event"><span class="cal-day-num">23</span><div class="cal-dot"></div></div>
+              <div class="cal-day"><span class="cal-day-num">24</span></div>
+              <div class="cal-day"><span class="cal-day-num">25</span></div>
+              <div class="cal-day"><span class="cal-day-num">26</span></div>
+              <div class="cal-day"><span class="cal-day-num">27</span></div>
+
+              <!-- Semana 5 -->
+              <div class="cal-day"><span class="cal-day-num">28</span></div>
+              <div class="cal-day"><span class="cal-day-num">29</span></div>
+              <div class="cal-day has-event"><span class="cal-day-num">30</span><div class="cal-dot"></div></div>
+              <div class="cal-day empty"></div>
+              <div class="cal-day empty"></div>
+              <div class="cal-day empty"></div>
+              <div class="cal-day empty"></div>
+
+            </div>
+            <!-- fim calendar-grid -->
+
+            <!-- Legenda à direita -->
+            <div class="events-list">
+
+              <p class="events-list-title">Compromissos</p>
+
+              <div class="event-item">
+                <span class="event-date-badge">09 Jun</span>
+                <p class="event-desc"><strong>Encontro com a Jéssica</strong></p>
+              </div>
+
+              <div class="event-item">
+                <span class="event-date-badge">17 Jun</span>
+                <p class="event-desc"><strong>Aula de dúvidas</strong> — Comunidade UAU</p>
+              </div>
+
+              <div class="event-item">
+                <span class="event-date-badge">23 Jun</span>
+                <p class="event-desc"><strong>Encontro com a Karen</strong></p>
+              </div>
+
+              <div class="event-item">
+                <span class="event-date-badge">30 Jun</span>
+                <p class="event-desc"><strong>Copa dos Dados</strong> — Aula 1 · YouTube · 20h</p>
+              </div>
+
+              <div class="event-item">
+                <span class="event-date-badge july">01 Jul</span>
+                <p class="event-desc"><strong>Copa dos Dados</strong> — Aula 2 · YouTube · 20h</p>
+              </div>
+
+              <div class="event-item">
+                <span class="event-date-badge july">02 Jul</span>
+                <p class="event-desc"><strong>Copa dos Dados</strong> — Aula 3 · YouTube · 20h</p>
+              </div>
+
+            </div>
+            <!-- fim events-list -->
+
+          </div>
+          <!-- fim calendar-layout -->
+
+        </div>
+        <!-- fim calendar-body -->
+      </div>
+      <!-- fim calendar-wrapper -->
+
+    </section>
+
+    <!-- SEÇÃO: Acesso Rápido (segundo) -->
     <section>
       <h2 class="section-title">Acesso Rápido</h2>
       <p class="section-subtitle">Acesse os principais recursos da sua mentoria com um clique.</p>
@@ -468,8 +617,7 @@
           <div class="card-icon">🔐</div>
           <h3>Área de Membros</h3>
           <p>Acesse as gravações, materiais e todo o conteúdo da mentoria na plataforma de aulas.</p>
-          <a href="https://hotmart.com/pt-br/club/karenabecia/products/1017484
-" class="btn btn-green">Acessar plataforma</a>
+          <a href="https://hotmart.com/pt-br/club/karenabecia/products/1017484" class="btn btn-green">Acessar plataforma</a>
         </div>
 
         <!-- Card 4: Central de Agentes -->
@@ -481,122 +629,6 @@
         </div>
 
       </div>
-    </section>
-
-    <!-- SEÇÃO: Calendário -->
-    <section>
-      <h2 class="section-title">Agenda de Junho · 2026</h2>
-      <p class="section-subtitle">Compromissos do mês — não perde nenhum encontro importante.</p>
-
-      <div class="calendar-wrapper">
-
-        <div class="calendar-header">
-          <h3>📆 Junho &amp; Julho 2026</h3>
-        </div>
-
-        <div class="calendar-body">
-
-          <!-- Grade do calendário de junho -->
-          <div class="calendar-grid">
-
-            <!-- Cabeçalho dias da semana -->
-            <div class="cal-weekday">Dom</div>
-            <div class="cal-weekday">Seg</div>
-            <div class="cal-weekday">Ter</div>
-            <div class="cal-weekday">Qua</div>
-            <div class="cal-weekday">Qui</div>
-            <div class="cal-weekday">Sex</div>
-            <div class="cal-weekday">Sáb</div>
-
-            <!-- Semana 1: 01/06 = segunda-feira (col 2) -->
-            <div class="cal-day empty"></div>
-            <div class="cal-day"><span class="cal-day-num">1</span></div>
-            <div class="cal-day"><span class="cal-day-num">2</span></div>
-            <div class="cal-day"><span class="cal-day-num">3</span></div>
-            <div class="cal-day"><span class="cal-day-num">4</span></div>
-            <div class="cal-day"><span class="cal-day-num">5</span></div>
-            <div class="cal-day"><span class="cal-day-num">6</span></div>
-
-            <!-- Semana 2 -->
-            <div class="cal-day"><span class="cal-day-num">7</span></div>
-            <div class="cal-day"><span class="cal-day-num">8</span></div>
-            <div class="cal-day has-event"><span class="cal-day-num">9</span><div class="cal-dot"></div></div>
-            <div class="cal-day"><span class="cal-day-num">10</span></div>
-            <div class="cal-day"><span class="cal-day-num">11</span></div>
-            <div class="cal-day"><span class="cal-day-num">12</span></div>
-            <div class="cal-day"><span class="cal-day-num">13</span></div>
-
-            <!-- Semana 3 -->
-            <div class="cal-day"><span class="cal-day-num">14</span></div>
-            <div class="cal-day"><span class="cal-day-num">15</span></div>
-            <div class="cal-day"><span class="cal-day-num">16</span></div>
-            <div class="cal-day has-event"><span class="cal-day-num">17</span><div class="cal-dot"></div></div>
-            <div class="cal-day"><span class="cal-day-num">18</span></div>
-            <div class="cal-day"><span class="cal-day-num">19</span></div>
-            <div class="cal-day"><span class="cal-day-num">20</span></div>
-
-            <!-- Semana 4 -->
-            <div class="cal-day"><span class="cal-day-num">21</span></div>
-            <div class="cal-day"><span class="cal-day-num">22</span></div>
-            <div class="cal-day has-event"><span class="cal-day-num">23</span><div class="cal-dot"></div></div>
-            <div class="cal-day"><span class="cal-day-num">24</span></div>
-            <div class="cal-day"><span class="cal-day-num">25</span></div>
-            <div class="cal-day"><span class="cal-day-num">26</span></div>
-            <div class="cal-day"><span class="cal-day-num">27</span></div>
-
-            <!-- Semana 5 -->
-            <div class="cal-day"><span class="cal-day-num">28</span></div>
-            <div class="cal-day"><span class="cal-day-num">29</span></div>
-            <div class="cal-day has-event"><span class="cal-day-num">30</span><div class="cal-dot"></div></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-
-          </div>
-          <!-- fim calendar-grid -->
-
-          <!-- Legenda dos eventos -->
-          <div class="events-list">
-
-            <div class="event-item">
-              <span class="event-date-badge">09 Jun</span>
-              <p class="event-desc"><strong>Encontro com a Jéssica</strong></p>
-            </div>
-
-            <div class="event-item">
-              <span class="event-date-badge">17 Jun</span>
-              <p class="event-desc"><strong>Aula de dúvidas</strong> — Comunidade UAU</p>
-            </div>
-
-            <div class="event-item">
-              <span class="event-date-badge">23 Jun</span>
-              <p class="event-desc"><strong>Encontro com a Karen</strong></p>
-            </div>
-
-            <div class="event-item">
-              <span class="event-date-badge">30 Jun</span>
-              <p class="event-desc"><strong>Evento Copa dos Dados</strong> — Aula 1 · YouTube · 20h</p>
-            </div>
-
-            <div class="event-item">
-              <span class="event-date-badge july">01 Jul</span>
-              <p class="event-desc"><strong>Evento Copa dos Dados</strong> — Aula 2 · YouTube · 20h</p>
-            </div>
-
-            <div class="event-item">
-              <span class="event-date-badge july">02 Jul</span>
-              <p class="event-desc"><strong>Evento Copa dos Dados</strong> — Aula 3 · YouTube · 20h</p>
-            </div>
-
-          </div>
-          <!-- fim events-list -->
-
-        </div>
-        <!-- fim calendar-body -->
-      </div>
-      <!-- fim calendar-wrapper -->
-
     </section>
 
   </main>
