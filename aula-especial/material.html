@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Material de Apoio — Claude, Sistemas e Dashboards Online · Escola Karen Abecia</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --laranja: #FF7000;
+  --verde:   #57B95C;
+  --fundo:   #F0F0F0;
+  --branco:  #FFFFFF;
+  --texto:   #020617;
+  --muted:   #475569;
+  --muted2:  #94a3b8;
+  --cinza:   #e8e8e8;
+  --radius:  16px;
+  --hh:      68px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--hh) + 16px); }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--hh);
+  background: var(--branco);
+  border-bottom: 1px solid var(--cinza);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.header-inner {
+  height: var(--hh);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  gap: 14px;
+}
+.header-inner img { height: 40px; display: block; object-fit: contain; }
+.hbtn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 100px;
+  text-decoration: none;
+  background: var(--laranja);
+  color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(255,112,0,0.25);
+}
+.hbtn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,112,0,0.35); }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 60%, #1a1a2e 100%);
+  color: #fff;
+  padding: 60px 0 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,112,0,0.1) 0%, transparent 55%),
+              radial-gradient(ellipse at 30% 70%, rgba(87,185,92,0.07) 0%, transparent 45%);
+  pointer-events: none;
+}
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,112,0,0.35);
+  background: rgba(255,112,0,0.12);
+  color: #ffaa66;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.12;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.hero h1 span { color: var(--laranja); }
+.hero-sub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== INDEX NAV ===== */
+.index-nav {
+  background: var(--branco);
+  border: 1px solid var(--cinza);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+.idx-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 14px;
+  display: block;
+}
+.index-nav ul { list-style: none; columns: 2; gap: 24px; }
+.index-nav li { break-inside: avoid; margin-bottom: 8px; }
+.index-nav a {
+  font-size: 0.84rem;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.index-nav a::before { content: '→'; color: var(--laranja); font-size: 0.75rem; }
+.index-nav a:hover { color: var(--laranja); }
+
+/* ===== SECTIONS ===== */
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--cinza);
+}
+.section:first-of-type { border-top: none; }
+.section-label {
+  display: inline-block;
+  background: rgba(255,112,0,0.1);
+  color: var(--laranja);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--texto);
+  line-height: 1.3;
+}
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--texto);
+}
+p { line-height: 1.72; }
+
+/* ===== INFO BOX ===== */
+.info-box {
+  background: var(--branco);
+  border: 1px solid var(--cinza);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.info-box .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.info-box p { font-size: 0.87rem; color: var(--muted); line-height: 1.68; }
+.info-box strong { color: var(--texto); }
+
+/* ===== CARDS GRID ===== */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.full-grid { grid-template-columns: 1fr !important; }
+
+.card {
+  background: var(--branco);
+  border: 1px solid var(--cinza);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+.card.orange  { border-top: 3px solid var(--laranja); }
+.card.purple  { border-top: 3px solid #8b5cf6; }
+.card.pink    { border-top: 3px solid #ec4899; }
+.card.green   { border-top: 3px solid var(--verde); }
+.card.gold    { border-top: 3px solid #d4a843; }
+
+.card p, .card li { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+.card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.card li { display: flex; gap: 8px; }
+.card li::before { content: '→'; color: var(--laranja); flex-shrink: 0; font-size: 0.8rem; }
+
+/* ===== NOTE / WARNING ===== */
+.note, .warning {
+  margin-top: 18px;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.note {
+  background: rgba(212,168,67,0.07);
+  border: 1px solid rgba(212,168,67,0.28);
+}
+.warning {
+  background: rgba(255,112,0,0.06);
+  border: 1px solid rgba(255,112,0,0.22);
+}
+.note strong, .warning strong {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.note strong { color: #b8930a; }
+.warning strong { color: var(--laranja); }
+.note p, .warning p { font-size: 0.85rem; color: var(--muted); }
+
+/* ===== IMAGES ===== */
+.image-clean {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  margin: 20px 0 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  border: 1px solid var(--cinza);
+}
+
+/* ===== CTA BANNER ===== */
+.cta-banner {
+  background: linear-gradient(135deg, #052e16 0%, #064e3b 100%);
+  border: 2px solid var(--verde);
+  border-radius: 24px;
+  padding: 44px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(87,185,92,0.2);
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(87,185,92,0.2), transparent 70%);
+  pointer-events: none;
+}
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255,112,0,0.15), transparent 70%);
+  pointer-events: none;
+}
+.cta-banner .badge-oferta {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  animation: pulso 2s ease-in-out infinite;
+}
+.cta-banner .prazo-badge {
+  display: inline-block;
+  background: rgba(255,112,0,0.2);
+  border: 1px solid rgba(255,112,0,0.45);
+  color: #ffaa66;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-left: 8px;
+}
+.cta-banner h2 {
+  color: #fff;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  margin-bottom: 16px;
+}
+.cta-banner h2 span { color: var(--laranja); }
+.cta-banner p {
+  color: rgba(255,255,255,0.65);
+  max-width: 660px;
+  margin: 0 auto 12px;
+  font-size: 0.92rem;
+}
+.cta-preco {
+  margin: 24px 0;
+  position: relative;
+  z-index: 1;
+}
+.cta-preco .parcelas {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+}
+.cta-preco .avista {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 6px;
+}
+.cta-itens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 28px;
+  position: relative;
+  z-index: 1;
+}
+.cta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+.cta-item::before { content: '✓'; color: var(--verde); font-weight: 700; }
+.btn-cta {
+  display: inline-block;
+  background: var(--verde);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 16px 44px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 28px rgba(87,185,92,0.35);
+  position: relative;
+  z-index: 1;
+}
+.btn-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(87,185,92,0.45); }
+
+@keyframes pulso {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(87,185,92,0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(87,185,92,0); }
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--cinza);
+  padding: 28px 0;
+  text-align: center;
+  margin-top: 48px;
+  background: var(--fundo);
+}
+footer p { font-size: 0.78rem; color: var(--muted2); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 840px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .index-nav ul { columns: 1; }
+  .header-inner { padding: 0 16px; }
+  .cta-banner { padding: 32px 20px; }
+  .cta-itens { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-inner">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/imagens/logo-claro/logo_mentoria.png" alt="Escola Karen Abecia"/>
+    <a class="hbtn" href="https://sites.karenabecia.com.br/aula-especial/vendas" target="_blank">Ver oferta de renovação</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-pill">Material de Apoio · Aula Especial</div>
+    <h1>Como transformar problemas reais em <span>soluções com Claude</span></h1>
+    <p class="hero-sub">Problema real · I.A. · Dashboards · Sistemas · Publicação</p>
+  </div>
+</section>
+
+<!-- ===== CONTEÚDO ===== -->
+<div class="wrap" style="padding-top: 44px;">
+
+  <!-- INDEX NAV -->
+  <nav class="index-nav">
+    <span class="idx-label">Conteúdo desta aula</span>
+    <ul>
+      <li><a href="#problema">Problemas reais viram oportunidades</a></li>
+      <li><a href="#excel">Do Excel ao sistema</a></li>
+      <li><a href="#ia">I.A. não é varinha mágica</a></li>
+      <li><a href="#humano">Experiência de mercado + I.A.</a></li>
+      <li><a href="#claude">Por que o Claude entra nesse processo?</a></li>
+      <li><a href="#online">Claude para sistemas e Dashboards Online</a></li>
+      <li><a href="#dados">Conexão com planilhas e dados atualizados</a></li>
+      <li><a href="#apis">APIs: quando a solução precisa conversar com outros sistemas</a></li>
+      <li><a href="#publicacao">Publicação e compartilhamento</a></li>
+    </ul>
+  </nav>
+
+  <!-- SEÇÃO 1 -->
+  <section class="section" id="problema">
+    <div class="section-label">Ponto de partida</div>
+    <h2>Problemas reais viram oportunidades</h2>
+    <div class="info-box">
+      <div class="ico">🍕</div>
+      <p><strong>Todo projeto nasce de uma dor concreta.</strong> O exemplo da pizzaria mostra isso com clareza: uma cliente sempre precisava repetir endereço, pedido e informações básicas toda vez que ligava. O que parecia só um incômodo se transformou em oportunidade para criar um sistema de atendimento.</p>
+    </div>
+    <div class="grid-3 full-grid">
+      <div class="card orange">
+        <h3>Oportunidade</h3>
+        <p>Processos repetitivos, manuais ou desorganizados podem virar soluções vendáveis.</p>
+      </div>
+      <div class="card purple">
+        <h3>Aplicações</h3>
+        <ul>
+          <li>Cadastro de Clientes</li>
+          <li>Histórico de Pedidos</li>
+          <li>Pré-pedidos Automáticos</li>
+          <li>Controle de Atendimento</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warning">
+      <strong>Ponto de atenção</strong>
+      <p>A Inteligência Artificial não substitui a visão de negócio. Quem identifica o problema, entende a dor e traduz isso em solução é a pessoa que conhece o processo.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2 -->
+  <section class="section" id="excel">
+    <div class="section-label">Excel como sistema</div>
+    <h2>Do Excel ao sistema</h2>
+    <div class="info-box">
+      <div class="ico">📊</div>
+      <p><strong>Uma planilha deixa de ser "só uma planilha" quando resolve um problema com organização, clareza e utilidade prática.</strong> O valor não está em usar a fórmula mais difícil, e sim em facilitar a rotina de quem usa.</p>
+    </div>
+    <div class="grid-2 full-grid">
+      <div class="card green">
+        <h3>O que transforma uma planilha em sistema?</h3>
+        <ul>
+          <li>Resolver uma dor real</li>
+          <li>Organizar os dados com lógica</li>
+          <li>Reduzir etapas manuais</li>
+          <li>Guiar a tomada de decisão</li>
+          <li>Ser fácil para o usuário final</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Anotação importante</strong>
+      <p>Quem já sabe Excel, Power Query, Dashboards ou análise de dados não começa do zero na I.A. Esse aluno já tem a visão de processo que a I.A. precisa para produzir algo útil.</p>
+    </div>
+    <img class="image-clean" src="https://raw.githubusercontent.com/jessysilva-coder/site-escola/refs/heads/main/implementacao-claudev/sistema_pizzaria.png" alt="Exemplo de sistema de pizzaria criado com apoio do Claude"/>
+  </section>
+
+  <!-- SEÇÃO 3 -->
+  <section class="section" id="ia">
+    <div class="section-label">Uso consciente</div>
+    <h2>I.A. não é varinha mágica</h2>
+    <div class="info-box">
+      <div class="ico">⚠️</div>
+      <p><strong>O Claude é poderoso, mas precisa de direção.</strong> É importante quebrar a ideia de que basta escrever um prompt simples e tudo estará resolvido. A I.A. precisa de contexto, configuração, validação e limites.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card orange">
+        <h3>Riscos comuns</h3>
+        <ul>
+          <li>Usar prompts genéricos</li>
+          <li>Achar que a I.A. faz tudo sozinha</li>
+          <li>Criar soluções sem entender o processo</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <h3>O que funciona melhor</h3>
+        <ul>
+          <li>Contexto claro</li>
+          <li>Objetivo definido</li>
+          <li>Regras e limites</li>
+          <li>Validação humana</li>
+        </ul>
+      </div>
+      <div class="card pink">
+        <h3>Pergunta certa</h3>
+        <p>Não é "a I.A. vai fazer por mim?", e sim "como conduzo a I.A. para chegar no resultado que eu quero?"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4 -->
+  <section class="section" id="humano">
+    <div class="section-label">Seu diferencial</div>
+    <h2>Experiência de mercado + I.A.</h2>
+    <div class="info-box">
+      <div class="ico">🧭</div>
+      <p><strong>O maior diferencial não está só na ferramenta.</strong> Está na experiência que cada pessoa já tem sobre RH, financeiro, vendas, projetos, operações ou qualquer outro processo real.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card purple">
+        <h3>O aluno traz o contexto</h3>
+        <ul>
+          <li>Entende o processo real</li>
+          <li>Sabe quais dados importam</li>
+          <li>Identifica exceções</li>
+          <li>Valida se o resultado faz sentido</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h3>O Claude acelera a construção</h3>
+        <p>O Claude pode gerar estrutura, código, textos, interfaces e análises, mas quem garante que o projeto é útil, estratégico e aplicável é quem entende do negócio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5 -->
+  <section class="section" id="claude">
+    <div class="section-label">A ferramenta</div>
+    <h2>Por que o Claude entra nesse processo?</h2>
+    <div class="info-box">
+      <div class="ico">🤖</div>
+      <p><strong>O Claude ajuda a sair do uso básico da I.A. para a construção de soluções mais completas.</strong> Ele pode apoiar a criação de sistemas, Dashboards, páginas, interfaces e aplicações com contexto e instruções específicas.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card orange">
+        <h3>Ideias em sistemas</h3>
+        <p>Ajuda a transformar uma dor em fluxo, tela, lógica e primeira versão funcional.</p>
+      </div>
+      <div class="card purple">
+        <h3>Dashboards e páginas</h3>
+        <p>Apoia a construção de interfaces visuais, relatórios online e materiais interativos.</p>
+      </div>
+      <div class="card pink">
+        <h3>Projetos estruturados</h3>
+        <p>Funciona melhor quando recebe contexto, objetivo, regras, exemplos e limites claros.</p>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Como tratar o Claude</strong>
+      <p>Pense nele como um parceiro de construção. Quanto mais claro for o seu contexto, melhor será a execução.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6 -->
+  <section class="section" id="online">
+    <div class="section-label">Além do arquivo local</div>
+    <h2>Claude para sistemas e Dashboards Online</h2>
+    <div class="info-box">
+      <div class="ico">🌐</div>
+      <p><strong>Um dos pontos mais fortes é perceber que o Claude pode ir além de texto e análise.</strong> Ele pode ajudar a construir sistemas e Dashboards que saem do arquivo local e se tornam soluções acessíveis pela web.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card green">
+        <h3>Sistemas</h3>
+        <ul>
+          <li>Pedidos</li>
+          <li>Reservas</li>
+          <li>Atendimento</li>
+          <li>Cadastro de Clientes</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <h3>Dashboards</h3>
+        <ul>
+          <li>Indicadores online</li>
+          <li>Painéis de vendas</li>
+          <li>Controle Financeiro</li>
+          <li>Gestão de Produção</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h3>Páginas interativas</h3>
+        <ul>
+          <li>Consulta de Dados</li>
+          <li>Protótipos</li>
+          <li>Portfólio</li>
+          <li>Entregas para Clientes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warning">
+      <strong>Ponto de atenção</strong>
+      <p>O Claude cria a estrutura, mas muitas vezes será necessário usar ferramentas complementares para publicar, armazenar dados, conectar APIs ou liberar acesso externo.</p>
+    </div>
+    <img class="image-clean" src="https://raw.githubusercontent.com/jessysilva-coder/site-escola/refs/heads/main/implementacao-claudev/claude_sistema.png" alt="Exemplo de sistema criado com apoio do Claude"/>
+  </section>
+
+  <!-- SEÇÃO 7 -->
+  <section class="section" id="dados">
+    <div class="section-label">Dados atualizados</div>
+    <h2>Conexão com planilhas e dados atualizados</h2>
+    <div class="info-box">
+      <div class="ico">🔄</div>
+      <p><strong>Em vez de gerar um novo Dashboard todo mês, a solução pode ser conectada a uma fonte de dados.</strong> Quando a planilha muda, o Dashboard também pode ser atualizado.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card purple">
+        <h3>Aplicações possíveis</h3>
+        <ul>
+          <li>Dashboard conectado a uma planilha</li>
+          <li>Consolidação de arquivos de uma pasta</li>
+          <li>Painel atualizado por outras pessoas</li>
+          <li>Relatórios recorrentes</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h3>Segurança antes de tudo</h3>
+        <p>Limite o acesso apenas às pastas e arquivos necessários, principalmente quando existirem dados sensíveis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 8 -->
+  <section class="section" id="apis">
+    <div class="section-label">Integrações</div>
+    <h2>APIs: quando a solução precisa conversar com outros sistemas</h2>
+    <div class="info-box">
+      <div class="ico">🔌</div>
+      <p><strong>API é uma porta de comunicação entre sistemas.</strong> Ela permite que uma solução criada com apoio do Claude busque dados automaticamente em outras plataformas.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card orange">
+        <h3>Exemplos</h3>
+        <ul>
+          <li>Consulta de CEP</li>
+          <li>SAP</li>
+          <li>Mercado Livre</li>
+          <li>Shopee</li>
+          <li>Amazon</li>
+          <li>Hotmart</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <h3>Possibilidades</h3>
+        <ul>
+          <li>Buscar Endereço pelo CEP</li>
+          <li>Consultar Vendas</li>
+          <li>Integrar E-commerce</li>
+          <li>Alimentar Dashboards</li>
+        </ul>
+      </div>
+      <div class="card pink">
+        <h3>Cuidados</h3>
+        <p>Algumas APIs exigem chave de acesso, documentação, autenticação e respeito aos limites de uso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 9 -->
+  <section class="section" id="publicacao">
+    <div class="section-label">Entrega profissional</div>
+    <h2>Publicação e compartilhamento</h2>
+    <div class="info-box">
+      <div class="ico">🚀</div>
+      <p><strong>Publicar um projeto aumenta a percepção de valor.</strong> Um Dashboard ou sistema acessível por link, celular ou computador se aproxima mais de uma solução profissional.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card green">
+        <h3>Onde isso pode ser usado?</h3>
+        <ul>
+          <li>Dashboards na Web</li>
+          <li>Sistemas para Gestores</li>
+          <li>Páginas para Clientes</li>
+          <li>Protótipos e Portfólio</li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h3>Checklist antes de publicar</h3>
+        <ul>
+          <li>Existem dados confidenciais?</li>
+          <li>Quem poderá acessar?</li>
+          <li>A base é fictícia ou real?</li>
+          <li>Funciona no celular?</li>
+          <li>As informações estão atualizadas?</li>
+        </ul>
+      </div>
+    </div>
+    <img class="image-clean" src="github.png" alt="Exemplo de publicação e compartilhamento usando GitHub"/>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="section" id="renovacao" style="border-top: none; padding-top: 8px;">
+    <div class="cta-banner">
+      <div>
+        <span class="badge-oferta">🎯 Oferta especial</span>
+        <span class="prazo-badge">⏳ Só até sexta, 19/06</span>
+      </div>
+      <h2>Quer colocar isso em prática com <span>orientação ao vivo</span>?</h2>
+      <p>Na Renovação Completa da Escola Karen Abecia você garante o DashWay 4.0, o OnPower 2.0 AI Edition, 11 treinamentos gravados, agentes especialistas em DAX e Power Query e 6 aulas de Implementação do Claude ao vivo — tudo em um único acesso por 12 meses.</p>
+      <div class="cta-itens">
+        <span class="cta-item">DashWay 4.0 + I.A.</span>
+        <span class="cta-item">OnPower 2.0 AI Edition</span>
+        <span class="cta-item">11 treinamentos gravados</span>
+        <span class="cta-item">Agentes DAX + Power Query</span>
+        <span class="cta-item">6 aulas Claude ao vivo</span>
+        <span class="cta-item">12 meses de acesso</span>
+      </div>
+      <div class="cta-preco">
+        <span class="parcelas">12x de R$&nbsp;72,09</span>
+        <span class="avista">ou R$ 697,00 à vista</span>
+      </div>
+      <a class="btn-cta" href="https://sites.karenabecia.com.br/aula-especial/vendas" target="_blank">Garantir minha renovação agora</a>
+    </div>
+  </section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <p>© Todos os direitos reservados para Escola Karen Abecia — 2026</p>
+</footer>
+
+</body>
+</html>
