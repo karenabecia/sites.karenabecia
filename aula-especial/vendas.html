@@ -574,6 +574,32 @@
     line-height: 1.6;
   }
 
+
+  /* Novo layout de preço */
+  .valor-parcelas {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--laranja);
+    line-height: 1.1;
+    margin: 4px 0;
+  }
+  .card-preco.destaque .valor-parcelas {
+    color: #ffffff;
+  }
+  .valor-avista {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-top: 6px;
+  }
+  .card-preco.destaque .valor-avista {
+    color: rgba(255,255,255,0.5);
+  }
+
   /* Padrão apagado */
   .card-padrao-apagado {
     opacity: 0.5;
@@ -582,7 +608,7 @@
   }
 
   .valor-apagado {
-    color: #475569;
+    color: #475569 !important;
   }
   .btn-desativado {
     border: none;
@@ -641,8 +667,8 @@
   <div class="hero-prazo">⏳ Oportunidade disponível somente até sexta, 19/06</div>
   <div class="container">
     <div class="hero-badge">Renovação de Acesso</div>
-    <h1>Renove agora e garanta<br><span class="destaque">tudo que chegou de novo</span><br>na Escola</h1>
-    <p class="hero-sub">DashWay 4.0 com I.A., OnPower 2.0, agentes especialistas, biblioteca completa com 11 treinamentos e implementação do Claude ao vivo. Tudo em um único acesso.</p>
+    <h1>Renove agora e garanta<br><span class="destaque">tudo que chegou de novo</span><br>na Escola Karen Abecia</h1>
+    <p class="hero-sub"><strong>Escola Karen Abecia</strong> — DashWay 4.0 com I.A., OnPower 2.0, agentes especialistas, biblioteca completa com 11 treinamentos e implementação do Claude ao vivo. Tudo em um único acesso.</p>
     <a href="https://pay.hotmart.com/G94412503X?off=1pva2s4u&checkoutMode=10" class="hero-cta">Garantir minha renovação agora</a>
   </div>
 </section>
@@ -713,7 +739,7 @@
 
       <div class="card-agente">
         <div class="card-agente-img-wrap">
-          <img src="gaia.png" alt="Ga.iA">
+          <img src="gais.png" alt="Ga.iA">
         </div>
         <div class="card-agente-body">
           <h3 class="card-agente-nome" style="color:#38bdf8;">Ga.iA</h3>
@@ -886,8 +912,9 @@
           <li>Acesso a 11 treinamentos gravados da Escola</li>
         </ul>
         <div class="preco-valor">
-          <span class="por">por</span>
-          <span class="valor valor-apagado">R$ 697</span>
+          <span class="por">em</span>
+          <span class="valor-parcelas valor-apagado">12x de R$&nbsp;72,09</span>
+          <span class="valor-avista valor-apagado">ou R$ 697,00 à vista</span>
         </div>
         <button class="btn-compra btn-desativado" disabled>MATRICULE-SE</button>
       </div>
@@ -905,9 +932,9 @@
           <li>12 meses de acesso completo</li>
         </ul>
         <div class="preco-valor">
-          <span class="por">por apenas</span>
-          <span class="valor">R$ 697</span>
-          <span class="parcelas">Acesso imediato · 12 meses garantidos</span>
+          <span class="por">em</span>
+          <span class="valor-parcelas">12x de R$&nbsp;72,09</span>
+          <span class="valor-avista">ou R$ 697,00 à vista</span>
         </div>
         <a href="https://pay.hotmart.com/G94412503X?off=1pva2s4u&checkoutMode=10" class="btn-compra btn-verde-destaque">Garantir minha renovação agora</a>
       </div>
