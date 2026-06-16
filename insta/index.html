@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karen Abecia — Links</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #F0F0F0;
+      font-family: 'Poppins', sans-serif;
+      color: #020617;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      width: 100%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 24px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      width: 160px;
+      margin-bottom: 18px;
+    }
+
+    .header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #020617;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .header-title span {
+      color: #FF7000;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      width: 100%;
+      max-width: 480px;
+      padding: 28px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Card com banner de imagem (Copa dos Dados) */
+    .card-banner {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .card-banner img {
+      width: 100%;
+      display: block;
+      border-radius: 20px;
+      transition: opacity 0.2s ease;
+    }
+
+    .card-banner:active img {
+      opacity: 0.88;
+    }
+
+    /* Cards temáticos */
+    .card-body {
+      padding: 20px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon.orange { background: rgba(255,112,0,0.1); }
+    .card-icon.green  { background: rgba(87,185,92,0.1); }
+    .card-icon.red    { background: rgba(255,77,77,0.1); }
+
+    .card-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .card-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #020617;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: #52525b;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 13px 20px;
+      cursor: pointer;
+      transition: filter 0.2s ease, transform 0.1s ease;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn:active {
+      filter: brightness(0.9);
+      transform: scale(0.98);
+    }
+
+    .btn-orange { background: #FF7000; }
+    .btn-green  { background: #57B95C; }
+    .btn-red    { background: #FF4D4D; }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      width: 100%;
+      max-width: 480px;
+      padding: 24px 18px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-label {
+      font-size: 0.78rem;
+      color: #020617;
+      opacity: 0.55;
+      text-align: center;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 10px 16px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      transition: filter 0.2s ease;
+    }
+
+    .social-btn:active { filter: brightness(0.92); }
+
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .social-btn span {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: #020617;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: #020617;
+      opacity: 0.4;
+      text-align: center;
+    }
+
+    /* WhatsApp icon inline SVG */
+    .whatsapp-green { fill: #25D366; }
+    .youtube-red    { fill: #FF0000; }
+    .linkedin-blue  { fill: #0A66C2; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/logo.png"
+      alt="Escola Karen Abecia"
+    />
+    <h1 class="header-title">
+      Encontre tudo que <span>você precisa</span>
+    </h1>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main">
+
+    <!-- 1. Copa dos Dados — banner clicável -->
+    <a
+      class="card-banner"
+      href="https://sites.karenabecia.com.br/copa-dados/inscricao"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Inscreva-se na Copa dos Dados"
+    >
+      <img
+        src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/bot%C3%A3o-copa.png"
+        alt="Inscreva-se na Copa dos Dados"
+      />
+    </a>
+
+    <!-- 2. Treinamento In Company -->
+    <div class="card">
+      <div class="card-body">
+        <div class="card-icon-row">
+          <div class="card-icon orange">
+            <!-- Ícone: prédio / empresa -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21v-4h6v4" stroke="#FF7000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="card-label">Treinamento In Company</p>
+        </div>
+        <p class="card-desc">Quer capacitar sua equipe com dados e I.A.? Fale com nossa equipe e entenda como estruturar isso na sua empresa.</p>
+        <a
+          class="btn btn-green"
+          href="https://wa.me/5511963269007?text=Ol%C3%A1%2C%20vim%20do%20Instagram%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20para%20treinamento%20na%20minha%20empresa."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <!-- WhatsApp icon -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path fill="#ffffff" d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.657 1.438 5.168L2 22l4.975-1.405A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.943 7.943 0 01-4.031-1.1l-.29-.172-2.952.834.802-2.878-.19-.296A7.963 7.963 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+          </svg>
+          Falar com a equipe
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. Sou aluno e preciso de ajuda -->
+    <div class="card">
+      <div class="card-body">
+        <div class="card-icon-row">
+          <div class="card-icon green">
+            <!-- Ícone: pessoa com interrogação / suporte -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#57B95C" stroke-width="2"/>
+              <path d="M9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12V14" stroke="#57B95C" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="17" r="1" fill="#57B95C"/>
+            </svg>
+          </div>
+          <p class="card-label">Sou aluno e preciso de ajuda</p>
+        </div>
+        <p class="card-desc">Teve alguma dificuldade com seu treinamento? Nossa equipe de suporte está aqui para te ajudar a seguir em frente.</p>
+        <a
+          class="btn btn-orange"
+          href="https://wa.me/5511958152954?text=Ol%C3%A1%2C%20vim%20do%20Instagram%20e%20preciso%20de%20ajuda%20com%20meu%20treinamento."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path fill="#ffffff" d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.657 1.438 5.168L2 22l4.975-1.405A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.943 7.943 0 01-4.031-1.1l-.29-.172-2.952.834.802-2.878-.19-.296A7.963 7.963 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+          </svg>
+          Falar com a equipe de suporte
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. Live de quinta -->
+    <div class="card">
+      <div class="card-body">
+        <div class="card-icon-row">
+          <div class="card-icon red">
+            <!-- Ícone: YouTube / câmera ao vivo -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="#FF4D4D" stroke-width="2"/>
+              <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="#FF4D4D" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="card-label">Live toda quinta — 20h no YouTube</p>
+        </div>
+        <p class="card-desc">Toda quinta-feira às 20h tem live ao vivo no canal da Karen. É o melhor momento para aprender na prática, tirar dúvidas e evoluir junto com a comunidade.</p>
+        <a
+          class="btn btn-red"
+          href="https://www.youtube.com/c/KarenAbecia/live"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+            <polygon fill="#FF4D4D" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+          </svg>
+          Participar da live ao vivo
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p class="footer-label">Me acompanhe nas outras redes sociais</p>
+    <div class="footer-socials">
+
+      <!-- YouTube -->
+      <a
+        class="social-btn"
+        href="https://www.youtube.com/c/KarenAbecia/live"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="YouTube Karen Abecia"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FF0000" d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+          <polygon fill="#ffffff" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+        </svg>
+        <span>YouTube</span>
+      </a>
+
+      <!-- LinkedIn -->
+      <a
+        class="social-btn"
+        href="https://www.linkedin.com/in/karenabecia/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn Karen Abecia"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#0A66C2" d="M20.447 20.452H17.1v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.765V9.197h3.218v1.48h.045c.447-.847 1.54-1.74 3.169-1.74 3.389 0 4.015 2.231 4.015 5.131l.235 6.384zM5.337 7.433a1.857 1.857 0 110-3.714 1.857 1.857 0 010 3.714zM6.95 20.452H3.721V9.197H6.95v11.255zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        <span>LinkedIn</span>
+      </a>
+
+    </div>
+
+    <p class="footer-copy">© Todos os direitos reservados para Escola Karen Abecia — 2026</p>
+  </footer>
+
+</body>
+</html>
