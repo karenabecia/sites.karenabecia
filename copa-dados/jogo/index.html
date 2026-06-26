@@ -342,10 +342,23 @@
     transition: width 0.4s ease;
   }
 
+  .indicador-jogar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .texto-indicador-jogar {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--cor-tema);
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+  }
   .seta-bloco-tempo {
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     color: var(--cor-tema);
   }
   .bloco-tempo.bloqueado .seta-bloco-tempo { color: #B0B0B0; }
@@ -725,8 +738,13 @@
     if (!API_URL || API_URL.includes('COLE_AQUI')) {
       throw new Error('A URL do Apps Script ainda não foi configurada no código (variável API_URL).');
     }
-    const corpo = new URLSearchParams(params);
-    const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
+    // Usamos GET (parâmetros na URL) em vez de POST. O Apps Script
+    // responde com redirect 302 antes de processar a chamada, e um
+    // POST que segue esse redirect pode perder o corpo da requisição
+    // em alguns navegadores — os parâmetros somem e nada é salvo/lido.
+    // Com GET isso não acontece, porque os parâmetros vão na própria URL.
+    const query = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL + '?' + query, { method: 'GET', redirect: 'follow' });
     if (!resposta.ok) {
       throw new Error('O Apps Script respondeu com erro HTTP ' + resposta.status + '.');
     }
@@ -905,7 +923,12 @@
           <p class="status-tempo">${statusTexto}</p>
           <div class="barra-fundo"><div class="barra-preenchida" style="width:${(concluidas/4)*100}%"></div></div>
         </div>
-        ${liberado ? '<svg class="seta-bloco-tempo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>' : ''}
+        ${liberado ? `
+          <div class="indicador-jogar">
+            <span class="texto-indicador-jogar">${completo ? 'Revisar' : 'Jogar'}</span>
+            <svg class="seta-bloco-tempo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+        ` : ''}
       `;
 
       if (liberado) {
