@@ -426,6 +426,29 @@
   .botao-tentar-novamente { background: var(--azul-noite); color: var(--branco); }
   .botao-proxima-rodada { background: var(--verde); color: var(--branco); }
 
+  .lista-correcao {
+    text-align: left;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .linha-correcao {
+    background: var(--branco);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 12.5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-left: 4px solid var(--vermelho);
+  }
+  .linha-correcao.certo { border-left-color: var(--verde); }
+  .linha-correcao .icone-correcao { flex-shrink: 0; font-size: 14px; line-height: 1.3; }
+  .linha-correcao .texto-correcao { flex: 1; line-height: 1.4; color: #333; }
+  .linha-correcao .texto-correcao strong { color: var(--azul-noite); }
+  .linha-correcao .resposta-certa { color: var(--verde-escuro); font-weight: 600; }
+
   /* ===== Tela de Tempo concluído ===== */
   #tela-concluido { display: none; text-align: center; }
   .figurinha-ganha {
@@ -741,7 +764,23 @@
 
     const respostaTexto = idsNoCampo.map(id => JOGADORES_R1.find(j => j.id === id).nome).join(', ');
     await registrarResultado(1, acertouTudo, respostaTexto);
-    mostrarFeedback('feedback-r1', acertouTudo, 1);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const faltaram = JOGADORES_R1.filter(j => j.correto && !idsNoCampo.includes(j.id));
+      const sobraram = JOGADORES_R1.filter(j => !j.correto && idsNoCampo.includes(j.id));
+
+      htmlErro = '<div class="lista-correcao">';
+      faltaram.forEach(j => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">⚽</span><span class="texto-correcao"><strong>${j.nome}</strong> deveria estar no time titular — esse jogador ficou de fora.</span></div>`;
+      });
+      sobraram.forEach(j => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">🚫</span><span class="texto-correcao"><strong>${j.nome}</strong> não deveria ter sido escalado — esse aqui é só pegadinha.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r1', acertouTudo, 1, htmlErro);
   }
 
   /* =======================================================
@@ -750,13 +789,10 @@
   const ITENS_R2 = [
     { id: 'a01', texto: 'Compartilhar um link com permissão "somente visualização"', cat: 'segue' },
     { id: 'a02', texto: 'Remover dados sensíveis antes de enviar a planilha', cat: 'segue' },
-    { id: 'a03', texto: 'Preencher dados aleatórios antes de compartilhar a planilha com outras ferramentas', cat: 'segue' },
     { id: 'a04', texto: 'Compartilhar a planilha inteira com o ChatGPT', cat: 'amarelo' },
     { id: 'a05', texto: 'Mandar a planilha por e-mail com cópia para a empresa toda', cat: 'amarelo' },
-    { id: 'a06', texto: 'Deixar dados de clientes em uma aba sem proteção, mas dentro da empresa', cat: 'amarelo' },
     { id: 'a07', texto: 'Postar print de dados confidenciais em grupo do WhatsApp', cat: 'vermelho' },
-    { id: 'a08', texto: 'Compartilhar a planilha publicamente na internet', cat: 'vermelho' },
-    { id: 'a09', texto: 'Deixar senhas ou dados de cartão em texto puro na planilha', cat: 'vermelho' }
+    { id: 'a08', texto: 'Compartilhar a planilha publicamente na internet', cat: 'vermelho' }
   ];
 
   const escolhasR2 = {};
@@ -792,6 +828,12 @@
     item.querySelector('.botao-cat.' + mapaClasse[categoria]).classList.add('selecionado');
   }
 
+  const ROTULO_CATEGORIA_R2 = {
+    segue: '🟢 Segue o jogo',
+    amarelo: '🟨 Cartão amarelo',
+    vermelho: '🟥 Cartão vermelho'
+  };
+
   async function confirmarRodada2() {
     if (Object.keys(escolhasR2).length < ITENS_R2.length) {
       alert('Classifique todas as ações antes de confirmar.');
@@ -802,7 +844,18 @@
     const respostaTexto = ITENS_R2.map(item => item.id + ':' + escolhasR2[item.id]).join(', ');
 
     await registrarResultado(2, acertouTudo, respostaTexto);
-    mostrarFeedback('feedback-r2', acertouTudo, 2);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const itensErrados = ITENS_R2.filter(item => escolhasR2[item.id] !== item.cat);
+      htmlErro = '<div class="lista-correcao">';
+      itensErrados.forEach(item => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao">"${item.texto}" é <span class="resposta-certa">${ROTULO_CATEGORIA_R2[item.cat]}</span>, não ${ROTULO_CATEGORIA_R2[escolhasR2[item.id]]}.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r2', acertouTudo, 2, htmlErro);
   }
 
   /* =======================================================
@@ -875,7 +928,22 @@
 
     const respostaTexto = GRAFICOS_R3.map(g => g.id + ':' + decisoesR3[g.id]).join(', ');
     await registrarResultado(3, acertouTudo, respostaTexto);
-    mostrarFeedback('feedback-r3', acertouTudo, 3);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const errados = GRAFICOS_R3.filter(g => {
+        const decisaoCorreta = g.entra ? 'entra' : 'sai';
+        return decisoesR3[g.id] !== decisaoCorreta;
+      });
+      htmlErro = '<div class="lista-correcao">';
+      errados.forEach(g => {
+        const rotuloCerto = g.entra ? '<span class="resposta-certa">deveria ENTRAR</span> no time' : '<span class="resposta-certa">deveria SAIR</span> do time';
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">📋</span><span class="texto-correcao"><strong>${g.legenda}</strong> ${rotuloCerto}.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r3', acertouTudo, 3, htmlErro);
   }
 
   /* =======================================================
@@ -939,13 +1007,25 @@
     const respostaTexto = CARTAS_R4.map(c => c.id + ':' + escolhasR4[c.id]).join(', ');
 
     await registrarResultado(4, acertouTudo, respostaTexto);
-    mostrarFeedback('feedback-r4', acertouTudo, 4);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const errados = CARTAS_R4.filter(c => escolhasR4[c.id] !== c.visto);
+      htmlErro = '<div class="lista-correcao">';
+      errados.forEach(c => {
+        const respostaCerta = c.visto ? '<span class="resposta-certa">SIM</span>, apareceu na aula' : '<span class="resposta-certa">NÃO</span>, não apareceu na aula';
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">🚦</span><span class="texto-correcao"><strong>${c.texto}</strong>: a resposta certa era ${respostaCerta}.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r4', acertouTudo, 4, htmlErro);
   }
 
   /* =======================================================
      FEEDBACK GENÉRICO
   ======================================================= */
-  function mostrarFeedback(idFeedback, acertou, numeroRodada) {
+  function mostrarFeedback(idFeedback, acertou, numeroRodada, htmlErroDetalhado) {
     const el = document.getElementById(idFeedback);
     el.classList.remove('acertou', 'errou');
     el.classList.add('visivel', acertou ? 'acertou' : 'errou');
@@ -960,7 +1040,8 @@
       document.getElementById('botao-confirmar-r' + numeroRodada).style.display = 'none';
     } else {
       el.innerHTML = `
-        <p>🚩 Quase! Essa escalação não foi a ideal. Reorganiza e tenta de novo.</p>
+        <p>🚩 Quase! Confira abaixo o que ajustar e tenta de novo.</p>
+        ${htmlErroDetalhado || ''}
         <button class="botao-tentar-novamente" onclick="document.getElementById('${idFeedback}').classList.remove('visivel')">Tentar novamente</button>
       `;
     }
