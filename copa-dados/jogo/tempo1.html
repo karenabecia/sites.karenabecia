@@ -72,6 +72,8 @@
   }
   .bolinha-rodada.ativa { background: var(--amarelo); color: var(--azul-noite); border-color: var(--amarelo); }
   .bolinha-rodada.concluida { background: var(--branco); color: var(--verde-escuro); border-color: var(--branco); }
+  .bolinha-rodada.navegavel { cursor: pointer; }
+  .bolinha-rodada.navegavel:active { transform: scale(0.9); }
 
   main {
     max-width: 560px;
@@ -322,16 +324,18 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-bottom: 16px;
+    align-items: stretch;
   }
   .carta-var {
     background: linear-gradient(135deg, var(--azul-noite) 0%, #0a2540 100%);
     border-radius: 14px;
-    min-height: 95px;
+    height: 150px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 12px 8px;
+    padding: 14px 10px;
     cursor: pointer;
     color: var(--amarelo);
     font-family: 'Montserrat', sans-serif;
@@ -352,27 +356,42 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 1.35;
+    width: 100%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .carta-var.virada .verso-texto { display: none; }
-  .carta-var.virada .frente-texto { display: block; }
+  .carta-var.virada .frente-texto { display: flex; }
   .carta-var:active { transform: scale(0.96); }
+
+  .texto-pergunta-carta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 44px;
+  }
 
   .botoes-sim-nao {
     display: none;
     gap: 8px;
     margin-top: 10px;
     width: 100%;
+    flex-shrink: 0;
   }
   .carta-var.virada .botoes-sim-nao { display: flex; }
   .botoes-sim-nao button {
     flex: 1;
     border: none;
     border-radius: 8px;
-    padding: 8px 0;
+    padding: 0;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    min-height: 36px;
+    height: 38px;
+    min-width: 0;
   }
   .botao-sim-carta { background: var(--verde); color: var(--branco); }
   .botao-nao-carta { background: var(--vermelho); color: var(--branco); }
@@ -447,7 +466,102 @@
   .linha-correcao .icone-correcao { flex-shrink: 0; font-size: 14px; line-height: 1.3; }
   .linha-correcao .texto-correcao { flex: 1; line-height: 1.4; color: #333; }
   .linha-correcao .texto-correcao strong { color: var(--azul-noite); }
-  .linha-correcao .resposta-certa { color: var(--verde-escuro); font-weight: 600; }
+
+  /* ===== OVERLAY DE COMEMORAÇÃO (5s, com figurinha liberada) ===== */
+  .overlay-comemoracao {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.78);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .overlay-comemoracao.visivel { display: flex; }
+
+  .card-comemoracao {
+    background: var(--branco);
+    border-radius: 24px;
+    padding: 32px 26px;
+    text-align: center;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    animation: apareceComemoracao 0.35s ease;
+  }
+  @keyframes apareceComemoracao {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .emoji-comemoracao { font-size: 44px; margin-bottom: 6px; }
+
+  .card-comemoracao h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: var(--verde-escuro);
+    font-size: 21px;
+    margin: 0 0 6px;
+  }
+  .card-comemoracao .texto-figurinha-nova {
+    font-size: 13.5px;
+    color: #555;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .card-comemoracao .texto-figurinha-nova strong { color: var(--azul-noite); }
+
+  .imagem-figurinha-liberada {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    margin: 0 auto 16px;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    border: 3px solid var(--amarelo);
+  }
+
+  .barra-contagem-fundo {
+    background: var(--cinza-fundo);
+    border-radius: 8px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .barra-contagem-preenchida {
+    background: var(--verde);
+    height: 100%;
+    border-radius: 8px;
+    width: 100%;
+    transform-origin: left;
+  }
+  .barra-contagem-preenchida.animando {
+    animation: esvaziaContagem 5s linear forwards;
+  }
+  @keyframes esvaziaContagem {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+  }
+
+  .legenda-contagem-overlay {
+    font-size: 11.5px;
+    color: #999;
+    margin-top: 8px;
+  }
+
+  .botao-pular-overlay {
+    background: none;
+    border: none;
+    color: var(--verde-escuro);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 14px;
+    padding: 6px;
+  }
 
   /* ===== Tela de Tempo concluído ===== */
   #tela-concluido { display: none; text-align: center; }
@@ -480,6 +594,22 @@
     line-height: 1.5;
   }
   .figurinha-ganha .botao-confirmar { display: inline-block; width: auto; padding: 14px 28px; text-decoration: none; }
+
+  .grade-figurinhas-finais {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .grade-figurinhas-finais img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid var(--amarelo);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  }
 
   .voltar-hub {
     display: block;
@@ -567,20 +697,33 @@
   <!-- ============ TELA FINAL ============ -->
   <section id="tela-concluido">
     <div class="figurinha-ganha">
-      <div style="display:flex; gap:10px; justify-content:center; margin-bottom:16px; flex-wrap:wrap;">
-        <img src="imagens/figurinhas/fig01-tempo1-escalacao.png" alt="Figurinha Rodada 1" style="width:70px;height:70px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig02-tempo1-cartao-vermelho.png" alt="Figurinha Rodada 2" style="width:70px;height:70px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig03-tempo1-mestre-prancheta.png" alt="Figurinha Rodada 3" style="width:70px;height:70px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig04-tempo1-var-dados.png" alt="Figurinha Rodada 4" style="width:70px;height:70px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+      <div class="grade-figurinhas-finais">
+        <img src="imagens/figurinhas/fig01-tempo1-escalacao.png" alt="Figurinha Rodada 1" onerror="this.style.display='none'">
+        <img src="imagens/figurinhas/fig02-tempo1-cartao-vermelho.png" alt="Figurinha Rodada 2" onerror="this.style.display='none'">
+        <img src="imagens/figurinhas/fig03-tempo1-mestre-prancheta.png" alt="Figurinha Rodada 3" onerror="this.style.display='none'">
+        <img src="imagens/figurinhas/fig04-tempo1-var-dados.png" alt="Figurinha Rodada 4" onerror="this.style.display='none'">
       </div>
-      <h2>Tempo 1 concluído!</h2>
-      <p>Você ganhou as 4 figurinhas do Tempo 1 — Excel. Elas já estão no seu álbum. Te vejo no próximo Tempo!</p>
+      <h2>Parabéns! Você liberou 4 figurinhas!</h2>
+      <p>Você completou o Tempo 1 — Excel e já pode ver todas elas no seu álbum. Te vejo no próximo Tempo!</p>
       <a class="botao-confirmar" href="album.html" style="margin-bottom:10px;">Ver meu álbum</a>
       <a class="botao-confirmar" href="index.html" style="background:var(--azul-noite); color:var(--branco); box-shadow:none;">Voltar para Jogo</a>
     </div>
   </section>
 
 </main>
+
+<!-- ===== OVERLAY DE COMEMORAÇÃO (aparece por 5s após cada rodada correta) ===== -->
+<div class="overlay-comemoracao" id="overlay-comemoracao">
+  <div class="card-comemoracao">
+    <div class="emoji-comemoracao" id="emoji-comemoracao">🎉</div>
+    <h2 id="titulo-comemoracao">Golaço!</h2>
+    <p class="texto-figurinha-nova" id="texto-comemoracao">Você liberou uma nova figurinha!</p>
+    <img class="imagem-figurinha-liberada" id="imagem-comemoracao" src="" alt="Figurinha liberada" onerror="this.style.display='none'">
+    <div class="barra-contagem-fundo"><div class="barra-contagem-preenchida" id="barra-contagem-comemoracao"></div></div>
+    <p class="legenda-contagem-overlay">Seguindo para a próxima rodada...</p>
+    <button class="botao-pular-overlay" id="botao-pular-comemoracao">Pular e continuar agora</button>
+  </div>
+</div>
 
 <a class="voltar-hub" href="index.html">← Voltar para Jogo</a>
 
@@ -594,10 +737,10 @@
 
   // Cada rodada do Tempo 1 dá uma figurinha diferente — 4 no total deste Tempo
   const FIGURINHAS_POR_RODADA = {
-    1: "fig01-tempo1-escalacao",
-    2: "fig02-tempo1-cartao-vermelho",
-    3: "fig03-tempo1-mestre-prancheta",
-    4: "fig04-tempo1-var-dados"
+    1: { id: "fig01-tempo1-escalacao", arquivo: "fig01-tempo1-escalacao.png", nome: "Escalação dos Dados" },
+    2: { id: "fig02-tempo1-cartao-vermelho", arquivo: "fig02-tempo1-cartao-vermelho.png", nome: "Cartão Vermelho" },
+    3: { id: "fig03-tempo1-mestre-prancheta", arquivo: "fig03-tempo1-mestre-prancheta.png", nome: "Mestre da Prancheta" },
+    4: { id: "fig04-tempo1-var-dados", arquivo: "fig04-tempo1-var-dados.png", nome: "VAR dos Dados" }
   };
 
   function pegarSessao() {
@@ -613,6 +756,11 @@
     window.location.href = 'index.html';
   }
 
+  // Rastreia quais rodadas já foram concluídas nesta sessão, para
+  // permitir navegação livre entre as bolinhas já destravadas.
+  const rodadasConcluidas = { 1: false, 2: false, 3: false, 4: false };
+  let rodadaAtualExibida = 1;
+
   async function chamarAPI(params) {
     const corpo = new URLSearchParams(params);
     const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
@@ -624,43 +772,76 @@
     container.innerHTML = '';
     for (let i = 1; i <= 4; i++) {
       const bolinha = document.createElement('div');
-      bolinha.className = 'bolinha-rodada' + (i < rodadaAtiva ? ' concluida' : i === rodadaAtiva ? ' ativa' : '');
+      const concluida = rodadasConcluidas[i];
+      bolinha.className = 'bolinha-rodada' + (concluida ? ' concluida' : '') + (i === rodadaAtiva ? ' ativa' : '');
       bolinha.textContent = i;
+
+      // Só permite navegar de volta para rodadas já concluídas, ou
+      // avançar para a próxima rodada disponível (nunca pular sem jogar).
+      const podeNavegar = concluida || i === rodadaAtiva || i === proximaRodadaDisponivel();
+      if (podeNavegar && i !== rodadaAtiva) {
+        bolinha.classList.add('navegavel');
+        bolinha.onclick = () => mostrarRodada(i);
+      }
+
       container.appendChild(bolinha);
     }
   }
 
+  function proximaRodadaDisponivel() {
+    for (let i = 1; i <= 4; i++) {
+      if (!rodadasConcluidas[i]) return i;
+    }
+    return 4;
+  }
+
   function mostrarRodada(numero) {
+    rodadaAtualExibida = numero;
     [1,2,3,4].forEach(n => {
       document.getElementById('rodada-' + n).style.display = n === numero ? 'block' : 'none';
+      // Ao reabrir uma rodada já concluída, escondemos o feedback antigo
+      // para o aluno poder revisar ou refazer com a tela limpa.
+      const feedback = document.getElementById('feedback-r' + n);
+      if (n === numero && feedback) feedback.classList.remove('visivel');
+      const botaoConfirmar = document.getElementById('botao-confirmar-r' + numero);
+      if (botaoConfirmar) botaoConfirmar.style.display = 'block';
     });
     renderizarBarraProgresso(numero);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function avancarParaProxima(rodadaConcluida) {
+    rodadasConcluidas[rodadaConcluida] = true;
+
     if (rodadaConcluida < 4) {
       mostrarRodada(rodadaConcluida + 1);
     } else {
       document.querySelectorAll('.cartao-rodada').forEach(el => el.style.display = 'none');
       document.getElementById('barra-progresso-geral').style.display = 'none';
-      document.getElementById('tela-concluido').style.display = 'block';
+      mostrarTelaFinalConcluido();
     }
+  }
+
+  function mostrarTelaFinalConcluido() {
+    document.getElementById('tela-concluido').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function registrarResultado(rodada, acertou, respostaDada) {
     try {
-      await chamarAPI({
+      const resultado = await chamarAPI({
         acao: 'salvarResposta',
         email: sessao.email,
         tempo: TEMPO_ATUAL,
         rodada: rodada,
         acertou: acertou,
         respostaDada: respostaDada,
-        figurinhaId: FIGURINHAS_POR_RODADA[rodada] || ''
+        figurinhaId: FIGURINHAS_POR_RODADA[rodada] ? FIGURINHAS_POR_RODADA[rodada].id : ''
       });
+      return resultado;
     } catch (err) {
       console.error('Erro ao salvar resposta', err);
+      return { sucesso: false };
     }
   }
 
@@ -763,24 +944,26 @@
       idsCorretos.every(id => idsNoCampo.includes(id));
 
     const respostaTexto = idsNoCampo.map(id => JOGADORES_R1.find(j => j.id === id).nome).join(', ');
-    await registrarResultado(1, acertouTudo, respostaTexto);
+    const resultadoApi = await registrarResultado(1, acertouTudo, respostaTexto);
 
     let htmlErro = '';
     if (!acertouTudo) {
-      const faltaram = JOGADORES_R1.filter(j => j.correto && !idsNoCampo.includes(j.id));
-      const sobraram = JOGADORES_R1.filter(j => !j.correto && idsNoCampo.includes(j.id));
+      // Mostra só QUAIS escolhas estão erradas, sem revelar quem deveria
+      // estar no lugar — o aluno precisa raciocinar de novo.
+      const jogadoresErrados = JOGADORES_R1.filter(j => idsNoCampo.includes(j.id) && !j.correto);
+      const faltaramNoCampo = idsCorretos.length - idsNoCampo.filter(id => idsCorretos.includes(id)).length;
 
       htmlErro = '<div class="lista-correcao">';
-      faltaram.forEach(j => {
-        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">⚽</span><span class="texto-correcao"><strong>${j.nome}</strong> deveria estar no time titular — esse jogador ficou de fora.</span></div>`;
+      jogadoresErrados.forEach(j => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${j.nome}</strong> não devia estar escalado neste time.</span></div>`;
       });
-      sobraram.forEach(j => {
-        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">🚫</span><span class="texto-correcao"><strong>${j.nome}</strong> não deveria ter sido escalado — esse aqui é só pegadinha.</span></div>`;
-      });
+      if (faltaramNoCampo > 0) {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao">Ainda falta(m) <strong>${faltaramNoCampo}</strong> jogador(es) certo(s) no time titular.</span></div>`;
+      }
       htmlErro += '</div>';
     }
 
-    mostrarFeedback('feedback-r1', acertouTudo, 1, htmlErro);
+    mostrarFeedback('feedback-r1', acertouTudo, 1, htmlErro, resultadoApi);
   }
 
   /* =======================================================
@@ -843,19 +1026,19 @@
     const acertouTudo = ITENS_R2.every(item => escolhasR2[item.id] === item.cat);
     const respostaTexto = ITENS_R2.map(item => item.id + ':' + escolhasR2[item.id]).join(', ');
 
-    await registrarResultado(2, acertouTudo, respostaTexto);
+    const resultadoApi = await registrarResultado(2, acertouTudo, respostaTexto);
 
     let htmlErro = '';
     if (!acertouTudo) {
       const itensErrados = ITENS_R2.filter(item => escolhasR2[item.id] !== item.cat);
       htmlErro = '<div class="lista-correcao">';
       itensErrados.forEach(item => {
-        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao">"${item.texto}" é <span class="resposta-certa">${ROTULO_CATEGORIA_R2[item.cat]}</span>, não ${ROTULO_CATEGORIA_R2[escolhasR2[item.id]]}.</span></div>`;
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao">"${item.texto}" está classificado errado.</span></div>`;
       });
       htmlErro += '</div>';
     }
 
-    mostrarFeedback('feedback-r2', acertouTudo, 2, htmlErro);
+    mostrarFeedback('feedback-r2', acertouTudo, 2, htmlErro, resultadoApi);
   }
 
   /* =======================================================
@@ -927,7 +1110,7 @@
     });
 
     const respostaTexto = GRAFICOS_R3.map(g => g.id + ':' + decisoesR3[g.id]).join(', ');
-    await registrarResultado(3, acertouTudo, respostaTexto);
+    const resultadoApi = await registrarResultado(3, acertouTudo, respostaTexto);
 
     let htmlErro = '';
     if (!acertouTudo) {
@@ -937,13 +1120,12 @@
       });
       htmlErro = '<div class="lista-correcao">';
       errados.forEach(g => {
-        const rotuloCerto = g.entra ? '<span class="resposta-certa">deveria ENTRAR</span> no time' : '<span class="resposta-certa">deveria SAIR</span> do time';
-        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">📋</span><span class="texto-correcao"><strong>${g.legenda}</strong> ${rotuloCerto}.</span></div>`;
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${g.legenda}</strong> está com a decisão errada.</span></div>`;
       });
       htmlErro += '</div>';
     }
 
-    mostrarFeedback('feedback-r3', acertouTudo, 3, htmlErro);
+    mostrarFeedback('feedback-r3', acertouTudo, 3, htmlErro, resultadoApi);
   }
 
   /* =======================================================
@@ -974,7 +1156,7 @@
       div.innerHTML = `
         <span class="verso-texto">🔁 Toque para virar</span>
         <div class="frente-texto">
-          <p style="margin:0 0 8px;">${carta.texto}</p>
+          <p class="texto-pergunta-carta" style="margin:0;">${carta.texto}</p>
           <div class="botoes-sim-nao">
             <button type="button" class="botao-sim-carta" onclick="event.stopPropagation(); escolherCartaVar('${carta.id}', true)">SIM</button>
             <button type="button" class="botao-nao-carta" onclick="event.stopPropagation(); escolherCartaVar('${carta.id}', false)">NÃO</button>
@@ -1006,45 +1188,92 @@
     const acertouTudo = CARTAS_R4.every(c => escolhasR4[c.id] === c.visto);
     const respostaTexto = CARTAS_R4.map(c => c.id + ':' + escolhasR4[c.id]).join(', ');
 
-    await registrarResultado(4, acertouTudo, respostaTexto);
+    const resultadoApi = await registrarResultado(4, acertouTudo, respostaTexto);
 
     let htmlErro = '';
     if (!acertouTudo) {
       const errados = CARTAS_R4.filter(c => escolhasR4[c.id] !== c.visto);
       htmlErro = '<div class="lista-correcao">';
       errados.forEach(c => {
-        const respostaCerta = c.visto ? '<span class="resposta-certa">SIM</span>, apareceu na aula' : '<span class="resposta-certa">NÃO</span>, não apareceu na aula';
-        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">🚦</span><span class="texto-correcao"><strong>${c.texto}</strong>: a resposta certa era ${respostaCerta}.</span></div>`;
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${c.texto}</strong>: essa decisão do VAR está errada.</span></div>`;
       });
       htmlErro += '</div>';
     }
 
-    mostrarFeedback('feedback-r4', acertouTudo, 4, htmlErro);
+    mostrarFeedback('feedback-r4', acertouTudo, 4, htmlErro, resultadoApi);
   }
 
   /* =======================================================
      FEEDBACK GENÉRICO
   ======================================================= */
-  function mostrarFeedback(idFeedback, acertou, numeroRodada, htmlErroDetalhado) {
+  function mostrarFeedback(idFeedback, acertou, numeroRodada, htmlErroDetalhado, resultadoApi) {
     const el = document.getElementById(idFeedback);
     el.classList.remove('acertou', 'errou');
     el.classList.add('visivel', acertou ? 'acertou' : 'errou');
 
     if (acertou) {
-      el.innerHTML = `
-        <p>🎉 Golaço! Você acertou a Rodada ${numeroRodada}.</p>
-        <button class="botao-proxima-rodada" onclick="avancarParaProxima(${numeroRodada})">
-          ${numeroRodada < 4 ? 'Ir para a próxima rodada' : 'Ver minha figurinha'}
-        </button>
-      `;
+      // A rodada já foi marcada como concluída antes? Se sim, o aluno só
+      // está revisando — não mostra de novo a comemoração de "nova figurinha".
+      const jaEstavaConcluida = rodadasConcluidas[numeroRodada];
       document.getElementById('botao-confirmar-r' + numeroRodada).style.display = 'none';
+
+      if (!jaEstavaConcluida) {
+        mostrarOverlayComemoracao(numeroRodada);
+      } else {
+        el.innerHTML = `
+          <p>🎉 Tudo certo na Rodada ${numeroRodada}!</p>
+          <button class="botao-proxima-rodada" onclick="avancarParaProxima(${numeroRodada})">
+            ${numeroRodada < 4 ? 'Ir para a próxima rodada' : 'Ver minha figurinha'}
+          </button>
+        `;
+      }
     } else {
       el.innerHTML = `
-        <p>🚩 Quase! Confira abaixo o que ajustar e tenta de novo.</p>
+        <p>🚩 Quase! Veja o que está errado e tenta de novo.</p>
         ${htmlErroDetalhado || ''}
         <button class="botao-tentar-novamente" onclick="document.getElementById('${idFeedback}').classList.remove('visivel')">Tentar novamente</button>
       `;
     }
+  }
+
+  let timerOverlayComemoracao = null;
+
+  function mostrarOverlayComemoracao(numeroRodada) {
+    const figurinha = FIGURINHAS_POR_RODADA[numeroRodada];
+    const overlay = document.getElementById('overlay-comemoracao');
+    const imagem = document.getElementById('imagem-comemoracao');
+    const titulo = document.getElementById('titulo-comemoracao');
+    const texto = document.getElementById('texto-comemoracao');
+    const barra = document.getElementById('barra-contagem-comemoracao');
+    const botaoPular = document.getElementById('botao-pular-comemoracao');
+
+    titulo.textContent = 'Golaço!';
+    texto.innerHTML = `Você liberou uma nova figurinha: <strong>${figurinha ? figurinha.nome : ''}</strong>`;
+
+    if (figurinha) {
+      imagem.style.display = 'block';
+      imagem.src = 'imagens/figurinhas/' + figurinha.arquivo;
+    } else {
+      imagem.style.display = 'none';
+    }
+
+    overlay.classList.add('visivel');
+
+    // Reinicia a animação da barra de contagem
+    barra.classList.remove('animando');
+    void barra.offsetWidth; // força reflow para a animação reiniciar
+    barra.classList.add('animando');
+
+    function seguirAdiante() {
+      overlay.classList.remove('visivel');
+      barra.classList.remove('animando');
+      clearTimeout(timerOverlayComemoracao);
+      botaoPular.onclick = null;
+      avancarParaProxima(numeroRodada);
+    }
+
+    timerOverlayComemoracao = setTimeout(seguirAdiante, 5000);
+    botaoPular.onclick = seguirAdiante;
   }
 
   /* =======================================================
