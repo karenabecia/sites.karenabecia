@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Meu Álbum — Copa dos Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --verde-claro: #E8F8ED;
+    --amarelo: #FFD400;
+    --amarelo-escuro: #E0B400;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
+  }
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(16px, 4.5vw, 22px);
+    margin: 0;
+  }
+  header.topo .nome-etapa {
+    color: var(--branco);
+    font-size: 12.5px;
+    margin: 3px 0 0;
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  .resumo-album {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .resumo-album .contagem {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    color: var(--verde-escuro);
+    margin: 0;
+  }
+  .resumo-album .contagem span { color: #999; font-size: 20px; }
+  .resumo-album .legenda-contagem {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0 14px;
+  }
+  .barra-fundo-album {
+    background: var(--cinza-fundo);
+    border-radius: 8px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .barra-preenchida-album {
+    background: linear-gradient(90deg, var(--verde) 0%, var(--amarelo) 100%);
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+  }
+
+  .titulo-secao-tempo {
+    color: var(--branco);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin: 26px 4px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .titulo-secao-tempo .selo-mini {
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .grade-figurinhas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (min-width: 420px) {
+    .grade-figurinhas { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .slot-figurinha {
+    background: var(--branco);
+    border-radius: 18px;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  .slot-figurinha.conquistada { transform: scale(1); }
+  .slot-figurinha .moldura-imagem {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--cinza-fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .slot-figurinha img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .slot-figurinha .legenda-slot {
+    padding: 10px 10px 12px;
+    text-align: center;
+  }
+  .slot-figurinha .legenda-slot .numero-fig {
+    font-size: 10.5px;
+    color: var(--verde-escuro);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .slot-figurinha .legenda-slot .nome-fig {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--azul-noite);
+    line-height: 1.3;
+  }
+  .slot-figurinha.bloqueada .legenda-slot .nome-fig {
+    color: #999;
+  }
+  .selo-conquistada {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--verde);
+    color: var(--branco);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  .voltar-hub {
+    display: block;
+    text-align: center;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    padding: 22px 16px 8px;
+    text-decoration: underline;
+  }
+
+  footer.rodape {
+    text-align: center;
+    padding: 18px 14px 26px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .carregando {
+    text-align: center;
+    color: var(--branco);
+    padding: 60px 0;
+    font-size: 14px;
+  }
+
+  .mensagem-erro-album {
+    background: #FFEAEA;
+    color: #C0392B;
+    border: 1px solid #F5B7B1;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    display: none;
+  }
+  .mensagem-erro-album.visivel { display: block; }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <p class="evento">COPA DOS DADOS</p>
+  <p class="nome-etapa">Meu álbum de figurinhas</p>
+</header>
+
+<main>
+
+  <div class="mensagem-erro-album" id="erro-album"></div>
+
+  <div class="carregando" id="carregando-album">Carregando seu álbum...</div>
+
+  <div id="conteudo-album" style="display:none;">
+    <div class="resumo-album">
+      <p class="contagem"><span id="qtd-conquistadas">0</span><span> / 12</span></p>
+      <p class="legenda-contagem">figurinhas conquistadas</p>
+      <div class="barra-fundo-album"><div class="barra-preenchida-album" id="barra-album" style="width:0%"></div></div>
+    </div>
+
+    <div id="secoes-tempos"></div>
+  </div>
+
+</main>
+
+<a class="voltar-hub" href="index.html">← Voltar para o hub do jogo</a>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+<script>
+  const API_URL = "https://script.google.com/macros/s/AKfycbykfT27CwLkBStDKKrWa-Si7MTRTBmQO1QoSJ612iURPQ_99Z4gBtPwHp4W75wPfc0fBA/exec";
+
+  // Verso padrão exibido enquanto a figurinha não foi conquistada.
+  // Troque pelo arquivo que a Jessy for enviar.
+  const IMAGEM_VERSO = 'imagens/figurinhas/verso-figurinha.png';
+
+  // Catálogo completo das 12 figurinhas — 4 por Tempo, 1 por rodada.
+  const CATALOGO_FIGURINHAS = [
+    { id: 'fig01-tempo1-escalacao', tempo: 1, rodada: 1, nome: 'Escalação dos Dados', arquivo: 'fig01-tempo1-escalacao.png' },
+    { id: 'fig02-tempo1-cartao-vermelho', tempo: 1, rodada: 2, nome: 'Cartão Vermelho', arquivo: 'fig02-tempo1-cartao-vermelho.png' },
+    { id: 'fig03-tempo1-mestre-prancheta', tempo: 1, rodada: 3, nome: 'Mestre da Prancheta', arquivo: 'fig03-tempo1-mestre-prancheta.png' },
+    { id: 'fig04-tempo1-var-dados', tempo: 1, rodada: 4, nome: 'VAR dos Dados', arquivo: 'fig04-tempo1-var-dados.png' },
+
+    { id: 'fig05-tempo2-rodada1', tempo: 2, rodada: 1, nome: 'A definir — Tempo 2', arquivo: 'fig05-tempo2-rodada1.png' },
+    { id: 'fig06-tempo2-rodada2', tempo: 2, rodada: 2, nome: 'A definir — Tempo 2', arquivo: 'fig06-tempo2-rodada2.png' },
+    { id: 'fig07-tempo2-rodada3', tempo: 2, rodada: 3, nome: 'A definir — Tempo 2', arquivo: 'fig07-tempo2-rodada3.png' },
+    { id: 'fig08-tempo2-rodada4', tempo: 2, rodada: 4, nome: 'A definir — Tempo 2', arquivo: 'fig08-tempo2-rodada4.png' },
+
+    { id: 'fig09-tempo3-rodada1', tempo: 3, rodada: 1, nome: 'A definir — Tempo 3', arquivo: 'fig09-tempo3-rodada1.png' },
+    { id: 'fig10-tempo3-rodada2', tempo: 3, rodada: 2, nome: 'A definir — Tempo 3', arquivo: 'fig10-tempo3-rodada2.png' },
+    { id: 'fig11-tempo3-rodada3', tempo: 3, rodada: 3, nome: 'A definir — Tempo 3', arquivo: 'fig11-tempo3-rodada3.png' },
+    { id: 'fig12-tempo3-rodada4', tempo: 3, rodada: 4, nome: 'A definir — Tempo 3', arquivo: 'fig12-tempo3-rodada4.png' }
+  ];
+
+  const NOMES_TEMPOS = {
+    1: 'Tempo 1 — Excel',
+    2: 'Tempo 2 — Power BI',
+    3: 'Tempo 3 — I.A.'
+  };
+
+  function pegarSessao() {
+    return {
+      nome: sessionStorage.getItem('copaDados_nome'),
+      email: sessionStorage.getItem('copaDados_email')
+    };
+  }
+
+  const sessao = pegarSessao();
+  if (!sessao.email) {
+    window.location.href = 'index.html';
+  }
+
+  async function chamarAPI(params) {
+    if (!API_URL || API_URL.includes('COLE_AQUI')) {
+      throw new Error('A URL do Apps Script ainda não foi configurada no código (variável API_URL).');
+    }
+    const corpo = new URLSearchParams(params);
+    const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
+    if (!resposta.ok) {
+      throw new Error('O Apps Script respondeu com erro HTTP ' + resposta.status + '.');
+    }
+    return await resposta.json();
+  }
+
+  function mostrarErroAlbum(texto) {
+    const el = document.getElementById('erro-album');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
+
+  function montarAlbum(figurinhasConquistadas) {
+    const conquistadasSet = new Set(figurinhasConquistadas);
+
+    document.getElementById('qtd-conquistadas').textContent = conquistadasSet.size;
+    document.getElementById('barra-album').style.width = ((conquistadasSet.size / CATALOGO_FIGURINHAS.length) * 100) + '%';
+
+    const container = document.getElementById('secoes-tempos');
+    container.innerHTML = '';
+
+    for (let t = 1; t <= 3; t++) {
+      const tituloSecao = document.createElement('p');
+      tituloSecao.className = 'titulo-secao-tempo';
+      tituloSecao.innerHTML = `<span class="selo-mini">${t}</span> ${NOMES_TEMPOS[t]}`;
+      container.appendChild(tituloSecao);
+
+      const grade = document.createElement('div');
+      grade.className = 'grade-figurinhas';
+
+      CATALOGO_FIGURINHAS.filter(f => f.tempo === t).forEach(figurinha => {
+        const conquistada = conquistadasSet.has(figurinha.id);
+
+        const slot = document.createElement('div');
+        slot.className = 'slot-figurinha ' + (conquistada ? 'conquistada' : 'bloqueada');
+
+        const imagemExibida = conquistada
+          ? 'imagens/figurinhas/' + figurinha.arquivo
+          : IMAGEM_VERSO;
+
+        slot.innerHTML = `
+          ${conquistada ? '<span class="selo-conquistada">✓</span>' : ''}
+          <div class="moldura-imagem">
+            <img src="${imagemExibida}" alt="${conquistada ? figurinha.nome : 'Figurinha ainda não conquistada'}"
+                 onerror="this.src='https://via.placeholder.com/300x300/F4F7F2/999?text=${conquistada ? '%3F' : '%F0%9F%94%92'}'">
+          </div>
+          <div class="legenda-slot">
+            <span class="numero-fig">Rodada ${figurinha.rodada}</span>
+            <span class="nome-fig">${conquistada ? figurinha.nome : 'Figurinha bloqueada'}</span>
+          </div>
+        `;
+
+        grade.appendChild(slot);
+      });
+
+      container.appendChild(grade);
+    }
+  }
+
+  async function carregarAlbum() {
+    try {
+      const resultado = await chamarAPI({ acao: 'pegarProgresso', email: sessao.email });
+
+      if (!resultado.sucesso) {
+        mostrarErroAlbum('Não foi possível carregar seu álbum: ' + (resultado.erro || 'erro desconhecido'));
+        montarAlbum([]);
+      } else {
+        montarAlbum(resultado.progresso.figurinhas || []);
+      }
+    } catch (err) {
+      mostrarErroAlbum('Não foi possível conectar ao jogo (' + err.message + '). Se você abriu o arquivo direto do computador, acesse pelo link publicado no GitHub Pages.');
+      montarAlbum([]);
+    } finally {
+      document.getElementById('carregando-album').style.display = 'none';
+      document.getElementById('conteudo-album').style.display = 'block';
+    }
+  }
+
+  carregarAlbum();
+</script>
+
+</body>
+</html>
