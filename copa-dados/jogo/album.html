@@ -37,7 +37,29 @@
     top: 0;
     z-index: 50;
     box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    position: relative;
   }
+  .botao-voltar-topo {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--branco);
+    border-radius: 10px;
+    padding: 7px 11px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    min-height: 36px;
+  }
+  .botao-voltar-topo svg { width: 15px; height: 15px; flex-shrink: 0; }
   header.topo .evento {
     color: var(--amarelo);
     font-family: 'Montserrat', sans-serif;
@@ -308,6 +330,10 @@
 <body>
 
 <header class="topo">
+  <a class="botao-voltar-topo" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    Voltar
+  </a>
   <p class="evento">COPA DOS DADOS</p>
   <p class="nome-etapa">Meu álbum de figurinhas</p>
 </header>
