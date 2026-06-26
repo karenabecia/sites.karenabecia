@@ -392,8 +392,11 @@
     if (!API_URL || API_URL.includes('COLE_AQUI')) {
       throw new Error('A URL do Apps Script ainda não foi configurada no código (variável API_URL).');
     }
-    const corpo = new URLSearchParams(params);
-    const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
+    // Usamos GET (parâmetros na URL) em vez de POST, pelo mesmo motivo
+    // documentado no index.html e tempo1.html: evitar perda do corpo
+    // da requisição ao seguir o redirect 302 do Apps Script.
+    const query = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL + '?' + query, { method: 'GET', redirect: 'follow' });
     if (!resposta.ok) {
       throw new Error('O Apps Script respondeu com erro HTTP ' + resposta.status + '.');
     }
