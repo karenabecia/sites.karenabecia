@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard da Copa dos Dados — Baixe Grátis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde-vib: #22c55e;
+      --amarelo:   #f5c518;
+      --preto:     #0a0a0a;
+      --escuro:    #0d140d;
+      --card:      #111a11;
+      --borda:     #1e331e;
+      --branco:    #ffffff;
+      --cinza:     #a1a1aa;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--escuro);
+      color: var(--branco);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      overflow-x: hidden;
+    }
+
+    /* ────────────────────────────────────────
+       LAYOUT PRINCIPAL — duas colunas
+    ──────────────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* ── COLUNA ESQUERDA ── */
+    .col-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 52px 60px 64px;
+      position: relative;
+    }
+
+    /* linha verde lateral sutil */
+    .col-left::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--borda) 30%, var(--borda) 70%, transparent);
+    }
+
+    /* ── COLUNA DIREITA ── */
+    .col-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 64px 60px 52px;
+      background: radial-gradient(ellipse at 60% 50%, rgba(34,197,94,0.06) 0%, transparent 70%);
+    }
+
+    /* ────────────────────────────────────────
+       CONTEUDO ESQUERDO
+    ──────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--amarelo);
+      color: var(--preto);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--preto);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(38px, 4vw, 62px);
+      line-height: 1.0;
+      letter-spacing: 0.5px;
+      color: var(--branco);
+      margin-bottom: 16px;
+    }
+
+    h1 .destaque { color: var(--amarelo); }
+
+    .subheadline {
+      font-size: clamp(14px, 1.4vw, 16px);
+      color: #9ab89a;
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 400px;
+    }
+
+    /* ── FORMULARIO ── */
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--verde-vib);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      padding: 28px 24px;
+      max-width: 420px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cinza);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      background: #0a110a;
+      border: 1.5px solid var(--borda);
+      border-radius: 7px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--branco);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input::placeholder { color: #2e4a2e; }
+    .field input:focus { border-color: var(--verde-vib); }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 6px;
+      padding: 15px;
+      background: var(--amarelo);
+      color: var(--preto);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(245,197,24,0.25);
+    }
+
+    .btn-submit:hover {
+      background: #ffd740;
+      box-shadow: 0 6px 32px rgba(245,197,24,0.4);
+    }
+
+    .btn-submit:active { transform: scale(0.985); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+
+    .form-footer {
+      font-size: 11px;
+      color: #3a543a;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-footer::before {
+      content: '🔒';
+      font-size: 11px;
+    }
+
+    /* ── FEEDBACK ── */
+    .msg-sucesso, .msg-erro {
+      display: none;
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .msg-sucesso {
+      background: #0a2010;
+      border: 1px solid var(--verde-vib);
+      color: var(--verde-vib);
+    }
+
+    .msg-erro {
+      background: #200a0a;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+    }
+
+    /* ────────────────────────────────────────
+       COLUNA DIREITA — IMAGEM
+    ──────────────────────────────────────── */
+    .dashboard-wrap {
+      width: 100%;
+      max-width: 580px;
+      position: relative;
+    }
+
+    /* brilho verde atras da imagem */
+    .dashboard-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      background: radial-gradient(ellipse at center, rgba(34,197,94,0.12) 0%, transparent 65%);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    .dashboard-wrap img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      border: 1.5px solid rgba(34,197,94,0.25);
+      box-shadow:
+        0 0 0 1px rgba(34,197,94,0.08),
+        0 8px 32px rgba(0,0,0,0.5),
+        0 32px 80px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    /* etiqueta flutuante sobre a imagem */
+    .img-tag {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--escuro);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--verde-vib);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ────────────────────────────────────────
+       RESPONSIVO — tablet/mobile empilha
+    ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      body { align-items: flex-start; }
+
+      .page {
+        grid-template-columns: 1fr;
+        min-height: unset;
+      }
+
+      .col-left {
+        padding: 48px 28px 36px;
+        order: 2;
+      }
+
+      .col-left::after { display: none; }
+
+      .col-right {
+        padding: 48px 28px 24px;
+        order: 1;
+        background: none;
+      }
+
+      .form-card { max-width: 100%; }
+
+      h1 { font-size: 44px; }
+
+      .img-tag { bottom: -12px; }
+    }
+
+    @media (max-width: 480px) {
+      .col-left  { padding: 36px 20px 32px; }
+      .col-right { padding: 36px 20px 16px; }
+      h1 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- COLUNA ESQUERDA -->
+    <div class="col-left">
+
+      <div class="badge">Copa dos Dados — Grátis</div>
+
+      <h1>
+        Baixe <span class="destaque">Grátis</span><br>
+        o Dashboard<br>
+        da Copa do Mundo
+      </h1>
+
+      <p class="subheadline">
+        Construído com dados reais, layout Efeito UAU<br>
+        e zero enrolação. Preencha o formulário para receber.
+      </p>
+
+      <p class="form-label">Preencha e receba agora</p>
+
+      <div class="form-card">
+        <form id="form-copa" novalidate>
+
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <label for="telefone">WhatsApp com DDD</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required autocomplete="tel" maxlength="15" />
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-enviar">
+            QUERO MEU DASHBOARD GRÁTIS
+          </button>
+
+          <div class="msg-sucesso" id="msg-sucesso">
+            Dashboard enviado! Verifique seu e-mail.
+          </div>
+          <div class="msg-erro" id="msg-erro">
+            Erro ao enviar. Tente novamente.
+          </div>
+
+
+        </form>
+      </div>
+
+      <p class="form-footer">Seus dados estão seguros. Sem spam.</p>
+
+    </div>
+
+    <!-- COLUNA DIREITA -->
+    <div class="col-right">
+      <div class="dashboard-wrap">
+        <img src="Imagens/dashboard-copa.png" alt="Dashboard da Copa dos Dados 2026" />
+        <span class="img-tag">Dashboard Copa 2026</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ── COLE AQUI A URL DO SEU APPS SCRIPT APÓS PUBLICAR ──
+    const APPS_SCRIPT_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+    // Mascara de telefone
+    document.getElementById("telefone").addEventListener("input", function () {
+      let v = this.value.replace(/\D/g, "").slice(0, 11);
+      if (v.length <= 10) {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+      } else {
+        v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+      }
+      this.value = v;
+    });
+
+    // Envio
+    document.getElementById("form-copa").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const nome     = document.getElementById("nome").value.trim();
+      const email    = document.getElementById("email").value.trim();
+      const telefone = document.getElementById("telefone").value.trim();
+      const btn      = document.getElementById("btn-enviar");
+      const ok       = document.getElementById("msg-sucesso");
+      const err      = document.getElementById("msg-erro");
+
+      ok.style.display  = "none";
+      err.style.display = "none";
+
+      if (!nome || !email || !telefone) {
+        err.style.display = "block";
+        err.textContent = "Preencha todos os campos.";
+        return;
+      }
+
+
+      btn.disabled = true;
+      btn.textContent = "ENVIANDO...";
+
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email, telefone })
+        });
+
+        btn.textContent = "ENVIADO!";
+        ok.style.display = "block";
+        document.getElementById("form-copa").reset();
+        setTimeout(function () { window.location.href = "obrigado.html"; }, 1200);
+
+      } catch (erro) {
+        btn.disabled = false;
+        btn.textContent = "QUERO MEU DASHBOARD GRÁTIS";
+        err.style.display = "block";
+        err.textContent = "Erro ao enviar. Tente novamente.";
+      }
+    });
+  </script>
+
+</body>
+</html>
