@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Copa dos Dados — O Jogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --amarelo: #FFD400;
+    --amarelo-escuro: #E0B400;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ===== HEADER ===== */
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(18px, 5vw, 26px);
+    letter-spacing: 0.5px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  header.topo .evento svg { width: 26px; height: 26px; flex-shrink: 0; }
+  header.topo .subtitulo {
+    color: #C9F2D6;
+    font-size: 12px;
+    margin: 2px 0 0;
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+  }
+
+  /* ===== TELA DE LOGIN/CADASTRO ===== */
+  .cartao {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 28px 24px;
+    margin-bottom: 20px;
+  }
+
+  .campo-de-bola {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .campo-de-bola svg { width: 70px; height: 70px; }
+
+  h1.titulo-tela {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    text-align: center;
+    margin: 0 0 6px;
+    color: var(--azul-noite);
+  }
+  p.subtitulo-tela {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 22px;
+    line-height: 1.5;
+  }
+
+  .abas-login {
+    display: flex;
+    background: var(--cinza-fundo);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 22px;
+  }
+  .abas-login button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 11px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+    min-height: 44px;
+  }
+  .abas-login button.ativa {
+    background: var(--verde);
+    color: var(--branco);
+    box-shadow: 0 4px 10px rgba(26,166,74,0.35);
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul-noite);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 13px 14px;
+    border: 2px solid #E2E8E0;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    min-height: 44px;
+  }
+  input:focus { border-color: var(--verde); }
+
+  .dica-campo {
+    font-size: 11.5px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  button.botao-principal {
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px 0;
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(255,212,0,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 48px;
+  }
+  button.botao-principal:active { transform: scale(0.97); }
+  button.botao-principal:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .mensagem-erro {
+    background: #FFEAEA;
+    color: #C0392B;
+    border: 1px solid #F5B7B1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+  }
+  .mensagem-erro.visivel { display: block; }
+
+  .mensagem-sucesso {
+    background: #E8F8ED;
+    color: var(--verde-escuro);
+    border: 1px solid #B7E8C6;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+  }
+  .mensagem-sucesso.visivel { display: block; }
+
+  /* ===== HUB DO JOGO ===== */
+  #hub { display: none; }
+
+  .boas-vindas {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .boas-vindas .ola {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--verde-escuro);
+    margin: 0 0 4px;
+  }
+  .boas-vindas .frase {
+    font-size: 13.5px;
+    color: #555;
+    margin: 0;
+  }
+
+  .grade-acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .botao-secundario {
+    background: var(--branco);
+    border: 2px solid var(--verde);
+    color: var(--verde-escuro);
+    border-radius: 14px;
+    padding: 14px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    text-decoration: none;
+  }
+  .botao-secundario svg { width: 26px; height: 26px; }
+
+  .cartao-tempo {
+    background: var(--branco);
+    border-radius: 20px;
+    box-shadow: var(--sombra);
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cartao-tempo.bloqueado { opacity: 0.55; }
+
+  .selo-tempo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--verde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: var(--branco);
+    font-size: 22px;
+  }
+  .cartao-tempo.bloqueado .selo-tempo { background: #B0B0B0; }
+  .cartao-tempo.concluido .selo-tempo { background: var(--amarelo); color: var(--azul-noite); }
+
+  .info-tempo { flex: 1; }
+  .info-tempo .nome-tempo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0 0 2px;
+    color: var(--azul-noite);
+  }
+  .info-tempo .status-tempo {
+    font-size: 12.5px;
+    margin: 0;
+    color: #777;
+  }
+  .info-tempo .barra-fundo {
+    background: var(--cinza-fundo);
+    border-radius: 6px;
+    height: 7px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .info-tempo .barra-preenchida {
+    background: var(--verde);
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+
+  .seta-tempo {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--verde);
+  }
+  .cartao-tempo.bloqueado .seta-tempo { color: #B0B0B0; }
+
+  .faixa-cadeado {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--azul-noite);
+    color: var(--amarelo);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .aviso-prazo {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 14px;
+    padding: 12px 16px;
+    text-align: center;
+    color: var(--branco);
+    font-size: 12.5px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .aviso-prazo strong { color: var(--amarelo); }
+
+  .cartao-tempo-wrapper {
+    margin-bottom: 16px;
+  }
+  .cartao-tempo {
+    margin-bottom: 0;
+    border-radius: 20px 20px 0 0;
+  }
+  .botao-replay {
+    width: 100%;
+    background: var(--azul-noite);
+    color: var(--branco);
+    border: none;
+    border-radius: 0 0 20px 20px;
+    padding: 12px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    min-height: 44px;
+    box-shadow: var(--sombra);
+  }
+  .botao-replay svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .botao-replay.desabilitado {
+    background: #D8D8D8;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .bloco-certificado {
+    background: linear-gradient(135deg, var(--amarelo) 0%, var(--amarelo-escuro) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 4px;
+    box-shadow: 0 8px 20px rgba(255,212,0,0.4);
+  }
+  .bloco-certificado svg { width: 38px; height: 38px; margin-bottom: 6px; }
+  .bloco-certificado p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--azul-noite);
+    margin: 0 0 10px;
+    font-size: 15px;
+  }
+  .bloco-certificado button {
+    background: var(--azul-noite);
+    color: var(--branco);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  button.botao-sair {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    padding: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .carregando {
+    text-align: center;
+    color: var(--branco);
+    padding: 40px 0;
+    font-size: 14px;
+  }
+
+  /* ===== RODAPÉ ===== */
+  footer.rodape {
+    text-align: center;
+    padding: 18px 14px 26px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  @media (min-width: 540px) {
+    main { padding-top: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <p class="evento">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#FFD400" stroke-width="1.6"/><path d="M12 7l3 2.2-1.1 3.6h-3.8L9 9.2 12 7z" fill="#FFD400"/><path d="M12 2v5M12 17v5M3.5 8.5l4 1.5M16.5 14l4 1.5M3.5 15.5l4-1.5M16.5 10l4-1.5" stroke="#FFD400" stroke-width="1.2"/></svg>
+    COPA DOS DADOS
+  </p>
+  <p class="subtitulo">O jogo oficial do treinamento da Escola Karen Abecia</p>
+</header>
+
+<main>
+
+  <!-- ===== TELA DE LOGIN / CADASTRO ===== -->
+  <div id="tela-acesso">
+    <div class="cartao">
+      <div class="campo-de-bola">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="#FFFFFF" stroke="#020617" stroke-width="3"/>
+          <path d="M50 28l13 9.5-5 15.3H42l-5-15.3z" fill="#020617"/>
+          <path d="M50 4v24M50 96v-24M8 35l19 7M92 35l-19 7M8 65l19-7M92 65l-19-7" stroke="#020617" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <h1 class="titulo-tela">Bem-vindo à Copa dos Dados!</h1>
+      <p class="subtitulo-tela">Entre em campo, responda às rodadas e conquiste seu álbum de figurinhas — e o certificado do treinamento.</p>
+
+      <div class="abas-login">
+        <button id="botao-aba-login" class="ativa" onclick="mudarAba('login')">Já tenho cadastro</button>
+        <button id="botao-aba-cadastro" onclick="mudarAba('cadastro')">Primeira vez aqui</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="form-login" onsubmit="return false;">
+        <label for="login-email">E-mail</label>
+        <input type="email" id="login-email" placeholder="seuemail@exemplo.com" required>
+
+        <label for="login-senha">Senha (seu telefone, só números)</label>
+        <input type="tel" id="login-senha" placeholder="11999998888" required>
+        <p class="dica-campo">Sua senha é o mesmo telefone do cadastro, sem espaço ou símbolo.</p>
+
+        <button type="button" class="botao-principal" id="botao-entrar" onclick="fazerLogin()">Entrar em campo</button>
+      </form>
+
+      <!-- CADASTRO -->
+      <form id="form-cadastro" onsubmit="return false;" style="display:none;">
+        <label for="cad-nome">Nome completo</label>
+        <input type="text" id="cad-nome" placeholder="Seu nome" required>
+
+        <label for="cad-email">E-mail</label>
+        <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" required>
+
+        <label for="cad-telefone">Telefone (com DDD, só números)</label>
+        <input type="tel" id="cad-telefone" placeholder="11999998888" required>
+        <p class="dica-campo">Esse telefone vira sua senha. Guarde com você!</p>
+
+        <button type="button" class="botao-principal" id="botao-cadastrar" onclick="fazerCadastro()">Quero jogar</button>
+      </form>
+
+      <div class="mensagem-erro" id="mensagem-erro"></div>
+      <div class="mensagem-sucesso" id="mensagem-sucesso"></div>
+    </div>
+  </div>
+
+  <!-- ===== HUB DO JOGO ===== -->
+  <div id="hub">
+    <div class="boas-vindas">
+      <p class="ola" id="texto-ola">Bora jogar!</p>
+      <p class="frase">Cada Tempo libera uma rodada nova de desafios. Vai com tudo!</p>
+    </div>
+
+    <div class="grade-acoes">
+      <a href="album.html" class="botao-secundario" id="link-album">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0B6E32" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>
+        Meu álbum
+      </a>
+      <button class="botao-secundario" onclick="atualizarTudo()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0B6E32" stroke-width="1.8"><path d="M4 4v6h6M20 20v-6h-6M4.5 9A8 8 0 0119 7.5M19.5 15A8 8 0 015 16.5"/></svg>
+        Atualizar progresso
+      </button>
+    </div>
+
+    <div class="aviso-prazo">
+      O replay das aulas e o jogo ficam disponíveis até <strong>03/07</strong>. Aproveite enquanto está no ar!
+    </div>
+
+    <div id="lista-tempos"></div>
+
+    <div id="bloco-certificado-container"></div>
+
+    <button class="botao-sair" onclick="sair()">Sair da conta</button>
+  </div>
+
+  <div class="carregando" id="carregando" style="display:none;">Carregando seu progresso...</div>
+
+  <div class="mensagem-erro" id="erro-conexao-hub" style="max-width:480px; margin:0 auto;"></div>
+
+</main>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+<script>
+  /* =======================================================
+     CONFIGURAÇÃO — troque pela URL do seu Apps Script
+  ======================================================= */
+  const API_URL = "https://script.google.com/macros/s/AKfycbykfT27CwLkBStDKKrWa-Si7MTRTBmQO1QoSJ612iURPQ_99Z4gBtPwHp4W75wPfc0fBA/exec";
+
+  const NOMES_TEMPOS = {
+    1: "Tempo 1 — Excel",
+    2: "Tempo 2 — Power BI",
+    3: "Tempo 3 — I.A."
+  };
+
+  // Troque pelos links reais do replay de cada aula no YouTube
+  const LINKS_REPLAY = {
+    1: "https://www.youtube.com/watch?v=HrKzSApVonc",
+    2: "https://www.youtube.com/watch?v=RVwUAQm92mw",
+    3: "https://www.youtube.com/watch?v=J4S867j4DYU"
+  };
+
+  function mudarAba(aba) {
+    const ehLogin = aba === 'login';
+    document.getElementById('botao-aba-login').classList.toggle('ativa', ehLogin);
+    document.getElementById('botao-aba-cadastro').classList.toggle('ativa', !ehLogin);
+    document.getElementById('form-login').style.display = ehLogin ? 'block' : 'none';
+    document.getElementById('form-cadastro').style.display = ehLogin ? 'none' : 'block';
+    esconderMensagens();
+  }
+
+  function esconderMensagens() {
+    document.getElementById('mensagem-erro').classList.remove('visivel');
+    document.getElementById('mensagem-sucesso').classList.remove('visivel');
+  }
+
+  function mostrarErro(texto) {
+    esconderMensagens();
+    const el = document.getElementById('mensagem-erro');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
+
+  function mostrarSucesso(texto) {
+    esconderMensagens();
+    const el = document.getElementById('mensagem-sucesso');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
+
+  async function chamarAPI(params) {
+    if (!API_URL || API_URL.includes('COLE_AQUI')) {
+      throw new Error('A URL do Apps Script ainda não foi configurada no código (variável API_URL).');
+    }
+    const corpo = new URLSearchParams(params);
+    const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
+    if (!resposta.ok) {
+      throw new Error('O Apps Script respondeu com erro HTTP ' + resposta.status + '.');
+    }
+    const dados = await resposta.json();
+    return dados;
+  }
+
+  async function fazerCadastro() {
+    const nome = document.getElementById('cad-nome').value.trim();
+    const email = document.getElementById('cad-email').value.trim();
+    const telefone = document.getElementById('cad-telefone').value.trim();
+
+    if (!nome || !email || !telefone) {
+      mostrarErro('Preencha todos os campos para continuar.');
+      return;
+    }
+
+    const botao = document.getElementById('botao-cadastrar');
+    botao.disabled = true;
+    botao.textContent = 'Cadastrando...';
+
+    try {
+      const resultado = await chamarAPI({ acao: 'cadastrar', nome, email, telefone });
+      if (resultado.sucesso) {
+        salvarSessao(resultado.nome, resultado.email);
+        mostrarSucesso('Cadastro feito! Entrando em campo...');
+        setTimeout(entrarNoHub, 800);
+      } else {
+        mostrarErro(resultado.erro || 'Não foi possível cadastrar.');
+      }
+    } catch (err) {
+      mostrarErro('Erro de conexão. Tente novamente.');
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Quero jogar';
+    }
+  }
+
+  async function fazerLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value.trim();
+
+    if (!email || !senha) {
+      mostrarErro('Preencha e-mail e senha.');
+      return;
+    }
+
+    const botao = document.getElementById('botao-entrar');
+    botao.disabled = true;
+    botao.textContent = 'Entrando...';
+
+    try {
+      const resultado = await chamarAPI({ acao: 'login', email, senha });
+      if (resultado.sucesso) {
+        salvarSessao(resultado.nome, resultado.email);
+        entrarNoHub();
+      } else {
+        mostrarErro(resultado.erro || 'E-mail ou senha incorretos.');
+      }
+    } catch (err) {
+      mostrarErro('Erro de conexão. Tente novamente.');
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Entrar em campo';
+    }
+  }
+
+  function salvarSessao(nome, email) {
+    sessionStorage.setItem('copaDados_nome', nome);
+    sessionStorage.setItem('copaDados_email', email);
+  }
+
+  function pegarSessao() {
+    return {
+      nome: sessionStorage.getItem('copaDados_nome'),
+      email: sessionStorage.getItem('copaDados_email')
+    };
+  }
+
+  function sair() {
+    sessionStorage.removeItem('copaDados_nome');
+    sessionStorage.removeItem('copaDados_email');
+    document.getElementById('hub').style.display = 'none';
+    document.getElementById('tela-acesso').style.display = 'block';
+  }
+
+  async function entrarNoHub() {
+    const sessao = pegarSessao();
+    if (!sessao.email) return;
+
+    document.getElementById('tela-acesso').style.display = 'none';
+    document.getElementById('hub').style.display = 'none';
+    document.getElementById('carregando').style.display = 'block';
+
+    document.getElementById('texto-ola').textContent = 'Bora, ' + sessao.nome.split(' ')[0] + '!';
+
+    await atualizarTudo();
+
+    document.getElementById('carregando').style.display = 'none';
+    document.getElementById('hub').style.display = 'block';
+  }
+
+  async function atualizarTudo() {
+    const sessao = pegarSessao();
+    if (!sessao.email) return;
+
+    const avisoErro = document.getElementById('erro-conexao-hub');
+    avisoErro.classList.remove('visivel');
+
+    try {
+      const [config, progresso] = await Promise.all([
+        chamarAPI({ acao: 'pegarConfiguracoes' }),
+        chamarAPI({ acao: 'pegarProgresso', email: sessao.email })
+      ]);
+
+      if (!config.sucesso) {
+        avisoErro.textContent = 'Não foi possível carregar as configurações do jogo: ' + (config.erro || 'erro desconhecido') + '. Os Tempos podem aparecer como bloqueados até resolver isso.';
+        avisoErro.classList.add('visivel');
+      }
+
+      if (progresso.sucesso) {
+        renderizarTempos(config, progresso.progresso);
+        renderizarCertificado(progresso.progresso);
+      } else {
+        avisoErro.textContent = 'Não foi possível carregar seu progresso: ' + (progresso.erro || 'erro desconhecido');
+        avisoErro.classList.add('visivel');
+      }
+    } catch (err) {
+      avisoErro.textContent = 'Não foi possível conectar ao jogo (' + err.message + '). Se você abriu o arquivo direto do computador (endereço começando com "file://"), tente acessar pelo link do GitHub Pages publicado — alguns navegadores bloqueiam essa conexão em arquivos locais.';
+      avisoErro.classList.add('visivel');
+      // Mesmo sem conexão, mostra os Tempos como bloqueados em vez de travar a tela
+      renderizarTempos({ tempo1Liberado: false, tempo2Liberado: false, tempo3Liberado: false }, { tempo1: ['','','',''], tempo2: ['','','',''], tempo3: ['','','',''] });
+    }
+  }
+
+  function contarConcluidas(rodadas) {
+    return rodadas.filter(v => v === 'OK').length;
+  }
+
+  function renderizarTempos(config, progresso) {
+    const liberados = {
+      1: config.tempo1Liberado,
+      2: config.tempo2Liberado,
+      3: config.tempo3Liberado
+    };
+    const rodadasPorTempo = {
+      1: progresso.tempo1,
+      2: progresso.tempo2,
+      3: progresso.tempo3
+    };
+
+    const container = document.getElementById('lista-tempos');
+    container.innerHTML = '';
+
+    for (let t = 1; t <= 3; t++) {
+      const concluidas = contarConcluidas(rodadasPorTempo[t]);
+      const completo = concluidas === 4;
+      const liberado = liberados[t];
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'cartao-tempo-wrapper';
+
+      const div = document.createElement('div');
+      div.className = 'cartao-tempo' + (!liberado ? ' bloqueado' : '') + (completo ? ' concluido' : '');
+
+      let statusTexto;
+      if (!liberado) statusTexto = 'Ainda não liberado pelo professor';
+      else if (completo) statusTexto = 'Tempo concluído! 🏆';
+      else statusTexto = concluidas + ' de 4 rodadas concluídas';
+
+      div.innerHTML = `
+        ${!liberado ? '<span class="faixa-cadeado">EM BREVE</span>' : ''}
+        <div class="selo-tempo">${t}</div>
+        <div class="info-tempo">
+          <p class="nome-tempo">${NOMES_TEMPOS[t]}</p>
+          <p class="status-tempo">${statusTexto}</p>
+          <div class="barra-fundo"><div class="barra-preenchida" style="width:${(concluidas/4)*100}%"></div></div>
+        </div>
+        <svg class="seta-tempo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      `;
+
+      if (liberado) {
+        div.style.cursor = 'pointer';
+        div.onclick = () => { window.location.href = 'tempo' + t + '.html'; };
+      }
+
+      const botaoReplay = document.createElement(liberado ? 'a' : 'button');
+      botaoReplay.className = 'botao-replay' + (liberado ? '' : ' desabilitado');
+      if (liberado) {
+        botaoReplay.href = LINKS_REPLAY[t];
+        botaoReplay.target = '_blank';
+        botaoReplay.rel = 'noopener';
+      } else {
+        botaoReplay.disabled = true;
+      }
+      botaoReplay.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6.5v11l9-5.5-9-5.5z" fill="currentColor"/><rect x="2.5" y="4" width="19" height="16" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+        ${liberado ? 'Ver replay da aula' : 'Replay liberado junto com o Tempo'}
+      `;
+
+      wrapper.appendChild(div);
+      wrapper.appendChild(botaoReplay);
+      container.appendChild(wrapper);
+    }
+  }
+
+  function renderizarCertificado(progresso) {
+    const container = document.getElementById('bloco-certificado-container');
+    container.innerHTML = '';
+
+    if (progresso.certificadoEmitido) {
+      container.innerHTML = `
+        <div class="bloco-certificado">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#020617" stroke-width="1.8"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5 5 2.5-1.5-8.5"/></svg>
+          <p>Você completou a Copa dos Dados! Seu certificado está liberado.</p>
+          <button onclick="window.location.href='certificado.html'">Receber meu certificado</button>
+        </div>
+      `;
+    }
+  }
+
+  // Tenta reentrar automaticamente se já tem sessão ativa
+  window.addEventListener('DOMContentLoaded', () => {
+    const sessao = pegarSessao();
+    if (sessao.email) entrarNoHub();
+  });
+</script>
+
+</body>
+</html>
