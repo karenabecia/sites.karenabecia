@@ -762,8 +762,20 @@
   let rodadaAtualExibida = 1;
 
   async function chamarAPI(params) {
-    const corpo = new URLSearchParams(params);
-    const resposta = await fetch(API_URL, { method: 'POST', body: corpo });
+    // Importante: enviamos como POST com Content-Type "text/plain" e o
+    // corpo já como query string (não FormData). Isso evita dois problemas
+    // comuns do Google Apps Script Web App: (1) o preflight CORS que o
+    // navegador dispara antes de um POST "application/x-www-form-urlencoded"
+    // pode falhar contra o redirect 302 do Apps Script; (2) mantém e-mail/
+    // telefone fora da URL, diferente de usar GET. O backend (doPost) lê
+    // os mesmos parâmetros normalmente via e.parameter.
+    const corpo = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL, {
+      method: 'POST',
+      body: corpo,
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      redirect: 'follow'
+    });
     return await resposta.json();
   }
 
