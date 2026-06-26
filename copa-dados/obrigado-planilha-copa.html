@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seu Dashboard está aqui — Copa dos Dados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde-vib: #22c55e;
+      --amarelo:   #f5c518;
+      --preto:     #0a0a0a;
+      --escuro:    #0d140d;
+      --card:      #111a11;
+      --borda:     #1e331e;
+      --branco:    #ffffff;
+      --cinza:     #a1a1aa;
+    }
+
+    body {
+      background-color: var(--escuro);
+      color: var(--branco);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ── BLOCO 1 — PROGRESSO ── */
+    .bloco-progresso {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .falta-pouco {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 72px);
+      line-height: 1;
+      letter-spacing: 1px;
+      color: var(--branco);
+      margin-bottom: 20px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #1a2e1a;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--verde-vib), #86efac);
+      border-radius: 99px;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 0 12px rgba(34,197,94,0.5);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #4a6e4a;
+      margin-top: 8px;
+    }
+
+    .progress-pct {
+      font-weight: 700;
+      color: var(--verde-vib);
+      font-size: 13px;
+    }
+
+    .subtexto-progresso {
+      font-size: 14px;
+      color: #7a9e7a;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── DIVISOR ── */
+    .divisor {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--borda), transparent);
+      margin: 0 0 44px;
+    }
+
+    /* ── BLOCO 2 — DOWNLOAD ── */
+    .bloco-download {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .headline-download {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.05;
+      color: var(--branco);
+      margin-bottom: 24px;
+    }
+
+    .headline-download span { color: var(--amarelo); }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amarelo);
+      color: var(--preto);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(245,197,24,0.3);
+    }
+
+    .btn-download:hover {
+      background: #ffd740;
+      box-shadow: 0 6px 32px rgba(245,197,24,0.45);
+    }
+
+    .btn-download:active { transform: scale(0.985); }
+
+    .btn-download svg {
+      flex-shrink: 0;
+    }
+
+    /* ── BLOCO 3 — CONVITE ── */
+    .bloco-convite {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* faixa verde decorativa no topo do card */
+    .bloco-convite::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--verde-vib), var(--amarelo), var(--verde-vib));
+    }
+
+    .evento-badge {
+      display: inline-block;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--verde-vib);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .headline-convite {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.05;
+      color: var(--branco);
+      margin-bottom: 16px;
+    }
+
+    .headline-convite span { color: var(--amarelo); }
+
+    .corpo-convite {
+      font-size: 15px;
+      color: #9ab89a;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .datas-evento {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .data-pill {
+      background: #0d200d;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--branco);
+      white-space: nowrap;
+    }
+
+    .data-pill span {
+      color: var(--verde-vib);
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .tags-evento {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #7aaa7a;
+    }
+
+    .tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--verde-vib);
+      flex-shrink: 0;
+    }
+
+    .btn-grupo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--verde-vib);
+      color: var(--preto);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px;
+      letter-spacing: 1.5px;
+      padding: 15px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(34,197,94,0.25);
+    }
+
+    .btn-grupo:hover {
+      background: #4ade80;
+      box-shadow: 0 6px 32px rgba(34,197,94,0.4);
+    }
+
+    .btn-grupo:active { transform: scale(0.985); }
+
+    /* ── RODAPE ── */
+    .rodape {
+      margin-top: 32px;
+      font-size: 11px;
+      color: #3a543a;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 480px) {
+      body { padding: 36px 16px; }
+      .bloco-convite { padding: 28px 20px; }
+      .btn-download, .btn-grupo { font-size: 17px; padding: 14px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- BLOCO 1 — PROGRESSO -->
+    <div class="bloco-progresso">
+      <p class="falta-pouco">Falta pouco</p>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label">
+        <span>Início</span>
+        <span class="progress-pct" id="progress-pct">0%</span>
+        <span>Concluído</span>
+      </div>
+
+      <p class="subtexto-progresso">
+        Seu Dashboard da Copa está quase na sua mão.<br>
+        Só mais um passo e você vai causar o Efeito UAU na primeira olhada.
+      </p>
+    </div>
+
+    <div class="divisor"></div>
+
+    <!-- BLOCO 2 — DOWNLOAD -->
+    <div class="bloco-download">
+      <h1 class="headline-download">
+        Seu Dashboard da Copa<br>
+        está <span>aqui. Baixa agora.</span>
+      </h1>
+
+      <a href="LINK_DO_ARQUIVO_AQUI" class="btn-download" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        BAIXAR O DASHBOARD DA COPA AGORA
+      </a>
+    </div>
+
+    <div class="divisor"></div>
+
+    <!-- BLOCO 3 — CONVITE -->
+    <div class="bloco-convite">
+
+      <div class="evento-badge">Ao vivo e gratuito</div>
+
+      <h2 class="headline-convite">
+        Quer aprender a criar<br>
+        os seus <span>próprios Dashboards?</span><br>
+        Entra no jogo.
+      </h2>
+
+      <p class="corpo-convite">
+        Baixar é ótimo. Mas imagina saber construir esse tipo de visual do zero — usando Excel, Power BI e Inteligência Artificial? Na Copa dos Dados, a Karen vai te mostrar exatamente como fazer isso, com câmeras, microfones e muito Efeito UAU.
+      </p>
+
+      <div class="datas-evento">
+        <div class="data-pill"><span>Dia 1</span>30 de junho</div>
+        <div class="data-pill"><span>Dia 2</span>01 de julho</div>
+        <div class="data-pill"><span>Dia 3</span>02 de julho</div>
+      </div>
+
+      <div class="tags-evento">
+        <span class="tag">100% gratuito</span>
+        <span class="tag">Ao vivo com câmeras e microfones</span>
+        <span class="tag">Excel, Power BI e IA</span>
+      </div>
+
+      <a href="https://sndflw.com/i/I1Eizq6DAlY5ZvWmhyYE" target="_blank" rel="noopener" class="btn-grupo">
+        QUERO PARTICIPAR DA COPA DOS DADOS
+      </a>
+
+    </div>
+
+    <p class="rodape">Seus dados estão seguros. Sem spam.</p>
+
+  </div>
+
+  <script>
+    // Anima a barra de progresso ao carregar
+    window.addEventListener("load", function () {
+      const fill = document.getElementById("progress-fill");
+      const pct  = document.getElementById("progress-pct");
+      let current = 0;
+      const target = 90;
+
+      setTimeout(function () {
+        fill.style.width = target + "%";
+
+        const interval = setInterval(function () {
+          current += 2;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          pct.textContent = current + "%";
+        }, 24);
+      }, 300);
+    });
+  </script>
+
+</body>
+</html>
