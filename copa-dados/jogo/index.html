@@ -1,525 +1,1002 @@
-/**
- * ===================================================================
- * COPA DOS DADOS — BACKEND (Google Apps Script)
- * ===================================================================
- * Este código fica colado dentro do Google Sheets do jogo
- * (Extensões > Apps Script) e publicado como Web App.
- *
- * COMO PUBLICAR:
- * 1. Abra a planilha "Copa dos Dados — Banco de Dados do Jogo"
- * 2. Extensões > Apps Script
- * 3. Apague o conteúdo padrão e cole este arquivo inteiro
- * 4. Clique em "Implantar" > "Nova implantação"
- * 5. Tipo: "App da Web"
- * 6. Executar como: "Eu"
- * 7. Quem pode acessar: "Qualquer pessoa"
- * 8. Copie a URL gerada (termina em /exec) — é ela que entra
- *    no index.html, tempo1.html, admin.html etc. na variável API_URL
- * ===================================================================
- */
-
-// Nomes das abas — não mude sem mudar aqui também
-const ABA_USUARIOS = 'Usuarios';
-const ABA_PROGRESSO = 'Progresso';
-const ABA_CONFIG = 'Configuracoes';
-const ABA_FIGURINHAS = 'Figurinhas';
-const ABA_RESPOSTAS = 'Respostas_Detalhadas';
-
-function getSheet(nome) {
-  return SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nome);
-}
-
-/**
- * Ponto de entrada para todas as chamadas do front-end (GET e POST).
- * Toda ação é decidida pelo parâmetro "acao".
- */
-function doPost(e) {
-  return handleRequest(e);
-}
-
-function doGet(e) {
-  return handleRequest(e);
-}
-
-/**
- * Extrai os parâmetros da requisição, cobrindo dois formatos possíveis:
- * 1. e.parameter — preenchido automaticamente em GET, ou em POST com
- *    Content-Type "application/x-www-form-urlencoded".
- * 2. e.postData.contents — usado quando o front-end manda POST com
- *    Content-Type "text/plain" (escolha proposital para evitar preflight
- *    CORS e perda de corpo em redirects). Nesse caso o Apps Script NÃO
- *    faz o parse automático, então fazemos manualmente aqui.
- */
-function _extrairParametros(e) {
-  if (e && e.parameter && Object.keys(e.parameter).length > 0) {
-    return e.parameter;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Copa dos Dados — O Jogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --verde-claro: #E8F8ED;
+    --amarelo: #FFD400;
+    --amarelo-escuro: #E0B400;
+    --azul-tech: #1F7AE0;
+    --azul-tech-escuro: #1558A8;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
   }
 
-  if (e && e.postData && e.postData.contents) {
-    const params = {};
-    const partes = e.postData.contents.split('&');
-    partes.forEach(parte => {
-      const idx = parte.indexOf('=');
-      if (idx === -1) return;
-      const chave = decodeURIComponent(parte.substring(0, idx).replace(/\+/g, ' '));
-      const valor = decodeURIComponent(parte.substring(idx + 1).replace(/\+/g, ' '));
-      params[chave] = valor;
-    });
-    return params;
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
   }
 
-  return null;
-}
-
-function handleRequest(e) {
-  let resultado;
-  try {
-    const params = _extrairParametros(e);
-    const acao = params ? params.acao : null;
-
-    if (!params || !acao) {
-      resultado = { sucesso: false, erro: 'Nenhum parâmetro recebido. Verifique se a URL da API está correta no HTML.' };
-      return ContentService
-        .createTextOutput(JSON.stringify(resultado))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    switch (acao) {
-      case 'cadastrar':
-        resultado = cadastrarUsuario(params);
-        break;
-      case 'login':
-        resultado = fazerLogin(params);
-        break;
-      case 'pegarProgresso':
-        resultado = pegarProgresso(params);
-        break;
-      case 'salvarResposta':
-        resultado = salvarResposta(params);
-        break;
-      case 'emitirCertificado':
-        resultado = emitirCertificado(params);
-        break;
-      case 'pegarConfiguracoes':
-        resultado = pegarConfiguracoes();
-        break;
-      case 'loginAdmin':
-        resultado = loginAdmin(params);
-        break;
-      case 'liberarTempo':
-        resultado = liberarTempo(params);
-        break;
-      case 'listarAlunos':
-        resultado = listarAlunos(params);
-        break;
-      default:
-        resultado = { sucesso: false, erro: 'Ação não reconhecida.' };
-    }
-  } catch (err) {
-    resultado = { sucesso: false, erro: 'Erro no servidor: ' + err.message };
+  /* ===== HEADER ===== */
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(18px, 5vw, 26px);
+    letter-spacing: 0.5px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  header.topo .evento svg { width: 26px; height: 26px; flex-shrink: 0; }
+  header.topo .subtitulo {
+    color: #C9F2D6;
+    font-size: 12px;
+    margin: 2px 0 0;
+    font-weight: 500;
   }
 
-  return ContentService
-    .createTextOutput(JSON.stringify(resultado))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function normalizarEmail(email) {
-  return String(email || '').trim().toLowerCase();
-}
-
-function normalizarTelefone(telefone) {
-  return String(telefone || '').replace(/\D/g, ''); // só números
-}
-
-/**
- * CADASTRO — cria o usuário se o e-mail ainda não existir,
- * e cria a linha de progresso vazia correspondente.
- */
-function cadastrarUsuario(params) {
-  const nome = String(params.nome || '').trim();
-  const email = normalizarEmail(params.email);
-  const telefone = normalizarTelefone(params.telefone);
-
-  if (!nome || !email || !telefone) {
-    return { sucesso: false, erro: 'Preencha nome, e-mail e telefone.' };
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
   }
 
-  const sheetUsuarios = getSheet(ABA_USUARIOS);
-  const dados = sheetUsuarios.getDataRange().getValues();
-
-  for (let i = 1; i < dados.length; i++) {
-    if (normalizarEmail(dados[i][1]) === email) {
-      // Já cadastrado — apenas confirma o login em vez de duplicar
-      return fazerLogin({ email: email, senha: telefone });
-    }
+  /* ===== TELA DE LOGIN/CADASTRO ===== */
+  .cartao {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 28px 24px;
+    margin-bottom: 20px;
   }
 
-  sheetUsuarios.appendRow([nome, email, telefone, new Date()]);
+  .campo-de-bola {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .campo-de-bola svg { width: 70px; height: 70px; }
 
-  const sheetProgresso = getSheet(ABA_PROGRESSO);
-  sheetProgresso.appendRow([
-    email,
-    '', '', '', '',   // Tempo1 rodadas 1-4
-    '', '', '', '',    // Tempo2 rodadas 1-4
-    '', '', '', '',    // Tempo3 rodadas 1-4
-    '',                 // Figurinhas
-    'NAO',              // CertificadoEmitido
-    new Date()
-  ]);
-
-  return { sucesso: true, nome: nome, email: email };
-}
-
-/**
- * LOGIN — e-mail + telefone (somente números) como senha.
- */
-function fazerLogin(params) {
-  const email = normalizarEmail(params.email);
-  const senha = normalizarTelefone(params.senha);
-
-  const sheetUsuarios = getSheet(ABA_USUARIOS);
-  const dados = sheetUsuarios.getDataRange().getValues();
-
-  for (let i = 1; i < dados.length; i++) {
-    const linhaEmail = normalizarEmail(dados[i][1]);
-    const linhaTelefone = normalizarTelefone(dados[i][2]);
-
-    if (linhaEmail === email && linhaTelefone === senha) {
-      return { sucesso: true, nome: dados[i][0], email: linhaEmail };
-    }
+  h1.titulo-tela {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    text-align: center;
+    margin: 0 0 6px;
+    color: var(--azul-noite);
+  }
+  p.subtitulo-tela {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 22px;
+    line-height: 1.5;
   }
 
-  return { sucesso: false, erro: 'E-mail ou senha incorretos.' };
-}
-
-/**
- * Busca a linha de progresso de um aluno pelo e-mail.
- * Retorna o índice da linha (1-based) ou -1 se não achar.
- */
-function _encontrarLinhaProgresso(sheet, email) {
-  const dados = sheet.getDataRange().getValues();
-  for (let i = 1; i < dados.length; i++) {
-    if (normalizarEmail(dados[i][0]) === email) {
-      return i + 1; // getRange é 1-based
-    }
+  .abas-login {
+    display: flex;
+    background: var(--cinza-fundo);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 22px;
   }
-  return -1;
-}
-
-/**
- * Retorna o progresso completo do aluno: rodadas concluídas,
- * figurinhas conquistadas e status do certificado.
- */
-function pegarProgresso(params) {
-  const email = normalizarEmail(params.email);
-  const sheet = getSheet(ABA_PROGRESSO);
-  const linha = _encontrarLinhaProgresso(sheet, email);
-
-  if (linha === -1) {
-    return { sucesso: false, erro: 'Aluno não encontrado.' };
+  .abas-login button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 11px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+    min-height: 44px;
+  }
+  .abas-login button.ativa {
+    background: var(--verde);
+    color: var(--branco);
+    box-shadow: 0 4px 10px rgba(26,166,74,0.35);
   }
 
-  const valores = sheet.getRange(linha, 1, 1, 16).getValues()[0];
-  const statusCertificado = String(valores[14] || 'NAO').toUpperCase();
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul-noite);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 13px 14px;
+    border: 2px solid #E2E8E0;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    min-height: 44px;
+  }
+  input:focus { border-color: var(--verde); }
 
-  return {
-    sucesso: true,
-    progresso: {
-      tempo1: [valores[1], valores[2], valores[3], valores[4]],
-      tempo2: [valores[5], valores[6], valores[7], valores[8]],
-      tempo3: [valores[9], valores[10], valores[11], valores[12]],
-      figurinhas: valores[13] ? String(valores[13]).split(',').filter(Boolean) : [],
-      // 'NAO' = ainda não completou os 3 Tempos
-      // 'SIM' = completou, pode emitir o certificado
-      // 'EMITIDO' = já baixou o certificado, não pode de novo
-      statusCertificado: statusCertificado,
-      certificadoLiberado: statusCertificado === 'SIM' || statusCertificado === 'EMITIDO',
-      certificadoJaEmitido: statusCertificado === 'EMITIDO'
-    }
+  .dica-campo {
+    font-size: 11.5px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  button.botao-principal {
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px 0;
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(255,212,0,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 48px;
+  }
+  button.botao-principal:active { transform: scale(0.97); }
+  button.botao-principal:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .mensagem-erro {
+    background: #FFEAEA;
+    color: #C0392B;
+    border: 1px solid #F5B7B1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+  }
+  .mensagem-erro.visivel { display: block; }
+
+  .mensagem-sucesso {
+    background: #E8F8ED;
+    color: var(--verde-escuro);
+    border: 1px solid #B7E8C6;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+  }
+  .mensagem-sucesso.visivel { display: block; }
+
+  /* ===== HUB DO JOGO ===== */
+  #hub { display: none; }
+
+  .boas-vindas {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .boas-vindas .ola {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--verde-escuro);
+    margin: 0 0 4px;
+  }
+  .boas-vindas .frase {
+    font-size: 13.5px;
+    color: #555;
+    margin: 0;
+  }
+
+  .grade-acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .botao-secundario {
+    background: var(--branco);
+    border: 2px solid var(--verde);
+    color: var(--verde-escuro);
+    border-radius: 14px;
+    padding: 14px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    text-decoration: none;
+  }
+  .botao-secundario svg { width: 26px; height: 26px; }
+
+  .cartao-tempo {
+    background: var(--branco);
+    border-radius: 20px;
+    box-shadow: var(--sombra);
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* ===== BLOCOS GRANDES POR TEMPO (tema de cor por aula) ===== */
+  .aviso-prazo {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 14px;
+    padding: 12px 16px;
+    text-align: center;
+    color: var(--branco);
+    font-size: 12.5px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .aviso-prazo strong { color: var(--amarelo); }
+
+  .bloco-tempo {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    margin-bottom: 18px;
+    border-top: 6px solid var(--cor-tema);
+    position: relative;
+  }
+  .bloco-tempo.bloqueado { opacity: 0.7; }
+
+  .bloco-tempo.tema-verde { --cor-tema: var(--verde); }
+  .bloco-tempo.tema-amarelo { --cor-tema: var(--amarelo-escuro); }
+  .bloco-tempo.tema-azul { --cor-tema: var(--azul-tech); }
+
+  .cabecalho-bloco-tempo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    margin-bottom: 14px;
+  }
+  .bloco-tempo.bloqueado .cabecalho-bloco-tempo { cursor: default; }
+
+  .selo-tempo-grande {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--cor-tema);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: var(--branco);
+    font-size: 21px;
+  }
+  .bloco-tempo.bloqueado .selo-tempo-grande { background: #B0B0B0; }
+  .bloco-tempo.concluido .selo-tempo-grande { background: var(--amarelo); color: var(--azul-noite); }
+
+  .info-bloco-tempo { flex: 1; min-width: 0; }
+  .info-bloco-tempo .nome-tempo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 16.5px;
+    margin: 0 0 3px;
+    color: var(--azul-noite);
+  }
+  .info-bloco-tempo .status-tempo {
+    font-size: 12.5px;
+    margin: 0;
+    color: #777;
+  }
+  .info-bloco-tempo .barra-fundo {
+    background: var(--cinza-fundo);
+    border-radius: 6px;
+    height: 7px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .info-bloco-tempo .barra-preenchida {
+    background: var(--cor-tema);
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+
+  .indicador-jogar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .texto-indicador-jogar {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--cor-tema);
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+  }
+  .seta-bloco-tempo {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--cor-tema);
+  }
+  .bloco-tempo.bloqueado .seta-bloco-tempo { color: #B0B0B0; }
+
+  .faixa-cadeado {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: var(--azul-noite);
+    color: var(--amarelo);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .grade-botoes-acao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .botao-acao-tempo {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-decoration: none;
+    min-height: 46px;
+    color: var(--branco);
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+  .botao-acao-tempo svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .botao-acao-tempo:active { transform: scale(0.96); }
+
+  .botao-acao-tempo.tema-verde { background: var(--verde); }
+  .botao-acao-tempo.tema-amarelo { background: var(--amarelo-escuro); color: var(--azul-noite); }
+  .botao-acao-tempo.tema-azul { background: var(--azul-tech); }
+
+  .botao-acao-tempo.desabilitado {
+    background: #D8D8D8 !important;
+    color: #888 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .bloco-certificado {
+    background: linear-gradient(135deg, var(--amarelo) 0%, var(--amarelo-escuro) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 4px;
+    box-shadow: 0 8px 20px rgba(255,212,0,0.4);
+  }
+  .bloco-certificado svg { width: 38px; height: 38px; margin-bottom: 6px; }
+  .bloco-certificado p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--azul-noite);
+    margin: 0 0 10px;
+    font-size: 15px;
+  }
+  .bloco-certificado button {
+    background: var(--azul-noite);
+    color: var(--branco);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  button.botao-sair {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    padding: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  /* ===== PASSO A PASSO DE COMO JOGAR ===== */
+  .bloco-como-jogar {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px;
+    margin-top: 6px;
+    margin-bottom: 18px;
+  }
+  .bloco-como-jogar h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    margin: 0 0 16px;
+    color: var(--azul-noite);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bloco-como-jogar h3 svg { width: 20px; height: 20px; color: var(--verde-escuro); flex-shrink: 0; }
+
+  .passo-jogar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .passo-jogar:last-child { margin-bottom: 0; }
+  .numero-passo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .texto-passo { flex: 1; padding-top: 3px; }
+  .texto-passo strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--azul-noite);
+    margin-bottom: 2px;
+  }
+  .texto-passo span {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.45;
+  }
+
+  .carregando {
+    text-align: center;
+    color: var(--branco);
+    padding: 40px 0;
+    font-size: 14px;
+  }
+
+  /* ===== RODAPÉ ===== */
+  footer.rodape {
+    text-align: center;
+    padding: 18px 14px 26px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  @media (min-width: 540px) {
+    main { padding-top: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <p class="evento">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#FFD400" stroke-width="1.6"/><path d="M12 7l3 2.2-1.1 3.6h-3.8L9 9.2 12 7z" fill="#FFD400"/><path d="M12 2v5M12 17v5M3.5 8.5l4 1.5M16.5 14l4 1.5M3.5 15.5l4-1.5M16.5 10l4-1.5" stroke="#FFD400" stroke-width="1.2"/></svg>
+    COPA DOS DADOS
+  </p>
+  <p class="subtitulo">O jogo oficial da Escola Karen Abecia</p>
+</header>
+
+<main>
+
+  <!-- ===== TELA DE LOGIN / CADASTRO ===== -->
+  <div id="tela-acesso">
+    <div class="cartao">
+      <div class="campo-de-bola">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="#FFFFFF" stroke="#020617" stroke-width="3"/>
+          <path d="M50 28l13 9.5-5 15.3H42l-5-15.3z" fill="#020617"/>
+          <path d="M50 4v24M50 96v-24M8 35l19 7M92 35l-19 7M8 65l19-7M92 65l-19-7" stroke="#020617" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <h1 class="titulo-tela">Bem-vindo à Copa dos Dados!</h1>
+      <p class="subtitulo-tela">Entre em campo, responda às rodadas e conquiste seu álbum de figurinhas — e o certificado do treinamento.</p>
+
+      <div class="abas-login">
+        <button id="botao-aba-login" class="ativa" onclick="mudarAba('login')">Já tenho cadastro</button>
+        <button id="botao-aba-cadastro" onclick="mudarAba('cadastro')">Primeira vez aqui</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="form-login" onsubmit="return false;">
+        <label for="login-email">E-mail</label>
+        <input type="email" id="login-email" placeholder="seuemail@exemplo.com" required>
+
+        <label for="login-senha">Senha (seu telefone, só números)</label>
+        <input type="tel" id="login-senha" placeholder="11999998888" required>
+        <p class="dica-campo">Sua senha é o mesmo telefone do cadastro, sem espaço ou símbolo.</p>
+
+        <button type="button" class="botao-principal" id="botao-entrar" onclick="fazerLogin()">Entrar em campo</button>
+      </form>
+
+      <!-- CADASTRO -->
+      <form id="form-cadastro" onsubmit="return false;" style="display:none;">
+        <label for="cad-nome">Nome completo</label>
+        <input type="text" id="cad-nome" placeholder="Seu nome" required>
+
+        <label for="cad-email">E-mail</label>
+        <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" required>
+
+        <label for="cad-telefone">Telefone (com DDD, só números)</label>
+        <input type="tel" id="cad-telefone" placeholder="11999998888" required>
+        <p class="dica-campo">Esse telefone vira sua senha. Guarde com você!</p>
+
+        <button type="button" class="botao-principal" id="botao-cadastrar" onclick="fazerCadastro()">Quero jogar</button>
+      </form>
+
+      <div class="mensagem-erro" id="mensagem-erro"></div>
+      <div class="mensagem-sucesso" id="mensagem-sucesso"></div>
+    </div>
+  </div>
+
+  <!-- ===== HUB DO JOGO ===== -->
+  <div id="hub">
+    <div class="boas-vindas">
+      <p class="ola" id="texto-ola">Bora jogar!</p>
+      <p class="frase">Cada Tempo libera uma rodada nova de desafios. Vai com tudo!</p>
+    </div>
+
+    <div class="grade-acoes">
+      <a href="album.html" class="botao-secundario" id="link-album">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0B6E32" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>
+        Meu álbum
+      </a>
+      <button class="botao-secundario" onclick="atualizarTudo()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0B6E32" stroke-width="1.8"><path d="M4 4v6h6M20 20v-6h-6M4.5 9A8 8 0 0119 7.5M19.5 15A8 8 0 015 16.5"/></svg>
+        Atualizar progresso
+      </button>
+    </div>
+
+    <div class="aviso-prazo">
+      O replay das aulas e o jogo ficam disponíveis até <strong>03/07</strong>. Aproveite enquanto está no ar!
+    </div>
+
+    <div id="lista-tempos"></div>
+
+    <div class="bloco-como-jogar">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 015 0c0 1.5-1.5 2-2.5 3"/><circle cx="12" cy="16.5" r="0.6" fill="currentColor"/></svg>
+        Como jogar
+      </h3>
+
+      <div class="passo-jogar">
+        <span class="numero-passo">1</span>
+        <div class="texto-passo">
+          <strong>Assista à aula do dia</strong>
+          <span>Cada Tempo é liberado depois da aula correspondente. Veja o replay ou acompanhe ao vivo para ter tudo fresco na memória.</span>
+        </div>
+      </div>
+
+      <div class="passo-jogar">
+        <span class="numero-passo">2</span>
+        <div class="texto-passo">
+          <strong>Entre no Tempo liberado</strong>
+          <span>Toque no bloco do Tempo para abrir as rodadas daquela etapa.</span>
+        </div>
+      </div>
+
+      <div class="passo-jogar">
+        <span class="numero-passo">3</span>
+        <div class="texto-passo">
+          <strong>Jogue as 4 rodadas</strong>
+          <span>Cada rodada tem uma dinâmica diferente. Errou? Sem problema, você pode tentar de novo quantas vezes precisar.</span>
+        </div>
+      </div>
+
+      <div class="passo-jogar">
+        <span class="numero-passo">4</span>
+        <div class="texto-passo">
+          <strong>Ganhe sua figurinha</strong>
+          <span>Cada rodada concluída libera uma figurinha nova no seu álbum. São 12 no total!</span>
+        </div>
+      </div>
+
+      <div class="passo-jogar">
+        <span class="numero-passo">5</span>
+        <div class="texto-passo">
+          <strong>Complete os 3 Tempos</strong>
+          <span>Ao terminar todas as rodadas dos 3 Tempos, seu certificado do treinamento é liberado automaticamente aqui na página.</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="bloco-certificado-container"></div>
+
+    <button class="botao-sair" onclick="sair()">Sair da conta</button>
+  </div>
+
+  <div class="carregando" id="carregando" style="display:none;">Carregando seu progresso...</div>
+
+  <div class="mensagem-erro" id="erro-conexao-hub" style="max-width:480px; margin:0 auto;"></div>
+
+</main>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+<script>
+  /* =======================================================
+     CONFIGURAÇÃO — troque pela URL do seu Apps Script
+  ======================================================= */
+  const API_URL = "https://script.google.com/macros/s/AKfycbykfT27CwLkBStDKKrWa-Si7MTRTBmQO1QoSJ612iURPQ_99Z4gBtPwHp4W75wPfc0fBA/exec";
+
+  const NOMES_TEMPOS = {
+    1: "Tempo 1 — Excel",
+    2: "Tempo 2 — Power BI",
+    3: "Tempo 3 — I.A."
   };
-}
 
-/**
- * Salva o resultado de uma rodada: marca como OK na aba Progresso,
- * adiciona figurinha se for a primeira vez que completa a rodada,
- * e registra o log detalhado na aba Respostas_Detalhadas.
- *
- * Usa LockService porque o jogo pode disparar várias chamadas em
- * sequência rápida (uma por rodada) — sem lock, duas execuções
- * concorrentes do Apps Script podem ler a mesma célula "desatualizada"
- * e uma sobrescrever o resultado da outra, perdendo progresso do aluno.
- */
-function salvarResposta(params) {
-  const lock = LockService.getScriptLock();
-  const conseguiuLock = lock.tryLock(10000); // espera até 10s pela vez
+  const TEMA_TEMPOS = {
+    1: "tema-verde",
+    2: "tema-amarelo",
+    3: "tema-azul"
+  };
 
-  if (!conseguiuLock) {
-    return { sucesso: false, erro: 'O jogo está ocupado salvando outra resposta. Tente confirmar de novo em alguns segundos.' };
+  // Troque pelos links reais do replay de cada aula no YouTube
+  const LINKS_REPLAY = {
+    1: "https://www.youtube.com/watch?v=HrKzSApVonc",
+    2: "https://www.youtube.com/watch?v=RVwUAQm92mw",
+    3: "https://www.youtube.com/watch?v=J4S867j4DYU"
+  };
+
+  // Troque pelos links reais do material de cada aula (Drive, PDF etc.)
+  const LINKS_MATERIAL = {
+    1: "https://drive.google.com/drive/folders/1XCz6AFoljPCzwOFgs2fK9TUKurD7AX4a?usp=sharing",
+    2: "https://drive.google.com/drive/folders/1WZ2Pc7l4Hfhhvnuf26reKUDxWsuiYTaC?usp=sharing",
+    3: "https://drive.google.com/drive/folders/1K1E8u8nBqgMuJfhap2edphKQmJYxcnvs?usp=sharing"
+  };
+
+  function mudarAba(aba) {
+    const ehLogin = aba === 'login';
+    document.getElementById('botao-aba-login').classList.toggle('ativa', ehLogin);
+    document.getElementById('botao-aba-cadastro').classList.toggle('ativa', !ehLogin);
+    document.getElementById('form-login').style.display = ehLogin ? 'block' : 'none';
+    document.getElementById('form-cadastro').style.display = ehLogin ? 'none' : 'block';
+    esconderMensagens();
   }
 
-  try {
-    const email = normalizarEmail(params.email);
-    const tempo = Number(params.tempo);     // 1, 2 ou 3
-    const rodada = Number(params.rodada);   // 1 a 4
-    const acertou = params.acertou === 'true' || params.acertou === true;
-    const respostaDada = String(params.respostaDada || '');
-    const figurinhaId = String(params.figurinhaId || '');
+  function esconderMensagens() {
+    document.getElementById('mensagem-erro').classList.remove('visivel');
+    document.getElementById('mensagem-sucesso').classList.remove('visivel');
+  }
 
-    const sheetProgresso = getSheet(ABA_PROGRESSO);
-    const linha = _encontrarLinhaProgresso(sheetProgresso, email);
+  function mostrarErro(texto) {
+    esconderMensagens();
+    const el = document.getElementById('mensagem-erro');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
 
-    if (linha === -1) {
-      return { sucesso: false, erro: 'Aluno não encontrado.' };
+  function mostrarSucesso(texto) {
+    esconderMensagens();
+    const el = document.getElementById('mensagem-sucesso');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
+
+  async function chamarAPI(params) {
+    if (!API_URL || API_URL.includes('COLE_AQUI')) {
+      throw new Error('A URL do Apps Script ainda não foi configurada no código (variável API_URL).');
+    }
+    // Usamos GET (parâmetros na URL) em vez de POST. O Apps Script
+    // responde com redirect 302 antes de processar a chamada, e um
+    // POST que segue esse redirect pode perder o corpo da requisição
+    // em alguns navegadores — os parâmetros somem e nada é salvo/lido.
+    // Com GET isso não acontece, porque os parâmetros vão na própria URL.
+    const query = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL + '?' + query, { method: 'GET', redirect: 'follow' });
+    if (!resposta.ok) {
+      throw new Error('O Apps Script respondeu com erro HTTP ' + resposta.status + '.');
+    }
+    const dados = await resposta.json();
+    return dados;
+  }
+
+  async function fazerCadastro() {
+    const nome = document.getElementById('cad-nome').value.trim();
+    const email = document.getElementById('cad-email').value.trim();
+    const telefone = document.getElementById('cad-telefone').value.trim();
+
+    if (!nome || !email || !telefone) {
+      mostrarErro('Preencha todos os campos para continuar.');
+      return;
     }
 
-    // Log detalhado sempre é gravado, acertando ou não
-    getSheet(ABA_RESPOSTAS).appendRow([
-      new Date(), email, tempo, rodada, respostaDada, acertou ? 'SIM' : 'NAO'
-    ]);
+    const botao = document.getElementById('botao-cadastrar');
+    botao.disabled = true;
+    botao.textContent = 'Cadastrando...';
 
-    let novaFigurinha = null;
+    try {
+      const resultado = await chamarAPI({ acao: 'cadastrar', nome, email, telefone });
+      if (resultado.sucesso) {
+        salvarSessao(resultado.nome, resultado.email);
+        mostrarSucesso('Cadastro feito! Entrando em campo...');
+        setTimeout(entrarNoHub, 800);
+      } else {
+        mostrarErro(resultado.erro || 'Não foi possível cadastrar.');
+      }
+    } catch (err) {
+      mostrarErro('Erro de conexão. Tente novamente.');
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Quero jogar';
+    }
+  }
 
-    if (acertou) {
-      // Coluna da rodada: Tempo1=B-E, Tempo2=F-I, Tempo3=J-M
-      const colunaRodada = 2 + (tempo - 1) * 4 + (rodada - 1);
-      const celulaAtual = sheetProgresso.getRange(linha, colunaRodada).getValue();
+  async function fazerLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value.trim();
 
-      sheetProgresso.getRange(linha, colunaRodada).setValue('OK');
-      SpreadsheetApp.flush(); // força a escrita antes de seguir, dentro do lock
+    if (!email || !senha) {
+      mostrarErro('Preencha e-mail e senha.');
+      return;
+    }
 
-      // Só dá a figurinha na primeira vez que a rodada é concluída
-      if (celulaAtual !== 'OK' && figurinhaId) {
-        const colunaFigurinhas = 14;
-        const atuais = sheetProgresso.getRange(linha, colunaFigurinhas).getValue();
-        const lista = atuais ? String(atuais).split(',').filter(Boolean) : [];
-        if (lista.indexOf(figurinhaId) === -1) {
-          lista.push(figurinhaId);
-          sheetProgresso.getRange(linha, colunaFigurinhas).setValue(lista.join(','));
-          novaFigurinha = figurinhaId;
-        }
+    const botao = document.getElementById('botao-entrar');
+    botao.disabled = true;
+    botao.textContent = 'Entrando...';
+
+    try {
+      const resultado = await chamarAPI({ acao: 'login', email, senha });
+      if (resultado.sucesso) {
+        salvarSessao(resultado.nome, resultado.email);
+        entrarNoHub();
+      } else {
+        mostrarErro(resultado.erro || 'E-mail ou senha incorretos.');
+      }
+    } catch (err) {
+      mostrarErro('Erro de conexão. Tente novamente.');
+    } finally {
+      botao.disabled = false;
+      botao.textContent = 'Entrar em campo';
+    }
+  }
+
+  function salvarSessao(nome, email) {
+    sessionStorage.setItem('copaDados_nome', nome);
+    sessionStorage.setItem('copaDados_email', email);
+  }
+
+  function pegarSessao() {
+    return {
+      nome: sessionStorage.getItem('copaDados_nome'),
+      email: sessionStorage.getItem('copaDados_email')
+    };
+  }
+
+  function sair() {
+    sessionStorage.removeItem('copaDados_nome');
+    sessionStorage.removeItem('copaDados_email');
+    document.getElementById('hub').style.display = 'none';
+    document.getElementById('tela-acesso').style.display = 'block';
+  }
+
+  async function entrarNoHub() {
+    const sessao = pegarSessao();
+    if (!sessao.email) return;
+
+    document.getElementById('tela-acesso').style.display = 'none';
+    document.getElementById('hub').style.display = 'none';
+    document.getElementById('carregando').style.display = 'block';
+
+    document.getElementById('texto-ola').textContent = 'Bora, ' + sessao.nome.split(' ')[0] + '!';
+
+    await atualizarTudo();
+
+    document.getElementById('carregando').style.display = 'none';
+    document.getElementById('hub').style.display = 'block';
+  }
+
+  async function atualizarTudo() {
+    const sessao = pegarSessao();
+    if (!sessao.email) return;
+
+    const avisoErro = document.getElementById('erro-conexao-hub');
+    avisoErro.classList.remove('visivel');
+
+    try {
+      const [config, progresso] = await Promise.all([
+        chamarAPI({ acao: 'pegarConfiguracoes' }),
+        chamarAPI({ acao: 'pegarProgresso', email: sessao.email })
+      ]);
+
+      if (!config.sucesso) {
+        avisoErro.textContent = 'Não foi possível carregar as configurações do jogo: ' + (config.erro || 'erro desconhecido') + '. Os Tempos podem aparecer como bloqueados até resolver isso.';
+        avisoErro.classList.add('visivel');
       }
 
-      sheetProgresso.getRange(linha, 16).setValue(new Date()); // UltimaAtualizacao
+      if (progresso.sucesso) {
+        renderizarTempos(config, progresso.progresso);
+        renderizarCertificado(progresso.progresso);
+      } else {
+        avisoErro.textContent = 'Não foi possível carregar seu progresso: ' + (progresso.erro || 'erro desconhecido');
+        avisoErro.classList.add('visivel');
+      }
+    } catch (err) {
+      avisoErro.textContent = 'Não foi possível conectar ao jogo (' + err.message + '). Se você abriu o arquivo direto do computador (endereço começando com "file://"), tente acessar pelo link do GitHub Pages publicado — alguns navegadores bloqueiam essa conexão em arquivos locais.';
+      avisoErro.classList.add('visivel');
+      // Mesmo sem conexão, mostra os Tempos como bloqueados em vez de travar a tela
+      renderizarTempos({ tempo1Liberado: false, tempo2Liberado: false, tempo3Liberado: false }, { tempo1: ['','','',''], tempo2: ['','','',''], tempo3: ['','','',''] });
+    }
+  }
 
-      // Verifica se completou os 3 tempos inteiros para liberar certificado
-      const valores = sheetProgresso.getRange(linha, 1, 1, 16).getValues()[0];
-      const todasRodadas = valores.slice(1, 13);
-      const completouTudo = todasRodadas.every(v => v === 'OK');
+  function contarConcluidas(rodadas) {
+    return rodadas.filter(v => v === 'OK').length;
+  }
 
-      if (completouTudo) {
-        sheetProgresso.getRange(linha, 15).setValue('SIM');
+  function renderizarTempos(config, progresso) {
+    const liberados = {
+      1: config.tempo1Liberado,
+      2: config.tempo2Liberado,
+      3: config.tempo3Liberado
+    };
+    const rodadasPorTempo = {
+      1: progresso.tempo1,
+      2: progresso.tempo2,
+      3: progresso.tempo3
+    };
+
+    const container = document.getElementById('lista-tempos');
+    container.innerHTML = '';
+
+    for (let t = 1; t <= 3; t++) {
+      const concluidas = contarConcluidas(rodadasPorTempo[t]);
+      const completo = concluidas === 4;
+      const liberado = liberados[t];
+      const tema = TEMA_TEMPOS[t];
+
+      const bloco = document.createElement('div');
+      bloco.className = 'bloco-tempo ' + tema + (!liberado ? ' bloqueado' : '') + (completo ? ' concluido' : '');
+
+      let statusTexto;
+      if (!liberado) statusTexto = 'Ainda não liberado pelo professor';
+      else if (completo) statusTexto = 'Tempo concluído! 🏆';
+      else statusTexto = concluidas + ' de 4 rodadas concluídas';
+
+      const cabecalho = document.createElement('div');
+      cabecalho.className = 'cabecalho-bloco-tempo';
+      cabecalho.innerHTML = `
+        ${!liberado ? '<span class="faixa-cadeado">EM BREVE</span>' : ''}
+        <div class="selo-tempo-grande">${t}</div>
+        <div class="info-bloco-tempo">
+          <p class="nome-tempo">${NOMES_TEMPOS[t]}</p>
+          <p class="status-tempo">${statusTexto}</p>
+          <div class="barra-fundo"><div class="barra-preenchida" style="width:${(concluidas/4)*100}%"></div></div>
+        </div>
+        ${liberado ? `
+          <div class="indicador-jogar">
+            <span class="texto-indicador-jogar">${completo ? 'Revisar' : 'Jogar'}</span>
+            <svg class="seta-bloco-tempo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+        ` : ''}
+      `;
+
+      if (liberado) {
+        cabecalho.onclick = () => { window.location.href = 'tempo' + t + '.html'; };
       }
 
-      SpreadsheetApp.flush();
+      const grade = document.createElement('div');
+      grade.className = 'grade-botoes-acao';
 
-      return {
-        sucesso: true,
-        novaFigurinha: novaFigurinha,
-        certificadoLiberado: completouTudo
-      };
-    }
+      const botaoReplay = document.createElement(liberado ? 'a' : 'button');
+      botaoReplay.className = 'botao-acao-tempo ' + tema + (liberado ? '' : ' desabilitado');
+      if (liberado) {
+        botaoReplay.href = LINKS_REPLAY[t];
+        botaoReplay.target = '_blank';
+        botaoReplay.rel = 'noopener';
+      } else {
+        botaoReplay.disabled = true;
+      }
+      botaoReplay.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6.5v11l9-5.5-9-5.5z" fill="currentColor"/><rect x="2.5" y="4" width="19" height="16" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+        Replay da aula
+      `;
 
-    return { sucesso: true, novaFigurinha: null, certificadoLiberado: false };
-  } finally {
-    lock.releaseLock();
-  }
-}
+      const botaoMaterial = document.createElement(liberado ? 'a' : 'button');
+      botaoMaterial.className = 'botao-acao-tempo ' + tema + (liberado ? '' : ' desabilitado');
+      if (liberado) {
+        botaoMaterial.href = LINKS_MATERIAL[t];
+        botaoMaterial.target = '_blank';
+        botaoMaterial.rel = 'noopener';
+      } else {
+        botaoMaterial.disabled = true;
+      }
+      botaoMaterial.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Material da aula
+      `;
 
-/**
- * Lê a aba Configuracoes no formato em que cada CHAVE ocupa uma coluna
- * na linha 1, e o VALOR correspondente fica na linha 2, na mesma coluna.
- * Exemplo (é o formato real usado nesta planilha):
- *   Linha 1:  Tempo1_Liberado | Tempo2_Liberado | Tempo3_Liberado | SenhaAdmin
- *   Linha 2:  SIM             | NAO             | NAO             | minhasenha
- *
- * Também aceita, como alternativa, o formato em que chave e valor ficam
- * na mesma linha, em colunas adjacentes (A=chave, B=valor) — para não
- * quebrar se a planilha for reorganizada no futuro.
- */
-function _lerConfiguracoes() {
-  const sheet = getSheet(ABA_CONFIG);
-  const dados = sheet.getDataRange().getValues();
-  const config = {};
+      grade.appendChild(botaoReplay);
+      grade.appendChild(botaoMaterial);
 
-  if (dados.length === 0) return config;
-
-  const linha1 = dados[0] || [];
-  const linha2 = dados[1] || [];
-
-  // Formato principal: chave na linha 1, valor na linha 2, mesma coluna.
-  for (let col = 0; col < linha1.length; col++) {
-    const chave = String(linha1[col] || '').trim();
-    if (!chave) continue;
-    const valor = String(linha2[col] || '').trim();
-    if (valor) config[chave] = valor;
-  }
-
-  // Formato alternativo: percorre as linhas a partir da 3ª (pula as
-  // duas já usadas pelo formato principal) procurando pares chave
-  // (coluna A) / valor (coluna B) na mesma linha — só preenche o que
-  // ainda não foi capturado acima, para não sobrescrever por engano.
-  for (let i = 2; i < dados.length; i++) {
-    const chave = String(dados[i][0] || '').trim();
-    if (!chave || config[chave]) continue;
-    const valorMesmaLinha = String(dados[i][1] || '').trim();
-    if (valorMesmaLinha) config[chave] = valorMesmaLinha;
-  }
-
-  return config;
-}
-
-/**
- * Marca o certificado como emitido (uma única vez por aluno) e salva
- * o nome exato que a pessoa digitou para a emissão. Usa o mesmo padrão
- * de lock de salvarResposta, para evitar que dois cliques rápidos no
- * botão de emitir gerem uma corrida e burlem a regra de "1 vez só".
- */
-function emitirCertificado(params) {
-  const lock = LockService.getScriptLock();
-  const conseguiuLock = lock.tryLock(10000);
-
-  if (!conseguiuLock) {
-    return { sucesso: false, erro: 'O jogo está ocupado. Tente novamente em alguns segundos.' };
-  }
-
-  try {
-    const email = normalizarEmail(params.email);
-    const nomeParaCertificado = String(params.nomeCertificado || '').trim();
-
-    if (!nomeParaCertificado) {
-      return { sucesso: false, erro: 'Informe o nome para o certificado.' };
-    }
-
-    const sheet = getSheet(ABA_PROGRESSO);
-    const linha = _encontrarLinhaProgresso(sheet, email);
-
-    if (linha === -1) {
-      return { sucesso: false, erro: 'Aluno não encontrado.' };
-    }
-
-    const statusAtual = String(sheet.getRange(linha, 15).getValue() || '').toUpperCase();
-
-    if (statusAtual === 'EMITIDO') {
-      return { sucesso: false, erro: 'Certificado já foi emitido anteriormente. Não é possível emitir novamente.', jaEmitido: true };
-    }
-
-    if (statusAtual !== 'SIM') {
-      return { sucesso: false, erro: 'Você ainda não completou os 3 Tempos para liberar o certificado.' };
-    }
-
-    sheet.getRange(linha, 15).setValue('EMITIDO');
-    sheet.getRange(linha, 16).setValue(new Date());
-    SpreadsheetApp.flush();
-
-    return { sucesso: true, nomeUsado: nomeParaCertificado };
-  } finally {
-    lock.releaseLock();
-  }
-}
-
-/**
- * Retorna quais tempos estão liberados — lido pelo front-end
- * para decidir o que mostrar/bloquear no hub do jogo.
- */
-function pegarConfiguracoes() {
-  const config = _lerConfiguracoes();
-
-  return {
-    sucesso: true,
-    tempo1Liberado: String(config['Tempo1_Liberado'] || '').toUpperCase() === 'SIM',
-    tempo2Liberado: String(config['Tempo2_Liberado'] || '').toUpperCase() === 'SIM',
-    tempo3Liberado: String(config['Tempo3_Liberado'] || '').toUpperCase() === 'SIM'
-  };
-}
-
-/**
- * Confere a senha de admin (armazenada na aba Configuracoes).
- */
-function loginAdmin(params) {
-  const senhaTentativa = String(params.senha || '');
-  const config = _lerConfiguracoes();
-  const senhaCorreta = String(config['SenhaAdmin'] || '');
-
-  if (senhaTentativa && senhaTentativa === senhaCorreta) {
-    return { sucesso: true };
-  }
-  return { sucesso: false, erro: 'Senha incorreta.' };
-}
-
-/**
- * Libera ou bloqueia um Tempo específico — chamado pela tela admin.
- * Escreve no formato real desta planilha: a chave está na linha 1
- * de uma coluna, e o valor vai na linha 2 dessa mesma coluna.
- */
-function liberarTempo(params) {
-  const senhaTentativa = String(params.senha || '');
-  const checaSenha = loginAdmin({ senha: senhaTentativa });
-  if (!checaSenha.sucesso) return checaSenha;
-
-  const tempo = params.tempo; // "1", "2" ou "3"
-  const novoStatus = params.status === 'SIM' ? 'SIM' : 'NAO';
-  const chave = 'Tempo' + tempo + '_Liberado';
-
-  const sheet = getSheet(ABA_CONFIG);
-  const linha1 = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-
-  for (let col = 0; col < linha1.length; col++) {
-    if (String(linha1[col] || '').trim() === chave) {
-      sheet.getRange(2, col + 1).setValue(novoStatus);
-      return { sucesso: true, chave: chave, status: novoStatus };
+      bloco.appendChild(cabecalho);
+      bloco.appendChild(grade);
+      container.appendChild(bloco);
     }
   }
 
-  return { sucesso: false, erro: 'Configuração não encontrada: ' + chave };
-}
+  function renderizarCertificado(progresso) {
+    const container = document.getElementById('bloco-certificado-container');
+    container.innerHTML = '';
 
-
-/**
- * Lista todos os alunos com progresso resumido — usado na tela admin
- * para acompanhamento geral da turma.
- */
-function listarAlunos(params) {
-  const senhaTentativa = String(params.senha || '');
-  const checaSenha = loginAdmin({ senha: senhaTentativa });
-  if (!checaSenha.sucesso) return checaSenha;
-
-  const sheetUsuarios = getSheet(ABA_USUARIOS);
-  const sheetProgresso = getSheet(ABA_PROGRESSO);
-
-  const usuarios = sheetUsuarios.getDataRange().getValues();
-  const progressos = sheetProgresso.getDataRange().getValues();
-
-  const mapaProgresso = {};
-  for (let i = 1; i < progressos.length; i++) {
-    mapaProgresso[normalizarEmail(progressos[i][0])] = progressos[i];
-  }
-
-  const lista = [];
-  for (let i = 1; i < usuarios.length; i++) {
-    const email = normalizarEmail(usuarios[i][1]);
-    const prog = mapaProgresso[email];
-
-    let rodadasCompletas = 0;
-    let figurinhas = 0;
-    let certificado = 'NAO';
-
-    if (prog) {
-      const rodadas = prog.slice(1, 13);
-      rodadasCompletas = rodadas.filter(v => v === 'OK').length;
-      figurinhas = prog[13] ? String(prog[13]).split(',').filter(Boolean).length : 0;
-      certificado = prog[14] || 'NAO';
+    if (progresso.certificadoLiberado) {
+      const jaEmitido = progresso.certificadoJaEmitido;
+      container.innerHTML = `
+        <div class="bloco-certificado">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#020617" stroke-width="1.8"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5 5 2.5-1.5-8.5"/></svg>
+          <p>${jaEmitido ? 'Você já emitiu seu certificado da Copa dos Dados!' : 'Você completou a Copa dos Dados! Seu certificado está liberado.'}</p>
+          <button onclick="window.location.href='certificado.html'">${jaEmitido ? 'Ver meu certificado' : 'Receber meu certificado'}</button>
+        </div>
+      `;
     }
-
-    lista.push({
-      nome: usuarios[i][0],
-      email: email,
-      rodadasCompletas: rodadasCompletas,
-      totalRodadas: 12,
-      figurinhas: figurinhas,
-      certificado: certificado
-    });
   }
 
-  return { sucesso: true, alunos: lista };
-}
+  // Tenta reentrar automaticamente se já tem sessão ativa
+  window.addEventListener('DOMContentLoaded', () => {
+    const sessao = pegarSessao();
+    if (sessao.email) entrarNoHub();
+  });
+</script>
+
+</body>
+</html>
