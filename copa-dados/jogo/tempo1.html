@@ -648,7 +648,7 @@
   <section class="cartao-rodada" id="rodada-1" data-rodada="1">
     <span class="selo-rodada">Rodada 1 de 4</span>
     <h2 class="titulo-rodada">⚽ Escalação dos Dados</h2>
-    <p class="enunciado-rodada">Quais desses jogadores você deve escalar quando o seu principal adversário for a modelagem dos seus dados? Arraste os <strong>6 jogadores certos</strong> para o campo.</p>
+    <p class="enunciado-rodada">Quais desses jogadores foram convocados para a aula de Excel? Arraste os <strong>6 jogadores certos</strong> para o campo.</p>
 
     <div class="campo-futebol" id="campo-futebol">
       <span class="rotulo-area">TIME TITULAR</span>
@@ -866,20 +866,18 @@
      RODADA 1 — Escalação dos Dados (arrastar para o campo)
   ======================================================= */
   const JOGADORES_R1 = [
-    { id: 'j01', nome: 'Power Query', correto: true },
-    { id: 'j02', nome: 'Validação de Dados', correto: true },
-    { id: 'j03', nome: 'Tabela Verdadeira (Ctrl+T)', correto: true },
-    { id: 'j04', nome: 'PROCX (XLOOKUP)', correto: true },
-    { id: 'j05', nome: 'Função Texto (Mês/Ano)', correto: true },
-    { id: 'j06', nome: 'Formatação Condicional', correto: true },
-    { id: 'j07', nome: 'WordArt', correto: false },
-    { id: 'j08', nome: 'Planilha sem cabeçalho', correto: false },
-    { id: 'j09', nome: 'Colar como imagem', correto: false },
-    { id: 'j10', nome: 'Mesclar células', correto: false },
-    { id: 'j11', nome: 'Cores aleatórias por linha', correto: false },
-    { id: 'j12', nome: 'Colar valores fixos sem fórmula', correto: false },
-    { id: 'j13', nome: 'Filtro sem cabeçalho fixo', correto: false },
-    { id: 'j14', nome: 'Fontes diferentes na coluna', correto: false }
+    { id: 'j01', nome: 'Funções matriciais', correto: true },
+    { id: 'j02', nome: 'Gráfico de pizza', correto: false },
+    { id: 'j03', nome: 'Tabela Verdadeira', correto: true },
+    { id: 'j04', nome: 'Função Índice', correto: false },
+    { id: 'j05', nome: 'Função Filtro', correto: true },
+    { id: 'j06', nome: 'WordArt', correto: false },
+    { id: 'j07', nome: 'PowerPivot', correto: false },
+    { id: 'j08', nome: 'Gráfico de coluna', correto: true },
+    { id: 'j09', nome: 'Segmentação de Dados', correto: true },
+    { id: 'j10', nome: 'VBA', correto: false },
+    { id: 'j11', nome: 'Tabela Dinâmica', correto: true },
+    { id: 'j12', nome: 'Mesclar células', correto: false }
   ];
 
   const MAXIMO_JOGADORES_NO_CAMPO = 6;
@@ -1015,7 +1013,7 @@
   const ITENS_R2 = [
     { id: 'a01', texto: 'Compartilhar um link com permissão "somente visualização"', cat: 'segue' },
     { id: 'a02', texto: 'Remover dados sensíveis antes de enviar a planilha', cat: 'segue' },
-    { id: 'a05', texto: 'Mandar a planilha por e-mail com cópia para a empresa toda', cat: 'amarelo' },
+    { id: 'a05', texto: 'Esquecer de bloquear a tela do computador ao ir almoçar', cat: 'amarelo' },
     { id: 'a04', texto: 'Compartilhar a planilha inteira com o ChatGPT', cat: 'vermelho' },
     { id: 'a07', texto: 'Postar print de dados confidenciais em grupo do WhatsApp', cat: 'vermelho' },
     { id: 'a08', texto: 'Compartilhar a planilha publicamente na internet', cat: 'vermelho' }
