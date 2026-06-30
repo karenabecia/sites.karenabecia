@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Tempo 2 — Power BI | Copa dos Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amarelo: #FFD400;
+    --amarelo-escuro: #C99A00;
+    --amarelo-claro: #FFF7DC;
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --vermelho: #E74C3C;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--amarelo) 0%, var(--amarelo-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
+  }
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(16px, 4.5vw, 22px);
+    margin: 0;
+  }
+  header.topo .nome-etapa {
+    color: var(--branco);
+    font-size: 12.5px;
+    margin: 3px 0 0;
+    font-weight: 500;
+  }
+
+  .barra-progresso-geral {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px 0;
+  }
+  .bolinha-rodada {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .bolinha-rodada.ativa { background: var(--azul-noite); color: var(--amarelo); border-color: var(--azul-noite); }
+  .bolinha-rodada.concluida { background: var(--branco); color: var(--amarelo-escuro); border-color: var(--branco); }
+  .bolinha-rodada.navegavel { cursor: pointer; }
+  .bolinha-rodada.navegavel:active { transform: scale(0.9); }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 18px 16px 60px;
+  }
+
+  .cartao-rodada {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 22px 18px;
+    margin-top: 16px;
+  }
+
+  .selo-rodada {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amarelo-claro);
+    color: var(--amarelo-escuro);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  h2.titulo-rodada {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 19px;
+    margin: 0 0 8px;
+    color: var(--azul-noite);
+  }
+  p.enunciado-rodada {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.55;
+    margin: 0 0 18px;
+  }
+
+  /* ===== RODADA 1: Crachás de conector (toque para incluir/excluir) ===== */
+  .grade-crachas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .cracha-conector {
+    background: var(--cinza-fundo);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    min-height: 90px;
+    justify-content: center;
+  }
+  .cracha-conector:active { transform: scale(0.96); }
+  .icone-cracha {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .nome-cracha {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--azul-noite);
+    line-height: 1.3;
+  }
+  .cracha-conector.incluido {
+    background: #E8F8ED;
+    border-color: var(--verde);
+  }
+  .cracha-conector.excluido {
+    background: #FFEAEA;
+    border-color: var(--vermelho);
+  }
+  .selo-decisao-cracha {
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: var(--branco);
+  }
+  .cracha-conector.incluido .selo-decisao-cracha { background: var(--verde); }
+  .cracha-conector.excluido .selo-decisao-cracha { background: var(--vermelho); }
+  .cracha-conector:not(.incluido):not(.excluido) .selo-decisao-cracha { display: none; }
+
+  .legenda-crachas {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 11.5px;
+    color: #777;
+    margin-bottom: 16px;
+  }
+  .legenda-crachas span { display: flex; align-items: center; gap: 5px; }
+  .ponto-legenda { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .ponto-legenda.verde { background: var(--verde); }
+  .ponto-legenda.vermelho { background: var(--vermelho); }
+
+  /* ===== RODADA 2: Múltipla escolha em formato de placar ===== */
+  .lista-alternativas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .alternativa-placar {
+    background: var(--cinza-fundo);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+    min-height: 44px;
+  }
+  .alternativa-placar:active { transform: scale(0.98); }
+  .alternativa-placar.selecionada {
+    background: var(--amarelo-claro);
+    border-color: var(--amarelo-escuro);
+  }
+  .letra-alternativa {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--azul-noite);
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .alternativa-placar.selecionada .letra-alternativa {
+    background: var(--amarelo-escuro);
+    color: var(--branco);
+  }
+  .texto-alternativa {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--azul-noite);
+  }
+
+  /* ===== RODADA 3: Chaveamento (bracket) de torneio ===== */
+  .bracket-container {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-bottom: 18px;
+  }
+  .fase-bracket {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .titulo-fase-bracket {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--amarelo-escuro);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .confronto-bracket {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .jogador-bracket {
+    flex: 1;
+    background: var(--cinza-fundo);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .jogador-bracket:active { transform: scale(0.96); }
+  .jogador-bracket .nome-funcao {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13.5px;
+    color: var(--azul-noite);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .jogador-bracket .descricao-funcao {
+    font-size: 10.5px;
+    color: #777;
+    line-height: 1.35;
+  }
+  .jogador-bracket.vencedor-escolhido {
+    background: var(--amarelo-claro);
+    border-color: var(--amarelo-escuro);
+  }
+  .jogador-bracket.vencedor-escolhido .nome-funcao::after {
+    content: ' 🏆';
+  }
+  .vs-bracket {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    color: #AAA;
+    flex-shrink: 0;
+  }
+  .jogador-bracket.bloqueado-bracket {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .jogador-bracket.indefinido-bracket {
+    background: repeating-linear-gradient(135deg, #F4F7F2, #F4F7F2 8px, #EAEAE0 8px, #EAEAE0 16px);
+  }
+  .jogador-bracket.indefinido-bracket .nome-funcao,
+  .jogador-bracket.indefinido-bracket .descricao-funcao { color: #BBB; }
+
+  .trofeu-final-bracket {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* ===== RODADA 4: Cartas VAR (reaproveitado do Tempo 1) ===== */
+  .grade-cartas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: stretch;
+  }
+  .carta-var {
+    background: linear-gradient(135deg, var(--azul-noite) 0%, #1a1a05 100%);
+    border-radius: 14px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 10px;
+    cursor: pointer;
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    position: relative;
+    transition: transform 0.25s ease;
+  }
+  .carta-var.virada {
+    background: var(--branco);
+    color: var(--azul-noite);
+    border: 2px solid var(--cinza-fundo);
+  }
+  .carta-var .frente-texto {
+    display: none;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+    width: 100%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .carta-var.virada .verso-texto { display: none; }
+  .carta-var.virada .frente-texto { display: flex; }
+  .carta-var:active { transform: scale(0.96); }
+
+  .texto-pergunta-carta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 44px;
+  }
+
+  .botoes-sim-nao {
+    display: none;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+  .carta-var.virada .botoes-sim-nao { display: flex; }
+  .botoes-sim-nao button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    height: 38px;
+    min-width: 0;
+  }
+  .botao-sim-carta { background: var(--verde); color: var(--branco); }
+  .botao-nao-carta { background: var(--vermelho); color: var(--branco); }
+  .botao-sim-carta.selecionado, .botao-nao-carta.selecionado { box-shadow: 0 0 0 2px var(--azul-noite); }
+
+  /* ===== Botão confirmar e feedback (reaproveitado do Tempo 1) ===== */
+  .botao-confirmar {
+    width: 100%;
+    padding: 15px 0;
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15.5px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(255,212,0,0.4);
+    margin-top: 6px;
+    min-height: 48px;
+  }
+  .botao-confirmar:active { transform: scale(0.98); }
+  .botao-confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .feedback-rodada {
+    border-radius: 14px;
+    padding: 16px;
+    margin-top: 14px;
+    text-align: center;
+    display: none;
+  }
+  .feedback-rodada.visivel { display: block; }
+  .feedback-rodada.acertou { background: #FFF7DC; }
+  .feedback-rodada.errou { background: #FFEAEA; }
+  .feedback-rodada p {
+    margin: 0 0 10px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .feedback-rodada.acertou p { color: var(--amarelo-escuro); }
+  .feedback-rodada.errou p { color: #C0392B; }
+  .feedback-rodada button {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-weight: 600;
+    font-size: 13.5px;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .botao-tentar-novamente { background: var(--azul-noite); color: var(--branco); }
+  .botao-proxima-rodada { background: var(--amarelo-escuro); color: var(--branco); }
+
+  .lista-correcao {
+    text-align: left;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .linha-correcao {
+    background: var(--branco);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 12.5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-left: 4px solid var(--vermelho);
+  }
+  .linha-correcao .icone-correcao { flex-shrink: 0; font-size: 14px; line-height: 1.3; }
+  .linha-correcao .texto-correcao { flex: 1; line-height: 1.4; color: #333; }
+  .linha-correcao .texto-correcao strong { color: var(--azul-noite); }
+
+  /* ===== OVERLAY DE COMEMORAÇÃO ===== */
+  .overlay-comemoracao {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.78);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .overlay-comemoracao.visivel { display: flex; }
+
+  .card-comemoracao {
+    background: var(--branco);
+    border-radius: 24px;
+    padding: 32px 26px;
+    text-align: center;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    animation: apareceComemoracao 0.35s ease;
+  }
+  @keyframes apareceComemoracao {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .emoji-comemoracao { font-size: 44px; margin-bottom: 6px; }
+
+  .card-comemoracao h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: var(--amarelo-escuro);
+    font-size: 21px;
+    margin: 0 0 6px;
+  }
+  .card-comemoracao .texto-figurinha-nova {
+    font-size: 13.5px;
+    color: #555;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .card-comemoracao .texto-figurinha-nova strong { color: var(--azul-noite); }
+
+  .imagem-figurinha-liberada {
+    width: 110px;
+    height: 165px;
+    object-fit: contain;
+    margin: 0 auto 16px;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    border: 3px solid var(--amarelo);
+  }
+
+  .barra-contagem-fundo {
+    background: var(--cinza-fundo);
+    border-radius: 8px;
+    height: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .barra-contagem-preenchida {
+    background: var(--amarelo-escuro);
+    height: 100%;
+    border-radius: 8px;
+    width: 100%;
+    transform-origin: right;
+  }
+  .barra-contagem-preenchida.animando {
+    animation: esvaziaContagem 5s linear forwards;
+  }
+  @keyframes esvaziaContagem {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+  }
+
+  .legenda-contagem-overlay {
+    font-size: 11.5px;
+    color: #999;
+    margin-top: 8px;
+  }
+
+  .botao-pular-overlay {
+    background: none;
+    border: none;
+    color: var(--amarelo-escuro);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 14px;
+    padding: 6px;
+  }
+
+  /* ===== Tela de Tempo concluído ===== */
+  #tela-concluido { display: none; text-align: center; }
+  .figurinha-ganha {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 30px 24px;
+    margin-top: 20px;
+  }
+  .figurinha-ganha h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: var(--amarelo-escuro);
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+  .figurinha-ganha p {
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+  .figurinha-ganha .botao-confirmar { display: inline-block; width: auto; padding: 14px 28px; text-decoration: none; }
+
+  .grade-figurinhas-finais {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    margin-bottom: 0;
+  }
+  .figurinha-ganha .grade-figurinhas-finais img {
+    width: 64px !important;
+    height: 96px !important;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid var(--amarelo);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    margin: 0;
+    display: block;
+  }
+
+  .voltar-hub {
+    display: block;
+    text-align: center;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    padding: 16px;
+    text-decoration: underline;
+  }
+
+  footer.rodape {
+    text-align: center;
+    padding: 18px 14px 26px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <p class="evento">COPA DOS DADOS</p>
+  <p class="nome-etapa">Tempo 2 — Power BI 🟡</p>
+</header>
+
+<div class="barra-progresso-geral" id="barra-progresso-geral"></div>
+
+<main>
+
+  <!-- ============ RODADA 1 ============ -->
+  <section class="cartao-rodada" id="rodada-1" data-rodada="1">
+    <span class="selo-rodada">Rodada 1 de 4</span>
+    <h2 class="titulo-rodada">📋 Mestre da Prancheta</h2>
+    <p class="enunciado-rodada">Quais desses conectores podemos usar de forma nativa no Power Query do Power BI? Toque uma vez para <strong>incluir</strong>, e de novo para <strong>excluir</strong>.</p>
+
+    <div class="legenda-crachas">
+      <span><span class="ponto-legenda verde"></span> Conector nativo</span>
+      <span><span class="ponto-legenda vermelho"></span> Não é conector</span>
+    </div>
+
+    <div class="grade-crachas" id="grade-crachas"></div>
+
+    <button class="botao-confirmar" id="botao-confirmar-r1" onclick="confirmarRodada1()">Confirmar escalação</button>
+    <div class="feedback-rodada" id="feedback-r1"></div>
+  </section>
+
+  <!-- ============ RODADA 2 ============ -->
+  <section class="cartao-rodada" id="rodada-2" data-rodada="2" style="display:none;">
+    <span class="selo-rodada">Rodada 2 de 4</span>
+    <h2 class="titulo-rodada">🎯 Análise Camisa 10</h2>
+    <p class="enunciado-rodada">Qual dessas ferramentas permite você transformar o seu layout em um atacante camisa 10?</p>
+
+    <div class="lista-alternativas" id="lista-alternativas"></div>
+
+    <button class="botao-confirmar" id="botao-confirmar-r2" onclick="confirmarRodada2()">Confirmar resposta</button>
+    <div class="feedback-rodada" id="feedback-r2"></div>
+  </section>
+
+  <!-- ============ RODADA 3 ============ -->
+  <section class="cartao-rodada" id="rodada-3" data-rodada="3" style="display:none;">
+    <span class="selo-rodada">Rodada 3 de 4</span>
+    <h2 class="titulo-rodada">🏆 Mata-mata da DAX</h2>
+    <p class="enunciado-rodada">Quem vence cada confronto? Toque na função que você acha que avança de fase. A grande campeã do mata-mata é a função <strong>CALCULATE</strong>.</p>
+
+    <div class="bracket-container" id="bracket-container"></div>
+
+    <button class="botao-confirmar" id="botao-confirmar-r3" onclick="confirmarRodada3()" disabled>Confirmar campeã</button>
+    <div class="feedback-rodada" id="feedback-r3"></div>
+  </section>
+
+  <!-- ============ RODADA 4 ============ -->
+  <section class="cartao-rodada" id="rodada-4" data-rodada="4" style="display:none;">
+    <span class="selo-rodada">Rodada 4 de 4</span>
+    <h2 class="titulo-rodada">🚦 VAR dos Dados</h2>
+    <p class="enunciado-rodada">Toque na carta para virar. Depois, decida: esse conteúdo apareceu na aula de hoje?</p>
+
+    <div class="grade-cartas" id="grade-cartas"></div>
+
+    <button class="botao-confirmar" id="botao-confirmar-r4" onclick="confirmarRodada4()">Confirmar decisão do VAR</button>
+    <div class="feedback-rodada" id="feedback-r4"></div>
+  </section>
+
+  <!-- ============ TELA FINAL ============ -->
+  <section id="tela-concluido">
+    <div class="figurinha-ganha">
+      <h2>Parabéns! Você liberou 4 figurinhas!</h2>
+      <p>Você completou o Tempo 2 — Power BI e já pode ver todas elas no seu álbum. Te vejo no próximo Tempo!</p>
+      <a class="botao-confirmar" href="album.html" style="margin-bottom:10px;">Ver meu álbum</a>
+      <a class="botao-confirmar" href="index.html" style="background:var(--azul-noite); color:var(--branco); box-shadow:none;">Voltar para Jogo</a>
+      <div class="grade-figurinhas-finais">
+        <img src="../figurinha/Fig-05.png" alt="Figurinha Rodada 1" loading="eager">
+        <img src="../figurinha/Fig-06.png" alt="Figurinha Rodada 2" loading="eager">
+        <img src="../figurinha/Fig-07.png" alt="Figurinha Rodada 3" loading="eager">
+        <img src="../figurinha/Fig-08.png" alt="Figurinha Rodada 4" loading="eager">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== OVERLAY DE COMEMORAÇÃO ===== -->
+<div class="overlay-comemoracao" id="overlay-comemoracao">
+  <div class="card-comemoracao">
+    <div class="emoji-comemoracao" id="emoji-comemoracao">🎉</div>
+    <h2 id="titulo-comemoracao">Golaço!</h2>
+    <p class="texto-figurinha-nova" id="texto-comemoracao">Você liberou uma nova figurinha!</p>
+    <img class="imagem-figurinha-liberada" id="imagem-comemoracao" src="" alt="Figurinha liberada">
+    <div class="barra-contagem-fundo"><div class="barra-contagem-preenchida" id="barra-contagem-comemoracao"></div></div>
+    <p class="legenda-contagem-overlay">Seguindo para a próxima rodada...</p>
+    <button class="botao-pular-overlay" id="botao-pular-comemoracao">Pular e continuar agora</button>
+  </div>
+</div>
+
+<a class="voltar-hub" href="index.html">← Voltar para Jogo</a>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+<script>
+  const API_URL = "https://script.google.com/macros/s/AKfycbykfT27CwLkBStDKKrWa-Si7MTRTBmQO1QoSJ612iURPQ_99Z4gBtPwHp4W75wPfc0fBA/exec";
+  const TEMPO_ATUAL = 2;
+
+  // Cada rodada do Tempo 2 dá uma figurinha diferente — 4 no total deste Tempo
+  const FIGURINHAS_POR_RODADA = {
+    1: { id: "fig05-tempo2-rodada1", arquivo: "Fig-05.png", nome: "Mestre da Prancheta" },
+    2: { id: "fig06-tempo2-rodada2", arquivo: "Fig-06.png", nome: "Análise Camisa 10" },
+    3: { id: "fig07-tempo2-rodada3", arquivo: "Fig-07.png", nome: "Mata-mata da DAX" },
+    4: { id: "fig08-tempo2-rodada4", arquivo: "Fig-08.png", nome: "VAR dos Dados" }
+  };
+
+  function pegarSessao() {
+    return {
+      nome: sessionStorage.getItem('copaDados_nome'),
+      email: sessionStorage.getItem('copaDados_email')
+    };
+  }
+
+  const sessao = pegarSessao();
+  if (!sessao.email) {
+    window.location.href = 'index.html';
+  }
+
+  const rodadasConcluidas = { 1: false, 2: false, 3: false, 4: false };
+  let rodadaAtualExibida = 1;
+
+  async function chamarAPI(params) {
+    const corpo = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL, {
+      method: 'POST',
+      body: corpo,
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      redirect: 'follow'
+    });
+    return await resposta.json();
+  }
+
+  function renderizarBarraProgresso(rodadaAtiva) {
+    const container = document.getElementById('barra-progresso-geral');
+    container.innerHTML = '';
+    for (let i = 1; i <= 4; i++) {
+      const bolinha = document.createElement('div');
+      const concluida = rodadasConcluidas[i];
+      bolinha.className = 'bolinha-rodada' + (concluida ? ' concluida' : '') + (i === rodadaAtiva ? ' ativa' : '');
+      bolinha.textContent = i;
+
+      const podeNavegar = concluida || i === rodadaAtiva || i === proximaRodadaDisponivel();
+      if (podeNavegar && i !== rodadaAtiva) {
+        bolinha.classList.add('navegavel');
+        bolinha.onclick = () => mostrarRodada(i);
+      }
+
+      container.appendChild(bolinha);
+    }
+  }
+
+  function proximaRodadaDisponivel() {
+    for (let i = 1; i <= 4; i++) {
+      if (!rodadasConcluidas[i]) return i;
+    }
+    return 4;
+  }
+
+  function mostrarRodada(numero) {
+    rodadaAtualExibida = numero;
+    [1,2,3,4].forEach(n => {
+      document.getElementById('rodada-' + n).style.display = n === numero ? 'block' : 'none';
+      const feedback = document.getElementById('feedback-r' + n);
+      if (n === numero && feedback) feedback.classList.remove('visivel');
+      const botaoConfirmar = document.getElementById('botao-confirmar-r' + numero);
+      if (botaoConfirmar) botaoConfirmar.style.display = 'block';
+    });
+    renderizarBarraProgresso(numero);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function avancarParaProxima(rodadaConcluida) {
+    rodadasConcluidas[rodadaConcluida] = true;
+
+    if (rodadaConcluida < 4) {
+      mostrarRodada(rodadaConcluida + 1);
+    } else {
+      document.querySelectorAll('.cartao-rodada').forEach(el => el.style.display = 'none');
+      document.getElementById('barra-progresso-geral').style.display = 'none';
+      mostrarTelaFinalConcluido();
+    }
+  }
+
+  function mostrarTelaFinalConcluido() {
+    document.getElementById('tela-concluido').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function registrarResultado(rodada, acertou, respostaDada) {
+    try {
+      const resultado = await chamarAPI({
+        acao: 'salvarResposta',
+        email: sessao.email,
+        tempo: TEMPO_ATUAL,
+        rodada: rodada,
+        acertou: acertou,
+        respostaDada: respostaDada,
+        figurinhaId: FIGURINHAS_POR_RODADA[rodada] ? FIGURINHAS_POR_RODADA[rodada].id : ''
+      });
+      return resultado;
+    } catch (err) {
+      console.error('Erro ao salvar resposta', err);
+      return { sucesso: false };
+    }
+  }
+
+  function embaralhar(lista) {
+    const copia = [...lista];
+    for (let i = copia.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copia[i], copia[j]] = [copia[j], copia[i]];
+    }
+    return copia;
+  }
+
+  /* =======================================================
+     RODADA 1 — Mestre da Prancheta (crachás de conector)
+  ======================================================= */
+  const CONECTORES_R1 = [
+    { id: 'c01', nome: 'Excel', icone: '📊', nativo: true },
+    { id: 'c02', nome: 'CSV/TXT', icone: '📄', nativo: true },
+    { id: 'c03', nome: 'SQL Server', icone: '🗄️', nativo: true },
+    { id: 'c04', nome: 'SharePoint Folder', icone: '📁', nativo: true },
+    { id: 'c05', nome: 'JSON', icone: '🔡', nativo: true },
+    { id: 'c06', nome: 'Web', icone: '🌐', nativo: true },
+    { id: 'c07', nome: 'WhatsApp', icone: '💬', nativo: false },
+    { id: 'c08', nome: 'Instagram', icone: '📷', nativo: false },
+    { id: 'c09', nome: 'PowerPoint', icone: '📽️', nativo: false },
+    { id: 'c10', nome: 'Claude', icone: '🤖', nativo: false }
+  ];
+
+  const decisoesR1 = {}; // 'incluido' | 'excluido'
+
+  function montarRodada1() {
+    const grade = document.getElementById('grade-crachas');
+    embaralhar(CONECTORES_R1).forEach(conector => {
+      const div = document.createElement('div');
+      div.className = 'cracha-conector';
+      div.id = 'cracha-' + conector.id;
+      div.innerHTML = `
+        <div class="icone-cracha">${conector.icone}</div>
+        <span class="nome-cracha">${conector.nome}</span>
+        <span class="selo-decisao-cracha" id="selo-cracha-${conector.id}"></span>
+      `;
+      div.onclick = () => alternarCracha(conector.id);
+      grade.appendChild(div);
+    });
+  }
+
+  function alternarCracha(id) {
+    const atual = decisoesR1[id];
+    let proximo;
+    if (!atual) proximo = 'incluido';
+    else if (atual === 'incluido') proximo = 'excluido';
+    else proximo = null;
+
+    decisoesR1[id] = proximo;
+
+    const cracha = document.getElementById('cracha-' + id);
+    const selo = document.getElementById('selo-cracha-' + id);
+    cracha.classList.remove('incluido', 'excluido');
+
+    if (proximo === 'incluido') {
+      cracha.classList.add('incluido');
+      selo.textContent = 'INCLUÍDO';
+    } else if (proximo === 'excluido') {
+      cracha.classList.add('excluido');
+      selo.textContent = 'EXCLUÍDO';
+    } else {
+      selo.textContent = '';
+    }
+  }
+
+  async function confirmarRodada1() {
+    const semDecisao = CONECTORES_R1.some(c => !decisoesR1[c.id]);
+    if (semDecisao) {
+      alert('Decida incluído ou excluído para todos os conectores.');
+      return;
+    }
+
+    const acertouTudo = CONECTORES_R1.every(c => {
+      const decisaoCorreta = c.nativo ? 'incluido' : 'excluido';
+      return decisoesR1[c.id] === decisaoCorreta;
+    });
+
+    const respostaTexto = CONECTORES_R1.map(c => c.id + ':' + decisoesR1[c.id]).join(', ');
+    const resultadoApi = await registrarResultado(1, acertouTudo, respostaTexto);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const errados = CONECTORES_R1.filter(c => {
+        const decisaoCorreta = c.nativo ? 'incluido' : 'excluido';
+        return decisoesR1[c.id] !== decisaoCorreta;
+      });
+      htmlErro = '<div class="lista-correcao">';
+      errados.forEach(c => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${c.nome}</strong> está com a decisão errada.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r1', acertouTudo, 1, htmlErro, resultadoApi);
+  }
+
+  /* =======================================================
+     RODADA 2 — Análise Camisa 10 (múltipla escolha)
+  ======================================================= */
+  const ALTERNATIVAS_R2 = [
+    { id: 'alt01', texto: 'Tabela Dinâmica', correta: false },
+    { id: 'alt02', texto: 'Medidas', correta: false },
+    { id: 'alt03', texto: 'Mockup', correta: true },
+    { id: 'alt04', texto: 'Power Query', correta: false },
+    { id: 'alt05', texto: 'DAX', correta: false },
+    { id: 'alt06', texto: 'Calculadora', correta: false },
+    { id: 'alt07', texto: 'Bloco de notas', correta: false }
+  ];
+
+  let alternativaSelecionadaR2 = null;
+
+  function montarRodada2() {
+    const lista = document.getElementById('lista-alternativas');
+    const letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+    embaralhar(ALTERNATIVAS_R2).forEach((alt, indice) => {
+      const div = document.createElement('div');
+      div.className = 'alternativa-placar';
+      div.id = 'alt-' + alt.id;
+      div.innerHTML = `
+        <span class="letra-alternativa">${letras[indice]}</span>
+        <span class="texto-alternativa">${alt.texto}</span>
+      `;
+      div.onclick = () => selecionarAlternativaR2(alt.id);
+      lista.appendChild(div);
+    });
+  }
+
+  function selecionarAlternativaR2(id) {
+    alternativaSelecionadaR2 = id;
+    document.querySelectorAll('.alternativa-placar').forEach(el => el.classList.remove('selecionada'));
+    document.getElementById('alt-' + id).classList.add('selecionada');
+  }
+
+  async function confirmarRodada2() {
+    if (!alternativaSelecionadaR2) {
+      alert('Escolha uma alternativa antes de confirmar.');
+      return;
+    }
+
+    const alternativa = ALTERNATIVAS_R2.find(a => a.id === alternativaSelecionadaR2);
+    const acertou = alternativa.correta;
+
+    const resultadoApi = await registrarResultado(2, acertou, alternativa.texto);
+
+    let htmlErro = '';
+    if (!acertou) {
+      htmlErro = `<div class="lista-correcao"><div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${alternativa.texto}</strong> não é a resposta certa.</span></div></div>`;
+    }
+
+    mostrarFeedback('feedback-r2', acertou, 2, htmlErro, resultadoApi);
+  }
+
+  /* =======================================================
+     RODADA 3 — Mata-mata da DAX (chaveamento)
+  ======================================================= */
+  const CHAVEAMENTO_R3 = {
+    semifinal1: {
+      a: { nome: 'SUM', descricao: 'Soma os valores de uma coluna.' },
+      b: { nome: 'CALCULATE', descricao: 'Modifica o contexto de filtro de um cálculo.' },
+      vencedor: 'b'
+    },
+    semifinal2: {
+      a: { nome: 'FILTER', descricao: 'Retorna uma tabela filtrada por uma condição.' },
+      b: { nome: 'ALL', descricao: 'Remove filtros de uma tabela ou coluna.' },
+      vencedor: 'b'
+    },
+    final: {
+      vencedor: 'CALCULATE'
+    }
+  };
+
+  const escolhasR3 = { semifinal1: null, semifinal2: null, final: null };
+
+  function montarRodada3() {
+    const container = document.getElementById('bracket-container');
+
+    const faseSemi = document.createElement('div');
+    faseSemi.className = 'fase-bracket';
+    faseSemi.innerHTML = '<p class="titulo-fase-bracket">Semifinal</p>';
+
+    ['semifinal1', 'semifinal2'].forEach(chaveId => {
+      const confronto = CHAVEAMENTO_R3[chaveId];
+      const div = document.createElement('div');
+      div.className = 'confronto-bracket';
+      div.innerHTML = `
+        <div class="jogador-bracket" id="bracket-${chaveId}-a" onclick="escolherVencedorSemi('${chaveId}', 'a')">
+          <span class="nome-funcao">${confronto.a.nome}</span>
+          <span class="descricao-funcao">${confronto.a.descricao}</span>
+        </div>
+        <span class="vs-bracket">VS</span>
+        <div class="jogador-bracket" id="bracket-${chaveId}-b" onclick="escolherVencedorSemi('${chaveId}', 'b')">
+          <span class="nome-funcao">${confronto.b.nome}</span>
+          <span class="descricao-funcao">${confronto.b.descricao}</span>
+        </div>
+      `;
+      faseSemi.appendChild(div);
+    });
+
+    container.appendChild(faseSemi);
+
+    const faseFinal = document.createElement('div');
+    faseFinal.className = 'fase-bracket';
+    faseFinal.innerHTML = `
+      <p class="titulo-fase-bracket">Final</p>
+      <div class="confronto-bracket">
+        <div class="jogador-bracket indefinido-bracket bloqueado-bracket" id="bracket-final-a">
+          <span class="nome-funcao">?</span>
+          <span class="descricao-funcao">Vencedor da semifinal 1</span>
+        </div>
+        <span class="vs-bracket">VS</span>
+        <div class="jogador-bracket indefinido-bracket bloqueado-bracket" id="bracket-final-b">
+          <span class="nome-funcao">?</span>
+          <span class="descricao-funcao">Vencedor da semifinal 2</span>
+        </div>
+      </div>
+      <p class="trofeu-final-bracket">🏆 Toque na função final depois de decidir as duas semifinais</p>
+    `;
+    container.appendChild(faseFinal);
+  }
+
+  function escolherVencedorSemi(chaveId, ladoEscolhido) {
+    escolhasR3[chaveId] = ladoEscolhido;
+    const confronto = CHAVEAMENTO_R3[chaveId];
+
+    document.getElementById('bracket-' + chaveId + '-a').classList.toggle('vencedor-escolhido', ladoEscolhido === 'a');
+    document.getElementById('bracket-' + chaveId + '-b').classList.toggle('vencedor-escolhido', ladoEscolhido === 'b');
+
+    atualizarFinalBracket();
+  }
+
+  function atualizarFinalBracket() {
+    const semi1 = escolhasR3.semifinal1;
+    const semi2 = escolhasR3.semifinal2;
+
+    const slotA = document.getElementById('bracket-final-a');
+    const slotB = document.getElementById('bracket-final-b');
+
+    if (semi1) {
+      const vencedor1 = CHAVEAMENTO_R3.semifinal1[semi1];
+      slotA.classList.remove('indefinido-bracket', 'bloqueado-bracket');
+      slotA.innerHTML = `<span class="nome-funcao">${vencedor1.nome}</span><span class="descricao-funcao">${vencedor1.descricao}</span>`;
+      slotA.onclick = () => escolherCampeaoFinal(vencedor1.nome);
+    }
+
+    if (semi2) {
+      const vencedor2 = CHAVEAMENTO_R3.semifinal2[semi2];
+      slotB.classList.remove('indefinido-bracket', 'bloqueado-bracket');
+      slotB.innerHTML = `<span class="nome-funcao">${vencedor2.nome}</span><span class="descricao-funcao">${vencedor2.descricao}</span>`;
+      slotB.onclick = () => escolherCampeaoFinal(vencedor2.nome);
+    }
+
+    if (semi1 && semi2) {
+      slotA.classList.toggle('vencedor-escolhido', escolhasR3.final === CHAVEAMENTO_R3.semifinal1[semi1].nome);
+      slotB.classList.toggle('vencedor-escolhido', escolhasR3.final === CHAVEAMENTO_R3.semifinal2[semi2].nome);
+    }
+  }
+
+  function escolherCampeaoFinal(nomeFuncao) {
+    if (!escolhasR3.semifinal1 || !escolhasR3.semifinal2) return;
+    escolhasR3.final = nomeFuncao;
+    atualizarFinalBracket();
+    document.getElementById('botao-confirmar-r3').disabled = false;
+  }
+
+  async function confirmarRodada3() {
+    if (!escolhasR3.final) {
+      alert('Escolha a campeã da final antes de confirmar.');
+      return;
+    }
+
+    const acertou = escolhasR3.final === CHAVEAMENTO_R3.final.vencedor;
+    const respostaTexto = 'semifinal1:' + escolhasR3.semifinal1 + ', semifinal2:' + escolhasR3.semifinal2 + ', final:' + escolhasR3.final;
+    const resultadoApi = await registrarResultado(3, acertou, respostaTexto);
+
+    let htmlErro = '';
+    if (!acertou) {
+      htmlErro = `<div class="lista-correcao"><div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao">A campeã escolhida (<strong>${escolhasR3.final}</strong>) está errada.</span></div></div>`;
+    }
+
+    mostrarFeedback('feedback-r3', acertou, 3, htmlErro, resultadoApi);
+  }
+
+  /* =======================================================
+     RODADA 4 — VAR dos Dados (cartas sim/não)
+  ======================================================= */
+  const CARTAS_R4 = [
+    { id: 'c01', texto: 'Power Query', visto: true },
+    { id: 'c02', texto: 'Medidas', visto: true },
+    { id: 'c03', texto: 'Segmentação de dados', visto: true },
+    { id: 'c04', texto: 'Conectar com sistema', visto: true },
+    { id: 'c05', texto: 'Machine Learning', visto: false },
+    { id: 'c06', texto: 'Python', visto: false },
+    { id: 'c07', texto: 'Excel Solver', visto: false },
+    { id: 'c08', texto: 'Power Automate', visto: false }
+  ];
+
+  const escolhasR4 = {};
+
+  function montarRodada4() {
+    const grade = document.getElementById('grade-cartas');
+    embaralhar(CARTAS_R4).forEach(carta => {
+      const div = document.createElement('div');
+      div.className = 'carta-var';
+      div.id = 'carta-' + carta.id;
+      div.innerHTML = `
+        <span class="verso-texto">🔁 Toque para virar</span>
+        <div class="frente-texto">
+          <p class="texto-pergunta-carta" style="margin:0;">${carta.texto}</p>
+          <div class="botoes-sim-nao">
+            <button type="button" class="botao-sim-carta" onclick="event.stopPropagation(); escolherCartaVar('${carta.id}', true)">SIM</button>
+            <button type="button" class="botao-nao-carta" onclick="event.stopPropagation(); escolherCartaVar('${carta.id}', false)">NÃO</button>
+          </div>
+        </div>
+      `;
+      div.onclick = () => virarCarta(carta.id);
+      grade.appendChild(div);
+    });
+  }
+
+  function virarCarta(id) {
+    document.getElementById('carta-' + id).classList.add('virada');
+  }
+
+  function escolherCartaVar(id, valor) {
+    escolhasR4[id] = valor;
+    const carta = document.getElementById('carta-' + id);
+    carta.querySelector('.botao-sim-carta').classList.toggle('selecionado', valor === true);
+    carta.querySelector('.botao-nao-carta').classList.toggle('selecionado', valor === false);
+  }
+
+  async function confirmarRodada4() {
+    if (Object.keys(escolhasR4).length < CARTAS_R4.length) {
+      alert('Decida SIM ou NÃO em todas as cartas antes de confirmar.');
+      return;
+    }
+
+    const acertouTudo = CARTAS_R4.every(c => escolhasR4[c.id] === c.visto);
+    const respostaTexto = CARTAS_R4.map(c => c.id + ':' + escolhasR4[c.id]).join(', ');
+
+    const resultadoApi = await registrarResultado(4, acertouTudo, respostaTexto);
+
+    let htmlErro = '';
+    if (!acertouTudo) {
+      const errados = CARTAS_R4.filter(c => escolhasR4[c.id] !== c.visto);
+      htmlErro = '<div class="lista-correcao">';
+      errados.forEach(c => {
+        htmlErro += `<div class="linha-correcao"><span class="icone-correcao">✕</span><span class="texto-correcao"><strong>${c.texto}</strong>: essa decisão do VAR está errada.</span></div>`;
+      });
+      htmlErro += '</div>';
+    }
+
+    mostrarFeedback('feedback-r4', acertouTudo, 4, htmlErro, resultadoApi);
+  }
+
+  /* =======================================================
+     FEEDBACK GENÉRICO E OVERLAY DE COMEMORAÇÃO
+  ======================================================= */
+  function mostrarFeedback(idFeedback, acertou, numeroRodada, htmlErroDetalhado, resultadoApi) {
+    const el = document.getElementById(idFeedback);
+    el.classList.remove('acertou', 'errou');
+    el.classList.add('visivel', acertou ? 'acertou' : 'errou');
+
+    if (acertou) {
+      const jaEstavaConcluida = rodadasConcluidas[numeroRodada];
+      document.getElementById('botao-confirmar-r' + numeroRodada).style.display = 'none';
+
+      if (!jaEstavaConcluida) {
+        mostrarOverlayComemoracao(numeroRodada);
+      } else {
+        el.innerHTML = `
+          <p>🎉 Tudo certo na Rodada ${numeroRodada}!</p>
+          <button class="botao-proxima-rodada" onclick="avancarParaProxima(${numeroRodada})">
+            ${numeroRodada < 4 ? 'Ir para a próxima rodada' : 'Ver minha figurinha'}
+          </button>
+        `;
+      }
+    } else {
+      el.innerHTML = `
+        <p>🚩 Quase! Veja o que está errado e tenta de novo.</p>
+        ${htmlErroDetalhado || ''}
+        <button class="botao-tentar-novamente" onclick="document.getElementById('${idFeedback}').classList.remove('visivel')">Tentar novamente</button>
+      `;
+    }
+  }
+
+  let timerOverlayComemoracao = null;
+
+  function mostrarOverlayComemoracao(numeroRodada) {
+    const figurinha = FIGURINHAS_POR_RODADA[numeroRodada];
+    const overlay = document.getElementById('overlay-comemoracao');
+    const imagem = document.getElementById('imagem-comemoracao');
+    const titulo = document.getElementById('titulo-comemoracao');
+    const texto = document.getElementById('texto-comemoracao');
+    const barra = document.getElementById('barra-contagem-comemoracao');
+    const botaoPular = document.getElementById('botao-pular-comemoracao');
+
+    titulo.textContent = 'Golaço!';
+    texto.innerHTML = `Você liberou uma nova figurinha: <strong>${figurinha ? figurinha.nome : ''}</strong>`;
+
+    if (figurinha) {
+      imagem.style.display = 'block';
+      imagem.src = '../figurinha/' + figurinha.arquivo;
+    } else {
+      imagem.style.display = 'none';
+    }
+
+    overlay.classList.add('visivel');
+
+    barra.classList.remove('animando');
+    void barra.offsetWidth;
+    barra.classList.add('animando');
+
+    function seguirAdiante() {
+      overlay.classList.remove('visivel');
+      barra.classList.remove('animando');
+      clearTimeout(timerOverlayComemoracao);
+      botaoPular.onclick = null;
+      avancarParaProxima(numeroRodada);
+    }
+
+    timerOverlayComemoracao = setTimeout(seguirAdiante, 5000);
+    botaoPular.onclick = seguirAdiante;
+  }
+
+  /* =======================================================
+     INICIALIZAÇÃO
+  ======================================================= */
+  montarRodada1();
+  montarRodada2();
+  montarRodada3();
+  montarRodada4();
+  mostrarRodada(1);
+</script>
+
+</body>
+</html>
