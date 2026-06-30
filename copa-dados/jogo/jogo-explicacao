@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Demonstração — Copa dos Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --verde-claro: #E8F8ED;
+    --amarelo: #FFD400;
+    --amarelo-escuro: #E0B400;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --papel: #FBF6E9;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .faixa-demonstracao {
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 12px;
+    letter-spacing: 0.3px;
+  }
+
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(18px, 5vw, 26px);
+    margin: 0;
+  }
+  header.topo .subtitulo { color: #C9F2D6; font-size: 12px; margin: 2px 0 0; font-weight: 500; }
+
+  main { max-width: 480px; margin: 0 auto; padding: 28px 18px 60px; }
+
+  .cartao {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 28px 24px;
+    margin-bottom: 20px;
+  }
+
+  h1.titulo-tela {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    text-align: center;
+    margin: 0 0 6px;
+  }
+  p.subtitulo-tela { text-align: center; font-size: 14px; color: #555; margin: 0 0 22px; line-height: 1.5; }
+
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; margin-top: 14px; }
+  input[type="text"], input[type="email"], input[type="tel"] {
+    width: 100%; padding: 13px 14px; border: 2px solid #E2E8E0; border-radius: 12px;
+    font-family: 'Poppins', sans-serif; font-size: 15px; outline: none; min-height: 44px;
+  }
+  input:focus { border-color: var(--verde); }
+
+  button.botao-principal {
+    width: 100%; margin-top: 22px; padding: 15px 0; background: var(--amarelo); color: var(--azul-noite);
+    border: none; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px;
+    cursor: pointer; box-shadow: 0 6px 16px rgba(255,212,0,0.45); min-height: 48px;
+  }
+  button.botao-principal:active { transform: scale(0.97); }
+
+  /* ===== HUB DE DEMONSTRAÇÃO ===== */
+  #tela-hub { display: none; }
+  .boas-vindas { background: var(--branco); border-radius: 22px; box-shadow: var(--sombra); padding: 22px; margin-bottom: 18px; text-align: center; }
+  .boas-vindas .ola { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--verde-escuro); margin: 0 0 4px; }
+  .boas-vindas .frase { font-size: 13.5px; color: #555; margin: 0; }
+
+  .bloco-tempo-demo {
+    background: var(--branco); border-radius: 22px; box-shadow: var(--sombra); padding: 22px; margin-bottom: 18px; border-top: 6px solid var(--verde);
+  }
+  .cabecalho-bloco-demo { display: flex; align-items: center; gap: 14px; cursor: pointer; margin-bottom: 14px; }
+  .selo-tempo-grande { width: 54px; height: 54px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--branco); font-size: 21px; }
+  .info-bloco-demo { flex: 1; }
+  .info-bloco-demo .nome-tempo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16.5px; margin: 0 0 3px; }
+  .info-bloco-demo .status-tempo { font-size: 12.5px; margin: 0; color: #777; }
+  .indicador-jogar-demo { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+  .texto-indicador-demo { font-size: 11.5px; font-weight: 700; color: var(--verde); }
+  .seta-demo { width: 20px; height: 20px; color: var(--verde); }
+
+  .grade-botoes-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .botao-acao-demo {
+    border: none; border-radius: 12px; padding: 13px 8px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 13px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 46px; color: var(--branco); background: var(--verde);
+  }
+  .botao-acao-demo svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ===== TELA DE PERGUNTA ÚNICA ===== */
+  #tela-pergunta { display: none; }
+  .selo-rodada-demo {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--verde-claro); color: var(--verde-escuro);
+    font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px;
+  }
+  h2.titulo-pergunta { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 19px; margin: 0 0 18px; }
+
+  .lista-alternativas-demo { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .alternativa-demo {
+    background: var(--cinza-fundo); border: 2px solid transparent; border-radius: 14px; padding: 13px 16px;
+    display: flex; align-items: center; gap: 12px; cursor: pointer; min-height: 44px;
+  }
+  .alternativa-demo.selecionada { background: var(--verde-claro); border-color: var(--verde); }
+  .letra-demo {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--branco); display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .alternativa-demo.selecionada .letra-demo { background: var(--verde); color: var(--branco); }
+  .texto-alternativa-demo { font-size: 13.5px; font-weight: 500; }
+
+  /* ===== OVERLAY DE COMEMORAÇÃO ===== */
+  .overlay-comemoracao-demo {
+    display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.78); z-index: 100;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .overlay-comemoracao-demo.visivel { display: flex; }
+  .card-comemoracao-demo {
+    background: var(--branco); border-radius: 24px; padding: 32px 26px; text-align: center; max-width: 340px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+  .card-comemoracao-demo h2 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--verde-escuro); font-size: 21px; margin: 0 0 6px; }
+  .card-comemoracao-demo p { font-size: 13.5px; color: #555; margin: 0 0 16px; line-height: 1.5; }
+  .imagem-figurinha-demo { width: 110px; height: 165px; object-fit: contain; margin: 0 auto 16px; display: block; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.18); border: 3px solid var(--amarelo); }
+
+  /* ===== ÁLBUM DE DEMONSTRAÇÃO ===== */
+  #tela-album { display: none; }
+  .capa-album-demo {
+    background: linear-gradient(135deg, var(--amarelo) 0%, var(--amarelo-escuro) 100%); border-radius: 22px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.22); padding: 26px 22px; margin-bottom: 22px; text-align: center; border: 3px solid rgba(255,255,255,0.5);
+  }
+  .capa-album-demo h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 21px; margin: 0 0 4px; }
+  .capa-album-demo .subtitulo-capa-demo { font-size: 12.5px; color: rgba(2,6,23,0.7); margin: 0 0 16px; font-weight: 500; }
+  .contagem-capa-demo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 34px; margin: 0; }
+  .contagem-capa-demo span { color: rgba(2,6,23,0.45); font-size: 22px; }
+
+  .pagina-album-demo {
+    background: var(--papel); border-radius: 18px; box-shadow: var(--sombra); padding: 18px 16px 20px; margin-bottom: 18px;
+    border: 1px solid rgba(0,0,0,0.06); border-top: 8px solid var(--verde);
+  }
+  .titulo-secao-demo {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14.5px; margin: 2px 4px 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .selo-mini-demo { background: var(--verde); color: var(--branco); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+  .grade-figurinhas-demo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .slot-figurinha-demo { background: var(--branco); border-radius: 14px; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .moldura-demo { width: 100%; aspect-ratio: 2 / 3; background: var(--cinza-fundo); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .moldura-demo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .legenda-slot-demo { padding: 9px 8px 11px; text-align: center; }
+  .legenda-slot-demo .nome-fig-demo { font-size: 11.5px; font-weight: 600; }
+  .selo-conquistada-demo {
+    position: absolute; top: 7px; right: 7px; background: var(--verde); color: var(--branco); width: 22px; height: 22px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); z-index: 3;
+  }
+
+  .bloco-certificado-demo {
+    background: linear-gradient(135deg, var(--amarelo) 0%, var(--amarelo-escuro) 100%); border-radius: 20px; padding: 20px;
+    text-align: center; margin-top: 4px; box-shadow: 0 8px 20px rgba(255,212,0,0.4);
+  }
+  .bloco-certificado-demo p { font-family: 'Montserrat', sans-serif; font-weight: 700; margin: 0 0 10px; font-size: 15px; }
+  .bloco-certificado-demo button {
+    background: var(--azul-noite); color: var(--branco); border: none; padding: 12px 22px; border-radius: 10px;
+    font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; min-height: 44px;
+  }
+
+  .nav-demo {
+    display: flex; justify-content: center; gap: 8px; padding: 4px 16px 0;
+  }
+  .botao-nav-demo {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--branco);
+    border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; min-height: 36px;
+  }
+
+  footer.rodape { text-align: center; padding: 18px 14px 26px; font-size: 11.5px; color: rgba(255,255,255,0.65); }
+</style>
+</head>
+<body>
+
+<div class="faixa-demonstracao">⚠️ TELA DE DEMONSTRAÇÃO — nenhum dado real é salvo aqui</div>
+
+<header class="topo">
+  <p class="evento">COPA DOS DADOS</p>
+  <p class="subtitulo">Demonstração da dinâmica do jogo</p>
+</header>
+
+<main>
+
+  <!-- ===== TELA 1: LOGIN FAKE ===== -->
+  <div id="tela-login">
+    <div class="cartao">
+      <h1 class="titulo-tela">Veja como funciona</h1>
+      <p class="subtitulo-tela">Esta é uma demonstração. Preencha qualquer coisa nos campos abaixo — nada é enviado para o banco de dados real.</p>
+
+      <label for="demo-email">E-mail</label>
+      <input type="email" id="demo-email" placeholder="seuemail@exemplo.com" value="visitante@exemplo.com">
+
+      <label for="demo-senha">Senha (telefone)</label>
+      <input type="tel" id="demo-senha" placeholder="11999998888" value="11999998888">
+
+      <button class="botao-principal" onclick="irParaHubDemo()">Entrar em campo (demonstração)</button>
+    </div>
+  </div>
+
+  <!-- ===== TELA 2: HUB FAKE ===== -->
+  <div id="tela-hub">
+    <div class="boas-vindas">
+      <p class="ola">Bora, Visitante!</p>
+      <p class="frase">Esta é uma versão de demonstração com apenas 1 pergunta.</p>
+    </div>
+
+    <div class="bloco-tempo-demo">
+      <div class="cabecalho-bloco-demo" onclick="irParaPerguntaDemo()">
+        <div class="selo-tempo-grande">1</div>
+        <div class="info-bloco-demo">
+          <p class="nome-tempo">Tempo de demonstração</p>
+          <p class="status-tempo">Toque para jogar a pergunta de exemplo</p>
+        </div>
+        <div class="indicador-jogar-demo">
+          <span class="texto-indicador-demo">Jogar</span>
+          <svg class="seta-demo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+      <div class="grade-botoes-demo">
+        <button class="botao-acao-demo" onclick="alert('Em uma aula real, este botão abriria o replay da aula no YouTube.')">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6.5v11l9-5.5-9-5.5z" fill="currentColor"/><rect x="2.5" y="4" width="19" height="16" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+          Replay da aula
+        </button>
+        <button class="botao-acao-demo" onclick="alert('Em uma aula real, este botão abriria o material de apoio da aula.')">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+          Material da aula
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TELA 3: PERGUNTA ÚNICA ===== -->
+  <div id="tela-pergunta">
+    <div class="cartao">
+      <span class="selo-rodada-demo">Pergunta de exemplo</span>
+      <h2 class="titulo-pergunta">Qual o melhor treinamento de I.A., Excel e Power BI?</h2>
+
+      <div class="lista-alternativas-demo" id="lista-alternativas-demo"></div>
+
+      <button class="botao-principal" onclick="confirmarPerguntaDemo()">Confirmar resposta</button>
+    </div>
+  </div>
+
+  <!-- ===== TELA 4: ÁLBUM COMPLETO ===== -->
+  <div id="tela-album">
+    <div class="capa-album-demo">
+      <h1>Álbum da Copa dos Dados</h1>
+      <p class="subtitulo-capa-demo">Veja como fica um álbum completo</p>
+      <p class="contagem-capa-demo">12<span> / 12</span></p>
+    </div>
+
+    <div id="paginas-album-demo"></div>
+
+    <div class="bloco-certificado-demo">
+      <p>🏆 Parabéns! Você completou a Copa dos Dados (demonstração).</p>
+      <button onclick="gerarCertificadoDemo()">Receber certificado (demonstração)</button>
+    </div>
+  </div>
+
+</main>
+
+<div class="nav-demo" id="nav-demo" style="display:none;">
+  <button class="botao-nav-demo" onclick="window.location.href='index.html'">Sair da demonstração</button>
+</div>
+
+<!-- ===== OVERLAY DE COMEMORAÇÃO ===== -->
+<div class="overlay-comemoracao-demo" id="overlay-comemoracao-demo">
+  <div class="card-comemoracao-demo">
+    <div style="font-size:44px; margin-bottom:6px;">🎉</div>
+    <h2>Golaço!</h2>
+    <p>Você liberou a <strong>Figurinha 10</strong>!</p>
+    <img class="imagem-figurinha-demo" id="imagem-comemoracao-demo" src="../figurinha/Fig-10.png" alt="Figurinha 10" onerror="this.style.display='none'">
+    <button class="botao-principal" style="margin-top:0;" onclick="irParaAlbumDemo()">Ver álbum completo</button>
+  </div>
+</div>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026 (modo demonstração)
+</footer>
+
+<script>
+  /* =======================================================
+     TELA DE DEMONSTRAÇÃO — totalmente isolada.
+     Nenhuma chamada de rede, nenhum acesso ao Apps Script,
+     nenhuma escrita no Sheets. Tudo aqui é simulado em memória.
+  ======================================================= */
+
+  const ALTERNATIVAS_DEMO = ['COPA DOS DADOS', 'COPA DOS DADOS', 'COPA DOS DADOS', 'COPA DOS DADOS'];
+  let alternativaEscolhidaDemo = null;
+
+  // Catálogo fake do álbum completo, reaproveitando os nomes de arquivo
+  // reais das figurinhas (Fig-01 a Fig-12), só para fins visuais.
+  const CATALOGO_ALBUM_DEMO = [
+    { tempo: 1, nome: 'Tempo 1 — Excel', cor: 'verde', figs: [
+      { arquivo: 'Fig-01.png', nome: 'Escalação dos Dados' },
+      { arquivo: 'Fig-02.png', nome: 'Cartão Vermelho' },
+      { arquivo: 'Fig-03.png', nome: 'Mestre da Prancheta' },
+      { arquivo: 'Fig-04.png', nome: 'VAR dos Dados' }
+    ]},
+    { tempo: 2, nome: 'Tempo 2 — Power BI', cor: 'amarelo', figs: [
+      { arquivo: 'Fig-05.png', nome: 'Mestre da Prancheta' },
+      { arquivo: 'Fig-06.png', nome: 'Análise Camisa 10' },
+      { arquivo: 'Fig-07.png', nome: 'Mata-mata da DAX' },
+      { arquivo: 'Fig-08.png', nome: 'VAR dos Dados' }
+    ]},
+    { tempo: 3, nome: 'Tempo 3 — I.A.', cor: 'azul', figs: [
+      { arquivo: 'Fig-09.png', nome: 'Substituição em Campo' },
+      { arquivo: 'Fig-10.png', nome: 'Pênaltis das Ferramentas' },
+      { arquivo: 'Fig-11.png', nome: '45 do Segundo Tempo' },
+      { arquivo: 'Fig-12.png', nome: 'VAR dos Dados' }
+    ]}
+  ];
+
+  function trocarTela(idMostrar) {
+    ['tela-login', 'tela-hub', 'tela-pergunta', 'tela-album'].forEach(id => {
+      document.getElementById(id).style.display = id === idMostrar ? 'block' : 'none';
+    });
+    document.getElementById('nav-demo').style.display = idMostrar === 'tela-login' ? 'none' : 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function irParaHubDemo() {
+    trocarTela('tela-hub');
+  }
+
+  function irParaPerguntaDemo() {
+    montarPerguntaDemo();
+    trocarTela('tela-pergunta');
+  }
+
+  function montarPerguntaDemo() {
+    const lista = document.getElementById('lista-alternativas-demo');
+    lista.innerHTML = '';
+    const letras = ['A', 'B', 'C', 'D'];
+    alternativaEscolhidaDemo = null;
+
+    ALTERNATIVAS_DEMO.forEach((texto, indice) => {
+      const div = document.createElement('div');
+      div.className = 'alternativa-demo';
+      div.dataset.indice = indice;
+      div.innerHTML = `
+        <span class="letra-demo">${letras[indice]}</span>
+        <span class="texto-alternativa-demo">${texto}</span>
+      `;
+      div.onclick = () => {
+        document.querySelectorAll('.alternativa-demo').forEach(el => el.classList.remove('selecionada'));
+        div.classList.add('selecionada');
+        alternativaEscolhidaDemo = indice;
+      };
+      lista.appendChild(div);
+    });
+  }
+
+  function confirmarPerguntaDemo() {
+    if (alternativaEscolhidaDemo === null) {
+      alert('Escolha uma alternativa antes de confirmar.');
+      return;
+    }
+    // Todas as alternativas são "COPA DOS DADOS" e todas liberam a Figurinha 10,
+    // como pedido — é uma demonstração, não há resposta errada aqui.
+    document.getElementById('overlay-comemoracao-demo').classList.add('visivel');
+  }
+
+  function irParaAlbumDemo() {
+    document.getElementById('overlay-comemoracao-demo').classList.remove('visivel');
+    montarAlbumDemo();
+    trocarTela('tela-album');
+  }
+
+  function montarAlbumDemo() {
+    const container = document.getElementById('paginas-album-demo');
+    container.innerHTML = '';
+
+    CATALOGO_ALBUM_DEMO.forEach(secao => {
+      const pagina = document.createElement('div');
+      pagina.className = 'pagina-album-demo';
+      pagina.style.borderTopColor = secao.cor === 'verde' ? 'var(--verde)' : secao.cor === 'amarelo' ? 'var(--amarelo-escuro)' : '#1F7AE0';
+
+      const titulo = document.createElement('p');
+      titulo.className = 'titulo-secao-demo';
+      const corSelo = secao.cor === 'verde' ? 'var(--verde)' : secao.cor === 'amarelo' ? 'var(--amarelo-escuro)' : '#1F7AE0';
+      titulo.innerHTML = `<span class="selo-mini-demo" style="background:${corSelo}">${secao.tempo}</span> ${secao.nome}`;
+      pagina.appendChild(titulo);
+
+      const grade = document.createElement('div');
+      grade.className = 'grade-figurinhas-demo';
+
+      secao.figs.forEach(fig => {
+        const slot = document.createElement('div');
+        slot.className = 'slot-figurinha-demo';
+        slot.innerHTML = `
+          <span class="selo-conquistada-demo">✓</span>
+          <div class="moldura-demo">
+            <img src="../figurinha/${fig.arquivo}" alt="${fig.nome}" onerror="this.src='https://via.placeholder.com/300x450/F4F7F2/999?text=%3F'">
+          </div>
+          <div class="legenda-slot-demo">
+            <span class="nome-fig-demo">${fig.nome}</span>
+          </div>
+        `;
+        grade.appendChild(slot);
+      });
+
+      pagina.appendChild(grade);
+      container.appendChild(pagina);
+    });
+  }
+
+  /* =======================================================
+     GERAÇÃO DO CERTIFICADO DE DEMONSTRAÇÃO
+     Usa a mesma imagem real do certificado, com o nome fixo
+     "seu nome aqui" sobreposto — mesma lógica de certificado.html,
+     mas sem nenhuma chamada ao Apps Script.
+  ======================================================= */
+  const URL_IMAGEM_CERTIFICADO = "https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/copa-dados/jogo/certificado.png";
+  const POSICAO_NOME_PORCENTAGEM_Y = 0.54;
+  const TAMANHO_FONTE_NOME = 22;
+
+  function carregarImagemComoBase64(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolve({ dataUrl: canvas.toDataURL('image/png'), largura: img.naturalWidth, altura: img.naturalHeight });
+      };
+      img.onerror = () => reject(new Error('Não foi possível carregar a imagem do certificado.'));
+      img.src = url;
+    });
+  }
+
+  async function gerarCertificadoDemo() {
+    try {
+      const { jsPDF } = window.jspdf;
+      const { dataUrl, largura, altura } = await carregarImagemComoBase64(URL_IMAGEM_CERTIFICADO);
+
+      const orientacao = largura >= altura ? 'landscape' : 'portrait';
+      const doc = new jsPDF({ orientation: orientacao, unit: 'px', format: [largura, altura] });
+
+      doc.addImage(dataUrl, 'PNG', 0, 0, largura, altura);
+
+      const posicaoY = altura * POSICAO_NOME_PORCENTAGEM_Y;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(TAMANHO_FONTE_NOME);
+      doc.setTextColor(2, 6, 23);
+      doc.text('seu nome aqui', largura / 2, posicaoY, { align: 'center' });
+
+      doc.save('certificado-demonstracao-copa-dos-dados.pdf');
+    } catch (err) {
+      alert('Não foi possível gerar o certificado de demonstração: ' + err.message);
+    }
+  }
+</script>
+
+</body>
+</html>
