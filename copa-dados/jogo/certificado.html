@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Certificado — Copa dos Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -258,9 +260,9 @@
   // Tamanho da fonte do nome calculado como proporção da altura real
   // da imagem do certificado, em vez de um valor fixo em pixels — assim
   // o nome fica sempre no tamanho certo independente da resolução do
-  // arquivo. 4% da altura ficou equivalente ao texto "Concluiu o
-  // Treinamento..." do certificado, conforme validado visualmente.
-  const PROPORCAO_FONTE_NOME = 0.04;
+  // arquivo. Ajustado de 4% para 4.4% da altura (equivalente a +4 pontos
+  // de fonte na resolução real do certificado), depois de validação visual.
+  const PROPORCAO_FONTE_NOME = 0.044;
 
   function pegarSessao() {
     return {
