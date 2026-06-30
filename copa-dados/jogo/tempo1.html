@@ -535,7 +535,7 @@
     height: 100%;
     border-radius: 8px;
     width: 100%;
-    transform-origin: left;
+    transform-origin: right;
   }
   .barra-contagem-preenchida.animando {
     animation: esvaziaContagem 5s linear forwards;
@@ -662,7 +662,7 @@
   <section class="cartao-rodada" id="rodada-2" data-rodada="2" style="display:none;">
     <span class="selo-rodada">Rodada 2 de 4</span>
     <h2 class="titulo-rodada">🟨🟥 Cartão Vermelho</h2>
-    <p class="enunciado-rodada">Classifique cada ação de acordo com o risco ao compartilhar seus dados: <strong>Segue o jogo</strong>, <strong>cartão amarelo</strong> ou <strong>cartão vermelho</strong>.</p>
+    <p class="enunciado-rodada">Classifique cada ação de acordo com o risco ao compartilhar seus dados. <strong>Cartão amarelo</strong> é para erros de atenção, que pedem mais cuidado mas não causam um estrago grave. <strong>Cartão vermelho</strong> é para erros graves, que expõem dados sensíveis e podem causar dano real. Escolha entre <strong>Segue o jogo</strong>, <strong>cartão amarelo</strong> ou <strong>cartão vermelho</strong> para cada ação.</p>
 
     <div class="lista-classificar" id="lista-classificar"></div>
 
@@ -698,10 +698,10 @@
   <section id="tela-concluido">
     <div class="figurinha-ganha">
       <div class="grade-figurinhas-finais">
-        <img src="imagens/figurinhas/fig01-tempo1-escalacao.png" alt="Figurinha Rodada 1" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig02-tempo1-cartao-vermelho.png" alt="Figurinha Rodada 2" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig03-tempo1-mestre-prancheta.png" alt="Figurinha Rodada 3" onerror="this.style.display='none'">
-        <img src="imagens/figurinhas/fig04-tempo1-var-dados.png" alt="Figurinha Rodada 4" onerror="this.style.display='none'">
+        <img src="../figurinha/Fig-1.png" alt="Figurinha Rodada 1" onerror="this.style.display='none'">
+        <img src="../figurinha/Fig-2.png" alt="Figurinha Rodada 2" onerror="this.style.display='none'">
+        <img src="../figurinha/Fig-3.png" alt="Figurinha Rodada 3" onerror="this.style.display='none'">
+        <img src="../figurinha/Fig-4.png" alt="Figurinha Rodada 4" onerror="this.style.display='none'">
       </div>
       <h2>Parabéns! Você liberou 4 figurinhas!</h2>
       <p>Você completou o Tempo 1 — Excel e já pode ver todas elas no seu álbum. Te vejo no próximo Tempo!</p>
@@ -737,10 +737,10 @@
 
   // Cada rodada do Tempo 1 dá uma figurinha diferente — 4 no total deste Tempo
   const FIGURINHAS_POR_RODADA = {
-    1: { id: "fig01-tempo1-escalacao", arquivo: "fig01-tempo1-escalacao.png", nome: "Escalação dos Dados" },
-    2: { id: "fig02-tempo1-cartao-vermelho", arquivo: "fig02-tempo1-cartao-vermelho.png", nome: "Cartão Vermelho" },
-    3: { id: "fig03-tempo1-mestre-prancheta", arquivo: "fig03-tempo1-mestre-prancheta.png", nome: "Mestre da Prancheta" },
-    4: { id: "fig04-tempo1-var-dados", arquivo: "fig04-tempo1-var-dados.png", nome: "VAR dos Dados" }
+    1: { id: "fig01-tempo1-escalacao", arquivo: "Fig-1.png", nome: "Escalação dos Dados" },
+    2: { id: "fig02-tempo1-cartao-vermelho", arquivo: "Fig-2.png", nome: "Cartão Vermelho" },
+    3: { id: "fig03-tempo1-mestre-prancheta", arquivo: "Fig-3.png", nome: "Mestre da Prancheta" },
+    4: { id: "fig04-tempo1-var-dados", arquivo: "Fig-4.png", nome: "VAR dos Dados" }
   };
 
   function pegarSessao() {
@@ -874,9 +874,10 @@
     { id: 'j11', nome: 'Cores aleatórias por linha', correto: false },
     { id: 'j12', nome: 'Colar valores fixos sem fórmula', correto: false },
     { id: 'j13', nome: 'Filtro sem cabeçalho fixo', correto: false },
-    { id: 'j14', nome: 'Fontes diferentes na coluna', correto: false },
-    { id: 'j15', nome: 'Remover Duplicatas', correto: false }
+    { id: 'j14', nome: 'Fontes diferentes na coluna', correto: false }
   ];
+
+  const MAXIMO_JOGADORES_NO_CAMPO = 6;
 
   function embaralhar(lista) {
     const copia = [...lista];
@@ -938,6 +939,11 @@
     const aviso = document.getElementById('campo-vazio-aviso');
 
     if (destino === 'campo') {
+      const jogadoresNoCampo = campo.querySelectorAll('.jogador-card').length;
+      if (jogadoresNoCampo >= MAXIMO_JOGADORES_NO_CAMPO) {
+        mostrarAvisoTimeCompleto();
+        return;
+      }
       campo.appendChild(card);
       card.classList.add('no-campo');
     } else {
@@ -946,6 +952,26 @@
     }
 
     aviso.style.display = campo.querySelectorAll('.jogador-card').length > 0 ? 'none' : 'block';
+  }
+
+  let timerAvisoTimeCompleto = null;
+
+  function mostrarAvisoTimeCompleto() {
+    const aviso = document.getElementById('campo-vazio-aviso');
+    aviso.textContent = `Seu time já está completo! Tire alguém do campo antes de escalar outro jogador.`;
+    aviso.style.display = 'block';
+    aviso.style.color = '#FFE082';
+
+    clearTimeout(timerAvisoTimeCompleto);
+    timerAvisoTimeCompleto = setTimeout(() => {
+      aviso.style.color = '';
+      const campo = document.getElementById('campo-futebol');
+      if (campo.querySelectorAll('.jogador-card').length > 0) {
+        aviso.style.display = 'none';
+      } else {
+        aviso.textContent = 'Arraste os jogadores certos para aqui';
+      }
+    }, 2200);
   }
 
   async function confirmarRodada1() {
@@ -984,8 +1010,8 @@
   const ITENS_R2 = [
     { id: 'a01', texto: 'Compartilhar um link com permissão "somente visualização"', cat: 'segue' },
     { id: 'a02', texto: 'Remover dados sensíveis antes de enviar a planilha', cat: 'segue' },
-    { id: 'a04', texto: 'Compartilhar a planilha inteira com o ChatGPT', cat: 'amarelo' },
     { id: 'a05', texto: 'Mandar a planilha por e-mail com cópia para a empresa toda', cat: 'amarelo' },
+    { id: 'a04', texto: 'Compartilhar a planilha inteira com o ChatGPT', cat: 'vermelho' },
     { id: 'a07', texto: 'Postar print de dados confidenciais em grupo do WhatsApp', cat: 'vermelho' },
     { id: 'a08', texto: 'Compartilhar a planilha publicamente na internet', cat: 'vermelho' }
   ];
@@ -1059,12 +1085,12 @@
   // Substitua os arquivos abaixo pelos nomes reais que você enviar.
   // 'entra: true' = gráfico correto (deve ENTRAR no time)
   const GRAFICOS_R3 = [
-    { id: 'g01', arquivo: 'grafico-01.png', legenda: 'Gráfico 1', entra: true },
-    { id: 'g02', arquivo: 'grafico-02.png', legenda: 'Gráfico 2', entra: false },
-    { id: 'g03', arquivo: 'grafico-03.png', legenda: 'Gráfico 3', entra: false },
-    { id: 'g04', arquivo: 'grafico-04.png', legenda: 'Gráfico 4', entra: true },
-    { id: 'g05', arquivo: 'grafico-05.png', legenda: 'Gráfico 5', entra: false },
-    { id: 'g06', arquivo: 'grafico-06.png', legenda: 'Gráfico 6', entra: false }
+    { id: 'g01', arquivo: 'grafico_1.png', legenda: 'Gráfico 1', entra: false },
+    { id: 'g02', arquivo: 'grafico_2.png', legenda: 'Gráfico 2', entra: false },
+    { id: 'g03', arquivo: 'grafico_3.png', legenda: 'Gráfico 3', entra: false },
+    { id: 'g04', arquivo: 'grafico_4.png', legenda: 'Gráfico 4', entra: true },
+    { id: 'g05', arquivo: 'grafico_5.png', legenda: 'Gráfico 5', entra: false },
+    { id: 'g06', arquivo: 'grafico_6.png', legenda: 'Gráfico 6', entra: true }
   ];
 
   const decisoesR3 = {}; // 'entra' | 'sai'
@@ -1077,7 +1103,7 @@
       div.id = 'grafico-' + grafico.id;
       div.innerHTML = `
         <span class="selo-decisao" id="selo-${grafico.id}"></span>
-        <img src="imagens/graficos/${grafico.arquivo}" alt="${grafico.legenda}" onerror="this.src='https://via.placeholder.com/300x180/F4F7F2/888?text=${encodeURIComponent(grafico.legenda)}'">
+        <img src="graficos/${grafico.arquivo}" alt="${grafico.legenda}" onerror="this.src='https://via.placeholder.com/300x180/F4F7F2/888?text=${encodeURIComponent(grafico.legenda)}'">
         <p class="legenda-grafico">${grafico.legenda}</p>
       `;
       div.onclick = () => alternarDecisaoGrafico(grafico.id);
@@ -1264,7 +1290,7 @@
 
     if (figurinha) {
       imagem.style.display = 'block';
-      imagem.src = 'imagens/figurinhas/' + figurinha.arquivo;
+      imagem.src = '../figurinha/' + figurinha.arquivo;
     } else {
       imagem.style.display = 'none';
     }
