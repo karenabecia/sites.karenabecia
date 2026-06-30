@@ -600,15 +600,18 @@
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 18px;
+    margin-top: 18px;
+    margin-bottom: 0;
   }
-  .grade-figurinhas-finais img {
-    width: 64px;
-    height: 64px;
+  .figurinha-ganha .grade-figurinhas-finais img {
+    width: 64px !important;
+    height: 64px !important;
     object-fit: contain;
     border-radius: 10px;
     border: 2px solid var(--amarelo);
     box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    margin: 0;
+    display: block;
   }
 
   .voltar-hub {
@@ -697,16 +700,16 @@
   <!-- ============ TELA FINAL ============ -->
   <section id="tela-concluido">
     <div class="figurinha-ganha">
-      <div class="grade-figurinhas-finais">
-        <img src="../figurinha/Fig-1.png" alt="Figurinha Rodada 1" onerror="this.style.display='none'">
-        <img src="../figurinha/Fig-2.png" alt="Figurinha Rodada 2" onerror="this.style.display='none'">
-        <img src="../figurinha/Fig-3.png" alt="Figurinha Rodada 3" onerror="this.style.display='none'">
-        <img src="../figurinha/Fig-4.png" alt="Figurinha Rodada 4" onerror="this.style.display='none'">
-      </div>
       <h2>Parabéns! Você liberou 4 figurinhas!</h2>
       <p>Você completou o Tempo 1 — Excel e já pode ver todas elas no seu álbum. Te vejo no próximo Tempo!</p>
       <a class="botao-confirmar" href="album.html" style="margin-bottom:10px;">Ver meu álbum</a>
       <a class="botao-confirmar" href="index.html" style="background:var(--azul-noite); color:var(--branco); box-shadow:none;">Voltar para Jogo</a>
+      <div class="grade-figurinhas-finais">
+        <img src="../figurinha/Fig-1.png" alt="Figurinha Rodada 1" loading="eager">
+        <img src="../figurinha/Fig-2.png" alt="Figurinha Rodada 2" loading="eager">
+        <img src="../figurinha/Fig-3.png" alt="Figurinha Rodada 3" loading="eager">
+        <img src="../figurinha/Fig-4.png" alt="Figurinha Rodada 4" loading="eager">
+      </div>
     </div>
   </section>
 
