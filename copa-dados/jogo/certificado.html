@@ -232,7 +232,7 @@
     <div id="bloco-formulario">
       <label for="nome-certificado">Nome completo para o certificado</label>
       <input type="text" id="nome-certificado" placeholder="Seu nome completo">
-      <p class="dica-campo">Confira a grafia com atenção — essa é a única vez que você pode emitir.</p>
+      <p class="dica-campo">Confira a grafia com atenção — esse nome não poderá ser alterado depois, mas você poderá baixar o certificado novamente sempre que precisar.</p>
 
       <button class="botao-principal" id="botao-emitir" onclick="emitirCertificado()">Emitir certificado</button>
     </div>
@@ -255,7 +255,12 @@
   // Posição do nome na imagem do certificado, conforme definido:
   // centralizado horizontalmente, a 54% da altura, fonte tamanho 22.
   const POSICAO_NOME_PORCENTAGEM_Y = 0.54;
-  const TAMANHO_FONTE_NOME = 22;
+  // Tamanho da fonte do nome calculado como proporção da altura real
+  // da imagem do certificado, em vez de um valor fixo em pixels — assim
+  // o nome fica sempre no tamanho certo independente da resolução do
+  // arquivo. 4% da altura ficou equivalente ao texto "Concluiu o
+  // Treinamento..." do certificado, conforme validado visualmente.
+  const PROPORCAO_FONTE_NOME = 0.04;
 
   function pegarSessao() {
     return {
@@ -295,7 +300,7 @@
   const FORMULARIO_PADRAO_HTML = `
     <label for="nome-certificado">Nome completo para o certificado</label>
     <input type="text" id="nome-certificado" placeholder="Seu nome completo">
-    <p class="dica-campo">Confira a grafia com atenção — essa é a única vez que você pode emitir.</p>
+    <p class="dica-campo">Confira a grafia com atenção — esse nome não poderá ser alterado depois, mas você poderá baixar o certificado novamente sempre que precisar.</p>
     <button class="botao-principal" id="botao-emitir" onclick="emitirCertificado()">Emitir certificado</button>
   `;
 
@@ -338,14 +343,12 @@
           <button class="botao-principal" style="background:var(--azul-noite); color:var(--branco); box-shadow:none;" onclick="window.location.href='index.html'">Voltar para Jogo</button>
         `;
       } else if (progresso.certificadoJaEmitido) {
-        // Já emitiu antes — não permite de novo
-        document.getElementById('titulo-principal').textContent = 'Certificado já emitido';
-        document.getElementById('subtitulo-principal').textContent = 'Você já baixou seu certificado da Copa dos Dados. Cada pessoa pode emitir apenas uma vez.';
+        // Já emitiu antes — pode baixar de novo, mas com o nome que já
+        // foi definido na primeira vez (não dá pra trocar o nome).
+        document.getElementById('titulo-principal').textContent = 'Certificado liberado';
+        document.getElementById('subtitulo-principal').textContent = 'Seu certificado já foi emitido com o nome "' + (progresso.nomeCertificadoSalvo || '') + '". Você pode baixá-lo novamente quando quiser.';
         document.getElementById('bloco-formulario').innerHTML = `
-          <div class="bloco-ja-emitido">
-            <p>Se você perdeu o arquivo, entre em contato com a equipe da Escola Karen Abecia para reenvio.</p>
-          </div>
-          <button class="botao-principal" style="background:var(--azul-noite); color:var(--branco); box-shadow:none; margin-top:14px;" onclick="window.location.href='index.html'">Voltar para Jogo</button>
+          <button class="botao-principal" id="botao-baixar-novamente" onclick="baixarCertificadoNovamente()">Baixar certificado novamente</button>
         `;
       }
       // Se chegou aqui sem cair nos casos acima, o estado padrão (já restaurado) é o correto
@@ -353,6 +356,34 @@
       document.getElementById('carregando-certificado').style.display = 'none';
       document.getElementById('conteudo-certificado').style.display = 'block';
       mostrarErro('Não foi possível conectar ao jogo (' + err.message + ').');
+    }
+  }
+
+  async function baixarCertificadoNovamente() {
+    esconderErro();
+    const botao = document.getElementById('botao-baixar-novamente');
+    botao.disabled = true;
+    botao.textContent = 'Gerando PDF...';
+
+    try {
+      // Não envia nome — o backend reconhece que já existe um nome salvo
+      // e devolve ele mesmo, ignorando qualquer coisa que mandássemos aqui.
+      const resultado = await chamarAPI({ acao: 'emitirCertificado', email: sessao.email });
+
+      if (!resultado.sucesso) {
+        mostrarErro(resultado.erro || 'Não foi possível gerar o certificado.');
+        botao.disabled = false;
+        botao.textContent = 'Baixar certificado novamente';
+        return;
+      }
+
+      await gerarPdfCertificado(resultado.nomeUsado);
+      botao.disabled = false;
+      botao.textContent = 'Baixar certificado novamente';
+    } catch (err) {
+      mostrarErro('Erro ao gerar certificado: ' + err.message);
+      botao.disabled = false;
+      botao.textContent = 'Baixar certificado novamente';
     }
   }
 
@@ -436,8 +467,9 @@
 
     // Nome centralizado horizontalmente, a 54% da altura da imagem.
     const posicaoY = altura * POSICAO_NOME_PORCENTAGEM_Y;
+    const tamanhoFonteCalculado = altura * PROPORCAO_FONTE_NOME;
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(TAMANHO_FONTE_NOME);
+    doc.setFontSize(tamanhoFonteCalculado);
     doc.setTextColor(2, 6, 23);
     doc.text(nomeAluno, largura / 2, posicaoY, { align: 'center' });
 
