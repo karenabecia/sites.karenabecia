@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Certificado — Copa dos Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --verde: #1AA64A;
+    --verde-escuro: #0B6E32;
+    --amarelo: #FFD400;
+    --amarelo-escuro: #E0B400;
+    --azul-noite: #020617;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F4F7F2;
+    --vermelho: #E74C3C;
+    --sombra: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--verde) 0%, var(--verde-escuro) 55%, var(--azul-noite) 100%);
+    min-height: 100vh;
+    color: var(--azul-noite);
+    -webkit-tap-highlight-color: transparent;
+  }
+  header.topo {
+    background: var(--azul-noite);
+    padding: 14px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+  .botao-voltar-topo {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--branco);
+    border-radius: 10px;
+    padding: 7px 11px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    min-height: 36px;
+  }
+  .botao-voltar-topo svg { width: 15px; height: 15px; flex-shrink: 0; }
+  header.topo .evento {
+    color: var(--amarelo);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(16px, 4.5vw, 22px);
+    margin: 0;
+  }
+  header.topo .nome-etapa {
+    color: var(--branco);
+    font-size: 12.5px;
+    margin: 3px 0 0;
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+  }
+
+  .cartao {
+    background: var(--branco);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .icone-trofeu { font-size: 48px; margin-bottom: 10px; }
+
+  h1.titulo-tela {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    margin: 0 0 8px;
+    color: var(--verde-escuro);
+  }
+  p.subtitulo-tela {
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 22px;
+    line-height: 1.5;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul-noite);
+    margin-bottom: 6px;
+    text-align: left;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 13px 14px;
+    border: 2px solid #E2E8E0;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    min-height: 44px;
+  }
+  input:focus { border-color: var(--verde); }
+  .dica-campo {
+    font-size: 11.5px;
+    color: #888;
+    margin-top: 4px;
+    text-align: left;
+  }
+
+  button.botao-principal {
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px 0;
+    background: var(--amarelo);
+    color: var(--azul-noite);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(255,212,0,0.45);
+    min-height: 48px;
+  }
+  button.botao-principal:active { transform: scale(0.97); }
+  button.botao-principal:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .mensagem-erro {
+    background: #FFEAEA;
+    color: #C0392B;
+    border: 1px solid #F5B7B1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+    font-weight: 500;
+    text-align: left;
+  }
+  .mensagem-erro.visivel { display: block; }
+
+  .bloco-ja-emitido {
+    background: var(--cinza-fundo);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 8px;
+  }
+  .bloco-ja-emitido p {
+    font-size: 13.5px;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .bloco-bloqueado {
+    background: #FFEAEA;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+  }
+  .bloco-bloqueado p {
+    font-size: 13.5px;
+    color: #C0392B;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .carregando-certificado {
+    text-align: center;
+    color: var(--branco);
+    padding: 60px 0;
+    font-size: 14px;
+  }
+
+  .voltar-hub {
+    display: block;
+    text-align: center;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    padding: 16px;
+    text-decoration: underline;
+  }
+
+  footer.rodape {
+    text-align: center;
+    padding: 18px 14px 26px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <a class="botao-voltar-topo" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    Voltar
+  </a>
+  <p class="evento">COPA DOS DADOS</p>
+  <p class="nome-etapa">Certificado do treinamento</p>
+</header>
+
+<main>
+
+  <div class="carregando-certificado" id="carregando-certificado">Verificando seu progresso...</div>
+
+  <div class="cartao" id="conteudo-certificado" style="display:none;">
+    <div class="icone-trofeu">🏆</div>
+    <h1 class="titulo-tela" id="titulo-principal">Parabéns!</h1>
+    <p class="subtitulo-tela" id="subtitulo-principal">Você completou os 3 Tempos da Copa dos Dados. Digite seu nome exatamente como ele deve aparecer no certificado.</p>
+
+    <div id="bloco-formulario">
+      <label for="nome-certificado">Nome completo para o certificado</label>
+      <input type="text" id="nome-certificado" placeholder="Seu nome completo">
+      <p class="dica-campo">Confira a grafia com atenção — essa é a única vez que você pode emitir.</p>
+
+      <button class="botao-principal" id="botao-emitir" onclick="emitirCertificado()">Emitir certificado</button>
+    </div>
+
+    <div class="mensagem-erro" id="mensagem-erro"></div>
+  </div>
+
+</main>
+
+<a class="voltar-hub" href="index.html">← Voltar para Jogo</a>
+
+<footer class="rodape">
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+<script>
+  const API_URL = "https://script.google.com/macros/s/AKfycbykfT27CwLkBStDKKrWa-Si7MTRTBmQO1QoSJ612iURPQ_99Z4gBtPwHp4W75wPfc0fBA/exec";
+  const URL_IMAGEM_CERTIFICADO = "https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/copa-dados/jogo/certificado.png";
+
+  // Posição do nome na imagem do certificado, conforme definido:
+  // centralizado horizontalmente, a 54% da altura, fonte tamanho 22.
+  const POSICAO_NOME_PORCENTAGEM_Y = 0.54;
+  const TAMANHO_FONTE_NOME = 22;
+
+  function pegarSessao() {
+    return {
+      nome: sessionStorage.getItem('copaDados_nome'),
+      email: sessionStorage.getItem('copaDados_email')
+    };
+  }
+
+  const sessao = pegarSessao();
+  if (!sessao.email) {
+    window.location.href = 'index.html';
+  }
+
+  async function chamarAPI(params) {
+    const corpo = new URLSearchParams(params).toString();
+    const resposta = await fetch(API_URL, {
+      method: 'POST',
+      body: corpo,
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      redirect: 'follow'
+    });
+    return await resposta.json();
+  }
+
+  function mostrarErro(texto) {
+    const el = document.getElementById('mensagem-erro');
+    el.textContent = texto;
+    el.classList.add('visivel');
+  }
+
+  function esconderErro() {
+    document.getElementById('mensagem-erro').classList.remove('visivel');
+  }
+
+  const TITULO_PADRAO = 'Parabéns!';
+  const SUBTITULO_PADRAO = 'Você completou os 3 Tempos da Copa dos Dados. Digite seu nome exatamente como ele deve aparecer no certificado.';
+  const FORMULARIO_PADRAO_HTML = `
+    <label for="nome-certificado">Nome completo para o certificado</label>
+    <input type="text" id="nome-certificado" placeholder="Seu nome completo">
+    <p class="dica-campo">Confira a grafia com atenção — essa é a única vez que você pode emitir.</p>
+    <button class="botao-principal" id="botao-emitir" onclick="emitirCertificado()">Emitir certificado</button>
+  `;
+
+  function restaurarEstadoPadrao() {
+    document.getElementById('titulo-principal').textContent = TITULO_PADRAO;
+    document.getElementById('subtitulo-principal').textContent = SUBTITULO_PADRAO;
+    document.getElementById('bloco-formulario').innerHTML = FORMULARIO_PADRAO_HTML;
+    document.getElementById('bloco-formulario').style.display = 'block';
+  }
+
+  async function verificarEstadoCertificado() {
+    try {
+      const resultado = await chamarAPI({ acao: 'pegarProgresso', email: sessao.email });
+
+      if (!resultado.sucesso) {
+        mostrarErro('Não foi possível verificar seu progresso: ' + (resultado.erro || 'erro desconhecido'));
+        document.getElementById('carregando-certificado').style.display = 'none';
+        document.getElementById('conteudo-certificado').style.display = 'block';
+        document.getElementById('bloco-formulario').style.display = 'none';
+        return;
+      }
+
+      const progresso = resultado.progresso;
+      document.getElementById('carregando-certificado').style.display = 'none';
+      document.getElementById('conteudo-certificado').style.display = 'block';
+
+      // Sempre reseta para o estado padrão antes de aplicar qualquer
+      // estado especial — evita herdar título/HTML de uma verificação
+      // anterior nesta mesma sessão de página.
+      restaurarEstadoPadrao();
+
+      if (!progresso.certificadoLiberado) {
+        // Ainda não completou os 3 Tempos
+        document.getElementById('titulo-principal').textContent = 'Ainda não chegou lá';
+        document.getElementById('subtitulo-principal').textContent = 'Complete os 3 Tempos da Copa dos Dados para liberar seu certificado.';
+        document.getElementById('bloco-formulario').innerHTML = `
+          <div class="bloco-bloqueado">
+            <p>Volte para o jogo e finalize as rodadas que faltam.</p>
+          </div>
+          <button class="botao-principal" style="background:var(--azul-noite); color:var(--branco); box-shadow:none;" onclick="window.location.href='index.html'">Voltar para Jogo</button>
+        `;
+      } else if (progresso.certificadoJaEmitido) {
+        // Já emitiu antes — não permite de novo
+        document.getElementById('titulo-principal').textContent = 'Certificado já emitido';
+        document.getElementById('subtitulo-principal').textContent = 'Você já baixou seu certificado da Copa dos Dados. Cada pessoa pode emitir apenas uma vez.';
+        document.getElementById('bloco-formulario').innerHTML = `
+          <div class="bloco-ja-emitido">
+            <p>Se você perdeu o arquivo, entre em contato com a equipe da Escola Karen Abecia para reenvio.</p>
+          </div>
+          <button class="botao-principal" style="background:var(--azul-noite); color:var(--branco); box-shadow:none; margin-top:14px;" onclick="window.location.href='index.html'">Voltar para Jogo</button>
+        `;
+      }
+      // Se chegou aqui sem cair nos casos acima, o estado padrão (já restaurado) é o correto
+    } catch (err) {
+      document.getElementById('carregando-certificado').style.display = 'none';
+      document.getElementById('conteudo-certificado').style.display = 'block';
+      mostrarErro('Não foi possível conectar ao jogo (' + err.message + ').');
+    }
+  }
+
+  async function emitirCertificado() {
+    esconderErro();
+    const nome = document.getElementById('nome-certificado').value.trim();
+
+    if (!nome) {
+      mostrarErro('Digite seu nome para emitir o certificado.');
+      return;
+    }
+
+    const botao = document.getElementById('botao-emitir');
+    botao.disabled = true;
+    botao.textContent = 'Emitindo...';
+
+    try {
+      const resultado = await chamarAPI({
+        acao: 'emitirCertificado',
+        email: sessao.email,
+        nomeCertificado: nome
+      });
+
+      if (!resultado.sucesso) {
+        mostrarErro(resultado.erro || 'Não foi possível emitir o certificado.');
+        botao.disabled = false;
+        botao.textContent = 'Emitir certificado';
+        if (resultado.jaEmitido) {
+          setTimeout(() => verificarEstadoCertificado(), 1200);
+        }
+        return;
+      }
+
+      botao.textContent = 'Gerando PDF...';
+      await gerarPdfCertificado(nome);
+
+      document.getElementById('bloco-formulario').innerHTML = `
+        <div class="bloco-ja-emitido">
+          <p>✅ Certificado gerado! O download deve começar automaticamente. Cada pessoa pode emitir apenas uma vez.</p>
+        </div>
+        <button class="botao-principal" style="background:var(--azul-noite); color:var(--branco); box-shadow:none; margin-top:14px;" onclick="window.location.href='index.html'">Voltar para Jogo</button>
+      `;
+    } catch (err) {
+      mostrarErro('Erro ao emitir certificado: ' + err.message);
+      botao.disabled = false;
+      botao.textContent = 'Emitir certificado';
+    }
+  }
+
+  function carregarImagemComoBase64(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolve({ dataUrl: canvas.toDataURL('image/png'), largura: img.naturalWidth, altura: img.naturalHeight });
+      };
+      img.onerror = () => reject(new Error('Não foi possível carregar a imagem do certificado.'));
+      img.src = url;
+    });
+  }
+
+  async function gerarPdfCertificado(nomeAluno) {
+    const { jsPDF } = window.jspdf;
+
+    const { dataUrl, largura, altura } = await carregarImagemComoBase64(URL_IMAGEM_CERTIFICADO);
+
+    // Orientação do PDF segue a proporção real da imagem do certificado.
+    const orientacao = largura >= altura ? 'landscape' : 'portrait';
+    const doc = new jsPDF({
+      orientation: orientacao,
+      unit: 'px',
+      format: [largura, altura]
+    });
+
+    doc.addImage(dataUrl, 'PNG', 0, 0, largura, altura);
+
+    // Nome centralizado horizontalmente, a 54% da altura da imagem.
+    const posicaoY = altura * POSICAO_NOME_PORCENTAGEM_Y;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(TAMANHO_FONTE_NOME);
+    doc.setTextColor(2, 6, 23);
+    doc.text(nomeAluno, largura / 2, posicaoY, { align: 'center' });
+
+    const nomeArquivo = 'certificado-copa-dos-dados-' + nomeAluno.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase() + '.pdf';
+    doc.save(nomeArquivo);
+  }
+
+  verificarEstadoCertificado();
+</script>
+
+</body>
+</html>
