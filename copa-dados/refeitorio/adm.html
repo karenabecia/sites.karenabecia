@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão da Copa — Painel do Adm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-escuro:#06301B;
+    --verde:#0B7A3D;
+    --verde-claro:#22B461;
+    --amarelo:#FFD400;
+    --branco:#FBFBF6;
+    --texto:#0A1F14;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Manrope', sans-serif;
+    background:var(--verde-escuro);
+    min-height:100vh;
+    color:var(--branco);
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:640px; margin:0 auto;}
+  header{margin-bottom:24px;}
+  .selo{
+    display:inline-block;
+    background:var(--amarelo);
+    color:var(--verde-escuro);
+    font-family:'Anton', sans-serif;
+    letter-spacing:0.08em;
+    font-size:11px;
+    padding:5px 12px;
+    border-radius:999px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:'Anton', sans-serif;
+    font-size:clamp(28px, 7vw, 38px);
+    text-transform:uppercase;
+  }
+  h1 span{color:var(--amarelo);}
+  .sub{font-size:13px; opacity:0.7; margin-top:6px; font-weight:600;}
+
+  .painel{
+    background:var(--branco);
+    color:var(--texto);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:24px;
+    box-shadow:0 14px 30px rgba(0,0,0,0.3);
+  }
+  .painel h2{
+    font-family:'Anton', sans-serif;
+    font-size:18px;
+    text-transform:uppercase;
+    color:var(--verde);
+    margin-bottom:14px;
+    letter-spacing:0.02em;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .campo{margin-bottom:12px;}
+  .campo label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    color:var(--verde);
+    margin-bottom:5px;
+    letter-spacing:0.04em;
+  }
+  .campo input{
+    width:100%;
+    padding:11px 12px;
+    border-radius:9px;
+    border:2px solid #E2E8DF;
+    font-family:'Manrope',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--texto);
+  }
+  .campo input:focus{outline:none; border-color:var(--verde);}
+
+  .btn{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:11px;
+    background:var(--verde);
+    color:#fff;
+    font-family:'Anton', sans-serif;
+    font-size:15px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-amarelo{background:var(--amarelo); color:var(--verde-escuro);}
+
+  #msg-cadastro, #msg-geral{
+    font-size:13px;
+    font-weight:700;
+    margin-top:10px;
+    min-height:18px;
+  }
+
+  .jogo-adm{
+    border:2px solid #E2E8DF;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .jogo-adm-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+  }
+  .jogo-adm-titulo{
+    font-family:'Anton', sans-serif;
+    font-size:16px;
+    text-transform:uppercase;
+  }
+  .badge{
+    font-size:10px;
+    font-weight:800;
+    padding:3px 9px;
+    border-radius:999px;
+    text-transform:uppercase;
+  }
+  .badge-aberto{background:#D7F5E3; color:var(--verde);}
+  .badge-encerrado{background:#EDEDED; color:#666;}
+  .jogo-adm-data{font-size:12px; color:#777; font-weight:600; margin-bottom:10px;}
+
+  .linha-placar{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .linha-placar input{
+    width:60px;
+    text-align:center;
+    padding:9px 0;
+    border-radius:8px;
+    border:2px solid #E2E8DF;
+    font-family:'Anton', sans-serif;
+    font-size:18px;
+  }
+  .linha-placar button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:var(--verde);
+    color:#fff;
+    font-weight:800;
+    font-size:13px;
+    cursor:pointer;
+    text-transform:uppercase;
+  }
+  .resultado-final{
+    font-family:'Anton', sans-serif;
+    font-size:20px;
+    color:var(--verde);
+  }
+
+  footer{
+    text-align:center;
+    color:rgba(255,255,255,0.5);
+    font-size:11px;
+    margin-top:20px;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="selo">Acesso restrito</span>
+    <h1>Painel do <span>Adm</span></h1>
+    <p class="sub">Cadastre jogos, defina datas e lance os placares.</p>
+  </header>
+
+  <div class="painel">
+    <h2>Cadastrar novo jogo</h2>
+    <div class="grid2">
+      <div class="campo">
+        <label>Time 1</label>
+        <input type="text" id="time1" placeholder="Ex: Brasil">
+      </div>
+      <div class="campo">
+        <label>Time 2</label>
+        <input type="text" id="time2" placeholder="Ex: Argentina">
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="campo">
+        <label>Data do jogo</label>
+        <input type="date" id="data-jogo">
+      </div>
+      <div class="campo">
+        <label>Hora do jogo</label>
+        <input type="time" id="hora-jogo">
+      </div>
+    </div>
+    <button class="btn" id="btn-cadastrar">Cadastrar jogo</button>
+    <div id="msg-cadastro"></div>
+  </div>
+
+  <div class="painel">
+    <h2>Jogos cadastrados</h2>
+    <div id="msg-geral"></div>
+    <div id="lista-jogos-adm">Carregando...</div>
+  </div>
+
+  <footer>Painel administrativo — Bolão Interativo da Copa</footer>
+</div>
+
+<script>
+  // ⚠️ Troque pela URL da sua implantação do Apps Script
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNBbF67Ok_ARaxPWcjDIn2DO-7H2ZdNuCjRQF8ty9np_JYWDziJmymcozGaHVTXo6kQA/exec';
+
+  const elMsgCadastro = document.getElementById('msg-cadastro');
+  const elMsgGeral = document.getElementById('msg-geral');
+  const elLista = document.getElementById('lista-jogos-adm');
+
+  document.getElementById('btn-cadastrar').addEventListener('click', () => {
+    const time1 = document.getElementById('time1').value.trim();
+    const time2 = document.getElementById('time2').value.trim();
+    const data = document.getElementById('data-jogo').value;
+    const hora = document.getElementById('hora-jogo').value;
+
+    if (!time1 || !time2 || !data || !hora){
+      elMsgCadastro.textContent = '⚠️ Preencha todos os campos.';
+      elMsgCadastro.style.color = '#C0392B';
+      return;
+    }
+
+    elMsgCadastro.textContent = 'Cadastrando...';
+    elMsgCadastro.style.color = '#0B7A3D';
+
+    const url = `${APPS_SCRIPT_URL}?action=cadastrarJogo&time1=${encodeURIComponent(time1)}&time2=${encodeURIComponent(time2)}&data=${data}&hora=${hora}`;
+    fetch(url, { mode: 'no-cors' })
+      .then(() => {
+        elMsgCadastro.textContent = `✅ Jogo "${time1} x ${time2}" cadastrado!`;
+        document.getElementById('time1').value = '';
+        document.getElementById('time2').value = '';
+        document.getElementById('data-jogo').value = '';
+        document.getElementById('hora-jogo').value = '';
+        setTimeout(carregarJogos, 1200);
+      })
+      .catch(() => {
+        elMsgCadastro.textContent = '❌ Erro ao cadastrar. Tente novamente.';
+        elMsgCadastro.style.color = '#C0392B';
+      });
+  });
+
+  function formatarData(dataStr, horaStr){
+    if (!dataStr) return '';
+    const [ano, mes, dia] = dataStr.split('-');
+    return `${dia}/${mes}/${ano} às ${horaStr}`;
+  }
+
+  function renderJogosAdm(jogos){
+    if (jogos.length === 0){
+      elLista.innerHTML = '<p style="font-size:13px;color:#888;">Nenhum jogo cadastrado ainda.</p>';
+      return;
+    }
+
+    const ordenados = [...jogos].sort((a,b) => Number(a.ordem) - Number(b.ordem));
+
+    elLista.innerHTML = ordenados.map(j => {
+      const temPlacar = j.placarTime1 !== '' && j.placarTime1 !== undefined && j.placarTime1 !== null;
+      return `
+      <div class="jogo-adm" data-id="${j.id}">
+        <div class="jogo-adm-topo">
+          <span class="jogo-adm-titulo">${j.time1} x ${j.time2}</span>
+          <span class="badge ${j.status === 'Aberto' ? 'badge-aberto' : 'badge-encerrado'}">${j.status}</span>
+        </div>
+        <div class="jogo-adm-data">${formatarData(j.data, j.hora)}</div>
+        ${temPlacar
+          ? `<div class="resultado-final">${j.placarTime1} x ${j.placarTime2}</div>`
+          : `<div class="linha-placar">
+               <input type="number" min="0" class="placar1" placeholder="0">
+               <span>x</span>
+               <input type="number" min="0" class="placar2" placeholder="0">
+               <button class="btn-lancar">Lançar placar</button>
+             </div>`
+        }
+      </div>`;
+    }).join('');
+
+    document.querySelectorAll('.btn-lancar').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const card = ev.currentTarget.closest('.jogo-adm');
+        const jogoId = card.dataset.id;
+        const p1 = card.querySelector('.placar1').value;
+        const p2 = card.querySelector('.placar2').value;
+        if (p1 === '' || p2 === ''){
+          elMsgGeral.textContent = '⚠️ Preencha os dois placares antes de lançar.';
+          elMsgGeral.style.color = '#C0392B';
+          return;
+        }
+        if (!confirm(`Confirmar placar final: ${p1} x ${p2}? Isso vai calcular os pontos de todo mundo.`)) return;
+
+        ev.currentTarget.disabled = true;
+        ev.currentTarget.textContent = 'Lançando...';
+
+        const url = `${APPS_SCRIPT_URL}?action=atualizarPlacar&jogoId=${jogoId}&placarTime1=${p1}&placarTime2=${p2}`;
+        fetch(url, { mode: 'no-cors' })
+          .then(() => {
+            elMsgGeral.textContent = '✅ Placar lançado e pontos calculados!';
+            elMsgGeral.style.color = '#0B7A3D';
+            setTimeout(carregarJogos, 1200);
+          })
+          .catch(() => {
+            elMsgGeral.textContent = '❌ Erro ao lançar placar.';
+            elMsgGeral.style.color = '#C0392B';
+          });
+      });
+    });
+  }
+
+  function carregarJogos(){
+    fetch(`${APPS_SCRIPT_URL}?action=listarJogos`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) renderJogosAdm(data.jogos);
+      })
+      .catch(() => {
+        elLista.innerHTML = '<p style="color:#C0392B;font-size:13px;">Erro ao carregar jogos.</p>';
+      });
+  }
+
+  carregarJogos();
+</script>
+</body>
+</html>
