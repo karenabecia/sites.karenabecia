@@ -332,9 +332,14 @@
     btn.textContent = 'Enviando...';
 
     const url = `${APPS_SCRIPT_URL}?action=registrarPalpite&jogoId=${jogoId}&nome=${encodeURIComponent(nome)}&placarTime1=${placar1}&placarTime2=${placar2}`;
-    fetch(url, { mode: 'no-cors' })
-      .then(() => {
+    jsonp(url)
+      .then((resp) => {
         btn.disabled = false;
+        if (!resp.ok){
+          btn.textContent = 'Tentar novamente';
+          elStatus.textContent = '❌ ' + (resp.erro || 'Erro ao enviar.');
+          return;
+        }
         btn.textContent = 'Palpite enviado ✓ (editar)';
         btn.classList.add('enviado');
         elStatus.textContent = '✅ Palpite registrado! Boa sorte.';
