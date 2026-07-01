@@ -259,9 +259,18 @@
     return `${dia}/${mes} às ${horaStr}`;
   }
 
+  function dataHoraBrasilia(dataStr, horaStr){
+    // Brasília é sempre UTC-3 (sem horário de verão desde 2019).
+    // Construir assim garante o prazo correto mesmo que o celular/PC
+    // de quem acessa esteja configurado em outro fuso horário.
+    const [ano, mes, dia] = dataStr.split('-').map(Number);
+    const [hora, minuto] = horaStr.split(':').map(Number);
+    return new Date(Date.UTC(ano, mes - 1, dia, hora + 3, minuto, 0));
+  }
+
   function statusVisivel(jogo){
     const agora = new Date();
-    const dataHora = new Date(jogo.data + 'T' + jogo.hora + ':00');
+    const dataHora = dataHoraBrasilia(jogo.data, jogo.hora);
     if (jogo.status === 'Aberto' && dataHora > agora) return 'aberto';
     return 'encerrado';
   }
