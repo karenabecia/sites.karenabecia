@@ -1,0 +1,834 @@
+[
+  {
+    "id": 1,
+    "jogo": "México vs África do Sul",
+    "pais_sede": "México",
+    "cidade": "Cidade do México",
+    "fase": "Grupos",
+    "data": "2026-06-11"
+  },
+  {
+    "id": 2,
+    "jogo": "Coreia do Sul vs Tchéquia",
+    "pais_sede": "México",
+    "cidade": "Guadalajara",
+    "fase": "Grupos",
+    "data": "2026-06-11"
+  },
+  {
+    "id": 3,
+    "jogo": "Canadá vs Bósnia e Herzegovina",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Grupos",
+    "data": "2026-06-12"
+  },
+  {
+    "id": 4,
+    "jogo": "Estados Unidos vs Paraguai",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Grupos",
+    "data": "2026-06-12"
+  },
+  {
+    "id": 5,
+    "jogo": "Haiti vs Escócia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Grupos",
+    "data": "2026-06-13"
+  },
+  {
+    "id": 6,
+    "jogo": "Austrália vs Turquia",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Grupos",
+    "data": "2026-06-13"
+  },
+  {
+    "id": 7,
+    "jogo": "Brasil vs Marrocos",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Grupos",
+    "data": "2026-06-13"
+  },
+  {
+    "id": 8,
+    "jogo": "Catar vs Suíça",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Grupos",
+    "data": "2026-06-13"
+  },
+  {
+    "id": 9,
+    "jogo": "Costa do Marfim vs Equador",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Grupos",
+    "data": "2026-06-14"
+  },
+  {
+    "id": 10,
+    "jogo": "Alemanha vs Curaçao",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Grupos",
+    "data": "2026-06-14"
+  },
+  {
+    "id": 11,
+    "jogo": "Países Baixos vs Japão",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Grupos",
+    "data": "2026-06-14"
+  },
+  {
+    "id": 12,
+    "jogo": "Suécia vs Tunísia",
+    "pais_sede": "México",
+    "cidade": "Guadalupe",
+    "fase": "Grupos",
+    "data": "2026-06-14"
+  },
+  {
+    "id": 13,
+    "jogo": "Arábia Saudita vs Uruguai",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Grupos",
+    "data": "2026-06-15"
+  },
+  {
+    "id": 14,
+    "jogo": "Espanha vs Cabo Verde",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Grupos",
+    "data": "2026-06-15"
+  },
+  {
+    "id": 15,
+    "jogo": "Irã vs Nova Zelândia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Grupos",
+    "data": "2026-06-15"
+  },
+  {
+    "id": 16,
+    "jogo": "Bélgica vs Egito",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Grupos",
+    "data": "2026-06-15"
+  },
+  {
+    "id": 17,
+    "jogo": "França vs Senegal",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Grupos",
+    "data": "2026-06-16"
+  },
+  {
+    "id": 18,
+    "jogo": "Iraque vs Noruega",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Grupos",
+    "data": "2026-06-16"
+  },
+  {
+    "id": 19,
+    "jogo": "Argentina vs Argélia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Grupos",
+    "data": "2026-06-16"
+  },
+  {
+    "id": 20,
+    "jogo": "Áustria vs Jordânia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Grupos",
+    "data": "2026-06-16"
+  },
+  {
+    "id": 21,
+    "jogo": "Gana vs Panamá",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Grupos",
+    "data": "2026-06-17"
+  },
+  {
+    "id": 22,
+    "jogo": "Inglaterra vs Croácia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Grupos",
+    "data": "2026-06-17"
+  },
+  {
+    "id": 23,
+    "jogo": "Portugal vs RD Congo",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Grupos",
+    "data": "2026-06-17"
+  },
+  {
+    "id": 24,
+    "jogo": "Uzbequistão vs Colômbia",
+    "pais_sede": "México",
+    "cidade": "Cidade do México",
+    "fase": "Grupos",
+    "data": "2026-06-17"
+  },
+  {
+    "id": 25,
+    "jogo": "Tchéquia vs África do Sul",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Grupos",
+    "data": "2026-06-18"
+  },
+  {
+    "id": 26,
+    "jogo": "Suíça vs Bósnia e Herzegovina",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Grupos",
+    "data": "2026-06-18"
+  },
+  {
+    "id": 27,
+    "jogo": "Canadá vs Catar",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Grupos",
+    "data": "2026-06-18"
+  },
+  {
+    "id": 28,
+    "jogo": "México vs Coreia do Sul",
+    "pais_sede": "México",
+    "cidade": "Guadalajara",
+    "fase": "Grupos",
+    "data": "2026-06-18"
+  },
+  {
+    "id": 29,
+    "jogo": "Brasil vs Haiti",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Grupos",
+    "data": "2026-06-19"
+  },
+  {
+    "id": 30,
+    "jogo": "Escócia vs Marrocos",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Grupos",
+    "data": "2026-06-19"
+  },
+  {
+    "id": 31,
+    "jogo": "Turquia vs Paraguai",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Grupos",
+    "data": "2026-06-19"
+  },
+  {
+    "id": 32,
+    "jogo": "Estados Unidos vs Austrália",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Grupos",
+    "data": "2026-06-19"
+  },
+  {
+    "id": 33,
+    "jogo": "Alemanha vs Costa do Marfim",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Grupos",
+    "data": "2026-06-20"
+  },
+  {
+    "id": 34,
+    "jogo": "Equador vs Curaçao",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Grupos",
+    "data": "2026-06-20"
+  },
+  {
+    "id": 35,
+    "jogo": "Países Baixos vs Suécia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Grupos",
+    "data": "2026-06-20"
+  },
+  {
+    "id": 36,
+    "jogo": "Tunísia vs Japão",
+    "pais_sede": "México",
+    "cidade": "Guadalupe",
+    "fase": "Grupos",
+    "data": "2026-06-20"
+  },
+  {
+    "id": 37,
+    "jogo": "Uruguai vs Cabo Verde",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Grupos",
+    "data": "2026-06-21"
+  },
+  {
+    "id": 38,
+    "jogo": "Espanha vs Arábia Saudita",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Grupos",
+    "data": "2026-06-21"
+  },
+  {
+    "id": 39,
+    "jogo": "Bélgica vs Irã",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Grupos",
+    "data": "2026-06-21"
+  },
+  {
+    "id": 40,
+    "jogo": "Nova Zelândia vs Egito",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Grupos",
+    "data": "2026-06-21"
+  },
+  {
+    "id": 41,
+    "jogo": "Noruega vs Senegal",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Grupos",
+    "data": "2026-06-22"
+  },
+  {
+    "id": 42,
+    "jogo": "França vs Iraque",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Grupos",
+    "data": "2026-06-22"
+  },
+  {
+    "id": 43,
+    "jogo": "Argentina vs Áustria",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Grupos",
+    "data": "2026-06-22"
+  },
+  {
+    "id": 44,
+    "jogo": "Jordânia vs Argélia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Grupos",
+    "data": "2026-06-22"
+  },
+  {
+    "id": 45,
+    "jogo": "Inglaterra vs Gana",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Grupos",
+    "data": "2026-06-23"
+  },
+  {
+    "id": 46,
+    "jogo": "Panamá vs Croácia",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Grupos",
+    "data": "2026-06-23"
+  },
+  {
+    "id": 47,
+    "jogo": "Portugal vs Uzbequistão",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Grupos",
+    "data": "2026-06-23"
+  },
+  {
+    "id": 48,
+    "jogo": "Colômbia vs RD Congo",
+    "pais_sede": "México",
+    "cidade": "Guadalajara",
+    "fase": "Grupos",
+    "data": "2026-06-23"
+  },
+  {
+    "id": 49,
+    "jogo": "Escócia vs Brasil",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 50,
+    "jogo": "Marrocos vs Haiti",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 51,
+    "jogo": "Suíça vs Canadá",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 52,
+    "jogo": "Bósnia e Herzegovina vs Catar",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 53,
+    "jogo": "Tchéquia vs México",
+    "pais_sede": "México",
+    "cidade": "Cidade do México",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 54,
+    "jogo": "África do Sul vs Coreia do Sul",
+    "pais_sede": "México",
+    "cidade": "Guadalupe",
+    "fase": "Grupos",
+    "data": "2026-06-24"
+  },
+  {
+    "id": 55,
+    "jogo": "Curaçao vs Costa do Marfim",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 56,
+    "jogo": "Equador vs Alemanha",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 57,
+    "jogo": "Japão vs Suécia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 58,
+    "jogo": "Tunísia vs Países Baixos",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 59,
+    "jogo": "Turquia vs Estados Unidos",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 60,
+    "jogo": "Paraguai vs Austrália",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Grupos",
+    "data": "2026-06-25"
+  },
+  {
+    "id": 61,
+    "jogo": "Noruega vs França",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 62,
+    "jogo": "Senegal vs Iraque",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 63,
+    "jogo": "Egito vs Irã",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 64,
+    "jogo": "Nova Zelândia vs Bélgica",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 65,
+    "jogo": "Cabo Verde vs Arábia Saudita",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 66,
+    "jogo": "Uruguai vs Espanha",
+    "pais_sede": "México",
+    "cidade": "Guadalajara",
+    "fase": "Grupos",
+    "data": "2026-06-26"
+  },
+  {
+    "id": 67,
+    "jogo": "Panamá vs Inglaterra",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 68,
+    "jogo": "Croácia vs Gana",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 69,
+    "jogo": "Argélia vs Áustria",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 70,
+    "jogo": "Jordânia vs Argentina",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 71,
+    "jogo": "Colômbia vs Portugal",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 72,
+    "jogo": "RD Congo vs Uzbequistão",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Grupos",
+    "data": "2026-06-27"
+  },
+  {
+    "id": 73,
+    "jogo": "África do Sul vs Canadá",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Rodada de 32",
+    "data": "2026-06-28"
+  },
+  {
+    "id": 74,
+    "jogo": "Alemanha vs Paraguai",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Rodada de 32",
+    "data": "2026-06-29"
+  },
+  {
+    "id": 75,
+    "jogo": "Países Baixos vs Marrocos",
+    "pais_sede": "México",
+    "cidade": "Guadalupe",
+    "fase": "Rodada de 32",
+    "data": "2026-06-29"
+  },
+  {
+    "id": 76,
+    "jogo": "Brasil vs Japão",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Rodada de 32",
+    "data": "2026-06-29"
+  },
+  {
+    "id": 77,
+    "jogo": "França vs Suécia",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Rodada de 32",
+    "data": "2026-06-30"
+  },
+  {
+    "id": 78,
+    "jogo": "Costa do Marfim vs Noruega",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Rodada de 32",
+    "data": "2026-06-30"
+  },
+  {
+    "id": 79,
+    "jogo": "México vs Equador",
+    "pais_sede": "México",
+    "cidade": "Cidade do México",
+    "fase": "Rodada de 32",
+    "data": "2026-06-30"
+  },
+  {
+    "id": 80,
+    "jogo": "Inglaterra vs RD Congo",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Rodada de 32",
+    "data": "2026-07-01"
+  },
+  {
+    "id": 81,
+    "jogo": "Estados Unidos vs Bósnia e Herzegovina",
+    "pais_sede": "Estados Unidos",
+    "cidade": "San Francisco Bay Area",
+    "fase": "Rodada de 32",
+    "data": "2026-07-01"
+  },
+  {
+    "id": 82,
+    "jogo": "Bélgica vs Senegal",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Rodada de 32",
+    "data": "2026-07-01"
+  },
+  {
+    "id": 83,
+    "jogo": "Portugal vs Croácia",
+    "pais_sede": "Canadá",
+    "cidade": "Toronto",
+    "fase": "Rodada de 32",
+    "data": "2026-07-02"
+  },
+  {
+    "id": 84,
+    "jogo": "Espanha vs Áustria",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Rodada de 32",
+    "data": "2026-07-02"
+  },
+  {
+    "id": 85,
+    "jogo": "Suíça vs Argélia",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Rodada de 32",
+    "data": "2026-07-02"
+  },
+  {
+    "id": 86,
+    "jogo": "Argentina vs Cabo Verde",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Rodada de 32",
+    "data": "2026-07-03"
+  },
+  {
+    "id": 87,
+    "jogo": "Colômbia vs Gana",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Rodada de 32",
+    "data": "2026-07-03"
+  },
+  {
+    "id": 88,
+    "jogo": "Austrália vs Egito",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Rodada de 32",
+    "data": "2026-07-03"
+  },
+  {
+    "id": 89,
+    "jogo": "Paraguai vs França",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Filadélfia",
+    "fase": "Oitavas de final",
+    "data": "2026-07-04"
+  },
+  {
+    "id": 90,
+    "jogo": "Canadá vs Marrocos",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Houston",
+    "fase": "Oitavas de final",
+    "data": "2026-07-04"
+  },
+  {
+    "id": 91,
+    "jogo": "Brasil vs Noruega",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Oitavas de final",
+    "data": "2026-07-05"
+  },
+  {
+    "id": 92,
+    "jogo": "México vs Vencedor do jogo 80",
+    "pais_sede": "México",
+    "cidade": "Cidade do México",
+    "fase": "Oitavas de final",
+    "data": "2026-07-05"
+  },
+  {
+    "id": 93,
+    "jogo": "Vencedor do jogo 83 vs Vencedor do jogo 84",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Oitavas de final",
+    "data": "2026-07-06"
+  },
+  {
+    "id": 94,
+    "jogo": "Vencedor do jogo 81 vs Vencedor do jogo 82",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Seattle",
+    "fase": "Oitavas de final",
+    "data": "2026-07-06"
+  },
+  {
+    "id": 95,
+    "jogo": "Vencedor do jogo 86 vs Vencedor do jogo 88",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Oitavas de final",
+    "data": "2026-07-07"
+  },
+  {
+    "id": 96,
+    "jogo": "Vencedor do jogo 85 vs Vencedor do jogo 87",
+    "pais_sede": "Canadá",
+    "cidade": "Vancouver",
+    "fase": "Oitavas de final",
+    "data": "2026-07-07"
+  },
+  {
+    "id": 97,
+    "jogo": "Vencedor do jogo 89 vs Vencedor do jogo 90",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Boston",
+    "fase": "Quartas de final",
+    "data": "2026-07-09"
+  },
+  {
+    "id": 98,
+    "jogo": "Vencedor do jogo 93 vs Vencedor do jogo 94",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Los Angeles",
+    "fase": "Quartas de final",
+    "data": "2026-07-10"
+  },
+  {
+    "id": 99,
+    "jogo": "Vencedor do jogo 91 vs Vencedor do jogo 92",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Quartas de final",
+    "data": "2026-07-11"
+  },
+  {
+    "id": 100,
+    "jogo": "Vencedor do jogo 95 vs Vencedor do jogo 96",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Kansas City",
+    "fase": "Quartas de final",
+    "data": "2026-07-11"
+  },
+  {
+    "id": 101,
+    "jogo": "Vencedor do jogo 97 vs Vencedor do jogo 98",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Dallas",
+    "fase": "Semifinal",
+    "data": "2026-07-14"
+  },
+  {
+    "id": 102,
+    "jogo": "Vencedor do jogo 99 vs Vencedor do jogo 100",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Atlanta",
+    "fase": "Semifinal",
+    "data": "2026-07-15"
+  },
+  {
+    "id": 103,
+    "jogo": "Perdedor do jogo 101 vs Perdedor do jogo 102",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Miami",
+    "fase": "Disputa de 3º lugar",
+    "data": "2026-07-18"
+  },
+  {
+    "id": 104,
+    "jogo": "Vencedor do jogo 101 vs Vencedor do jogo 102",
+    "pais_sede": "Estados Unidos",
+    "cidade": "Nova York/Nova Jersey",
+    "fase": "Final",
+    "data": "2026-07-19"
+  }
+]
