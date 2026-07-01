@@ -243,14 +243,20 @@
     elMsgCadastro.style.color = '#0B7A3D';
 
     const url = `${APPS_SCRIPT_URL}?action=cadastrarJogo&time1=${encodeURIComponent(time1)}&time2=${encodeURIComponent(time2)}&data=${data}&hora=${hora}`;
-    fetch(url, { mode: 'no-cors' })
-      .then(() => {
+    jsonp(url)
+      .then((resp) => {
+        if (!resp.ok){
+          elMsgCadastro.textContent = '❌ ' + (resp.erro || 'Erro ao cadastrar.');
+          elMsgCadastro.style.color = '#C0392B';
+          return;
+        }
         elMsgCadastro.textContent = `✅ Jogo "${time1} x ${time2}" cadastrado!`;
+        elMsgCadastro.style.color = '#0B7A3D';
         document.getElementById('time1').value = '';
         document.getElementById('time2').value = '';
         document.getElementById('data-jogo').value = '';
         document.getElementById('hora-jogo').value = '';
-        setTimeout(carregarJogos, 1200);
+        setTimeout(carregarJogos, 600);
       })
       .catch(() => {
         elMsgCadastro.textContent = '❌ Erro ao cadastrar. Tente novamente.';
@@ -310,15 +316,24 @@
         ev.currentTarget.textContent = 'Lançando...';
 
         const url = `${APPS_SCRIPT_URL}?action=atualizarPlacar&jogoId=${jogoId}&placarTime1=${p1}&placarTime2=${p2}`;
-        fetch(url, { mode: 'no-cors' })
-          .then(() => {
+        jsonp(url)
+          .then((resp) => {
+            if (!resp.ok){
+              elMsgGeral.textContent = '❌ ' + (resp.erro || 'Erro ao lançar placar.');
+              elMsgGeral.style.color = '#C0392B';
+              ev.currentTarget.disabled = false;
+              ev.currentTarget.textContent = 'Lançar placar';
+              return;
+            }
             elMsgGeral.textContent = '✅ Placar lançado e pontos calculados!';
             elMsgGeral.style.color = '#0B7A3D';
-            setTimeout(carregarJogos, 1200);
+            setTimeout(carregarJogos, 600);
           })
           .catch(() => {
             elMsgGeral.textContent = '❌ Erro ao lançar placar.';
             elMsgGeral.style.color = '#C0392B';
+            ev.currentTarget.disabled = false;
+            ev.currentTarget.textContent = 'Lançar placar';
           });
       });
     });
