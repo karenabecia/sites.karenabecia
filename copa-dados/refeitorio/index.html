@@ -262,9 +262,32 @@
     }).join('');
   }
 
+  // Leitura via JSONP: o Apps Script bloqueia fetch() normal por CORS,
+  // mas uma tag <script> não sofre esse bloqueio.
+  function jsonp(url){
+    return new Promise((resolve, reject) => {
+      const nomeCallback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+      const script = document.createElement('script');
+      const timeout = setTimeout(() => {
+        limpar();
+        reject(new Error('timeout'));
+      }, 10000);
+
+      function limpar(){
+        clearTimeout(timeout);
+        delete window[nomeCallback];
+        script.remove();
+      }
+
+      window[nomeCallback] = (data) => { limpar(); resolve(data); };
+      script.onerror = () => { limpar(); reject(new Error('erro de rede')); };
+      script.src = `${url}&callback=${nomeCallback}`;
+      document.head.appendChild(script);
+    });
+  }
+
   function carregarDados(){
-    fetch(`${APPS_SCRIPT_URL}?action=dadosResultados`)
-      .then(r => r.json())
+    jsonp(`${APPS_SCRIPT_URL}?action=dadosResultados`)
       .then(data => {
         if (!data.ok) return;
         renderProximoJogo(data.proximoJogo);
