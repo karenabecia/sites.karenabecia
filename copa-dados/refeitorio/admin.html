@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão da Copa — Painel do Adm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-escuro:#06301B;
+    --verde:#0B7A3D;
+    --verde-claro:#22B461;
+    --amarelo:#FFD400;
+    --amarelo-escuro:#E8B800;
+    --branco:#FBFBF6;
+    --texto:#0A1F14;
+    --cinza-borda:#E2E8DF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Manrope', sans-serif;
+    background:var(--verde-escuro);
+    min-height:100vh;
+    color:var(--branco);
+    padding:28px 32px 50px;
+  }
+  .wrap{max-width:1180px; margin:0 auto;}
+
+  header{margin-bottom:22px; display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+  .selo{
+    display:inline-block;
+    background:var(--amarelo);
+    color:var(--verde-escuro);
+    font-family:'Anton', sans-serif;
+    letter-spacing:0.08em;
+    font-size:11px;
+    padding:5px 12px;
+    border-radius:999px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:'Anton', sans-serif;
+    font-size:clamp(26px, 3.4vw, 34px);
+    text-transform:uppercase;
+  }
+  h1 span{color:var(--amarelo);}
+  .sub{font-size:13px; opacity:0.7; font-weight:600;}
+
+  .linha-topo{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+    align-items:stretch;
+  }
+  .linha-jogos{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width: 880px){
+    .linha-topo, .linha-jogos{ grid-template-columns:1fr; }
+  }
+
+  .painel{
+    background:var(--branco);
+    color:var(--texto);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 14px 30px rgba(0,0,0,0.3);
+  }
+  .painel h2{
+    font-family:'Anton', sans-serif;
+    font-size:17px;
+    text-transform:uppercase;
+    color:var(--verde);
+    margin-bottom:16px;
+    letter-spacing:0.02em;
+  }
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .campo{margin-bottom:12px;}
+  .campo label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    color:var(--verde);
+    margin-bottom:5px;
+    letter-spacing:0.04em;
+  }
+  .campo input{
+    width:100%;
+    padding:11px 12px;
+    border-radius:9px;
+    border:2px solid var(--cinza-borda);
+    font-family:'Manrope',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--texto);
+  }
+  .campo input:focus{outline:none; border-color:var(--verde);}
+
+  .btn{
+    padding:13px 20px;
+    border:none;
+    border-radius:11px;
+    background:var(--verde);
+    color:#fff;
+    font-family:'Anton', sans-serif;
+    font-size:14px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+  .btn:hover{background:#095F30;}
+
+  /* Painel de acesso rápido */
+  .acoes-painel{display:flex; flex-direction:column;}
+  .acoes-painel h2{margin-bottom:14px;}
+  .btn-link{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:16px;
+    border-radius:12px;
+    text-decoration:none;
+    font-family:'Anton', sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin-bottom:12px;
+    transition:transform .12s ease;
+  }
+  .btn-link:hover{transform:translateY(-2px);}
+  .btn-link-verde{background:var(--verde); color:#fff;}
+  .btn-link-amarelo{background:var(--amarelo); color:var(--verde-escuro);}
+  .acoes-desc{font-size:12px; color:#7A897F; font-weight:600; margin-top:auto; line-height:1.5;}
+
+  #msg-cadastro{font-size:13px; font-weight:700; margin-top:10px; min-height:18px;}
+
+  /* Cards de jogo */
+  .jogo-adm{
+    border:2px solid var(--cinza-borda);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .jogo-adm-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    gap:8px;
+  }
+  .jogo-adm-titulo{
+    font-family:'Anton', sans-serif;
+    font-size:16px;
+    text-transform:uppercase;
+  }
+  .badge{
+    font-size:10px;
+    font-weight:800;
+    padding:3px 9px;
+    border-radius:999px;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .badge-pendente{background:#FFF3C4; color:#8A6D00;}
+  .badge-finalizado{background:#D7F5E3; color:var(--verde);}
+  .jogo-adm-data{font-size:12px; color:#777; font-weight:600; margin-bottom:10px;}
+
+  .linha-placar{display:flex; gap:8px; align-items:center;}
+  .linha-placar input{
+    width:60px;
+    text-align:center;
+    padding:9px 0;
+    border-radius:8px;
+    border:2px solid var(--cinza-borda);
+    font-family:'Anton', sans-serif;
+    font-size:18px;
+  }
+  .linha-placar button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:var(--verde);
+    color:#fff;
+    font-weight:800;
+    font-size:13px;
+    cursor:pointer;
+    text-transform:uppercase;
+  }
+  .linha-placar button:hover{background:#095F30;}
+  .resultado-final{
+    font-family:'Anton', sans-serif;
+    font-size:22px;
+    color:var(--verde);
+  }
+  .msg-erro-inline{font-size:12px; color:#C0392B; font-weight:700; margin-top:6px;}
+  .vazio-mini{font-size:13px; color:#999; padding:6px 0;}
+
+  footer{
+    text-align:center;
+    color:rgba(255,255,255,0.5);
+    font-size:11px;
+    margin-top:26px;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <span class="selo">Acesso restrito</span>
+      <h1>Painel do <span>Adm</span></h1>
+      <p class="sub">Cadastre jogos, defina datas e lance os placares.</p>
+    </div>
+  </header>
+
+  <div class="linha-topo">
+    <div class="painel">
+      <h2>Cadastrar novo jogo</h2>
+      <div class="grid2">
+        <div class="campo">
+          <label>Time 1</label>
+          <input type="text" id="time1" placeholder="Ex: Brasil">
+        </div>
+        <div class="campo">
+          <label>Time 2</label>
+          <input type="text" id="time2" placeholder="Ex: Argentina">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="campo">
+          <label>Data do jogo</label>
+          <input type="date" id="data-jogo">
+        </div>
+        <div class="campo">
+          <label>Hora do jogo (Brasília)</label>
+          <input type="time" id="hora-jogo">
+        </div>
+      </div>
+      <button class="btn" id="btn-cadastrar">Cadastrar jogo</button>
+      <div id="msg-cadastro"></div>
+    </div>
+
+    <div class="painel acoes-painel">
+      <h2>Acesso rápido</h2>
+      <a class="btn-link btn-link-verde" href="https://sites.karenabecia.com.br/copa-dados/refeitorio/" target="_blank" rel="noopener">📊 Vá para os resultados</a>
+      <a class="btn-link btn-link-amarelo" href="palpite.html" target="_blank" rel="noopener">⚽ Dê seu palpite</a>
+      <p class="acoes-desc">Use esses atalhos pra conferir como o refeitório está vendo o bolão, sem precisar trocar de link manualmente.</p>
+    </div>
+  </div>
+
+  <div class="linha-jogos">
+    <div class="painel">
+      <h2>🕓 Rodadas pendentes</h2>
+      <div id="lista-pendentes"><p class="vazio-mini">Carregando...</p></div>
+    </div>
+    <div class="painel">
+      <h2>✅ Rodadas finalizadas</h2>
+      <div id="lista-finalizadas"><p class="vazio-mini">Carregando...</p></div>
+    </div>
+  </div>
+
+  <footer>Painel administrativo — Bolão Interativo da Copa · Desenvolvido por Escola Karen Abecia — 2026</footer>
+</div>
+
+<script>
+  // ⚠️ Troque pela URL da sua implantação do Apps Script
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNBbF67Ok_ARaxPWcjDIn2DO-7H2ZdNuCjRQF8ty9np_JYWDziJmymcozGaHVTXo6kQA/exec';
+
+  const elMsgCadastro = document.getElementById('msg-cadastro');
+  const elPendentes = document.getElementById('lista-pendentes');
+  const elFinalizadas = document.getElementById('lista-finalizadas');
+
+  // Leitura via JSONP: o Apps Script bloqueia fetch() normal por CORS,
+  // mas uma tag <script> não sofre esse bloqueio.
+  function jsonp(url){
+    return new Promise((resolve, reject) => {
+      const nomeCallback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+      const script = document.createElement('script');
+      const timeout = setTimeout(() => {
+        limpar();
+        reject(new Error('timeout'));
+      }, 10000);
+
+      function limpar(){
+        clearTimeout(timeout);
+        delete window[nomeCallback];
+        script.remove();
+      }
+
+      window[nomeCallback] = (data) => { limpar(); resolve(data); };
+      script.onerror = () => { limpar(); reject(new Error('erro de rede')); };
+      script.src = `${url}&callback=${nomeCallback}`;
+      document.head.appendChild(script);
+    });
+  }
+
+  document.getElementById('btn-cadastrar').addEventListener('click', () => {
+    const time1 = document.getElementById('time1').value.trim();
+    const time2 = document.getElementById('time2').value.trim();
+    const data = document.getElementById('data-jogo').value;
+    const hora = document.getElementById('hora-jogo').value;
+
+    if (!time1 || !time2 || !data || !hora){
+      elMsgCadastro.textContent = '⚠️ Preencha todos os campos.';
+      elMsgCadastro.style.color = '#C0392B';
+      return;
+    }
+
+    elMsgCadastro.textContent = 'Cadastrando...';
+    elMsgCadastro.style.color = '#0B7A3D';
+
+    const url = `${APPS_SCRIPT_URL}?action=cadastrarJogo&time1=${encodeURIComponent(time1)}&time2=${encodeURIComponent(time2)}&data=${data}&hora=${hora}`;
+    jsonp(url)
+      .then((resp) => {
+        if (!resp.ok){
+          elMsgCadastro.textContent = '❌ ' + (resp.erro || 'Erro ao cadastrar.');
+          elMsgCadastro.style.color = '#C0392B';
+          return;
+        }
+        elMsgCadastro.textContent = `✅ Jogo "${time1} x ${time2}" cadastrado!`;
+        elMsgCadastro.style.color = '#0B7A3D';
+        document.getElementById('time1').value = '';
+        document.getElementById('time2').value = '';
+        document.getElementById('data-jogo').value = '';
+        document.getElementById('hora-jogo').value = '';
+        setTimeout(carregarJogos, 600);
+      })
+      .catch(() => {
+        elMsgCadastro.textContent = '❌ Erro ao cadastrar. Tente novamente.';
+        elMsgCadastro.style.color = '#C0392B';
+      });
+  });
+
+  function formatarData(dataStr, horaStr){
+    if (!dataStr) return '';
+    const [ano, mes, dia] = dataStr.split('-');
+    return `${dia}/${mes}/${ano} às ${horaStr}`;
+  }
+
+  function cardPendente(j){
+    return `
+      <div class="jogo-adm" data-id="${j.id}">
+        <div class="jogo-adm-topo">
+          <span class="jogo-adm-titulo">${j.time1} x ${j.time2}</span>
+          <span class="badge badge-pendente">Pendente</span>
+        </div>
+        <div class="jogo-adm-data">${formatarData(j.data, j.hora)}</div>
+        <div class="linha-placar">
+          <input type="number" min="0" class="placar1" placeholder="0">
+          <span>x</span>
+          <input type="number" min="0" class="placar2" placeholder="0">
+          <button class="btn-lancar">Lançar placar</button>
+        </div>
+        <div class="msg-erro-inline"></div>
+      </div>`;
+  }
+
+  function cardFinalizado(j){
+    return `
+      <div class="jogo-adm">
+        <div class="jogo-adm-topo">
+          <span class="jogo-adm-titulo">${j.time1} x ${j.time2}</span>
+          <span class="badge badge-finalizado">Finalizado</span>
+        </div>
+        <div class="jogo-adm-data">${formatarData(j.data, j.hora)}</div>
+        <div class="resultado-final">${j.placarTime1} x ${j.placarTime2}</div>
+      </div>`;
+  }
+
+  function renderJogosAdm(jogos){
+    const pendentes = jogos.filter(j => j.placarTime1 === '' || j.placarTime1 === undefined || j.placarTime1 === null)
+      .sort((a,b) => Number(a.ordem) - Number(b.ordem));
+    const finalizadas = jogos.filter(j => !(j.placarTime1 === '' || j.placarTime1 === undefined || j.placarTime1 === null))
+      .sort((a,b) => Number(b.ordem) - Number(a.ordem));
+
+    elPendentes.innerHTML = pendentes.length
+      ? pendentes.map(cardPendente).join('')
+      : '<p class="vazio-mini">Nenhuma rodada pendente. Cadastre um novo jogo acima.</p>';
+
+    elFinalizadas.innerHTML = finalizadas.length
+      ? finalizadas.map(cardFinalizado).join('')
+      : '<p class="vazio-mini">Nenhuma rodada finalizada ainda.</p>';
+
+    document.querySelectorAll('.btn-lancar').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const card = ev.currentTarget.closest('.jogo-adm');
+        const jogoId = card.dataset.id;
+        const p1 = card.querySelector('.placar1').value;
+        const p2 = card.querySelector('.placar2').value;
+        const elErro = card.querySelector('.msg-erro-inline');
+        elErro.textContent = '';
+
+        if (p1 === '' || p2 === ''){
+          elErro.textContent = '⚠️ Preencha os dois placares.';
+          return;
+        }
+        if (!confirm(`Confirmar placar final: ${p1} x ${p2}? Isso vai calcular os pontos de todo mundo.`)) return;
+
+        ev.currentTarget.disabled = true;
+        ev.currentTarget.textContent = 'Lançando...';
+
+        const url = `${APPS_SCRIPT_URL}?action=atualizarPlacar&jogoId=${jogoId}&placarTime1=${p1}&placarTime2=${p2}`;
+        jsonp(url)
+          .then((resp) => {
+            if (!resp.ok){
+              elErro.textContent = '❌ ' + (resp.erro || 'Erro ao lançar placar.');
+              ev.currentTarget.disabled = false;
+              ev.currentTarget.textContent = 'Lançar placar';
+              return;
+            }
+            setTimeout(carregarJogos, 500);
+          })
+          .catch(() => {
+            elErro.textContent = '❌ Erro ao lançar placar.';
+            ev.currentTarget.disabled = false;
+            ev.currentTarget.textContent = 'Lançar placar';
+          });
+      });
+    });
+  }
+
+  function carregarJogos(){
+    jsonp(`${APPS_SCRIPT_URL}?action=listarJogos`)
+      .then(data => {
+        if (data.ok) renderJogosAdm(data.jogos);
+      })
+      .catch(() => {
+        elPendentes.innerHTML = '<p style="color:#C0392B;font-size:13px;">Erro ao carregar jogos.</p>';
+        elFinalizadas.innerHTML = '';
+      });
+  }
+
+  carregarJogos();
+</script>
+</body>
+</html>

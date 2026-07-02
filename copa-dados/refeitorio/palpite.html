@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão da Copa — Dê seu palpite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-escuro:#06301B;
+    --verde:#0B7A3D;
+    --verde-claro:#22B461;
+    --amarelo:#FFD400;
+    --amarelo-escuro:#E8B800;
+    --branco:#FBFBF6;
+    --texto:#0A1F14;
+    --cinza:#6B7A70;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Manrope', sans-serif;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(255,212,0,0.25), transparent 45%),
+      radial-gradient(circle at 110% 10%, rgba(34,180,97,0.35), transparent 50%),
+      repeating-linear-gradient(135deg, #0B7A3D 0px, #0B7A3D 80px, #0A6F38 80px, #0A6F38 160px);
+    min-height:100vh;
+    color:var(--texto);
+    padding:24px 16px 80px;
+  }
+  .wrap{max-width:560px; margin:0 auto;}
+
+  header{
+    text-align:center;
+    margin-bottom:24px;
+    color:var(--branco);
+  }
+  .selo{
+    display:inline-block;
+    background:var(--amarelo);
+    color:var(--verde-escuro);
+    font-family:'Anton', sans-serif;
+    letter-spacing:0.08em;
+    font-size:12px;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:12px;
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:'Anton', sans-serif;
+    font-size:clamp(34px, 9vw, 48px);
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    line-height:1;
+  }
+  h1 span{color:var(--amarelo);}
+  .sub{font-size:14px; opacity:0.85; margin-top:8px; font-weight:600;}
+
+  .card-nome{
+    background:var(--branco);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.25);
+    margin-bottom:22px;
+    border:3px solid var(--amarelo);
+  }
+  .card-nome label{
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--verde);
+    display:block;
+    margin-bottom:8px;
+  }
+  .card-nome input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:2px solid #E2E8DF;
+    font-family:'Manrope',sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:var(--texto);
+  }
+  .card-nome input:focus{outline:none; border-color:var(--verde);}
+
+  #status-msg{
+    text-align:center;
+    color:var(--branco);
+    font-weight:700;
+    margin-bottom:16px;
+    min-height:20px;
+    font-size:14px;
+  }
+
+  .jogo{
+    background:var(--verde-escuro);
+    border-radius:20px;
+    padding:18px 16px 16px;
+    margin-bottom:18px;
+    box-shadow:0 14px 32px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,212,0,0.25);
+    position:relative;
+    overflow:hidden;
+  }
+  .jogo::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:5px;
+    background:linear-gradient(90deg, var(--amarelo), var(--verde-claro));
+  }
+  .jogo-tag{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+  }
+  .tag-prazo{
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--amarelo);
+  }
+  .tag-status{
+    font-size:11px;
+    font-weight:800;
+    padding:3px 10px;
+    border-radius:999px;
+    text-transform:uppercase;
+  }
+  .tag-aberto{background:var(--verde-claro); color:#06301B;}
+  .tag-encerrado{background:#5A5A5A; color:#fff;}
+
+  .confronto{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:10px;
+  }
+  .time{text-align:center;}
+  .time-nome{
+    font-family:'Anton', sans-serif;
+    color:var(--branco);
+    font-size:clamp(16px, 5vw, 19px);
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    margin-bottom:10px;
+    min-height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .placar-input{
+    width:64px;
+    height:64px;
+    margin:0 auto;
+    text-align:center;
+    font-family:'Anton', sans-serif;
+    font-size:30px;
+    color:var(--verde-escuro);
+    border:2px solid var(--amarelo);
+    border-radius:12px;
+    background:var(--branco);
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,0.08);
+  }
+  .placar-input:focus{outline:3px solid var(--verde-claro);}
+  .vs{
+    font-family:'Anton', sans-serif;
+    color:var(--amarelo);
+    font-size:18px;
+  }
+  .jogo-rodape{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:14px;
+    color:rgba(255,255,255,0.6);
+    font-size:12px;
+    font-weight:600;
+  }
+
+  .btn-enviar{
+    width:100%;
+    margin-top:14px;
+    padding:13px;
+    border:none;
+    border-radius:12px;
+    background:var(--amarelo);
+    color:var(--verde-escuro);
+    font-family:'Anton', sans-serif;
+    font-size:16px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .btn-enviar:active{transform:scale(0.97);}
+  .btn-enviar:disabled{opacity:0.5; cursor:not-allowed;}
+  .btn-enviar.enviado{background:var(--verde-claro); color:#fff;}
+
+  .vazio{
+    text-align:center;
+    color:var(--branco);
+    background:rgba(0,0,0,0.2);
+    border-radius:16px;
+    padding:30px 16px;
+    font-weight:700;
+  }
+
+  .regras{
+    background:rgba(0,0,0,0.22);
+    border:1px solid rgba(255,212,0,0.3);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-top:6px;
+    color:var(--branco);
+  }
+  .regras h3{
+    font-family:'Anton', sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--amarelo);
+    margin-bottom:8px;
+  }
+  .regras ul{
+    list-style:none;
+    font-size:13px;
+    line-height:1.6;
+    font-weight:600;
+    opacity:0.92;
+  }
+  .regras li{margin-bottom:2px;}
+  .regras li b{color:var(--amarelo-escuro, var(--amarelo));}
+  .regras p{
+    font-size:12px;
+    margin-top:8px;
+    opacity:0.75;
+    font-weight:600;
+  }
+
+  footer{
+    text-align:center;
+    color:rgba(255,255,255,0.7);
+    font-size:12px;
+    margin-top:30px;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="selo">Bolão do Refeitório</span>
+    <h1>Dê seu <span>palpite</span></h1>
+    <p class="sub">Placar exato vale mais pontos. Capricha! ⚽</p>
+  </header>
+
+  <div class="card-nome">
+    <label for="nome">Seu nome</label>
+    <input type="text" id="nome" placeholder="Digite seu nome completo" autocomplete="off">
+  </div>
+
+  <div id="status-msg"></div>
+  <div id="lista-jogos"></div>
+
+  <div class="regras">
+    <h3>Como funciona a pontuação</h3>
+    <ul>
+      <li>🎯 <b>Placar exato</b> — 10 pontos</li>
+      <li>✅ <b>Acertou só o resultado</b> (vitória ou empate, mas não o placar) — 5 pontos</li>
+      <li>❌ <b>Errou o resultado</b> — 0 pontos</li>
+    </ul>
+    <p>Você pode alterar seu palpite quantas vezes quiser, até o horário do jogo começar. Depois disso, o palpite fica travado.</p>
+  </div>
+
+  <footer>Bolão Interativo da Copa · Desenvolvido por Escola Karen Abecia — 2026</footer>
+</div>
+
+<script>
+  // ⚠️ Troque pela URL da sua implantação do Apps Script
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNBbF67Ok_ARaxPWcjDIn2DO-7H2ZdNuCjRQF8ty9np_JYWDziJmymcozGaHVTXo6kQA/exec';
+
+  const elNome = document.getElementById('nome');
+  const elLista = document.getElementById('lista-jogos');
+  const elStatus = document.getElementById('status-msg');
+
+  elNome.value = localStorage.getItem('bolao_nome') || '';
+  elNome.addEventListener('change', () => {
+    localStorage.setItem('bolao_nome', elNome.value.trim());
+    carregarMeusPalpites();
+  });
+
+  let jogosCache = [];
+  let meusPalpitesCache = {};
+
+  function formatarData(dataStr, horaStr){
+    const [ano, mes, dia] = dataStr.split('-');
+    return `${dia}/${mes} às ${horaStr}`;
+  }
+
+  function dataHoraBrasilia(dataStr, horaStr){
+    // Brasília é sempre UTC-3 (sem horário de verão desde 2019).
+    // Construir assim garante o prazo correto mesmo que o celular/PC
+    // de quem acessa esteja configurado em outro fuso horário.
+    const [ano, mes, dia] = dataStr.split('-').map(Number);
+    const [hora, minuto] = horaStr.split(':').map(Number);
+    return new Date(Date.UTC(ano, mes - 1, dia, hora + 3, minuto, 0));
+  }
+
+  function statusVisivel(jogo){
+    const agora = new Date();
+    const dataHora = dataHoraBrasilia(jogo.data, jogo.hora);
+    if (jogo.status === 'Aberto' && dataHora > agora) return 'aberto';
+    return 'encerrado';
+  }
+
+  function renderJogos(){
+    const abertos = jogosCache.filter(j => statusVisivel(j) === 'aberto');
+
+    if (abertos.length === 0){
+      elLista.innerHTML = '<div class="vazio">Nenhum jogo aberto para palpite no momento. Volta já já! 🟢🟡</div>';
+      return;
+    }
+
+    elLista.innerHTML = abertos.map(j => {
+      const meuPalpite = meusPalpitesCache[String(j.id)];
+      const p1 = meuPalpite ? meuPalpite.placarTime1 : '';
+      const p2 = meuPalpite ? meuPalpite.placarTime2 : '';
+      return `
+      <div class="jogo" data-id="${j.id}">
+        <div class="jogo-tag">
+          <span class="tag-prazo">Palpite até ${formatarData(j.data, j.hora)}</span>
+          <span class="tag-status tag-aberto">Aberto</span>
+        </div>
+        <div class="confronto">
+          <div class="time">
+            <div class="time-nome">${j.time1}</div>
+            <input type="number" min="0" max="20" class="placar-input" data-campo="1" value="${p1}">
+          </div>
+          <div class="vs">X</div>
+          <div class="time">
+            <div class="time-nome">${j.time2}</div>
+            <input type="number" min="0" max="20" class="placar-input" data-campo="2" value="${p2}">
+          </div>
+        </div>
+        <button class="btn-enviar" ${meuPalpite ? 'data-enviado="1"' : ''}>${meuPalpite ? 'Palpite enviado ✓ (editar)' : 'Enviar palpite'}</button>
+        <div class="jogo-rodape"><span>Jogo #${j.ordem ?? j.id}</span></div>
+      </div>`;
+    }).join('');
+
+    document.querySelectorAll('.btn-enviar').forEach(btn => {
+      btn.addEventListener('click', enviarPalpite);
+    });
+  }
+
+  function enviarPalpite(ev){
+    const btn = ev.currentTarget;
+    const card = btn.closest('.jogo');
+    const jogoId = card.dataset.id;
+    const nome = elNome.value.trim();
+
+    if (!nome){
+      elStatus.textContent = '⚠️ Digite seu nome antes de palpitar.';
+      elNome.focus();
+      return;
+    }
+    const inputs = card.querySelectorAll('.placar-input');
+    const placar1 = inputs[0].value;
+    const placar2 = inputs[1].value;
+    if (placar1 === '' || placar2 === ''){
+      elStatus.textContent = '⚠️ Preencha os dois placares.';
+      return;
+    }
+
+    localStorage.setItem('bolao_nome', nome);
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const url = `${APPS_SCRIPT_URL}?action=registrarPalpite&jogoId=${jogoId}&nome=${encodeURIComponent(nome)}&placarTime1=${placar1}&placarTime2=${placar2}`;
+    jsonp(url)
+      .then((resp) => {
+        btn.disabled = false;
+        if (!resp.ok){
+          btn.textContent = 'Tentar novamente';
+          elStatus.textContent = '❌ ' + (resp.erro || 'Erro ao enviar.');
+          return;
+        }
+        btn.textContent = 'Palpite enviado ✓ (editar)';
+        btn.classList.add('enviado');
+        elStatus.textContent = '✅ Palpite registrado! Boa sorte.';
+        meusPalpitesCache[jogoId] = { placarTime1: placar1, placarTime2: placar2 };
+        setTimeout(() => elStatus.textContent = '', 3000);
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Tentar novamente';
+        elStatus.textContent = '❌ Erro ao enviar. Tente de novo.';
+      });
+  }
+
+  // Leitura via JSONP: o Apps Script bloqueia fetch() normal por CORS,
+  // mas uma tag <script> não sofre esse bloqueio.
+  function jsonp(url){
+    return new Promise((resolve, reject) => {
+      const nomeCallback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+      const script = document.createElement('script');
+      const timeout = setTimeout(() => {
+        limpar();
+        reject(new Error('timeout'));
+      }, 10000);
+
+      function limpar(){
+        clearTimeout(timeout);
+        delete window[nomeCallback];
+        script.remove();
+      }
+
+      window[nomeCallback] = (data) => { limpar(); resolve(data); };
+      script.onerror = () => { limpar(); reject(new Error('erro de rede')); };
+      script.src = `${url}&callback=${nomeCallback}`;
+      document.head.appendChild(script);
+    });
+  }
+
+  function carregarJogos(){
+    jsonp(`${APPS_SCRIPT_URL}?action=listarJogos`)
+      .then(data => {
+        if (data.ok){
+          jogosCache = data.jogos;
+          renderJogos();
+        }
+      })
+      .catch(() => {
+        elLista.innerHTML = '<div class="vazio">Não foi possível carregar os jogos. Confira o link com o RH.</div>';
+      });
+  }
+
+  function carregarMeusPalpites(){
+    const nome = elNome.value.trim();
+    if (!nome) return;
+    jsonp(`${APPS_SCRIPT_URL}?action=meusPalpites&nome=${encodeURIComponent(nome)}`)
+      .then(data => {
+        if (data.ok){
+          meusPalpitesCache = data.palpites;
+          renderJogos();
+        }
+      })
+      .catch(() => {});
+  }
+
+  carregarJogos();
+  if (elNome.value) carregarMeusPalpites();
+  setInterval(carregarJogos, 20000);
+</script>
+</body>
+</html>
