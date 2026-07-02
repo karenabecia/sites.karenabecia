@@ -53,7 +53,6 @@
     letter-spacing:0.02em;
     text-transform:uppercase;
     line-height:1;
-    text-shadow:0 4px 0 rgba(0,0,0,0.25);
   }
   h1 span{color:var(--amarelo);}
   .sub{font-size:14px; opacity:0.85; margin-top:8px; font-weight:600;}
@@ -161,10 +160,10 @@
     font-family:'Anton', sans-serif;
     font-size:30px;
     color:var(--verde-escuro);
-    border:none;
+    border:2px solid var(--amarelo);
     border-radius:12px;
-    background:var(--amarelo);
-    box-shadow:inset 0 -4px 0 rgba(0,0,0,0.15);
+    background:var(--branco);
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,0.08);
   }
   .placar-input:focus{outline:3px solid var(--verde-claro);}
   .vs{
@@ -210,6 +209,38 @@
     font-weight:700;
   }
 
+  .regras{
+    background:rgba(0,0,0,0.22);
+    border:1px solid rgba(255,212,0,0.3);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-top:6px;
+    color:var(--branco);
+  }
+  .regras h3{
+    font-family:'Anton', sans-serif;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--amarelo);
+    margin-bottom:8px;
+  }
+  .regras ul{
+    list-style:none;
+    font-size:13px;
+    line-height:1.6;
+    font-weight:600;
+    opacity:0.92;
+  }
+  .regras li{margin-bottom:2px;}
+  .regras li b{color:var(--amarelo-escuro, var(--amarelo));}
+  .regras p{
+    font-size:12px;
+    margin-top:8px;
+    opacity:0.75;
+    font-weight:600;
+  }
+
   footer{
     text-align:center;
     color:rgba(255,255,255,0.7);
@@ -234,7 +265,18 @@
 
   <div id="status-msg"></div>
   <div id="lista-jogos"></div>
-  <footer>Bolão Interativo da Copa</footer>
+
+  <div class="regras">
+    <h3>Como funciona a pontuação</h3>
+    <ul>
+      <li>🎯 <b>Placar exato</b> — 10 pontos</li>
+      <li>✅ <b>Acertou só o resultado</b> (vitória ou empate, mas não o placar) — 5 pontos</li>
+      <li>❌ <b>Errou o resultado</b> — 0 pontos</li>
+    </ul>
+    <p>Você pode alterar seu palpite quantas vezes quiser, até o horário do jogo começar. Depois disso, o palpite fica travado.</p>
+  </div>
+
+  <footer>Bolão Interativo da Copa · Desenvolvido por Escola Karen Abecia — 2026</footer>
 </div>
 
 <script>
@@ -277,37 +319,34 @@
 
   function renderJogos(){
     const abertos = jogosCache.filter(j => statusVisivel(j) === 'aberto');
-    const encerrados = jogosCache.filter(j => statusVisivel(j) === 'encerrado');
-    const ordenados = [...abertos, ...encerrados];
 
-    if (ordenados.length === 0){
-      elLista.innerHTML = '<div class="vazio">Nenhum jogo cadastrado ainda. Volta já já! 🟢🟡</div>';
+    if (abertos.length === 0){
+      elLista.innerHTML = '<div class="vazio">Nenhum jogo aberto para palpite no momento. Volta já já! 🟢🟡</div>';
       return;
     }
 
-    elLista.innerHTML = ordenados.map(j => {
-      const aberto = statusVisivel(j) === 'aberto';
+    elLista.innerHTML = abertos.map(j => {
       const meuPalpite = meusPalpitesCache[String(j.id)];
       const p1 = meuPalpite ? meuPalpite.placarTime1 : '';
       const p2 = meuPalpite ? meuPalpite.placarTime2 : '';
       return `
       <div class="jogo" data-id="${j.id}">
         <div class="jogo-tag">
-          <span class="tag-prazo">${aberto ? 'Palpite até ' + formatarData(j.data, j.hora) : 'Encerrado'}</span>
-          <span class="tag-status ${aberto ? 'tag-aberto' : 'tag-encerrado'}">${aberto ? 'Aberto' : 'Encerrado'}</span>
+          <span class="tag-prazo">Palpite até ${formatarData(j.data, j.hora)}</span>
+          <span class="tag-status tag-aberto">Aberto</span>
         </div>
         <div class="confronto">
           <div class="time">
             <div class="time-nome">${j.time1}</div>
-            <input type="number" min="0" max="20" class="placar-input" data-campo="1" value="${p1}" ${aberto ? '' : 'disabled'}>
+            <input type="number" min="0" max="20" class="placar-input" data-campo="1" value="${p1}">
           </div>
-          <div class="vs">${aberto ? 'X' : (j.placarTime1 ?? '-') + ' x ' + (j.placarTime2 ?? '-')}</div>
+          <div class="vs">X</div>
           <div class="time">
             <div class="time-nome">${j.time2}</div>
-            <input type="number" min="0" max="20" class="placar-input" data-campo="2" value="${p2}" ${aberto ? '' : 'disabled'}>
+            <input type="number" min="0" max="20" class="placar-input" data-campo="2" value="${p2}">
           </div>
         </div>
-        ${aberto ? `<button class="btn-enviar" ${meuPalpite ? 'data-enviado="1"' : ''}>${meuPalpite ? 'Palpite enviado ✓ (editar)' : 'Enviar palpite'}</button>` : ''}
+        <button class="btn-enviar" ${meuPalpite ? 'data-enviado="1"' : ''}>${meuPalpite ? 'Palpite enviado ✓ (editar)' : 'Enviar palpite'}</button>
         <div class="jogo-rodape"><span>Jogo #${j.ordem ?? j.id}</span></div>
       </div>`;
     }).join('');
