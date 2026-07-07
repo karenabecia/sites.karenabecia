@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementação Claude | Exclusivo Vitalício</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --ka-orange: #FF7000;
+            --ka-purple: #57B95C;
+            --ka-bg: #F0F0F0;
+            --ka-surface: #FFFFFF;
+            --ka-text: #020617;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: var(--ka-bg); color: var(--ka-text); font-family: 'Poppins', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        a { text-decoration: none; }
+
+        nav {
+            background: var(--ka-surface); padding: 18px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 20;
+        }
+        nav img { height: 40px; }
+        nav .links { display: none; gap: 28px; font-size: 13px; font-weight: 600; color: #475569; }
+        nav .links a:hover { color: var(--ka-orange); }
+        @media (min-width: 768px) { nav .links { display: flex; } }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px; border-radius: 999px;
+            background: rgba(124,77,255,0.1); color: var(--ka-purple);
+            font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 24px;
+        }
+        .badge i { width: 14px; height: 14px; }
+
+        section { padding: 72px 0; }
+        .eyebrow {
+            display: inline-block; padding: 6px 18px; border-radius: 999px;
+            background: var(--ka-orange); color: #fff; font-weight: 700; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px;
+        }
+        h1.hero-title {
+            font-size: clamp(28px, 4.6vw, 46px); font-weight: 800; line-height: 1.15;
+            letter-spacing: -0.01em; margin: 0 0 22px; color: var(--ka-text);
+        }
+        h1.hero-title .accent { color: var(--ka-orange); }
+        .hero-sub { font-size: 18px; color: #475569; max-width: 640px; margin: 0 auto 32px; line-height: 1.65; }
+
+        h2.section-title { font-size: clamp(24px, 3.6vw, 38px); font-weight: 800; color: var(--ka-text); margin: 0 0 18px; letter-spacing: -0.01em; }
+        h2.section-title .accent { color: var(--ka-orange); }
+        h2.section-title .accent2 { color: var(--ka-purple); }
+        .section-lead { color: #475569; max-width: 720px; line-height: 1.7; font-size: 16px; }
+
+        .card { background: var(--ka-surface); border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+
+        .btn {
+            display: inline-block; padding: 18px 40px; border-radius: 10px;
+            font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em;
+            color: #fff; background: var(--ka-orange); transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255,112,0,0.28); }
+        .btn.purple { background: var(--ka-purple); }
+        .btn.purple:hover { box-shadow: 0 10px 24px rgba(124,77,255,0.28); }
+
+        /* Programa */
+        /* nota: --ka-purple foi realocada para o verde oficial da escola (#57B95C), usada nos blocos "Exclusivo Vitalício" */
+        .programa-list { margin-top: 44px; display: flex; flex-direction: column; gap: 16px; }
+        .aula-row {
+            display: flex; align-items: center; gap: 24px; padding: 22px 26px;
+            border-left: 4px solid var(--ka-orange);
+        }
+        .aula-row.aula-zero { border-left-color: var(--ka-purple); }
+        .aula-num {
+            flex-shrink: 0; width: 64px; height: 64px; border-radius: 14px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255,112,0,0.1); color: var(--ka-orange);
+            font-weight: 800; font-size: 20px; line-height: 1.1;
+        }
+        .aula-num span { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; opacity: 0.8; }
+        .aula-zero .aula-num { background: rgba(87,185,92,0.12); color: var(--ka-purple); }
+        .aula-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ka-orange); margin-bottom: 4px; }
+        .aula-zero .aula-tag { color: var(--ka-purple); }
+        .aula-titulo { font-size: 17px; font-weight: 700; color: var(--ka-text); margin: 0 0 4px; }
+        .aula-desc { font-size: 14px; color: #64748b; margin: 0; font-style: italic; }
+
+        .info-card { padding: 30px; display: flex; gap: 20px; align-items: flex-start; margin-top: 36px; border-left: 4px solid var(--ka-purple); }
+        .info-icon { flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; background: rgba(124,77,255,0.1); display:flex; align-items:center; justify-content:center; }
+        .info-icon i { color: var(--ka-purple); width: 24px; height: 24px; }
+        .info-card h3 { margin: 0 0 8px; font-size: 17px; }
+        .info-card p { margin: 0; color: #475569; font-size: 14px; line-height: 1.6; }
+
+        /* Por que Claude */
+        .porque-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 44px; }
+        @media (min-width: 768px) { .porque-grid { grid-template-columns: repeat(3, 1fr); } }
+        .porque-card { padding: 30px; }
+        .porque-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,112,0,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+        .porque-card:nth-child(2) .porque-icon { background: rgba(124,77,255,0.1); }
+        .porque-icon i { color: var(--ka-orange); width: 22px; height: 22px; }
+        .porque-card:nth-child(2) .porque-icon i { color: var(--ka-purple); }
+        .porque-card h3 { font-size: 16px; margin: 0 0 8px; }
+        .porque-card p { color: #64748b; font-size: 14px; line-height: 1.6; margin: 0; }
+
+        /* Oferta */
+        .oferta-shell { max-width: 560px; margin: 44px auto 0; }
+        .oferta-card { padding: 44px; text-align: center; border-top: 6px solid var(--ka-purple); position: relative; }
+        .oferta-selo {
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 999px;
+            background: rgba(124,77,255,0.1); color: var(--ka-purple); font-weight: 700; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;
+        }
+        .oferta-card h3 { font-size: 24px; margin: 0 0 10px; }
+        .oferta-card .oferta-sub { color: #64748b; font-size: 14px; margin-bottom: 28px; }
+        .oferta-lista { list-style:none; margin:0 0 32px; padding:0; text-align:left; display:flex; flex-direction:column; gap:14px; }
+        .oferta-lista li { display:flex; align-items:flex-start; gap:12px; font-size: 14px; color:#334155; font-weight:500; }
+        .oferta-lista i { color: var(--ka-orange); width:18px; height:18px; flex-shrink:0; margin-top:2px; }
+        .preco-de { color:#94a3b8; text-decoration: line-through; font-size: 15px; margin-bottom: 6px; }
+        .preco-desconto {
+            display:inline-block; color:#fff; background:var(--ka-purple); font-weight:800; font-size:12px;
+            text-transform:uppercase; letter-spacing:0.06em; padding:6px 16px; border-radius:999px; margin-bottom:14px;
+        }
+        .preco-principal { font-size: 32px; font-weight: 800; color: var(--ka-text); }
+        .preco-parcelas { font-size: 15px; color:#64748b; margin-bottom: 28px; }
+
+        footer { text-align: center; padding: 28px 24px; color: var(--ka-text); opacity: 0.5; font-size: 12px; background: var(--ka-bg); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#"><img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/logo.png" alt="Escola Karen Abecia"></a>
+        <div class="links">
+            <a href="#programa">Programa</a>
+            <a href="#por-que-claude">O Claude</a>
+            <a href="#oferta">Matrícula</a>
+        </div>
+    </nav>
+
+
+    <section style="padding-top: 56px; padding-bottom: 44px;">
+        <div class="wrap" style="text-align:center;">
+            <div class="badge"><i data-lucide="sparkles"></i> Exclusivo para alunos Vitalício</div>
+            <h1 class="hero-title">
+                6 encontros para transformar o <span class="accent">Claude</span> em resultado real no seu trabalho
+            </h1>
+            <p class="hero-sub">
+                Domine a ferramenta de I.A. mais completa para o ambiente profissional através de estudos de caso reais e implementação guiada — com uma condição pensada especialmente para quem já faz parte da nossa comunidade Vitalício.
+            </p>
+            <a href="#oferta" class="btn">Garantir minha vaga com desconto</a>
+        </div>
+    </section>
+
+    <section id="programa" style="background:#FAFAFA;">
+        <div class="wrap">
+            <div style="text-align:center;">
+                <div class="eyebrow">Programa</div>
+                <h2 class="section-title">6 encontros para sair da teoria e <span class="accent2">colocar em prática</span></h2>
+                <p class="section-lead" style="margin:0 auto;">Aulas ao vivo, com data e horário confirmados na sua área de membros, e gravações disponíveis para você rever sempre que precisar.</p>
+            </div>
+            <div class="programa-list">
+                <div class="card aula-row aula-zero">
+                    <div class="aula-num">08<span>JUL</span></div>
+                    <div>
+                        <div class="aula-tag">Aula Zero</div>
+                        <h4 class="aula-titulo">Integração e Nivelamento</h4>
+                        <p class="aula-desc">Encontro para responder às principais dúvidas sobre o Claude, instalar os suplementos e entender as licenças da ferramenta.</p>
+                    </div>
+                </div>
+                <div class="card aula-row">
+                    <div class="aula-num">13<span>JUL</span></div>
+                    <div>
+                        <div class="aula-tag">Aula 1</div>
+                        <h4 class="aula-titulo">O que precisa saber sobre o Claude I.A.</h4>
+                        <p class="aula-desc">Configuração profissional e fundamentos de engenharia de prompts.</p>
+                    </div>
+                </div>
+                <div class="card aula-row">
+                    <div class="aula-num">20<span>JUL</span></div>
+                    <div>
+                        <div class="aula-tag">Aula 2</div>
+                        <h4 class="aula-titulo">Claude no Excel</h4>
+                        <p class="aula-desc">Limpeza de dados, tratamento e fórmulas avançadas em segundos.</p>
+                    </div>
+                </div>
+                <div class="card aula-row">
+                    <div class="aula-num">27<span>JUL</span></div>
+                    <div>
+                        <div class="aula-tag">Aula 3</div>
+                        <h4 class="aula-titulo">Claude no Power BI</h4>
+                        <p class="aula-desc">Criação de medidas DAX e modelagem assistida por I.A.</p>
+                    </div>
+                </div>
+                <div class="card aula-row">
+                    <div class="aula-num">03<span>AGO</span></div>
+                    <div>
+                        <div class="aula-tag">Aula 4</div>
+                        <h4 class="aula-titulo">Criação de Dashboards com Claude Live Artifacts</h4>
+                        <p class="aula-desc">O recurso mais poderoso para visualização de dados em tempo real.</p>
+                    </div>
+                </div>
+                <div class="card aula-row">
+                    <div class="aula-num">10<span>AGO</span></div>
+                    <div>
+                        <div class="aula-tag">Aula 5</div>
+                        <h4 class="aula-titulo">Visual, Aplicativos e Páginas</h4>
+                        <p class="aula-desc">Publicação e design de interfaces para entregas profissionais.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card info-card">
+                <div class="info-icon"><i data-lucide="clock"></i></div>
+                <div>
+                    <h3>Horários e acesso às gravações</h3>
+                    <p>Todas as aulas ao vivo ficam gravadas para consulta por <strong>12 meses após o evento</strong>. Data e horário exatos são confirmados na sua área de membros.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="por-que-claude">
+        <div class="wrap" style="text-align:center;">
+            <div class="eyebrow">Por que o Claude</div>
+            <h2 class="section-title">A ferramenta certa para quem trabalha <span class="accent2">com dados de verdade</span></h2>
+            <div class="porque-grid">
+                <div class="card porque-card">
+                    <div class="porque-icon"><i data-lucide="bar-chart-3"></i></div>
+                    <h3>Melhor custo-benefício para análise de dados</h3>
+                    <p>Precisão matemática e lógica superior para tratar grandes volumes de informação.</p>
+                </div>
+                <div class="card porque-card">
+                    <div class="porque-icon"><i data-lucide="lock"></i></div>
+                    <h3>Líder em segurança da informação</h3>
+                    <p>Privacidade de dados garantida no nível corporativo.</p>
+                </div>
+                <div class="card porque-card">
+                    <div class="porque-icon"><i data-lucide="cpu"></i></div>
+                    <h3>A ferramenta mais completa</h3>
+                    <p>Perfeita para automação de tarefas e criação de Dashboards dinâmicos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="oferta" style="background:#FAFAFA;">
+        <div class="wrap" style="text-align:center;">
+            <div class="eyebrow">Condição exclusiva Vitalício</div>
+            <h2 class="section-title">Sua evolução com um desconto que <span class="accent2">só o Vitalício tem</span></h2>
+            <p class="section-lead" style="margin:0 auto;">Por fazer parte da nossa comunidade Vitalício, você garante a Implementação Claude com R$ 500,00 de desconto — um valor que não está disponível para o público em geral.</p>
+
+            <div class="oferta-shell">
+                <div class="card oferta-card">
+                    <div class="oferta-selo"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> Exclusivo Vitalício</div>
+                    <h3>Implementação Claude</h3>
+                    <p class="oferta-sub">A jornada ao vivo completa para aplicar o Claude no trabalho.</p>
+                    <ul class="oferta-lista">
+                        <li><i data-lucide="check-circle"></i> Aula Zero de integração e nivelamento</li>
+                        <li><i data-lucide="check-circle"></i> 5 aulas ao vivo via Teams</li>
+                        <li><i data-lucide="check-circle"></i> Gravações disponíveis por 12 meses</li>
+                        <li><i data-lucide="check-circle"></i> Grupo de suporte no WhatsApp</li>
+                    </ul>
+                    <div class="preco-de">De R$ 997,00</div>
+                    <div class="preco-desconto">R$ 500,00 de desconto Vitalício</div>
+                    <div class="preco-principal">12x de R$ 41,42</div>
+                    <div class="preco-parcelas">ou R$ 497,00 à vista</div>
+                    <a href="https://pay.hotmart.com/D106492561F?off=0o2i4qmk" target="_blank" rel="noopener" class="btn purple" style="width:100%;">
+                        Garantir minha vaga com desconto Vitalício
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © Todos os direitos reservados para Escola Karen Abecia — 2026
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
