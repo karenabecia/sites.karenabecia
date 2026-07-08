@@ -91,6 +91,19 @@
         .info-card h3 { margin: 0 0 8px; font-size: 17px; }
         .info-card p { margin: 0; color: #475569; font-size: 14px; line-height: 1.6; }
 
+        /* Quem vai ensinar */
+        .instrutora-card {
+            margin-top: 40px; padding: 40px; display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center;
+        }
+        @media (min-width: 768px) { .instrutora-card { flex-direction: row; text-align: left; align-items: flex-start; padding: 44px; } }
+        .instrutora-foto {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 4px solid #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .instrutora-texto h3 { font-size: 22px; margin: 0 0 8px; }
+        .instrutora-cargo { color: var(--ka-purple); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 14px; }
+        .instrutora-texto p { color: #475569; font-size: 15px; line-height: 1.7; margin: 0; }
+
         /* Por que Claude */
         .porque-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 44px; }
         @media (min-width: 768px) { .porque-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -183,6 +196,7 @@
         <a href="#"><img src="/imagens/logo-claro/escola.png" alt="Escola Karen Abecia"></a>
         <div class="links">
             <a href="#programa">Programa</a>
+            <a href="#instrutora">Instrutora</a>
             <a href="#por-que-claude">O Claude</a>
             <a href="#depoimentos">Depoimentos</a>
             <a href="#oferta">Matrícula</a>
@@ -197,7 +211,7 @@
                 6 encontros para transformar o <span class="accent">Claude</span> em resultado real no seu trabalho
             </h1>
             <p class="hero-sub">
-                Domine a ferramenta de I.A. mais completa para o ambiente profissional através de estudos de caso reais e implementação guiada — com uma condição pensada especialmente para quem já faz parte da nossa comunidade Vitalício.
+                Domine a ferramenta de I.A. mais completa para o ambiente profissional através de estudos de caso reais e implementação guiada — com uma condição pensada especialmente para quem já faz parte da nossa Comunidade Efeito UAU.
             </p>
             <a href="#oferta" class="btn">Garantir minha vaga com desconto</a>
         </div>
@@ -212,7 +226,7 @@
             </div>
             <div class="programa-list">
                 <div class="card aula-row aula-zero">
-                    <div class="aula-num">08<span>JUL</span></div>
+                    <div class="aula-num">13<span>JUL</span></div>
                     <div>
                         <div class="aula-tag">Aula Zero</div>
                         <h4 class="aula-titulo">Integração e Nivelamento</h4>
@@ -220,7 +234,7 @@
                     </div>
                 </div>
                 <div class="card aula-row">
-                    <div class="aula-num">13<span>JUL</span></div>
+                    <div class="aula-num">20<span>JUL</span></div>
                     <div>
                         <div class="aula-tag">Aula 1</div>
                         <h4 class="aula-titulo">O que precisa saber sobre o Claude I.A.</h4>
@@ -228,7 +242,7 @@
                     </div>
                 </div>
                 <div class="card aula-row">
-                    <div class="aula-num">20<span>JUL</span></div>
+                    <div class="aula-num">27<span>JUL</span></div>
                     <div>
                         <div class="aula-tag">Aula 2</div>
                         <h4 class="aula-titulo">Claude no Excel</h4>
@@ -236,7 +250,7 @@
                     </div>
                 </div>
                 <div class="card aula-row">
-                    <div class="aula-num">27<span>JUL</span></div>
+                    <div class="aula-num">03<span>AGO</span></div>
                     <div>
                         <div class="aula-tag">Aula 3</div>
                         <h4 class="aula-titulo">Claude no Power BI</h4>
@@ -244,7 +258,7 @@
                     </div>
                 </div>
                 <div class="card aula-row">
-                    <div class="aula-num">03<span>AGO</span></div>
+                    <div class="aula-num">10<span>AGO</span></div>
                     <div>
                         <div class="aula-tag">Aula 4</div>
                         <h4 class="aula-titulo">Criação de Dashboards com Claude Live Artifacts</h4>
@@ -252,7 +266,7 @@
                     </div>
                 </div>
                 <div class="card aula-row">
-                    <div class="aula-num">10<span>AGO</span></div>
+                    <div class="aula-num">17<span>AGO</span></div>
                     <div>
                         <div class="aula-tag">Aula 5</div>
                         <h4 class="aula-titulo">Visual, Aplicativos e Páginas</h4>
@@ -299,7 +313,7 @@
         <div class="wrap" style="text-align:center;">
             <div class="eyebrow">Condição exclusiva Vitalício</div>
             <h2 class="section-title">Sua evolução com um desconto que <span class="accent2">só o Vitalício tem</span></h2>
-            <p class="section-lead" style="margin:0 auto;">Por fazer parte da nossa comunidade Vitalício, você garante a Implementação Claude com R$ 500,00 de desconto — um valor que não está disponível para o público em geral.</p>
+            <p class="section-lead" style="margin:0 auto;">Por fazer parte da nossa Comunidade Efeito UAU, você garante a Implementação Claude com R$ 500,00 de desconto — um valor que não está disponível para o público em geral.</p>
 
             <div class="oferta-shell">
                 <div class="card oferta-card">
@@ -313,11 +327,11 @@
                         <li><i data-lucide="check-circle"></i> Grupo de suporte no WhatsApp</li>
                     </ul>
                     <div class="preco-de">De R$ 997,00</div>
-                    <div class="preco-desconto">R$ 500,00 de desconto Vitalício</div>
+                    <div class="preco-desconto">R$ 500,00 de Desconto Exclusivo</div>
                     <div class="preco-principal">12x de R$ 41,42</div>
                     <div class="preco-parcelas">ou R$ 497,00 à vista</div>
                     <a href="https://pay.hotmart.com/D106492561F?off=0o2i4qmk" target="_blank" rel="noopener" class="btn green" style="width:100%;">
-                        Garantir minha vaga com desconto Vitalício
+                        Garantir minha vaga com Desconto Exclusivo
                     </a>
                 </div>
             </div>
@@ -358,13 +372,30 @@
         </div>
     </section>
 
-    <section class="whats-section" style="background:#FAFAFA;">
+    <section class="whats-section">
         <div class="wrap">
             <h4 style="font-size:18px; margin-bottom:20px;">Ficou com alguma dúvida?</h4>
             <a href="https://api.whatsapp.com/send?phone=5511958152954" target="_blank" rel="noopener" class="whats-btn">
                 <i data-lucide="message-circle" style="width:20px;height:20px;"></i>
                 Fale com a equipe agora
             </a>
+        </div>
+    </section>
+
+    <section id="instrutora" style="background:#FAFAFA;">
+        <div class="wrap">
+            <div style="text-align:center;">
+                <div class="eyebrow">Quem vai ensinar</div>
+                <h2 class="section-title">Uma didática pensada para <span class="accent2">o seu dia a dia de trabalho</span></h2>
+            </div>
+            <div class="card instrutora-card">
+                <img src="/imagens/jessica.png" alt="Jéssica Gleiciane" class="instrutora-foto" onerror="this.style.display='none';">
+                <div class="instrutora-texto">
+                    <h3>Jéssica Gleiciane</h3>
+                    <div class="instrutora-cargo">Coordenadora e Professora da Escola Karen Abecia · Especialista em Dados e I.A</div>
+                    <p>Com mais de 10 anos de experiência em análise de dados e 5 dedicados à coordenação na Escola Karen Abecia, Jessica conecta as necessidades reais do mercado a uma didática leve e descomplicada. Seu foco é transformar a rotina de trabalho, tornando-a muito mais produtiva por meio das principais ferramentas de I.A e BI.</p>
+                </div>
+            </div>
         </div>
     </section>
 
