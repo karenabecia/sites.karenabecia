@@ -2,6 +2,21 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+
+  <script>
+  // Data final da campanha
+  // Exemplo: campanha acaba em 20/07/2026 às 23:59 no horário de Brasília
+  const dataFinalCampanha = new Date("2026-07-09T10:59:00-03:00");
+
+  // Link da página 2
+  const paginaDestino = "https://site.escolakarenabecia.com/implementacao-claudev/";
+
+  const agora = new Date();
+
+  if (agora > dataFinalCampanha) {
+    window.location.href = paginaDestino;
+  }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Copa dos Dados — O Jogo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
