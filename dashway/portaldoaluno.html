@@ -1,1 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal do Aluno DashWay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --laranja: #FF7000;
+    --verde: #57B95C;
+    --fundo: #F0F0F0;
+    --card: #FFFFFF;
+    --texto: #020617;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 6%;
+    background-color: var(--card);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  header img {
+    height: 42px;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 6%;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 56px 0 40px;
+  }
+
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--laranja);
+  }
+
+  .hero p {
+    margin-top: 12px;
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--texto);
+    opacity: 0.85;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--texto);
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    opacity: 0.75;
+    margin-bottom: 24px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background-color: var(--card);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .card .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .icon.laranja { background-color: var(--laranja); }
+  .icon.verde { background-color: var(--verde); }
+
+  .icon.whatsapp {
+    background-color: transparent;
+  }
+
+  .icon.whatsapp svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+  .card p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .card .avisos {
+    text-align: left;
+    width: 100%;
+    background-color: var(--fundo);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card .avisos p {
+    font-size: 13px;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn:hover { opacity: 0.88; }
+
+  .btn.laranja { background-color: var(--laranja); }
+  .btn.verde { background-color: var(--verde); }
+
+  /* Cronograma */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .timeline-item {
+    background-color: var(--card);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .timeline-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .timeline-month {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--laranja);
+    font-size: 15px;
+    min-width: 90px;
+  }
+
+  .timeline-date {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .timeline-time {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  .timeline-item .btn {
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px 6%;
+    background-color: var(--fundo);
+    font-size: 13px;
+    color: var(--texto);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 16px 5%; }
+    .timeline-item { flex-direction: column; align-items: flex-start; }
+    .timeline-item .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-claro/dashway_colorido.png" alt="Logo DashWay">
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>Portal do Aluno DashWay</h1>
+    <p>Tudo o que você precisa para acompanhar sua jornada em um só lugar: acesso à plataforma, cronograma das aulas ao vivo e os links para se manter conectado.</p>
+  </div>
+
+  <section>
+    <h2>Seus acessos rápidos</h2>
+    <p class="section-sub">Escolha para onde quer ir e siga em frente.</p>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon laranja" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14H11L10 21L20 10H13L13 3Z" fill="white"/></svg>
+        </div>
+        <h3>Acesse o DashWay</h3>
+        <p>Entre na plataforma e siga com as suas aulas e materiais.</p>
+        <div class="avisos">
+          <p>Para acessar a plataforma de aulas, utilize o mesmo e-mail que você cadastrou na hora da compra.</p>
+          <p>Caso não tenha ou não se lembre da sua senha, basta clicar em "Redefinir senha" que todas as informações de acesso serão encaminhadas para o seu e-mail.</p>
+        </div>
+        <a href="#" class="btn laranja">Acessar o DashWay</a>
+      </div>
+
+      <div class="card">
+        <div class="icon verde" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.15 2 11.27C2 13.9 3.19 16.27 5.13 17.95L4 22L8.44 20.89C9.56 21.24 10.76 21.43 12 21.43C17.52 21.43 22 17.28 22 12.16C22 7.04 17.52 2 12 2Z" fill="white"/></svg>
+        </div>
+        <h3>Entre no grupo de avisos</h3>
+        <p>Fique por dentro de avisos, lembretes e novidades da turma.</p>
+        <a href="#" class="btn verde">Entrar no grupo</a>
+      </div>
+
+      <div class="card">
+        <div class="icon verde" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.15 2 11.27C2 13.9 3.19 16.27 5.13 17.95L4 22L8.44 20.89C9.56 21.24 10.76 21.43 12 21.43C17.52 21.43 22 17.28 22 12.16C22 7.04 17.52 2 12 2Z" fill="white"/></svg>
+        </div>
+        <h3>Fale com o suporte</h3>
+        <p>Ficou com alguma dúvida? Nossa equipe está pronta para ajudar.</p>
+        <a href="#" class="btn verde">Falar com o suporte</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Cronograma de aulas ao vivo</h2>
+    <p class="section-sub">Marque na agenda e não perca nenhum encontro.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-info">
+          <span class="timeline-month">AGOSTO</span>
+          <div>
+            <div class="timeline-date">31/08</div>
+            <div class="timeline-time">19h00 (horário de Brasília)</div>
+          </div>
+        </div>
+        <a class="btn laranja" href="https://teams.microsoft.com/meet/237650092326770?p=MU2YaYd2SEgnndrGwB" target="_blank" rel="noopener">Link da aula</a>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-info">
+          <span class="timeline-month">SETEMBRO</span>
+          <div>
+            <div class="timeline-date">28/09</div>
+            <div class="timeline-time">19h00 (horário de Brasília)</div>
+          </div>
+        </div>
+        <a class="btn laranja" href="https://teams.microsoft.com/meet/237650092326770?p=MU2YaYd2SEgnndrGwB" target="_blank" rel="noopener">Link da aula</a>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-info">
+          <span class="timeline-month">OUTUBRO</span>
+          <div>
+            <div class="timeline-date">19/10</div>
+            <div class="timeline-time">19h00 (horário de Brasília)</div>
+          </div>
+        </div>
+        <a class="btn laranja" href="https://teams.microsoft.com/meet/237650092326770?p=MU2YaYd2SEgnndrGwB" target="_blank" rel="noopener">Link da aula</a>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-info">
+          <span class="timeline-month">NOVEMBRO</span>
+          <div>
+            <div class="timeline-date">16/11</div>
+            <div class="timeline-time">19h00 (horário de Brasília)</div>
+          </div>
+        </div>
+        <a class="btn laranja" href="https://teams.microsoft.com/meet/237650092326770?p=MU2YaYd2SEgnndrGwB" target="_blank" rel="noopener">Link da aula</a>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-info">
+          <span class="timeline-month">DEZEMBRO</span>
+          <div>
+            <div class="timeline-date">14/12</div>
+            <div class="timeline-time">19h00 (horário de Brasília)</div>
+          </div>
+        </div>
+        <a class="btn laranja" href="https://teams.microsoft.com/meet/237650092326770?p=MU2YaYd2SEgnndrGwB" target="_blank" rel="noopener">Link da aula</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+</body>
+</html>
