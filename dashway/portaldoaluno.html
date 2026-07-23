@@ -120,13 +120,17 @@
   .icon.laranja { background-color: var(--laranja); }
   .icon.verde { background-color: var(--verde); }
 
-  .icon.whatsapp {
+  .icon.logo-img {
     background-color: transparent;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
   }
 
-  .icon.whatsapp svg {
+  .icon.logo-img img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
   }
 
   .card h3 {
@@ -143,18 +147,37 @@
   .card .avisos {
     text-align: left;
     width: 100%;
-    background-color: var(--fundo);
-    border-radius: 12px;
-    padding: 14px 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  .card .avisos p {
+  .card .aviso-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: var(--fundo);
+    border-radius: 14px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--laranja);
+  }
+
+  .card .aviso-item .aviso-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--laranja);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card .aviso-item p {
     font-size: 13px;
     opacity: 0.85;
     margin: 0;
+    text-align: left;
   }
 
   .btn {
@@ -266,28 +289,42 @@
         <h3>Acesse o DashWay</h3>
         <p>Entre na plataforma e siga com as suas aulas e materiais.</p>
         <div class="avisos">
-          <p>Para acessar a plataforma de aulas, utilize o mesmo e-mail que você cadastrou na hora da compra.</p>
-          <p>Caso não tenha ou não se lembre da sua senha, basta clicar em "Redefinir senha" que todas as informações de acesso serão encaminhadas para o seu e-mail.</p>
+          <div class="aviso-item">
+            <span class="aviso-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 6H20V18H4V6Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M4 6L12 13L20 6" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+            </span>
+            <p>Para acessar a plataforma de aulas, utilize o mesmo e-mail que você cadastrou na hora da compra.</p>
+          </div>
+          <div class="aviso-item">
+            <span class="aviso-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="white" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="2"/></svg>
+            </span>
+            <p>Caso não tenha ou não se lembre da sua senha, basta clicar em "Redefinir senha" que todas as informações de acesso serão encaminhadas para o seu e-mail.</p>
+          </div>
         </div>
-        <a href="#" class="btn laranja">Acessar o DashWay</a>
+        <a href="https://hotmart.com/pt-br/club/karenabecia/products/331009" class="btn laranja" target="_blank" rel="noopener">Acessar o DashWay</a>
       </div>
 
-      <div class="card">
-        <div class="icon verde" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.15 2 11.27C2 13.9 3.19 16.27 5.13 17.95L4 22L8.44 20.89C9.56 21.24 10.76 21.43 12 21.43C17.52 21.43 22 17.28 22 12.16C22 7.04 17.52 2 12 2Z" fill="white"/></svg>
-        </div>
-        <h3>Entre no grupo de avisos</h3>
-        <p>Fique por dentro de avisos, lembretes e novidades da turma.</p>
-        <a href="#" class="btn verde">Entrar no grupo</a>
-      </div>
+      <div class="cards-row">
 
-      <div class="card">
-        <div class="icon verde" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.15 2 11.27C2 13.9 3.19 16.27 5.13 17.95L4 22L8.44 20.89C9.56 21.24 10.76 21.43 12 21.43C17.52 21.43 22 17.28 22 12.16C22 7.04 17.52 2 12 2Z" fill="white"/></svg>
+        <div class="card">
+          <div class="icon logo-img" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/dashway/grupo%20de%20avisos.png" alt="Grupo de avisos">
+          </div>
+          <h3>Entre no grupo de avisos</h3>
+          <p>Fique por dentro de avisos, lembretes e novidades da turma.</p>
+          <a href="https://sndflw.com/i/xUa7M1aASUnalx6YCz6h" class="btn verde" target="_blank" rel="noopener">Entrar no grupo</a>
         </div>
-        <h3>Fale com o suporte</h3>
-        <p>Ficou com alguma dúvida? Nossa equipe está pronta para ajudar.</p>
-        <a href="#" class="btn verde">Falar com o suporte</a>
+
+        <div class="card">
+          <div class="icon logo-img" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/dashway/suporte%20ao%20aluno.png" alt="Suporte ao aluno">
+          </div>
+          <h3>Fale com o suporte</h3>
+          <p>Não consegue acessar as aulas? Nossa equipe está pronta para ajudar.</p>
+          <a href="https://wa.me/11981667470" class="btn verde" target="_blank" rel="noopener">Falar com o suporte</a>
+        </div>
+
       </div>
 
     </div>
