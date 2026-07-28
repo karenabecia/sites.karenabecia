@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Você Precisa de um Site HOJE — DashEagles</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --laranja: #FF7000;
+    --verde: #57B95C;
+    --fundo: #F0F0F0;
+    --card: #FFFFFF;
+    --texto: #020617;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  header{
+    padding: 28px 0 16px;
+  }
+  header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header img{
+    height: 40px;
+  }
+  .tag-aula{
+    background: var(--card);
+    color: var(--laranja);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+  }
+
+  /* HERO */
+  .hero{
+    padding: 40px 0 56px;
+    text-align: center;
+  }
+  .hero h1{
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--texto);
+    letter-spacing: -0.5px;
+  }
+  .hero h1 span{
+    color: var(--laranja);
+  }
+  .hero p{
+    max-width: 640px;
+    margin: 18px auto 0;
+    font-size: 17px;
+    color: rgba(2,6,23,0.75);
+  }
+
+  /* SECTION HEADER */
+  .section{
+    padding: 48px 0;
+  }
+  .section-head{
+    max-width: 620px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .section-head h2{
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .section-head p{
+    margin-top: 12px;
+    font-size: 15.5px;
+    color: rgba(2,6,23,0.7);
+  }
+
+  /* TIPOS DE SITE - ACORDEÃO (FAQ) */
+  .tipos-lista{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .tipo-item{
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    border-left: 5px solid transparent;
+    overflow: hidden;
+  }
+  .tipo-pergunta{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 22px 26px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--texto);
+  }
+  .tipo-pergunta .icone{
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(2,6,23,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--laranja);
+    transition: transform 0.2s ease;
+  }
+  .tipo-item.aberto .icone{
+    transform: rotate(45deg);
+  }
+  .tipo-resposta{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .tipo-resposta-inner{
+    padding: 0 26px 26px;
+  }
+  .tipo-resposta .carac{
+    font-size: 14.5px;
+    color: rgba(2,6,23,0.68);
+    margin-bottom: 18px;
+  }
+  .tipo-resposta .blocos-label{
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(2,6,23,0.45);
+    margin-bottom: 10px;
+  }
+  .tipo-resposta ul{
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14.5px;
+    color: var(--texto);
+  }
+  .tipo-resposta ul li{
+    margin-bottom: 6px;
+  }
+
+  /* variações sutis de cor por item (tons oficiais) */
+  .t1{ border-left-color: var(--laranja); }
+  .t2{ border-left-color: var(--verde); }
+  .t3{ border-left-color: var(--laranja); }
+  .t4{ border-left-color: var(--verde); }
+  .t5{ border-left-color: var(--laranja); }
+  .t6{ border-left-color: var(--verde); }
+  .t7{ border-left-color: var(--laranja); }
+  .t8{ border-left-color: var(--verde); }
+  .t9{ border-left-color: var(--laranja); }
+
+  /* HTML / SKILLS EXPLICAÇÃO */
+  .duo{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .info-card{
+    background: var(--card);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+  }
+  .info-card h3{
+    font-size: 20px;
+    color: var(--laranja);
+    margin-bottom: 12px;
+  }
+  .info-card p{
+    font-size: 15px;
+    color: rgba(2,6,23,0.78);
+    margin: 0 0 10px;
+  }
+  .info-card p:last-child{ margin-bottom: 0; }
+
+  /* SKILLS DOWNLOAD */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .skill-card{
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+  }
+  .skill-card h3{
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .skill-card p{
+    font-size: 14px;
+    color: rgba(2,6,23,0.72);
+    margin: 0 0 20px;
+    flex-grow: 1;
+  }
+  .btn-download{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--verde);
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14.5px;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-download:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(87,185,92,0.25);
+  }
+
+  .s1{ background: rgba(255,112,0,0.05); }
+  .s2{ background: rgba(87,185,92,0.06); }
+  .s3{ background: rgba(255,112,0,0.09); }
+  .s4{ background: rgba(87,185,92,0.1); }
+  .s5{ background: rgba(255,112,0,0.13); }
+  .s6{ background: rgba(87,185,92,0.14); }
+
+  footer{
+    text-align: center;
+    padding: 32px 24px 40px;
+    font-size: 13px;
+    color: var(--texto);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 640px){
+    .hero h1{ font-size: 32px; }
+    .section-head h2{ font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-para-claro/logo.png" alt="Escola Karen Abecia">
+    <span class="tag-aula">Material de Apoio · DashEagles</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Você Precisa de um <span>Site HOJE</span></h1>
+    <p>Nesta etapa, você vai entender os tipos de site que existem, o que torna cada um funcional de verdade e como as skills do Claude elevam o nível do design das suas páginas.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cada objetivo pede um tipo de site diferente</h2>
+      <p>Antes de abrir o editor, defina qual é o papel do site. Isso muda completamente as características e os blocos que ele precisa ter para ser útil.</p>
+    </div>
+
+    <div class="tipos-lista">
+
+      <div class="tipo-item t1">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site Pessoal
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Apresenta você, sua trajetória e seu diferencial. Tom mais próximo e humano, geralmente em uma única página.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Foto e apresentação</li>
+              <li>Trajetória e experiência</li>
+              <li>Portfólio ou projetos</li>
+              <li>Links de contato e redes sociais</li>
+              <li>Depoimentos, quando houver</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t2">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site Corporativo
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Representa uma marca ou empresa. Precisa transmitir confiança e profissionalismo, com estrutura mais robusta.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Apresentação da empresa</li>
+              <li>Serviços ou produtos</li>
+              <li>Equipe</li>
+              <li>Cases e provas sociais</li>
+              <li>Contato e localização</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t3">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site de Ferramenta
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Tem uma função prática — calculadora, gerador, conversor. O foco é a usabilidade, não o texto.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Campo de entrada de dados</li>
+              <li>Botão de ação clara</li>
+              <li>Resultado em destaque</li>
+              <li>Instruções rápidas de uso</li>
+              <li>Opção de copiar ou baixar o resultado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t4">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site de Apoio
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Reúne materiais, links e recursos de um treinamento ou processo. A organização importa mais do que o visual elaborado.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Materiais organizados por módulo ou aula</li>
+              <li>Botões de download</li>
+              <li>Links para gravações e grupos</li>
+              <li>Indicação clara do próximo passo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t5">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site Educacional
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Apresenta conteúdo estruturado de aprendizagem, combinando teoria com aplicação prática.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Estrutura de módulos ou aulas</li>
+              <li>Objetivo de cada etapa</li>
+              <li>Área de exercícios ou prática</li>
+              <li>Acompanhamento de progresso</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t6">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site de Comunicado
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Existe para transmitir uma informação pontual — evento, aviso, mudança. Precisa ser lido e entendido em segundos.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Título direto com a informação principal</li>
+              <li>Data, horário e local, se houver</li>
+              <li>Explicação breve do motivo</li>
+              <li>Botão de ação única</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t7">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site de Vendas
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Existe para transformar visita em decisão. Mostra valor antes de pedir a ação, equilibrando emoção e lógica.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Título orientado ao benefício</li>
+              <li>Demonstração de valor</li>
+              <li>Detalhamento da oferta</li>
+              <li>Depoimentos e provas sociais</li>
+              <li>Chamada para ação de conversão</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t8">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Site de Evento
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Diferente do comunicado, existe para vender a participação em um encontro. Precisa gerar expectativa e facilitar a inscrição.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Data e contagem regressiva</li>
+              <li>Programação ou agenda</li>
+              <li>Palestrantes ou convidados</li>
+              <li>Formulário de inscrição</li>
+              <li>Local ou link de acesso</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tipo-item t9">
+        <button class="tipo-pergunta" onclick="this.parentElement.classList.toggle('aberto'); const r=this.nextElementSibling; r.style.maxHeight = this.parentElement.classList.contains('aberto') ? r.scrollHeight+'px' : '0';">
+          Blog / Site de Conteúdo
+          <span class="icone">+</span>
+        </button>
+        <div class="tipo-resposta">
+          <div class="tipo-resposta-inner">
+            <p class="carac">Organiza artigos por tema para construir autoridade ao longo do tempo. Precisa de navegação e busca fáceis para reter quem chega.</p>
+            <p class="blocos-label">Blocos essenciais</p>
+            <ul>
+              <li>Lista de artigos por categoria</li>
+              <li>Campo de busca</li>
+              <li>Artigo em destaque</li>
+              <li>Barra lateral com relacionados ou newsletter</li>
+              <li>Botão de compartilhamento</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>O que é HTML e como um site é criado</h2>
+      <p>Entender essa base te dá segurança para construir qualquer um dos sites acima.</p>
+    </div>
+
+    <div class="duo">
+      <div class="info-card">
+        <h3>O que é HTML</h3>
+        <p>HTML (HyperText Markup Language) é a linguagem que estrutura o conteúdo de qualquer página que você vê na internet: títulos, textos, imagens, botões e listas.</p>
+        <p>Ele funciona como o esqueleto do site. Depois entra o CSS, responsável pela aparência — cores, espaçamento e fontes — e o JavaScript, que traz interatividade, como cliques, animações e cálculos.</p>
+      </div>
+      <div class="info-card">
+        <h3>Como um site é criado na prática</h3>
+        <p>Um site pode nascer de um único arquivo <strong>.html</strong>, com CSS e JavaScript embutidos no mesmo arquivo. Você escreve a estrutura com tags, estiliza com CSS e adiciona interação com JavaScript quando fizer sentido.</p>
+        <p>Depois, basta hospedar esse arquivo em um serviço como o GitHub Pages para o site ficar disponível na internet, pronto para qualquer pessoa acessar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>O que são Skills do Claude</h2>
+      <p>Entender esse conceito muda completamente o nível dos sites que você constrói com o Claude.</p>
+    </div>
+
+    <div class="duo">
+      <div class="info-card">
+        <h3>Como funcionam</h3>
+        <p>Skills são guias de instrução que você entrega ao Claude antes de pedir para ele criar algo. Funcionam como um manual de boas práticas, consultado automaticamente sempre que a tarefa combina com o que está descrito ali dentro.</p>
+      </div>
+      <div class="info-card">
+        <h3>Por que fazem diferença</h3>
+        <p>Sem uma skill, o Claude toma decisões de design de forma genérica. Com uma skill bem escrita, ele passa a seguir padrões específicos de cor, tipografia, espaçamento e organização — o que eleva o nível visual e traz muito mais consistência entre páginas diferentes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills Perfeitas para Melhorar o Design das Suas Páginas</h2>
+      <p>Baixe e adicione ao Claude para elevar o padrão visual de tudo o que você constrói a partir de agora.</p>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="skill-card s1">
+        <h3>ui-ux-pro-max</h3>
+        <p>Inteligência de design de UI/UX com estilos, paletas de cores, pares de fontes e padrões de componentes prontos para aplicar em qualquer projeto.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=191xQjO9_caqn3cxhZ3hTKiB71sKTcBuB">Baixar skill</a>
+      </div>
+
+      <div class="skill-card s2">
+        <h3>frontend-design</h3>
+        <p>Orientação para criar interfaces com identidade visual própria, evitando aquele visual genérico que entrega a mão da I.A.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1-4DLSVaeAzrDGAKI5qgDdUWRoSGtHInQ">Baixar skill</a>
+      </div>
+
+      <div class="skill-card s3">
+        <h3>principios-design-visual</h3>
+        <p>Os quatro princípios clássicos de composição — contraste, repetição, alinhamento e proximidade — aplicados direto na construção de páginas HTML.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=17YI4Mun5_6LKZxrcwvrddcyoUIj6o_YG">Baixar skill</a>
+      </div>
+
+      <div class="skill-card s4">
+        <h3>animacoes-leves-html</h3>
+        <p>Animações discretas em HTML e CSS que trazem um toque de sofisticação sem pesar a página ou distrair quem está navegando.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1gDVbVmSVbUWXexDez7Z0QE3FXrLROyWl">Baixar skill</a>
+      </div>
+
+      <div class="skill-card s5">
+        <h3>qualidade-web-checklist</h3>
+        <p>Checklist completo para revisar performance, responsividade e qualidade técnica antes de publicar qualquer página.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1ooK5dFTSKt2xTUV6o-TMaAttHNkck0RU">Baixar skill</a>
+      </div>
+
+      <div class="skill-card s6">
+        <h3>acessibilidade-web</h3>
+        <p>Boas práticas para tornar sua página utilizável por mais pessoas, incluindo contraste adequado, leitores de tela e navegação por teclado.</p>
+        <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1-ZjWSsQd9gyxwOWTq1I352NA9eRE8FiO">Baixar skill</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  © Todos os direitos reservados para Escola Karen Abecia — 2026
+</footer>
+
+</body>
+</html>
