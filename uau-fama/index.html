@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UAU DA FAMA — galeria visual em constante movimento.">
+  <title>UAU DA FAMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Voltar ao início">UAU DA FAMA</a>
+    <div class="header-meta">
+      <span id="item-count">Coleção</span>
+      <button class="shuffle-button" id="shuffle-button" type="button">Trocar uma obra <span aria-hidden="true">↻</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">UAU DA FAMA</h1>
+      <p>Uma coleção viva de imagens, movimentos e histórias.</p>
+    </section>
+    <section class="gallery" id="gallery" aria-live="polite" aria-label="Galeria de projetos"></section>
+    <div class="scroll-sentinel" id="scroll-sentinel" aria-hidden="true"></div>
+  </main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <button class="modal-backdrop" type="button" data-close aria-label="Fechar janela"></button>
+    <article class="modal-panel">
+      <button class="modal-close" type="button" data-close aria-label="Fechar">×</button>
+      <div class="modal-media" id="modal-media"></div>
+      <div class="modal-copy">
+        <div>
+          <p class="modal-kicker" id="modal-kicker"></p>
+          <h2 id="modal-title"></h2>
+        </div>
+        <p class="modal-description" id="modal-description"></p>
+      </div>
+    </article>
+  </div>
+
+  <footer><span>UAU DA FAMA</span><span>© <span id="year"></span></span></footer>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
