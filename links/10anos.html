@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel 10 Anos — Escola Karen Abecia</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF7000;
+    --orange-light:#FFE8D6;
+    --green:#57B95C;
+    --green-light:#E4F5E5;
+    --bg:#F0F0F0;
+    --surface:#FFFFFF;
+    --text:#020617;
+    --muted:#6b7280;
+    --border:#E5E5E5;
+    --radius:16px;
+    --shadow:0 8px 25px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0;}
+  ::-webkit-scrollbar{height:8px;width:8px;}
+  ::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:8px;}
+
+  /* Topbar */
+  .topbar{position:sticky;top:0;z-index:40;background:var(--surface);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--orange);}
+  .brand h1{font-size:18px;font-weight:800;}
+  .brand span{font-size:12px;color:var(--muted);font-weight:500;}
+  .topbar-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  select, input, textarea{font-family:'Poppins',sans-serif;border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13.5px;background:#fff;color:var(--text);}
+  select:focus,input:focus,textarea:focus{outline:2px solid var(--orange);outline-offset:1px;}
+  .status-pill{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--muted);padding:6px 10px;border-radius:20px;background:var(--bg);}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:#c4c4c4;}
+  .status-dot.on{background:var(--green);}
+  .status-dot.off{background:#e0575c;}
+
+  /* Nav tabs */
+  .tabs{display:flex;gap:6px;padding:14px 24px 0;overflow-x:auto;background:var(--bg);}
+  .tab{padding:10px 16px;border-radius:12px 12px 0 0;font-size:13.5px;font-weight:600;color:var(--muted);
+    cursor:pointer;white-space:nowrap;border:1px solid transparent;border-bottom:none;}
+  .tab.active{background:var(--surface);color:var(--orange);border-color:var(--border);}
+
+  .view{display:none;padding:20px 24px 60px;max-width:1400px;margin:0 auto;}
+  .view.active{display:block;}
+
+  .view-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  .view-header h2{font-size:20px;}
+  .view-header p{color:var(--muted);font-size:13px;margin-top:2px;}
+
+  .btn{border:none;border-radius:10px;padding:10px 16px;font-family:'Poppins',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+  .btn-orange{background:var(--orange);color:#fff;}
+  .btn-orange:hover{background:#e56400;}
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-green:hover{background:#489a4d;}
+  .btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+  .btn-ghost:hover{background:var(--bg);}
+  .btn-danger{background:#fff;color:#d33;border:1px solid #f2b8b8;}
+  .btn-sm{padding:6px 10px;font-size:12px;border-radius:8px;}
+
+  /* Kanban */
+  .kanban{display:grid;grid-template-columns:repeat(4,minmax(260px,1fr));gap:14px;overflow-x:auto;}
+  .kcol{background:#fff;border-radius:var(--radius);border:1px solid var(--border);min-height:200px;display:flex;flex-direction:column;}
+  .kcol-head{padding:14px 14px 10px;display:flex;align-items:center;justify-content:space-between;}
+  .kcol-head h3{font-size:13.5px;text-transform:uppercase;letter-spacing:.03em;}
+  .kcol-count{background:var(--bg);border-radius:20px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .kcol-body{padding:0 10px 12px;display:flex;flex-direction:column;gap:8px;min-height:60px;flex:1;}
+  .kcol[data-status="A Fazer"] .kcol-head{border-top:4px solid #9CA3AF;border-radius:16px 16px 0 0;}
+  .kcol[data-status="Em Andamento"] .kcol-head{border-top:4px solid var(--orange);border-radius:16px 16px 0 0;}
+  .kcol[data-status="Revisão"] .kcol-head{border-top:4px solid #8B5CF6;border-radius:16px 16px 0 0;}
+  .kcol[data-status="Concluído"] .kcol-head{border-top:4px solid var(--green);border-radius:16px 16px 0 0;}
+
+  .card-task{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:grab;box-shadow:var(--shadow);}
+  .card-task:active{cursor:grabbing;}
+  .card-task h4{font-size:13.5px;font-weight:600;margin-bottom:6px;line-height:1.35;}
+  .card-task .meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+  .badge{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:20px;}
+  .badge-prio-Alta{background:#FEE2E2;color:#B91C1C;}
+  .badge-prio-Média{background:var(--orange-light);color:#B45309;}
+  .badge-prio-Baixa{background:#E5E7EB;color:#374151;}
+  .avatar{width:22px;height:22px;border-radius:50%;background:var(--orange);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .card-task .tag-cat{font-size:10.5px;color:var(--muted);margin-top:4px;display:block;}
+  .drop-hint{border:2px dashed var(--orange);}
+
+  /* Table-ish lists */
+  .list-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px;}
+  .day-group{border-bottom:1px solid var(--border);}
+  .day-group:last-child{border-bottom:none;}
+  .day-head{padding:12px 18px;background:var(--bg);font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;}
+  .day-head span{font-weight:500;color:var(--muted);font-size:12px;}
+  .content-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .content-row .ch{font-size:11px;font-weight:700;padding:4px 9px;border-radius:8px;background:var(--orange-light);color:#B45309;min-width:80px;text-align:center;}
+  .content-row .tipo{font-size:12.5px;font-weight:600;flex:1;min-width:160px;}
+  .content-row .stat{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+  .stat-Planejado{background:#E5E7EB;color:#374151;}
+  .stat-Emprodução{background:var(--orange-light);color:#B45309;}
+  .stat-Pronto{background:#DBEAFE;color:#1D4ED8;}
+  .stat-Publicado{background:var(--green-light);color:#227A2A;}
+  .content-row .row-actions{display:flex;gap:6px;margin-left:auto;}
+
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+  .item-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;}
+  .item-card h4{font-size:14.5px;margin-bottom:6px;}
+  .item-card .pilar{font-size:11px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;}
+  .item-card p{font-size:12.5px;color:var(--muted);margin:6px 0;line-height:1.5;}
+  .item-card .actions{display:flex;gap:6px;margin-top:10px;}
+  .slide-list{list-style:none;padding:0;margin:8px 0;font-size:12px;color:var(--text);}
+  .slide-list li{padding:6px 0;border-top:1px dashed var(--border);}
+  .slide-list li:first-child{border-top:none;}
+  .slide-list b{color:var(--orange);}
+
+  .link-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .link-row:first-child{border-top:none;}
+  .link-row .cat{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--bg);color:var(--muted);}
+  .link-row a{color:var(--orange);font-weight:600;text-decoration:none;font-size:13px;}
+  .link-row a:hover{text-decoration:underline;}
+
+  .evento-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.evento-grid{grid-template-columns:1fr;}}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
+  .field input,.field textarea,.field select{width:100%;}
+  .field textarea{resize:vertical;min-height:70px;}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .overlay.active{display:flex;}
+  .modal{background:#fff;border-radius:20px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .modal-head h3{font-size:17px;}
+  .modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+  .modal-foot{display:flex;justify-content:space-between;margin-top:18px;gap:10px;}
+
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--text);color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);z-index:200;opacity:0;transform:translateY(10px);transition:.25s;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  .toast.error{background:#B91C1C;}
+
+  .empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13.5px;}
+  .setup-banner{background:#FFF7ED;border:1px solid #FDE7CE;border-radius:14px;padding:16px 18px;margin-bottom:18px;font-size:13px;line-height:1.6;color:#7C4A03;}
+  .setup-banner code{background:#fff;padding:2px 6px;border-radius:6px;font-size:12px;}
+  footer{text-align:center;font-size:11.5px;color:var(--muted);opacity:.6;padding:24px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <div>
+      <h1>Painel 10 Anos</h1>
+      <span>Escola Karen Abecia · gestão da campanha</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="status-pill"><span class="status-dot" id="statusDot"></span><span id="statusText">Conectando…</span></div>
+    <select id="userSelect">
+      <option value="">Quem é você?</option>
+      <option value="Jessy">Jessy</option>
+      <option value="Karen">Karen</option>
+      <option value="Fabiola">Fabiola</option>
+      <option value="Jéssica">Jéssica</option>
+      <option value="Stefano">Stefano</option>
+    </select>
+    <button class="btn btn-ghost btn-sm" onclick="refreshAll()">↻ Atualizar</button>
+  </div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-view="tarefas">📋 Tarefas</div>
+  <div class="tab" data-view="conteudo">📅 Calendário</div>
+  <div class="tab" data-view="carrosseis">🎠 Carrosséis</div>
+  <div class="tab" data-view="ofertas">💰 Oferta</div>
+  <div class="tab" data-view="links">🔗 Links</div>
+  <div class="tab" data-view="evento">🎉 Evento</div>
+</div>
+
+<div id="setupWrap" style="padding:20px 24px 0;max-width:1400px;margin:0 auto;"></div>
+
+<!-- TAREFAS (KANBAN) -->
+<div class="view active" id="view-tarefas">
+  <div class="view-header">
+    <div>
+      <h2>Tarefas da campanha</h2>
+      <p>Arraste os cards entre as colunas para atualizar o status.</p>
+    </div>
+    <button class="btn btn-orange" onclick="openTaskModal()">+ Nova tarefa</button>
+  </div>
+  <div class="kanban" id="kanbanBoard"></div>
+</div>
+
+<!-- CALENDÁRIO / CONTEÚDO -->
+<div class="view" id="view-conteudo">
+  <div class="view-header">
+    <div>
+      <h2>Calendário de conteúdo</h2>
+      <p>Aquecimento e comunicação da campanha, por data e canal.</p>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-ghost" id="seedBtn" onclick="seedInitialData()">Importar planejamento inicial</button>
+      <button class="btn btn-orange" onclick="openContentModal()">+ Novo conteúdo</button>
+    </div>
+  </div>
+  <div class="list-card" id="contentList"></div>
+</div>
+
+<!-- CARROSSÉIS -->
+<div class="view" id="view-carrosseis">
+  <div class="view-header">
+    <div>
+      <h2>Roteiros de carrossel</h2>
+      <p>Scripts prontos, slide a slide, com legenda.</p>
+    </div>
+    <button class="btn btn-orange" onclick="openCarouselModal()">+ Novo carrossel</button>
+  </div>
+  <div class="grid-cards" id="carouselGrid"></div>
+</div>
+
+<!-- OFERTA -->
+<div class="view" id="view-ofertas">
+  <div class="view-header">
+    <div>
+      <h2>Oferta da campanha</h2>
+      <p>Condições, preços e link de checkout.</p>
+    </div>
+    <button class="btn btn-orange" onclick="openOfferModal()">+ Nova oferta</button>
+  </div>
+  <div class="grid-cards" id="offerGrid"></div>
+</div>
+
+<!-- LINKS -->
+<div class="view" id="view-links">
+  <div class="view-header">
+    <div>
+      <h2>Links importantes</h2>
+      <p>Tudo o que a equipe precisa acessar rápido.</p>
+    </div>
+    <button class="btn btn-orange" onclick="openLinkModal()">+ Novo link</button>
+  </div>
+  <div class="list-card" id="linkList"></div>
+</div>
+
+<!-- EVENTO -->
+<div class="view" id="view-evento">
+  <div class="view-header">
+    <div>
+      <h2>Detalhes do evento</h2>
+      <p>Informações gerais dos 10 anos da escola.</p>
+    </div>
+    <button class="btn btn-orange" onclick="saveEvento()">Salvar detalhes</button>
+  </div>
+  <div class="list-card" style="padding:22px;">
+    <div class="evento-grid">
+      <div class="field"><label>Nome do evento</label><input id="ev-nomeEvento"></div>
+      <div class="field"><label>Data de lançamento</label><input type="date" id="ev-dataLancamento"></div>
+      <div class="field"><label>Início do aquecimento</label><input type="date" id="ev-inicioAquecimento"></div>
+      <div class="field"><label>Fim do aquecimento</label><input type="date" id="ev-fimAquecimento"></div>
+      <div class="field" style="grid-column:1/-1;"><label>Headline</label><input id="ev-headline"></div>
+      <div class="field" style="grid-column:1/-1;"><label>Descrição / observações</label><textarea id="ev-descricao"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<footer>© Todos os direitos reservados para Escola Karen Abecia — 2026</footer>
+
+<!-- MODAL TAREFA -->
+<div class="overlay" id="modal-tarefa">
+  <div class="modal">
+    <div class="modal-head"><h3 id="tarefaModalTitle">Nova tarefa</h3><button class="modal-close" onclick="closeModal('modal-tarefa')">✕</button></div>
+    <input type="hidden" id="t-id">
+    <div class="field"><label>Título</label><input id="t-titulo" placeholder="Ex: Criar cabeçalho comemorativo da live"></div>
+    <div class="field"><label>Descrição</label><textarea id="t-descricao"></textarea></div>
+    <div class="evento-grid">
+      <div class="field"><label>Responsável</label>
+        <select id="t-responsavel"><option value="">Selecione</option><option>Jessy</option><option>Karen</option><option>Fabiola</option><option>Jéssica</option><option>Stefano</option></select>
+      </div>
+      <div class="field"><label>Categoria</label>
+        <select id="t-categoria"><option>Post</option><option>Oferta</option><option>Evento</option><option>Link</option><option>Geral</option></select>
+      </div>
+      <div class="field"><label>Prioridade</label>
+        <select id="t-prioridade"><option>Média</option><option>Alta</option><option>Baixa</option></select>
+      </div>
+      <div class="field"><label>Prazo</label><input type="date" id="t-prazo"></div>
+    </div>
+    <div class="field"><label>Status</label>
+      <select id="t-status"><option>A Fazer</option><option>Em Andamento</option><option>Revisão</option><option>Concluído</option></select>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="t-delete" onclick="deleteTask()" style="display:none;">Excluir</button>
+      <button class="btn btn-orange" onclick="saveTask()" style="margin-left:auto;">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTEÚDO -->
+<div class="overlay" id="modal-conteudo">
+  <div class="modal">
+    <div class="modal-head"><h3 id="conteudoModalTitle">Novo conteúdo</h3><button class="modal-close" onclick="closeModal('modal-conteudo')">✕</button></div>
+    <input type="hidden" id="c-id">
+    <div class="evento-grid">
+      <div class="field"><label>Data</label><input type="date" id="c-data"></div>
+      <div class="field"><label>Canal</label>
+        <select id="c-canal"><option>WhatsApp</option><option>LinkedIn</option><option>Instagram</option><option>YouTube</option><option>E-mail</option><option>Shorts</option></select>
+      </div>
+      <div class="field"><label>Tipo</label>
+        <select id="c-tipo"><option>Carrossel</option><option>Stories</option><option>Reels</option><option>Post</option><option>Webinário</option><option>Vídeo</option><option>Mensagem</option><option>Live</option></select>
+      </div>
+      <div class="field"><label>Status</label>
+        <select id="c-status"><option>Planejado</option><option>Em produção</option><option>Pronto</option><option>Publicado</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Título / descrição</label><input id="c-titulo" placeholder="Ex: Carrossel 1 — Antes & Depois"></div>
+    <div class="field"><label>Responsável</label>
+      <select id="c-responsavel"><option value="">Selecione</option><option>Jessy</option><option>Karen</option><option>Fabiola</option><option>Jéssica</option><option>Stefano</option></select>
+    </div>
+    <div class="field"><label>Link</label><input id="c-link" placeholder="https://..."></div>
+    <div class="field"><label>Observação</label><textarea id="c-observacao"></textarea></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="c-delete" onclick="deleteContent()" style="display:none;">Excluir</button>
+      <button class="btn btn-orange" onclick="saveContent()" style="margin-left:auto;">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CARROSSEL -->
+<div class="overlay" id="modal-carrossel">
+  <div class="modal">
+    <div class="modal-head"><h3 id="carrosselModalTitle">Novo carrossel</h3><button class="modal-close" onclick="closeModal('modal-carrossel')">✕</button></div>
+    <input type="hidden" id="ca-id">
+    <div class="field"><label>Nome</label><input id="ca-nome" placeholder="Ex: Antes & Depois: 10 anos de dashboard"></div>
+    <div class="field"><label>Pilar</label><input id="ca-pilar" placeholder="Ex: Antes & Depois"></div>
+    <div class="field"><label>Slides (um por linha, ex: 1. Capa: ...)</label><textarea id="ca-slides" style="min-height:160px;"></textarea></div>
+    <div class="field"><label>Legenda</label><textarea id="ca-legenda"></textarea></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="ca-delete" onclick="deleteCarousel()" style="display:none;">Excluir</button>
+      <button class="btn btn-orange" onclick="saveCarousel()" style="margin-left:auto;">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OFERTA -->
+<div class="overlay" id="modal-oferta">
+  <div class="modal">
+    <div class="modal-head"><h3 id="ofertaModalTitle">Nova oferta</h3><button class="modal-close" onclick="closeModal('modal-oferta')">✕</button></div>
+    <input type="hidden" id="o-id">
+    <div class="field"><label>Nome da oferta</label><input id="o-nome"></div>
+    <div class="field"><label>Descrição</label><textarea id="o-descricao"></textarea></div>
+    <div class="evento-grid">
+      <div class="field"><label>Preço original</label><input id="o-precoOriginal" placeholder="R$ 0,00"></div>
+      <div class="field"><label>Preço da oferta</label><input id="o-precoOferta" placeholder="R$ 0,00"></div>
+      <div class="field"><label>Início</label><input type="date" id="o-dataInicio"></div>
+      <div class="field"><label>Fim</label><input type="date" id="o-dataFim"></div>
+    </div>
+    <div class="field"><label>Link de checkout</label><input id="o-linkCheckout" placeholder="https://..."></div>
+    <div class="field"><label>Status</label>
+      <select id="o-status"><option>Planejada</option><option>Ativa</option><option>Encerrada</option></select>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="o-delete" onclick="deleteOffer()" style="display:none;">Excluir</button>
+      <button class="btn btn-orange" onclick="saveOffer()" style="margin-left:auto;">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LINK -->
+<div class="overlay" id="modal-link">
+  <div class="modal">
+    <div class="modal-head"><h3 id="linkModalTitle">Novo link</h3><button class="modal-close" onclick="closeModal('modal-link')">✕</button></div>
+    <input type="hidden" id="l-id">
+    <div class="field"><label>Nome</label><input id="l-nome" placeholder="Ex: Planilha da campanha"></div>
+    <div class="field"><label>URL</label><input id="l-url" placeholder="https://..."></div>
+    <div class="field"><label>Categoria</label>
+      <select id="l-categoria"><option>Materiais</option><option>Planilha</option><option>Design</option><option>Checkout</option><option>Grupo</option><option>Outro</option></select>
+    </div>
+    <div class="field"><label>Observação</label><textarea id="l-observacao"></textarea></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="l-delete" onclick="deleteLink()" style="display:none;">Excluir</button>
+      <button class="btn btn-orange" onclick="saveLink()" style="margin-left:auto;">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ CONFIGURAÇÃO ============ */
+const CONFIG = {
+  // Cole aqui a URL do seu Apps Script publicado (termina em /exec)
+  API_URL: 'https://script.google.com/macros/s/AKfycbyUpIKGwBWXzj2B6xKW6UcIwt7ZPs_ubbYJVu5Cruyd5Ix7cb_8JPcCABgSnGNcAiY3ag/exec'
+};
+const DEMO_MODE = CONFIG.API_URL.indexOf('http') !== 0;
+
+/* ============ ESTADO ============ */
+const state = { tarefas: [], conteudo: [], carrosseis: [], ofertas: [], links: [], evento: {} };
+let jsonpCounter = 0;
+
+/* ============ JSONP CLIENT ============ */
+function jsonp(params) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'jsonp_cb_' + (jsonpCounter++);
+    const script = document.createElement('script');
+    const qs = new URLSearchParams(params);
+    qs.set('callback', cbName);
+    window[cbName] = (data) => {
+      resolve(data);
+      delete window[cbName];
+      script.remove();
+    };
+    script.onerror = () => { reject(new Error('Falha de rede ao chamar a API')); delete window[cbName]; script.remove(); };
+    script.src = CONFIG.API_URL + '?' + qs.toString();
+    document.body.appendChild(script);
+    setTimeout(() => { if (window[cbName]) { reject(new Error('Tempo esgotado')); delete window[cbName]; script.remove(); } }, 15000);
+  });
+}
+
+const api = {
+  list: (sheet) => jsonp({ action: 'list', sheet }),
+  create: (sheet, data) => jsonp({ action: 'create', sheet, payload: encodeURIComponent(JSON.stringify(data)) }),
+  update: (sheet, id, data) => jsonp({ action: 'update', sheet, id, payload: encodeURIComponent(JSON.stringify(data)) }),
+  delete: (sheet, id) => jsonp({ action: 'delete', sheet, id }),
+  bulkCreate: (sheet, items) => jsonp({ action: 'bulkCreate', sheet, payload: encodeURIComponent(JSON.stringify(items)) })
+};
+
+/* ============ DEMO MODE (sem backend configurado ainda) ============ */
+let demoStore = null;
+function ensureDemoStore() {
+  if (!demoStore) demoStore = { tarefas: [], conteudo: [], carrosseis: [], ofertas: [], links: [], evento: [] };
+  return demoStore;
+}
+function demoApi(action, sheet, arg1, arg2) {
+  const store = ensureDemoStore();
+  store[sheet] = store[sheet] || [];
+  if (action === 'list') return Promise.resolve({ success: true, data: store[sheet] });
+  if (action === 'create') { const item = Object.assign({ id: 'demo-' + Math.random().toString(36).slice(2) }, arg1); store[sheet].push(item); return Promise.resolve({ success: true, data: item }); }
+  if (action === 'update') { const idx = store[sheet].findIndex(x => x.id === arg1); if (idx > -1) store[sheet][idx] = Object.assign({}, store[sheet][idx], arg2); return Promise.resolve({ success: true, data: store[sheet][idx] }); }
+  if (action === 'delete') { store[sheet] = store[sheet].filter(x => x.id !== arg1); return Promise.resolve({ success: true }); }
+  if (action === 'bulkCreate') { arg1.forEach(it => store[sheet].push(Object.assign({ id: 'demo-' + Math.random().toString(36).slice(2) }, it))); return Promise.resolve({ success: true }); }
+}
+
+async function call(action, sheet, arg1, arg2) {
+  if (DEMO_MODE) return demoApi(action, sheet, arg1, arg2);
+  if (action === 'list') return api.list(sheet);
+  if (action === 'create') return api.create(sheet, arg1);
+  if (action === 'update') return api.update(sheet, arg1, arg2);
+  if (action === 'delete') return api.delete(sheet, arg1);
+  if (action === 'bulkCreate') return api.bulkCreate(sheet, arg1);
+}
+
+/* ============ UI HELPERS ============ */
+function toast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 2600);
+}
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function esc(s) { return (s || '').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function initials(name) { return (name || '?').trim().charAt(0).toUpperCase(); }
+function fmtDate(d) { if (!d) return ''; const dt = new Date(d + 'T00:00:00'); if (isNaN(dt)) return d; return dt.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }); }
+function weekday(d) { if (!d) return ''; const dt = new Date(d + 'T00:00:00'); if (isNaN(dt)) return ''; return dt.toLocaleDateString('pt-BR', { weekday: 'long' }); }
+
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const tab = e.target.closest('.tab'); if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('view-' + tab.dataset.view).classList.add('active');
+});
+
+document.getElementById('userSelect').addEventListener('change', (e) => {
+  localStorage_safe_set('painel10anos_user', e.target.value);
+});
+// evita uso de localStorage em ambientes que não suportam (fallback silencioso em memória)
+let memUser = '';
+function localStorage_safe_set(k, v) { try { localStorage.setItem(k, v); } catch (e) { memUser = v; } }
+function localStorage_safe_get(k) { try { return localStorage.getItem(k) || memUser; } catch (e) { return memUser; } }
+document.getElementById('userSelect').value = localStorage_safe_get('painel10anos_user') || '';
+
+/* ============ SETUP BANNER ============ */
+function renderSetupBanner() {
+  const wrap = document.getElementById('setupWrap');
+  if (!DEMO_MODE) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `<div class="setup-banner">
+    <b>⚙️ Modo de demonstração.</b> Este painel ainda não está conectado à planilha do Google.
+    Publique o <code>Code.gs</code> como App da Web no Apps Script, copie a URL (termina em <code>/exec</code>)
+    e cole em <code>CONFIG.API_URL</code> no topo do <code>index.html</code>. Enquanto isso, os dados abaixo
+    ficam apenas nesta sessão do navegador (não são salvos).
+  </div>`;
+}
+
+/* ============ CARREGAMENTO ============ */
+async function refreshAll() {
+  setStatus('loading');
+  try {
+    const [t, c, ca, o, l, ev] = await Promise.all([
+      call('list', 'tarefas'), call('list', 'conteudo'), call('list', 'carrosseis'),
+      call('list', 'ofertas'), call('list', 'links'), call('list', 'evento')
+    ]);
+    state.tarefas = t.data || []; state.conteudo = c.data || []; state.carrosseis = ca.data || [];
+    state.ofertas = o.data || []; state.links = l.data || [];
+    state.evento = {}; (ev.data || []).forEach(row => { if (row.chave) state.evento[row.chave] = row.valor; });
+    renderAll();
+    setStatus('on');
+  } catch (err) {
+    setStatus('off');
+    toast('Erro ao carregar dados: ' + err.message, true);
+  }
+}
+function setStatus(mode) {
+  const dot = document.getElementById('statusDot'), txt = document.getElementById('statusText');
+  dot.className = 'status-dot ' + (mode === 'on' ? 'on' : mode === 'off' ? 'off' : '');
+  txt.textContent = DEMO_MODE ? 'Modo demonstração' : (mode === 'on' ? 'Conectado' : mode === 'off' ? 'Sem conexão' : 'Conectando…');
+}
+function renderAll() { renderKanban(); renderContent(); renderCarousels(); renderOffers(); renderLinks(); renderEvento(); }
+
+/* ============ TAREFAS (KANBAN) ============ */
+const STATUSES = ['A Fazer', 'Em Andamento', 'Revisão', 'Concluído'];
+function renderKanban() {
+  const board = document.getElementById('kanbanBoard');
+  board.innerHTML = STATUSES.map(st => `
+    <div class="kcol" data-status="${st}">
+      <div class="kcol-head"><h3>${st}</h3><span class="kcol-count">${state.tarefas.filter(t => t.status === st).length}</span></div>
+      <div class="kcol-body" data-drop="${st}"></div>
+    </div>`).join('');
+
+  STATUSES.forEach(st => {
+    const body = board.querySelector(`[data-drop="${st}"]`);
+    state.tarefas.filter(t => t.status === st).forEach(t => body.appendChild(taskCard(t)));
+    body.addEventListener('dragover', e => { e.preventDefault(); body.classList.add('drop-hint'); });
+    body.addEventListener('dragleave', () => body.classList.remove('drop-hint'));
+    body.addEventListener('drop', async e => {
+      e.preventDefault(); body.classList.remove('drop-hint');
+      const id = e.dataTransfer.getData('text/plain');
+      const task = state.tarefas.find(t => t.id === id);
+      if (task && task.status !== st) {
+        task.status = st;
+        try { await call('update', 'tarefas', id, { status: st }); renderKanban(); toast('Tarefa movida para ' + st); }
+        catch (err) { toast('Erro ao mover: ' + err.message, true); }
+      }
+    });
+  });
+}
+function taskCard(t) {
+  const div = document.createElement('div');
+  div.className = 'card-task'; div.draggable = true;
+  div.innerHTML = `
+    <h4>${esc(t.titulo)}</h4>
+    <span class="tag-cat">${esc(t.categoria || 'Geral')}${t.prazo ? ' · até ' + fmtDate(t.prazo) : ''}</span>
+    <div class="meta">
+      <span class="badge badge-prio-${esc(t.prioridade || 'Média')}">${esc(t.prioridade || 'Média')}</span>
+      ${t.responsavel ? `<span class="avatar" title="${esc(t.responsavel)}">${initials(t.responsavel)}</span>` : '<span></span>'}
+    </div>`;
+  div.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', t.id));
+  div.addEventListener('click', () => openTaskModal(t));
+  return div;
+}
+function openTaskModal(t) {
+  document.getElementById('tarefaModalTitle').textContent = t ? 'Editar tarefa' : 'Nova tarefa';
+  document.getElementById('t-id').value = t ? t.id : '';
+  document.getElementById('t-titulo').value = t ? t.titulo || '' : '';
+  document.getElementById('t-descricao').value = t ? t.descricao || '' : '';
+  document.getElementById('t-responsavel').value = t ? t.responsavel || '' : '';
+  document.getElementById('t-categoria').value = t ? t.categoria || 'Geral' : 'Geral';
+  document.getElementById('t-prioridade').value = t ? t.prioridade || 'Média' : 'Média';
+  document.getElementById('t-prazo').value = t ? t.prazo || '' : '';
+  document.getElementById('t-status').value = t ? t.status || 'A Fazer' : 'A Fazer';
+  document.getElementById('t-delete').style.display = t ? 'inline-flex' : 'none';
+  openModal('modal-tarefa');
+}
+async function saveTask() {
+  const id = document.getElementById('t-id').value;
+  const data = {
+    titulo: document.getElementById('t-titulo').value.trim(),
+    descricao: document.getElementById('t-descricao').value.trim(),
+    responsavel: document.getElementById('t-responsavel').value,
+    categoria: document.getElementById('t-categoria').value,
+    prioridade: document.getElementById('t-prioridade').value,
+    prazo: document.getElementById('t-prazo').value,
+    status: document.getElementById('t-status').value
+  };
+  if (!data.titulo) return toast('Dê um título para a tarefa', true);
+  try {
+    if (id) { await call('update', 'tarefas', id, data); const idx = state.tarefas.findIndex(x => x.id === id); state.tarefas[idx] = Object.assign(state.tarefas[idx], data); }
+    else { const res = await call('create', 'tarefas', data); state.tarefas.push(res.data); }
+    closeModal('modal-tarefa'); renderKanban(); toast('Tarefa salva!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+async function deleteTask() {
+  const id = document.getElementById('t-id').value; if (!id || !confirm('Excluir esta tarefa?')) return;
+  try { await call('delete', 'tarefas', id); state.tarefas = state.tarefas.filter(x => x.id !== id); closeModal('modal-tarefa'); renderKanban(); toast('Tarefa excluída'); }
+  catch (err) { toast('Erro ao excluir: ' + err.message, true); }
+}
+
+/* ============ CONTEÚDO / CALENDÁRIO ============ */
+function renderContent() {
+  const wrap = document.getElementById('contentList');
+  if (!state.conteudo.length) { wrap.innerHTML = '<div class="empty">Nenhum conteúdo cadastrado ainda. Use "Importar planejamento inicial" ou adicione manualmente.</div>'; return; }
+  const byDate = {};
+  state.conteudo.forEach(c => { (byDate[c.data] = byDate[c.data] || []).push(c); });
+  const dates = Object.keys(byDate).sort();
+  wrap.innerHTML = dates.map(d => `
+    <div class="day-group">
+      <div class="day-head">${fmtDate(d)} <span>· ${weekday(d)}</span></div>
+      ${byDate[d].map(c => `
+        <div class="content-row">
+          <span class="ch">${esc(c.canal)}</span>
+          <span class="tipo">${esc(c.tipo)} — ${esc(c.titulo || '')}</span>
+          <span class="stat stat-${esc((c.status || 'Planejado').replace(/\s/g,''))}">${esc(c.status || 'Planejado')}</span>
+          <div class="row-actions">
+            <button class="btn btn-ghost btn-sm" onclick='openContentModal(${JSON.stringify(c).replace(/'/g, "&#39;")})'>Editar</button>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+function openContentModal(c) {
+  document.getElementById('conteudoModalTitle').textContent = c ? 'Editar conteúdo' : 'Novo conteúdo';
+  document.getElementById('c-id').value = c ? c.id : '';
+  document.getElementById('c-data').value = c ? c.data || '' : '';
+  document.getElementById('c-canal').value = c ? c.canal || 'WhatsApp' : 'WhatsApp';
+  document.getElementById('c-tipo').value = c ? c.tipo || 'Post' : 'Post';
+  document.getElementById('c-status').value = c ? c.status || 'Planejado' : 'Planejado';
+  document.getElementById('c-titulo').value = c ? c.titulo || '' : '';
+  document.getElementById('c-responsavel').value = c ? c.responsavel || '' : '';
+  document.getElementById('c-link').value = c ? c.link || '' : '';
+  document.getElementById('c-observacao').value = c ? c.observacao || '' : '';
+  document.getElementById('c-delete').style.display = c ? 'inline-flex' : 'none';
+  openModal('modal-conteudo');
+}
+async function saveContent() {
+  const id = document.getElementById('c-id').value;
+  const data = {
+    data: document.getElementById('c-data').value,
+    canal: document.getElementById('c-canal').value,
+    tipo: document.getElementById('c-tipo').value,
+    status: document.getElementById('c-status').value,
+    titulo: document.getElementById('c-titulo').value.trim(),
+    responsavel: document.getElementById('c-responsavel').value,
+    link: document.getElementById('c-link').value.trim(),
+    observacao: document.getElementById('c-observacao').value.trim()
+  };
+  if (!data.data) return toast('Escolha uma data', true);
+  try {
+    if (id) { await call('update', 'conteudo', id, data); const idx = state.conteudo.findIndex(x => x.id === id); state.conteudo[idx] = Object.assign(state.conteudo[idx], data); }
+    else { const res = await call('create', 'conteudo', data); state.conteudo.push(res.data); }
+    closeModal('modal-conteudo'); renderContent(); toast('Conteúdo salvo!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+async function deleteContent() {
+  const id = document.getElementById('c-id').value; if (!id || !confirm('Excluir este conteúdo?')) return;
+  try { await call('delete', 'conteudo', id); state.conteudo = state.conteudo.filter(x => x.id !== id); closeModal('modal-conteudo'); renderContent(); toast('Conteúdo excluído'); }
+  catch (err) { toast('Erro ao excluir: ' + err.message, true); }
+}
+
+/* ============ CARROSSÉIS ============ */
+function renderCarousels() {
+  const wrap = document.getElementById('carouselGrid');
+  if (!state.carrosseis.length) { wrap.innerHTML = '<div class="empty">Nenhum carrossel cadastrado ainda.</div>'; return; }
+  wrap.innerHTML = state.carrosseis.map(c => {
+    const slides = (c.slides || '').split('\n').filter(Boolean);
+    return `<div class="item-card">
+      <div class="pilar">${esc(c.pilar || '')}</div>
+      <h4>${esc(c.nome)}</h4>
+      <ul class="slide-list">${slides.slice(0, 4).map((s, i) => `<li><b>${i + 1}.</b> ${esc(s.replace(/^\d+\.\s*/, ''))}</li>`).join('')}${slides.length > 4 ? `<li style="color:#9CA3AF;">+ ${slides.length - 4} slide(s)</li>` : ''}</ul>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" onclick='openCarouselModal(${JSON.stringify(c).replace(/'/g, "&#39;")})'>Ver / editar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function openCarouselModal(c) {
+  document.getElementById('carrosselModalTitle').textContent = c ? 'Editar carrossel' : 'Novo carrossel';
+  document.getElementById('ca-id').value = c ? c.id : '';
+  document.getElementById('ca-nome').value = c ? c.nome || '' : '';
+  document.getElementById('ca-pilar').value = c ? c.pilar || '' : '';
+  document.getElementById('ca-slides').value = c ? c.slides || '' : '';
+  document.getElementById('ca-legenda').value = c ? c.legenda || '' : '';
+  document.getElementById('ca-delete').style.display = c ? 'inline-flex' : 'none';
+  openModal('modal-carrossel');
+}
+async function saveCarousel() {
+  const id = document.getElementById('ca-id').value;
+  const data = {
+    nome: document.getElementById('ca-nome').value.trim(),
+    pilar: document.getElementById('ca-pilar').value.trim(),
+    slides: document.getElementById('ca-slides').value,
+    legenda: document.getElementById('ca-legenda').value.trim()
+  };
+  if (!data.nome) return toast('Dê um nome ao carrossel', true);
+  try {
+    if (id) { await call('update', 'carrosseis', id, data); const idx = state.carrosseis.findIndex(x => x.id === id); state.carrosseis[idx] = Object.assign(state.carrosseis[idx], data); }
+    else { const res = await call('create', 'carrosseis', data); state.carrosseis.push(res.data); }
+    closeModal('modal-carrossel'); renderCarousels(); toast('Carrossel salvo!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+async function deleteCarousel() {
+  const id = document.getElementById('ca-id').value; if (!id || !confirm('Excluir este carrossel?')) return;
+  try { await call('delete', 'carrosseis', id); state.carrosseis = state.carrosseis.filter(x => x.id !== id); closeModal('modal-carrossel'); renderCarousels(); toast('Carrossel excluído'); }
+  catch (err) { toast('Erro ao excluir: ' + err.message, true); }
+}
+
+/* ============ OFERTAS ============ */
+function renderOffers() {
+  const wrap = document.getElementById('offerGrid');
+  if (!state.ofertas.length) { wrap.innerHTML = '<div class="empty">Nenhuma oferta cadastrada ainda.</div>'; return; }
+  wrap.innerHTML = state.ofertas.map(o => `
+    <div class="item-card">
+      <div class="pilar">${esc(o.status || 'Planejada')}</div>
+      <h4>${esc(o.nome)}</h4>
+      <p>${esc(o.descricao || '')}</p>
+      <p><s style="color:#B0B0B0;">${esc(o.precoOriginal || '')}</s> &nbsp; <b style="color:var(--green);">${esc(o.precoOferta || '')}</b></p>
+      <p>${o.dataInicio ? fmtDate(o.dataInicio) : '?'} → ${o.dataFim ? fmtDate(o.dataFim) : '?'}</p>
+      ${o.linkCheckout ? `<p><a href="${esc(o.linkCheckout)}" target="_blank" style="color:var(--orange);">Ver checkout ↗</a></p>` : ''}
+      <div class="actions"><button class="btn btn-ghost btn-sm" onclick='openOfferModal(${JSON.stringify(o).replace(/'/g, "&#39;")})'>Editar</button></div>
+    </div>`).join('');
+}
+function openOfferModal(o) {
+  document.getElementById('ofertaModalTitle').textContent = o ? 'Editar oferta' : 'Nova oferta';
+  document.getElementById('o-id').value = o ? o.id : '';
+  document.getElementById('o-nome').value = o ? o.nome || '' : '';
+  document.getElementById('o-descricao').value = o ? o.descricao || '' : '';
+  document.getElementById('o-precoOriginal').value = o ? o.precoOriginal || '' : '';
+  document.getElementById('o-precoOferta').value = o ? o.precoOferta || '' : '';
+  document.getElementById('o-dataInicio').value = o ? o.dataInicio || '' : '';
+  document.getElementById('o-dataFim').value = o ? o.dataFim || '' : '';
+  document.getElementById('o-linkCheckout').value = o ? o.linkCheckout || '' : '';
+  document.getElementById('o-status').value = o ? o.status || 'Planejada' : 'Planejada';
+  document.getElementById('o-delete').style.display = o ? 'inline-flex' : 'none';
+  openModal('modal-oferta');
+}
+async function saveOffer() {
+  const id = document.getElementById('o-id').value;
+  const data = {
+    nome: document.getElementById('o-nome').value.trim(),
+    descricao: document.getElementById('o-descricao').value.trim(),
+    precoOriginal: document.getElementById('o-precoOriginal').value.trim(),
+    precoOferta: document.getElementById('o-precoOferta').value.trim(),
+    dataInicio: document.getElementById('o-dataInicio').value,
+    dataFim: document.getElementById('o-dataFim').value,
+    linkCheckout: document.getElementById('o-linkCheckout').value.trim(),
+    status: document.getElementById('o-status').value
+  };
+  if (!data.nome) return toast('Dê um nome à oferta', true);
+  try {
+    if (id) { await call('update', 'ofertas', id, data); const idx = state.ofertas.findIndex(x => x.id === id); state.ofertas[idx] = Object.assign(state.ofertas[idx], data); }
+    else { const res = await call('create', 'ofertas', data); state.ofertas.push(res.data); }
+    closeModal('modal-oferta'); renderOffers(); toast('Oferta salva!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+async function deleteOffer() {
+  const id = document.getElementById('o-id').value; if (!id || !confirm('Excluir esta oferta?')) return;
+  try { await call('delete', 'ofertas', id); state.ofertas = state.ofertas.filter(x => x.id !== id); closeModal('modal-oferta'); renderOffers(); toast('Oferta excluída'); }
+  catch (err) { toast('Erro ao excluir: ' + err.message, true); }
+}
+
+/* ============ LINKS ============ */
+function renderLinks() {
+  const wrap = document.getElementById('linkList');
+  if (!state.links.length) { wrap.innerHTML = '<div class="empty">Nenhum link cadastrado ainda.</div>'; return; }
+  wrap.innerHTML = state.links.map(l => `
+    <div class="link-row">
+      <span class="cat">${esc(l.categoria || 'Outro')}</span>
+      <a href="${esc(l.url)}" target="_blank">${esc(l.nome)}</a>
+      <span style="font-size:12px;color:var(--muted);">${esc(l.observacao || '')}</span>
+      <div class="row-actions"><button class="btn btn-ghost btn-sm" onclick='openLinkModal(${JSON.stringify(l).replace(/'/g, "&#39;")})'>Editar</button></div>
+    </div>`).join('');
+}
+function openLinkModal(l) {
+  document.getElementById('linkModalTitle').textContent = l ? 'Editar link' : 'Novo link';
+  document.getElementById('l-id').value = l ? l.id : '';
+  document.getElementById('l-nome').value = l ? l.nome || '' : '';
+  document.getElementById('l-url').value = l ? l.url || '' : '';
+  document.getElementById('l-categoria').value = l ? l.categoria || 'Outro' : 'Outro';
+  document.getElementById('l-observacao').value = l ? l.observacao || '' : '';
+  document.getElementById('l-delete').style.display = l ? 'inline-flex' : 'none';
+  openModal('modal-link');
+}
+async function saveLink() {
+  const id = document.getElementById('l-id').value;
+  const data = {
+    nome: document.getElementById('l-nome').value.trim(),
+    url: document.getElementById('l-url').value.trim(),
+    categoria: document.getElementById('l-categoria').value,
+    observacao: document.getElementById('l-observacao').value.trim()
+  };
+  if (!data.nome || !data.url) return toast('Preencha nome e URL', true);
+  try {
+    if (id) { await call('update', 'links', id, data); const idx = state.links.findIndex(x => x.id === id); state.links[idx] = Object.assign(state.links[idx], data); }
+    else { const res = await call('create', 'links', data); state.links.push(res.data); }
+    closeModal('modal-link'); renderLinks(); toast('Link salvo!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+async function deleteLink() {
+  const id = document.getElementById('l-id').value; if (!id || !confirm('Excluir este link?')) return;
+  try { await call('delete', 'links', id); state.links = state.links.filter(x => x.id !== id); closeModal('modal-link'); renderLinks(); toast('Link excluído'); }
+  catch (err) { toast('Erro ao excluir: ' + err.message, true); }
+}
+
+/* ============ EVENTO ============ */
+function renderEvento() {
+  document.getElementById('ev-nomeEvento').value = state.evento.nomeEvento || '10 Anos Escola Karen Abecia';
+  document.getElementById('ev-dataLancamento').value = state.evento.dataLancamento || '2026-09-01';
+  document.getElementById('ev-inicioAquecimento').value = state.evento.inicioAquecimento || '2026-08-13';
+  document.getElementById('ev-fimAquecimento').value = state.evento.fimAquecimento || '2026-08-20';
+  document.getElementById('ev-headline').value = state.evento.headline || '';
+  document.getElementById('ev-descricao').value = state.evento.descricao || '';
+}
+async function saveEvento() {
+  const campos = {
+    nomeEvento: document.getElementById('ev-nomeEvento').value.trim(),
+    dataLancamento: document.getElementById('ev-dataLancamento').value,
+    inicioAquecimento: document.getElementById('ev-inicioAquecimento').value,
+    fimAquecimento: document.getElementById('ev-fimAquecimento').value,
+    headline: document.getElementById('ev-headline').value.trim(),
+    descricao: document.getElementById('ev-descricao').value.trim()
+  };
+  try {
+    const existentes = DEMO_MODE ? (ensureDemoStore().evento || []) : (await call('list', 'evento')).data;
+    for (const chave of Object.keys(campos)) {
+      const existente = existentes.find(r => r.chave === chave);
+      if (existente) await call('update', 'evento', existente.id, { valor: campos[chave] });
+      else await call('create', 'evento', { chave, valor: campos[chave] });
+    }
+    state.evento = campos;
+    toast('Detalhes do evento salvos!');
+  } catch (err) { toast('Erro ao salvar: ' + err.message, true); }
+}
+
+/* ============ IMPORTAR PLANEJAMENTO INICIAL ============ */
+async function seedInitialData() {
+  if (state.conteudo.length || state.carrosseis.length) {
+    if (!confirm('Já existem dados cadastrados. Importar mesmo assim (pode duplicar itens)?')) return;
+  }
+  document.getElementById('seedBtn').textContent = 'Importando…';
+  try {
+    await call('bulkCreate', 'conteudo', SEED_CONTEUDO);
+    await call('bulkCreate', 'carrosseis', SEED_CARROSSEIS);
+    if (!state.ofertas.length) {
+      // não cria oferta automática — a Karen define depois na aba Oferta
+    }
+    toast('Planejamento inicial importado!');
+    await refreshAll();
+  } catch (err) { toast('Erro ao importar: ' + err.message, true); }
+  document.getElementById('seedBtn').textContent = 'Importar planejamento inicial';
+}
+
+const SEED_CONTEUDO = [
+  { data: '2026-08-13', canal: 'Instagram', tipo: 'Stories', titulo: 'Comunicação geral focada na live', status: 'Planejado' },
+  { data: '2026-08-13', canal: 'Instagram', tipo: 'Reels', titulo: 'Comunicação geral focada na live', status: 'Planejado' },
+  { data: '2026-08-13', canal: 'LinkedIn', tipo: 'Post', titulo: 'Comunicação geral focada na live', status: 'Planejado' },
+  { data: '2026-08-13', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Grupos de WhatsApp — comunicação geral focada na live', status: 'Planejado' },
+  { data: '2026-08-13', canal: 'YouTube', tipo: 'Live', titulo: 'LIVE: contar que estão chegando os 10 anos', status: 'Planejado', observacao: 'Criar cabeçalho comemorativo "10 anos Escola Karen Abecia" para usar em todos os arquivos de live, área de membros, e-mails e Instagram (faixa na foto de perfil).' },
+  { data: '2026-08-14', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Mensagem de antecipação', status: 'Planejado' },
+  { data: '2026-08-14', canal: 'LinkedIn', tipo: 'Post', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-14', canal: 'Instagram', tipo: 'Carrossel', titulo: 'Carrossel 1 — Antes & Depois: 10 anos de dashboard', status: 'Planejado' },
+  { data: '2026-08-14', canal: 'Instagram', tipo: 'Stories', titulo: 'Stories 10 anos', status: 'Planejado' },
+  { data: '2026-08-15', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Enviar o carrossel do dia anterior', status: 'Planejado' },
+  { data: '2026-08-15', canal: 'LinkedIn', tipo: 'Post', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-15', canal: 'YouTube', tipo: 'Vídeo', titulo: '1º vídeo história', status: 'Planejado' },
+  { data: '2026-08-15', canal: 'Instagram', tipo: 'Reels', titulo: '1º vídeo história', status: 'Planejado' },
+  { data: '2026-08-15', canal: 'Instagram', tipo: 'Stories', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-16', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-16', canal: 'LinkedIn', tipo: 'Post', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-16', canal: 'LinkedIn', tipo: 'Post', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-16', canal: 'Instagram', tipo: 'Stories', titulo: 'Stories', status: 'Planejado' },
+  { data: '2026-08-16', canal: 'Instagram', tipo: 'Carrossel', titulo: 'Carrossel 2 — 10 coisas que eu fazia em 2016', status: 'Planejado' },
+  { data: '2026-08-17', canal: 'WhatsApp', tipo: 'Mensagem', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-17', canal: 'LinkedIn', tipo: 'Post', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-17', canal: 'YouTube', tipo: 'Vídeo', titulo: 'React Live Antiga', status: 'Planejado' },
+  { data: '2026-08-17', canal: 'Instagram', tipo: 'Reels', titulo: 'Reels → comente para ver o react completo', status: 'Planejado' },
+  { data: '2026-08-17', canal: 'Instagram', tipo: 'Carrossel', titulo: 'Carrossel 3 — Manifesto: 10 anos de Efeito UAU', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'WhatsApp', tipo: 'Mensagem', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'LinkedIn', tipo: 'Post', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'LinkedIn', tipo: 'Post', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'YouTube', tipo: 'Vídeo', titulo: '2º vídeo história', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'Instagram', tipo: 'Carrossel', titulo: 'Carrossel 4 — A Trilogia dos Erros de Fórmula', status: 'Planejado' },
+  { data: '2026-08-18', canal: 'Instagram', tipo: 'Vídeo', titulo: '2º vídeo história', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'WhatsApp', tipo: 'Mensagem', titulo: 'Antecipação live', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'LinkedIn', tipo: 'Post', titulo: '10 anos', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'LinkedIn', tipo: 'Post', titulo: 'Webinário', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'YouTube', tipo: 'Vídeo', titulo: 'React vídeo antigo', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'Instagram', tipo: 'Reels', titulo: 'Reels → comente para ver o react completo', status: 'Planejado' },
+  { data: '2026-08-19', canal: 'Instagram', tipo: 'Carrossel', titulo: 'Carrossel 5 — Bastidores: como era a Karen Abecia em 2016', status: 'Planejado' },
+  { data: '2026-08-20', canal: 'Instagram', tipo: 'Live', titulo: 'Comunicação geral focada na live', status: 'Planejado' }
+];
+
+const SEED_CARROSSEIS = [
+  {
+    nome: 'Antes & Depois: 10 anos de dashboard', pilar: 'Antes & Depois',
+    slides: [
+      '1. Capa: "Isso aqui era meu dashboard em 2016 😳 (desliza pro terror)"',
+      '2. [print de planilha simples/feia real de 2016] — "Sim, era assim mesmo. Fórmula na unha, cor escolhida no desespero."',
+      '3. "Levei uns bons anos pra entender uma coisa: dashboard bonito não é sobre design. É sobre entender o que os dados estão tentando te contar."',
+      '4. [print de dashboard intermediário, uns 3-4 anos atrás] — "Aqui já dava pra ver a evolução. Ainda tinha muito erro. Mas já tinha direção."',
+      '5. [print do dashboard atual, profissional] — "E hoje? Isso. 10 anos de prática, muita aula dada, muito Efeito UAU testado nos alunos antes de chegar aqui."',
+      '6. Fechamento: "10 anos, essa evolução toda. E o que vem no dia 1 de setembro? Isso eu ainda não posso contar 👀"'
+    ].join('\n'),
+    legenda: 'Guardem esse carrossel. Em 10 anos dá pra ver a diferença entre quem começou e quem virou referência. E olha que a gente nem chegou na parte boa da comemoração ainda.'
+  },
+  {
+    nome: '10 coisas que eu fazia em 2016', pilar: '10 mudanças',
+    slides: [
+      '1. Capa: "10 coisas que eu fazia sozinha em 2016... e a IA faz por mim hoje"',
+      '2. "#1 — Copiar e colar fórmula célula por célula. Hoje: peço pra IA aplicar em toda a planilha em 1 comando."',
+      '3. "#2 — Montar gráfico manualmente, ajustando cor por cor. Hoje: a IA já sugere o gráfico certo pro tipo de dado."',
+      '4. "#3 — Ficar 40 minutos procurando o erro de uma fórmula. Hoje: a IA aponta o erro e ainda explica o motivo."',
+      '5. "#4 — Resumir relatório enorme lendo linha por linha. Hoje: a IA lê e resume em segundos."',
+      '6. "#5 — Cruzar duas planilhas diferentes na mão. Hoje: a IA cruza os dados e já entrega pronto."',
+      '7. Fechamento: "10 anos vendo essa evolução de perto. Dia 1 de setembro tem uma comemoração à altura disso 👀"'
+    ].join('\n'),
+    legenda: 'De 2016 pra 2026 o jogo virou completamente. Quem começou comigo sabe bem essa diferença.'
+  },
+  {
+    nome: 'Manifesto: 10 anos de Efeito UAU', pilar: 'Manifesto',
+    slides: [
+      '1. Capa: "10 anos. 1 propósito. Um manifesto sobre o Efeito UAU."',
+      '2. "Em 2016 eu ensinava Excel numa sala emprestada, com um projetor que travava toda aula."',
+      '3. "Eu não queria ensinar fórmula. Eu queria mudar a cara de quem finalmente entendia."',
+      '4. "Foi aí que nasceu o Efeito UAU: aquele momento em que o aluno olha pra tela e pensa \'eu consegui isso sozinho\'."',
+      '5. "10 anos depois, isso não mudou. Mudaram as ferramentas. A IA entrou no jogo. Mas o objetivo continua o mesmo: fazer você dizer UAU."',
+      '6. "Cada aluno que aprendeu aqui carrega um pouco desse propósito. E isso, pra mim, vale mais que qualquer métrica."',
+      '7. Fechamento: "10 anos de Efeito UAU. E o próximo capítulo começa dia 1 de setembro 👀"'
+    ].join('\n'),
+    legenda: 'Esse é o motivo de tudo isso existir. Obrigada por fazerem parte dessa década. O que vem a seguir eu conto no dia 1/9.'
+  },
+  {
+    nome: 'A Trilogia dos Erros de Fórmula', pilar: 'Referências pop',
+    slides: [
+      '1. Capa: "A TRILOGIA DOS ERROS DE FÓRMULA — baseado em fatos reais de quem já chorou com #REF!"',
+      '2. "EPISÓDIO 1: O Despertar do #DIV/0! Ano: 2016. Ninguém sabia o que aquilo significava."',
+      '3. "EPISÓDIO 2: A Vingança do PROCV. Ano: 2019. A fórmula que funcionava... até não funcionar mais."',
+      '4. "EPISÓDIO 3: O Retorno da Tabela Dinâmica. Ano: 2022. A vitória, finalmente, depois de muita luta."',
+      '5. "EPÍLOGO: A Era da I.A. Ano: 2026. A trilogia virou comédia — porque agora a I.A. resolve isso em segundos."',
+      '6. Fechamento: "10 anos, 3 eras, 1 evolução. E tem uma continuação chegando dia 1 de setembro 👀"'
+    ].join('\n'),
+    legenda: 'Quem já viveu os 3 episódios dessa trilogia levanta a mão 🙋 10 anos de guerra contra fórmula, e olha onde a gente chegou.'
+  },
+  {
+    nome: 'Bastidores: como era a Karen Abecia em 2016', pilar: 'Bastidores & prova social',
+    slides: [
+      '1. Capa: "Achei essas fotos de 2016 e precisava compartilhar com vocês 😅"',
+      '2. [foto real da primeira sala de aula/setup antigo] — "Essa era a estrutura da primeira turma. Sim, era bem diferente de hoje."',
+      '3. [foto de equipamento antigo, projetor, notebook antigo] — "O \'estúdio\' de gravação era literalmente essa mesa aqui."',
+      '4. [print de post antigo, com poucos likes/comentários] — "E esse era o alcance dos posts. Cresceu bastante, né?"',
+      '5. [foto de alguma primeira turma/aluno] — "Mas o mais importante sempre foi isso: gente aprendendo de verdade."',
+      '6. [foto atual, comparando com a estrutura de hoje] — "10 anos depois, a estrutura mudou. O propósito, não."',
+      '7. Fechamento: "Muita coisa mudou nesses 10 anos. E tem mais mudança chegando dia 1 de setembro 👀"'
+    ].join('\n'),
+    legenda: 'Arquivo morto é isso: parte vergonha alheia, parte orgulho enorme. 10 anos de história — e a próxima página começa dia 1/9.'
+  }
+];
+
+/* ============ INIT ============ */
+renderSetupBanner();
+refreshAll();
+</script>
+</body>
+</html>
