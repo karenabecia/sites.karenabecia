@@ -329,7 +329,7 @@
 
   var form = document.getElementById('form-inscricao');
   var btn = document.getElementById('btn-enviar');
-  var status = document.getElementById('status-envio');
+  var statusEnvio = document.getElementById('status-envio');
 
   var mascaraWhatsapp = document.getElementById('whatsapp');
   mascaraWhatsapp.addEventListener('input', function(){
@@ -402,7 +402,7 @@
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    status.classList.remove('mostrar', 'erro-geral');
+    statusEnvio.classList.remove('mostrar', 'erro-geral');
 
     if (!validar()) return;
 
@@ -422,8 +422,8 @@
       .catch(function(){
         btn.disabled = false;
         btn.textContent = 'Quero participar da festa 🎉';
-        status.textContent = 'Algo deu errado ao enviar. Tenta de novo?';
-        status.classList.add('mostrar', 'erro-geral');
+        statusEnvio.textContent = 'Algo deu errado ao enviar. Tenta de novo?';
+        statusEnvio.classList.add('mostrar', 'erro-geral');
       });
   });
 </script>
