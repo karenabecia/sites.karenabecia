@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortador de Carrossel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#f7f7f8;
+      --card:#ffffff;
+      --text:#111111;
+      --muted:#6d6d74;
+      --border:#e4e4e7;
+      --purple:#7030A0;
+      --purple-dark:#542275;
+      --purple-soft:#f3eafd;
+      --black:#0d0d0e;
+      --danger:#b42318;
+      --success:#137a45;
+      --shadow:0 18px 45px rgba(0,0,0,.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(112,48,160,.10), transparent 30%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    button,input{font:inherit}
+
+    .container{
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+      padding:42px 0 80px;
+    }
+
+    .header{
+      margin-bottom:28px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      background:var(--purple-soft);
+      color:var(--purple);
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.02em;
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(32px,5vw,54px);
+      line-height:1;
+      letter-spacing:-.045em;
+    }
+
+    .subtitle{
+      margin:14px 0 0;
+      max-width:760px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:16px;
+    }
+
+    .dropzone{
+      border:2px dashed #c9c9cf;
+      background:var(--card);
+      border-radius:var(--radius);
+      min-height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:38px;
+      cursor:pointer;
+      transition:.2s ease;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .dropzone::before{
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:rgba(112,48,160,.07);
+      top:-90px;
+      right:-60px;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover{
+      border-color:var(--purple);
+      background:#fcf9ff;
+      transform:translateY(-1px);
+    }
+
+    .drop-icon{
+      width:66px;
+      height:66px;
+      margin:0 auto 18px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:var(--black);
+      color:white;
+      font-size:32px;
+      font-weight:300;
+    }
+
+    .drop-title{
+      font-size:22px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .drop-sub{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:20px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .ghost-btn{
+      border:0;
+      border-radius:12px;
+      padding:12px 18px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .primary-btn{
+      background:var(--purple);
+      color:white;
+    }
+
+    .primary-btn:hover{background:var(--purple-dark)}
+    .secondary-btn{background:var(--black);color:white}
+
+    .ghost-btn{
+      background:white;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+
+    .ghost-btn:hover{border-color:#aaa}
+
+    .toolbar{
+      margin-top:24px;
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+    }
+
+    .toolbar.show{display:flex}
+
+    .toolbar-left strong{
+      display:block;
+      font-size:14px;
+    }
+
+    .toolbar-left span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .toolbar-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .results{
+      margin-top:24px;
+      display:grid;
+      gap:22px;
+    }
+
+    .image-card{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:0 14px 30px rgba(0,0,0,.05);
+    }
+
+    .image-card-header{
+      padding:18px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      border-bottom:1px solid var(--border);
+    }
+
+    .image-name{
+      font-weight:850;
+      word-break:break-word;
+    }
+
+    .image-meta{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:4px;
+    }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:800;
+      background:#eefaf3;
+      color:var(--success);
+      white-space:nowrap;
+    }
+
+    .status.warn{
+      background:#fff3f1;
+      color:var(--danger);
+    }
+
+    .slides{
+      padding:20px;
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .slide-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fafafa;
+    }
+
+    .preview-wrap{
+      aspect-ratio:4 / 5;
+      background:#efeff2;
+      overflow:hidden;
+    }
+
+    .preview-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .slide-info{
+      padding:12px;
+    }
+
+    .slide-label{
+      font-size:13px;
+      font-weight:850;
+      margin-bottom:8px;
+    }
+
+    .download-btn{
+      width:100%;
+      border:0;
+      padding:10px;
+      border-radius:10px;
+      background:var(--purple-soft);
+      color:var(--purple);
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .download-btn:hover{
+      background:#ead9fa;
+    }
+
+    .error-box{
+      padding:14px 16px;
+      background:#fff4f2;
+      border:1px solid #ffd4cc;
+      color:#8a2416;
+      border-radius:12px;
+      font-size:13px;
+      line-height:1.5;
+      margin:0 20px 20px;
+    }
+
+    @media (max-width:900px){
+      .slides{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:560px){
+      .container{
+        width:min(100% - 20px,1180px);
+        padding-top:22px;
+      }
+
+      .dropzone{
+        padding:24px 16px;
+        min-height:250px;
+      }
+
+      .slides{
+        grid-template-columns:1fr;
+      }
+
+      .toolbar,
+      .image-card-header{
+        align-items:stretch;
+        flex-direction:column;
+      }
+
+      .toolbar-actions{
+        width:100%;
+      }
+
+      .toolbar-actions button{
+        flex:1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <header class="header">
+      <div class="eyebrow">✦ CORTADOR DE CARROSSEL</div>
+
+      <h1>
+        Cortador de<br>
+        Carrossel
+      </h1>
+
+      <p class="subtitle">
+        Envie sua imagem em PNG. A página divide automaticamente a arte
+        em 5 imagens separadas e prontas para baixar.
+      </p>
+    </header>
+
+    <section id="dropzone" class="dropzone" tabindex="0">
+      <div>
+        <div class="drop-icon">＋</div>
+
+        <div class="drop-title">
+          Arraste suas imagens aqui
+        </div>
+
+        <div class="drop-sub">
+          ou clique para selecionar arquivos PNG
+        </div>
+
+        <button class="primary-btn" type="button">
+          Selecionar imagens
+        </button>
+
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/png"
+          multiple
+          hidden
+        >
+      </div>
+    </section>
+
+    <section id="toolbar" class="toolbar">
+      <div class="toolbar-left">
+        <strong id="fileCount">
+          0 imagens processadas
+        </strong>
+
+        <span>
+          5 imagens serão geradas para cada arquivo.
+        </span>
+      </div>
+
+      <div class="toolbar-actions">
+
+        <button
+          id="addMoreBtn"
+          class="ghost-btn"
+          type="button"
+        >
+          + Adicionar mais
+        </button>
+
+        <button
+          id="downloadZipBtn"
+          class="secondary-btn"
+          type="button"
+        >
+          Baixar todas (.ZIP)
+        </button>
+
+        <button
+          id="clearBtn"
+          class="ghost-btn"
+          type="button"
+        >
+          Limpar
+        </button>
+
+      </div>
+    </section>
+
+    <section id="results" class="results"></section>
+
+  </main>
+
+  <script>
+
+    const SLIDE_COUNT = 5;
+    const OUTPUT_WIDTH = 1080;
+    const OUTPUT_HEIGHT = 1350;
+    const EXPECTED_RATIO = 4;
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const results = document.getElementById('results');
+    const toolbar = document.getElementById('toolbar');
+    const fileCount = document.getElementById('fileCount');
+    const addMoreBtn = document.getElementById('addMoreBtn');
+    const downloadZipBtn = document.getElementById('downloadZipBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    const processedFiles = [];
+
+    function safeBaseName(filename){
+
+      return filename
+        .replace(/\.[^/.]+$/, '')
+        .trim()
+        .replace(/[^\p{L}\p{N}_-]+/gu,'_')
+        .replace(/^_+|_+$/g,'') || 'imagem';
+
+    }
+
+    function updateToolbar(){
+
+      const count = processedFiles.length;
+
+      fileCount.textContent =
+        `${count} ${
+          count === 1
+          ? 'imagem processada'
+          : 'imagens processadas'
+        }`;
+
+      toolbar.classList.toggle('show', count > 0);
+
+    }
+
+    function canvasToBlob(canvas){
+
+      return new Promise((resolve,reject)=>{
+
+        canvas.toBlob(blob=>{
+
+          if(blob){
+            resolve(blob);
+          }else{
+            reject(
+              new Error('Não foi possível gerar o PNG.')
+            );
+          }
+
+        },'image/png');
+
+      });
+
+    }
+
+    function downloadBlob(blob,filename){
+
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = filename;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      a.remove();
+
+      setTimeout(
+        ()=>URL.revokeObjectURL(url),
+        1500
+      );
+
+    }
+
+    function createImageCard(
+      file,
+      width,
+      height,
+      slides,
+      warning=''
+    ){
+
+      const card =
+        document.createElement('article');
+
+      card.className = 'image-card';
+
+      const header =
+        document.createElement('div');
+
+      header.className =
+        'image-card-header';
+
+
+      const left =
+        document.createElement('div');
+
+      left.innerHTML = `
+
+        <div class="image-name">
+          ${file.name}
+        </div>
+
+        <div class="image-meta">
+          ${width} × ${height} px
+        </div>
+
+      `;
+
+
+      const status =
+        document.createElement('div');
+
+      status.className =
+        warning
+        ? 'status warn'
+        : 'status';
+
+      status.textContent =
+        warning
+        ? 'Verificar imagem'
+        : 'Pronto';
+
+
+      header.append(
+        left,
+        status
+      );
+
+      card.appendChild(header);
+
+
+      const slidesGrid =
+        document.createElement('div');
+
+      slidesGrid.className =
+        'slides';
+
+
+      slides.forEach(
+        (slide,index)=>{
+
+          const slideCard =
+            document.createElement('div');
+
+          slideCard.className =
+            'slide-card';
+
+
+          const previewWrap =
+            document.createElement('div');
+
+          previewWrap.className =
+            'preview-wrap';
+
+
+          const img =
+            document.createElement('img');
+
+          img.src = slide.url;
+
+          img.alt =
+            `Prévia slide ${index+1}`;
+
+
+          const info =
+            document.createElement('div');
+
+          info.className =
+            'slide-info';
+
+
+          const label =
+            document.createElement('div');
+
+          label.className =
+            'slide-label';
+
+          label.textContent =
+            `Imagem ${
+              String(index+1)
+              .padStart(2,'0')
+            }`;
+
+
+          const btn =
+            document.createElement('button');
+
+          btn.className =
+            'download-btn';
+
+          btn.type =
+            'button';
+
+          btn.textContent =
+            'Baixar PNG';
+
+          btn.addEventListener(
+            'click',
+            ()=>downloadBlob(
+              slide.blob,
+              slide.filename
+            )
+          );
+
+
+          previewWrap.appendChild(img);
+
+          info.append(
+            label,
+            btn
+          );
+
+          slideCard.append(
+            previewWrap,
+            info
+          );
+
+          slidesGrid.appendChild(
+            slideCard
+          );
+
+        }
+      );
+
+
+      card.appendChild(
+        slidesGrid
+      );
+
+
+      if(warning){
+
+        const box =
+          document.createElement('div');
+
+        box.className =
+          'error-box';
+
+        box.innerHTML = `
+          <strong>Atenção:</strong>
+          ${warning}
+        `;
+
+        card.appendChild(box);
+
+      }
+
+
+      results.appendChild(card);
+
+    }
+
+    async function processFile(file){
+
+      if(file.type !== 'image/png'){
+
+        alert(
+          `"${file.name}" não é um arquivo PNG.`
+        );
+
+        return;
+
+      }
+
+
+      const bitmap =
+        await createImageBitmap(file);
+
+
+      const width =
+        bitmap.width;
+
+      const height =
+        bitmap.height;
+
+
+      const ratio =
+        width / height;
+
+
+      let warning = '';
+
+
+      if(
+        Math.abs(
+          ratio - EXPECTED_RATIO
+        ) > 0.02
+      ){
+
+        warning =
+          'A imagem enviada está em uma proporção diferente do modelo esperado. O corte será realizado mesmo assim.';
+
+      }
+
+
+      const base =
+        safeBaseName(file.name);
+
+
+      const slides = [];
+
+
+      const sourceSlideWidth =
+        width / SLIDE_COUNT;
+
+
+      for(
+        let i=0;
+        i<SLIDE_COUNT;
+        i++
+      ){
+
+        const canvas =
+          document.createElement('canvas');
+
+
+        canvas.width =
+          OUTPUT_WIDTH;
+
+        canvas.height =
+          OUTPUT_HEIGHT;
+
+
+        const ctx =
+          canvas.getContext('2d');
+
+
+        ctx.imageSmoothingEnabled =
+          true;
+
+        ctx.imageSmoothingQuality =
+          'high';
+
+
+        ctx.drawImage(
+
+          bitmap,
+
+          i * sourceSlideWidth,
+          0,
+
+          sourceSlideWidth,
+          height,
+
+          0,
+          0,
+
+          OUTPUT_WIDTH,
+          OUTPUT_HEIGHT
+
+        );
+
+
+        const blob =
+          await canvasToBlob(canvas);
+
+
+        const filename =
+          `${base}_${
+            String(i+1)
+            .padStart(2,'0')
+          }.png`;
+
+
+        const url =
+          URL.createObjectURL(blob);
+
+
+        slides.push({
+
+          blob,
+          filename,
+          url
+
+        });
+
+      }
+
+
+      bitmap.close();
+
+
+      processedFiles.push({
+
+        originalName:file.name,
+        base,
+        slides
+
+      });
+
+
+      createImageCard(
+
+        file,
+        width,
+        height,
+        slides,
+        warning
+
+      );
+
+
+      updateToolbar();
+
+    }
+
+
+    async function handleFiles(
+      fileList
+    ){
+
+      const files =
+        [...fileList];
+
+
+      for(
+        const file
+        of files
+      ){
+
+        try{
+
+          await processFile(file);
+
+        }catch(error){
+
+          console.error(error);
+
+          alert(
+            `Não foi possível processar "${file.name}".`
+          );
+
+        }
+
+      }
+
+
+      fileInput.value = '';
+
+    }
+
+
+    dropzone.addEventListener(
+      'click',
+      ()=>fileInput.click()
+    );
+
+
+    dropzone.addEventListener(
+      'keydown',
+      e=>{
+
+        if(
+          e.key === 'Enter'
+          ||
+          e.key === ' '
+        ){
+
+          e.preventDefault();
+
+          fileInput.click();
+
+        }
+
+      }
+    );
+
+
+    fileInput.addEventListener(
+      'change',
+      e=>handleFiles(
+        e.target.files
+      )
+    );
+
+
+    addMoreBtn.addEventListener(
+      'click',
+      ()=>fileInput.click()
+    );
+
+
+    [
+      'dragenter',
+      'dragover'
+    ].forEach(eventName=>{
+
+      dropzone.addEventListener(
+        eventName,
+        e=>{
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          dropzone.classList.add(
+            'dragover'
+          );
+
+        }
+      );
+
+    });
+
+
+    [
+      'dragleave',
+      'drop'
+    ].forEach(eventName=>{
+
+      dropzone.addEventListener(
+        eventName,
+        e=>{
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          dropzone.classList.remove(
+            'dragover'
+          );
+
+        }
+      );
+
+    });
+
+
+    dropzone.addEventListener(
+      'drop',
+      e=>{
+
+        handleFiles(
+          e.dataTransfer.files
+        );
+
+      }
+    );
+
+
+    clearBtn.addEventListener(
+      'click',
+      ()=>{
+
+        processedFiles.forEach(
+          file=>{
+
+            file.slides.forEach(
+              slide=>
+                URL.revokeObjectURL(
+                  slide.url
+                )
+            );
+
+          }
+        );
+
+
+        processedFiles.length = 0;
+
+        results.innerHTML = '';
+
+        updateToolbar();
+
+      }
+    );
+
+
+    downloadZipBtn.addEventListener(
+      'click',
+      async ()=>{
+
+        if(
+          !processedFiles.length
+        ){
+          return;
+        }
+
+
+        if(
+          typeof JSZip ===
+          'undefined'
+        ){
+
+          alert(
+            'A biblioteca de ZIP não foi carregada.'
+          );
+
+          return;
+
+        }
+
+
+        const oldText =
+          downloadZipBtn.textContent;
+
+
+        downloadZipBtn.disabled =
+          true;
+
+
+        downloadZipBtn.textContent =
+          'Gerando ZIP...';
+
+
+        try{
+
+          const zip =
+            new JSZip();
+
+
+          processedFiles.forEach(
+            (file,fileIndex)=>{
+
+              const folderName =
+                processedFiles.length > 1
+                ? `${String(fileIndex+1)
+                  .padStart(2,'0')}_${file.base}`
+                : '';
+
+
+              const target =
+                folderName
+                ? zip.folder(folderName)
+                : zip;
+
+
+              file.slides.forEach(
+                slide=>{
+
+                  target.file(
+                    slide.filename,
+                    slide.blob
+                  );
+
+                }
+              );
+
+            }
+          );
+
+
+          const blob =
+            await zip.generateAsync({
+              type:'blob'
+            });
+
+
+          downloadBlob(
+            blob,
+            'carrossel.zip'
+          );
+
+
+        }catch(error){
+
+          console.error(error);
+
+          alert(
+            'Ocorreu um erro ao gerar o ZIP.'
+          );
+
+
+        }finally{
+
+          downloadZipBtn.disabled =
+            false;
+
+          downloadZipBtn.textContent =
+            oldText;
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
