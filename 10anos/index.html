@@ -175,7 +175,7 @@
     color:var(--text);
   }
 
-  input{
+  input, select{
     width:100%;
     padding:14px 16px;
     border:2px solid #E2E2E2;
@@ -187,15 +187,156 @@
     transition:border-color 0.2s ease, background 0.2s ease;
   }
 
-  input:focus{
-    outline:none;
-    border-color:var(--secondary);
-    background:#fff;
+  select{
+    cursor:pointer;
+    -webkit-appearance:none;
+    appearance:none;
+    background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23020617' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    background-size:18px;
+    padding-right:40px;
   }
 
-  input:focus-visible{
+  input:focus, select:focus{
+    outline:none;
+    border-color:var(--secondary);
+    background-color:#fff;
+  }
+
+  input:focus-visible, select:focus-visible{
     outline:3px solid var(--secondary);
     outline-offset:1px;
+  }
+
+  .grupo-telefone{
+    display:flex;
+    gap:8px;
+  }
+
+  .seletor-pais{
+    position:relative;
+    flex:0 0 150px;
+  }
+
+  .pais-botao{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px;
+    border:2px solid #E2E2E2;
+    border-radius:10px;
+    background:#FAFAFA;
+    cursor:pointer;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    color:var(--text);
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .pais-botao:focus-visible{
+    outline:3px solid var(--secondary);
+    outline-offset:1px;
+    border-color:var(--secondary);
+  }
+
+  .pais-botao img.bandeira{
+    width:20px;
+    height:15px;
+    object-fit:cover;
+    border-radius:2px;
+    flex-shrink:0;
+    display:block;
+  }
+
+  .pais-botao span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .pais-botao .seta{
+    margin-left:auto;
+    width:14px;
+    height:14px;
+    flex-shrink:0;
+    opacity:0.6;
+  }
+
+  .pais-lista{
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0;
+    min-width:230px;
+    max-height:260px;
+    overflow-y:auto;
+    background:#fff;
+    border:1px solid #E2E2E2;
+    border-radius:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.18);
+    z-index:20;
+    padding:6px;
+    list-style:none;
+  }
+
+  .pais-lista[hidden]{
+    display:none;
+  }
+
+  .pais-lista li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    color:var(--text);
+  }
+
+  .pais-lista li:hover,
+  .pais-lista li.ativo{
+    background:#F5EEFF;
+  }
+
+  .pais-lista li img{
+    width:20px;
+    height:15px;
+    object-fit:cover;
+    border-radius:2px;
+    flex-shrink:0;
+  }
+
+  .pais-lista li .emoji-globo{
+    width:20px;
+    text-align:center;
+    flex-shrink:0;
+  }
+
+  .grupo-telefone input{
+    flex:1;
+    min-width:0;
+  }
+
+  .dica{
+    font-size:12px;
+    color:var(--text);
+    opacity:0.6;
+    margin-top:6px;
+  }
+
+  @media (max-width:400px){
+    .grupo-telefone{
+      flex-wrap:wrap;
+    }
+    .seletor-pais{
+      flex:1 1 100%;
+    }
+    .grupo-telefone input{
+      flex:1 1 100%;
+    }
   }
 
   .erro{
@@ -305,8 +446,19 @@
 
         <div class="campo" id="campo-whatsapp">
           <label for="whatsapp">Seu WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required>
-          <span class="erro">Digite um WhatsApp válido com DDD.</span>
+          <div class="grupo-telefone">
+            <div class="seletor-pais" id="seletor-pais">
+              <button type="button" class="pais-botao" id="pais-botao" aria-haspopup="listbox" aria-expanded="false">
+                <img class="bandeira" id="bandeira-atual" src="https://flagcdn.com/24x18/br.png" alt="">
+                <span id="pais-atual-texto">Brasil</span>
+                <svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <ul class="pais-lista" id="pais-lista" role="listbox" tabindex="-1" hidden></ul>
+            </div>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required>
+          </div>
+          <span class="dica" id="dica-whatsapp">Digite o número com DDD.</span>
+          <span class="erro">Digite um WhatsApp válido.</span>
         </div>
 
         <button type="submit" id="btn-enviar">Quero participar da festa 🎉</button>
@@ -332,9 +484,91 @@
   var btn = document.getElementById('btn-enviar');
   var statusEnvio = document.getElementById('status-envio');
 
-  var mascaraWhatsapp = document.getElementById('whatsapp');
-  mascaraWhatsapp.addEventListener('input', function(){
-    var v = mascaraWhatsapp.value.replace(/\D/g,'').slice(0,11);
+  var PAISES = [
+    { codigo:'BR', ddi:'', nome:'Brasil', bandeira:'br' },
+    { codigo:'PT', ddi:'351', nome:'Portugal', bandeira:'pt' },
+    { codigo:'US', ddi:'1', nome:'Estados Unidos', bandeira:'us' },
+    { codigo:'GB', ddi:'44', nome:'Reino Unido', bandeira:'gb' },
+    { codigo:'ES', ddi:'34', nome:'Espanha', bandeira:'es' },
+    { codigo:'IT', ddi:'39', nome:'Itália', bandeira:'it' },
+    { codigo:'DE', ddi:'49', nome:'Alemanha', bandeira:'de' },
+    { codigo:'FR', ddi:'33', nome:'França', bandeira:'fr' },
+    { codigo:'CA', ddi:'1', nome:'Canadá', bandeira:'ca' },
+    { codigo:'AU', ddi:'61', nome:'Austrália', bandeira:'au' },
+    { codigo:'JP', ddi:'81', nome:'Japão', bandeira:'jp' },
+    { codigo:'AO', ddi:'244', nome:'Angola', bandeira:'ao' },
+    { codigo:'MZ', ddi:'258', nome:'Moçambique', bandeira:'mz' },
+    { codigo:'OUTRO', ddi:'', nome:'Outro país', bandeira:null }
+  ];
+
+  var paisAtual = PAISES[0];
+
+  var seletorPais = document.getElementById('seletor-pais');
+  var paisBotao = document.getElementById('pais-botao');
+  var paisLista = document.getElementById('pais-lista');
+  var bandeiraAtual = document.getElementById('bandeira-atual');
+  var paisAtualTexto = document.getElementById('pais-atual-texto');
+  var inputWhatsapp = document.getElementById('whatsapp');
+  var dicaWhatsapp = document.getElementById('dica-whatsapp');
+
+  PAISES.forEach(function(pais){
+    var li = document.createElement('li');
+    li.setAttribute('role', 'option');
+    li.dataset.codigo = pais.codigo;
+    li.innerHTML = pais.bandeira
+      ? '<img src="https://flagcdn.com/24x18/' + pais.bandeira + '.png" alt="">' + '<span>' + pais.nome + '</span>'
+      : '<span class="emoji-globo">🌍</span><span>' + pais.nome + '</span>';
+    li.addEventListener('click', function(){
+      selecionarPais(pais.codigo);
+    });
+    paisLista.appendChild(li);
+  });
+
+  function abrirLista(){
+    paisLista.hidden = false;
+    paisBotao.setAttribute('aria-expanded', 'true');
+  }
+
+  function fecharLista(){
+    paisLista.hidden = true;
+    paisBotao.setAttribute('aria-expanded', 'false');
+  }
+
+  paisBotao.addEventListener('click', function(){
+    if (paisLista.hidden) abrirLista(); else fecharLista();
+  });
+
+  document.addEventListener('click', function(e){
+    if (!seletorPais.contains(e.target)) fecharLista();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') fecharLista();
+  });
+
+  function atualizarBotaoPais(){
+    if (paisAtual.bandeira){
+      bandeiraAtual.src = 'https://flagcdn.com/24x18/' + paisAtual.bandeira + '.png';
+      bandeiraAtual.style.display = '';
+    } else {
+      bandeiraAtual.style.display = 'none';
+    }
+    paisAtualTexto.textContent = paisAtual.nome;
+
+    Array.prototype.forEach.call(paisLista.children, function(li){
+      li.classList.toggle('ativo', li.dataset.codigo === paisAtual.codigo);
+    });
+  }
+
+  function selecionarPais(codigo){
+    paisAtual = PAISES.filter(function(p){ return p.codigo === codigo; })[0] || PAISES[0];
+    atualizarBotaoPais();
+    fecharLista();
+    atualizarModoTelefone();
+  }
+
+  function aplicarMascaraBR(){
+    var v = inputWhatsapp.value.replace(/\D/g,'').slice(0,11);
     if (v.length > 6){
       v = v.replace(/(\d{2})(\d{4,5})(\d{0,4})/, function(m,a,b,c){
         return c ? '(' + a + ') ' + b + '-' + c : '(' + a + ') ' + b;
@@ -342,8 +576,44 @@
     } else if (v.length > 2){
       v = '(' + v.slice(0,2) + ') ' + v.slice(2);
     }
-    mascaraWhatsapp.value = v;
+    inputWhatsapp.value = v;
+  }
+
+  function limparInternacional(){
+    // permite dígitos, espaço, +, ( ) e - ; remove o resto
+    inputWhatsapp.value = inputWhatsapp.value.replace(/[^\d+()\s-]/g,'').slice(0,20);
+  }
+
+  function atualizarModoTelefone(){
+    document.getElementById('campo-whatsapp').classList.remove('invalido');
+    inputWhatsapp.value = '';
+
+    if (paisAtual.codigo === 'BR'){
+      inputWhatsapp.placeholder = '(11) 99999-9999';
+      dicaWhatsapp.textContent = 'Digite o número com DDD.';
+    } else if (paisAtual.codigo === 'OUTRO'){
+      inputWhatsapp.placeholder = '+55 11 99999-9999';
+      dicaWhatsapp.textContent = 'Digite o número completo com o código do país (ex: +55, +1, +351).';
+    } else {
+      inputWhatsapp.value = '+' + paisAtual.ddi + ' ';
+      dicaWhatsapp.textContent = 'Complete com o número, incluindo o DDD/código de área.';
+      setTimeout(function(){
+        inputWhatsapp.focus();
+        var pos = inputWhatsapp.value.length;
+        inputWhatsapp.setSelectionRange(pos, pos);
+      }, 0);
+    }
+  }
+
+  inputWhatsapp.addEventListener('input', function(){
+    if (paisAtual.codigo === 'BR'){
+      aplicarMascaraBR();
+    } else {
+      limparInternacional();
+    }
   });
+
+  atualizarBotaoPais();
 
   function marcarInvalido(id, invalido){
     var campo = document.getElementById(id);
@@ -353,11 +623,13 @@
   function validar(){
     var nome = document.getElementById('nome').value.trim();
     var email = document.getElementById('email').value.trim();
-    var whatsapp = document.getElementById('whatsapp').value.replace(/\D/g,'');
+    var whatsappDigitos = document.getElementById('whatsapp').value.replace(/\D/g,'');
 
     var nomeOk = nome.split(' ').filter(Boolean).length >= 2;
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    var whatsappOk = whatsapp.length >= 10;
+    var whatsappOk = paisAtual.codigo === 'BR'
+      ? whatsappDigitos.length >= 10
+      : whatsappDigitos.length >= 8;
 
     marcarInvalido('campo-nome', !nomeOk);
     marcarInvalido('campo-email', !emailOk);
@@ -410,15 +682,19 @@
     var dados = {
       nome: document.getElementById('nome').value.trim(),
       email: document.getElementById('email').value.trim(),
-      whatsapp: document.getElementById('whatsapp').value.trim()
+      whatsapp: (paisAtual.codigo === 'BR' ? '+55 ' : '') + document.getElementById('whatsapp').value.trim()
     };
 
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
     enviarJSONP(dados)
-      .then(function(){
-        window.location.href = 'obrigado.html';
+      .then(function(resposta){
+        if (resposta && resposta.status === 'sucesso'){
+          window.location.href = 'obrigado.html';
+        } else {
+          throw new Error((resposta && resposta.mensagem) || 'Falha ao enviar');
+        }
       })
       .catch(function(){
         btn.disabled = false;
