@@ -123,6 +123,15 @@
       radial-gradient(circle at 85% 10%, rgba(255,112,0,0.08), transparent 45%);
   }
 
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+
+  .hero-texto{max-width:560px;}
+
   .hero-badge{
     display:inline-block;
     background:linear-gradient(90deg, var(--roxo-copilot), var(--laranja));
@@ -174,9 +183,9 @@
     background:var(--card);
     border-radius:24px;
     padding:32px;
-    max-width:480px;
+    width:100%;
     box-shadow:0 20px 50px rgba(0,0,0,0.08);
-    margin-bottom:20px;
+    justify-self:end;
   }
 
   .card-preco .de{
@@ -599,6 +608,41 @@
   .barra-fixa .preco-mini strong{display:block; font-size:16px; color:var(--verde);}
   .barra-fixa .btn-cta{padding:12px 20px; font-size:14px;}
 
+  /* ---------- Botão flutuante do WhatsApp ---------- */
+  .whatsapp-flutuante{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:60;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:#25D366;
+    color:#fff;
+    text-decoration:none;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:14px 20px;
+    border-radius:999px;
+    box-shadow:0 10px 25px rgba(37,211,102,0.4);
+    transition:transform .2s ease;
+  }
+
+  .whatsapp-flutuante:hover{transform:scale(1.05);}
+
+  .whatsapp-flutuante svg{width:22px; height:22px; flex-shrink:0;}
+
+  @media (max-width: 760px){
+    .whatsapp-flutuante{
+      bottom:96px;
+      right:16px;
+      padding:12px 16px;
+      font-size:0;
+    }
+    .whatsapp-flutuante svg{width:26px; height:26px;}
+  }
+
   /* ---------- Footer ---------- */
   footer{
     text-align:center;
@@ -611,6 +655,9 @@
   /* ---------- Responsivo ---------- */
   @media (max-width: 760px){
     .hero h1{font-size:30px;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-texto{max-width:100%;}
+    .card-preco{justify-self:stretch;}
     .card-investimento{grid-template-columns:1fr;}
     .barra-fixa{display:flex;}
     footer{padding-bottom:110px;}
@@ -635,18 +682,19 @@
 </header>
 
 <section class="hero">
-  <div class="container">
-    <span class="hero-badge">Oferta especial de aniversário</span>
-    <h1 data-aos="fade-up">Aprenda a usar o <span>Copilot</span> como parceiro real de análise de dados</h1>
-    <p class="subtitulo" data-aos="fade-up" data-aos-delay="100">
-      Numa imersão ao vivo, você sai do "só perguntar pra I.A." e passa a usar o Copilot pra investigar números, encontrar padrões e preparar decisões — direto nas suas planilhas.
-    </p>
+  <div class="container hero-grid">
+    <div class="hero-texto">
+      <span class="hero-badge">Oferta especial de aniversário</span>
+      <h1 data-aos="fade-up">Aprenda a usar o <span>Copilot</span> como parceiro real de análise de dados</h1>
+      <p class="subtitulo" data-aos="fade-up" data-aos-delay="100">
+        Numa imersão ao vivo, você sai do "só perguntar pra I.A." e passa a usar o Copilot pra investigar números, encontrar padrões e preparar decisões — direto nas suas planilhas.
+      </p>
 
-    <div class="hero-datas" data-aos="fade-up" data-aos-delay="150">
-      <span class="pill">📅 14 e 21 de setembro</span>
-      <span class="pill">🕖 19h30 às 21h30</span>
-      <span class="pill">💻 Ao vivo, online, pelo Teams</span>
-      <span class="pill">🎥 Gravações disponíveis por 12 meses</span>
+      <div class="hero-datas" data-aos="fade-up" data-aos-delay="150">
+        <span class="pill">📅 14 e 21 de setembro</span>
+        <span class="pill">🕖 19h30 às 21h30</span>
+        <span class="pill">💻 Ao vivo, online, pelo Teams</span>
+      </div>
     </div>
 
     <div class="card-preco" data-aos="fade-up" data-aos-delay="200">
@@ -920,6 +968,11 @@
 <footer>
   © Todos os direitos reservados para Escola Karen Abecia — 2026
 </footer>
+
+<a class="whatsapp-flutuante" href="https://wa.me/5511977248924" target="_blank" rel="noopener" aria-label="Chame nossa equipe pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.53 1.36 5.07L2 22l5.2-1.36a9.9 9.9 0 0 0 4.84 1.23h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.09.81.83-3.01-.2-.31a8.17 8.17 0 0 1-1.26-4.38c0-4.52 3.68-8.2 8.21-8.2 2.19 0 4.25.86 5.8 2.4a8.15 8.15 0 0 1 2.4 5.8c0 4.53-3.69 8.22-8.18 8.22zm4.5-6.15c-.25-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.16 1.75 2.68 4.25 3.75.59.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.46-.6 1.66-1.17.21-.58.21-1.07.14-1.17-.06-.1-.22-.16-.47-.28z"/></svg>
+  <span>Chame nossa equipe</span>
+</a>
 
 <div class="barra-fixa">
   <div class="preco-mini">
