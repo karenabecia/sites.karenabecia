@@ -177,7 +177,6 @@
     const card = event.target.closest(".card");
     if (card) openModal(items.find(item => String(item.id) === card.dataset.id));
   });
-  document.querySelector("#shuffle-button").addEventListener("click", changeWave);
   modal.addEventListener("click", event => { if (event.target.closest("[data-close]")) closeModal(); });
   document.addEventListener("keydown", event => { if (event.key === "Escape" && modal.classList.contains("open")) closeModal(); });
   let scrollQueued = false;
@@ -194,7 +193,6 @@
 
   async function start() {
     const sheetLoaded = await loadSheet();
-    document.querySelector("#item-count").textContent = `${items.length} trabalhos`;
     document.querySelector("#year").textContent = new Date().getFullYear();
     if (settings.sheetUrl && !sheetLoaded) {
       gallery.innerHTML = '<p class="gallery-message">Não foi possível acessar a planilha neste momento.</p>';
