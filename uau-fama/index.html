@@ -18,14 +18,16 @@ button{font:inherit;color:inherit}
 .site-banner{display:block;width:100%;height:auto;max-height:46vh;object-fit:cover}
 .site-header{position:fixed;z-index:10;top:0;left:0;right:0;display:flex;justify-content:center;align-items:center;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(21,16,9,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease}.site-header.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
 .brand{color:var(--orange);text-decoration:none;font-family:"Anton",sans-serif;font-size:22px;font-weight:400;letter-spacing:.015em}
-main{padding:48px 28px 72px}
+main{padding:48px 28px 100px}
 .gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);align-items:start}.gallery-column{display:flex;min-width:0;flex-direction:column;gap:var(--gap)}
 .gallery-message{column-span:all;margin:30px 0 90px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
-.card{position:relative;display:block;width:100%;height:auto;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;text-align:left;opacity:1;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out,transform 1.8s ease-in-out}.card.ratio-3-2{aspect-ratio:3/2}.card.ratio-1-1{aspect-ratio:1}.card.ratio-4-3{aspect-ratio:4/3}.card.ratio-16-9{aspect-ratio:16/9}.card.ratio-2-3{aspect-ratio:2/3}.card.ratio-3-4{aspect-ratio:3/4}.card.ratio-2-1{aspect-ratio:2/1}.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .5s}.card:hover img,.card:focus-visible img{transform:scale(1.025);filter:brightness(.72)}.card-info{position:absolute;inset:auto 0 0;display:flex;align-items:flex-end;justify-content:space-between;padding:16px;color:#fff;opacity:0;transform:translateY(5px);transition:.3s;background:linear-gradient(transparent,rgba(0,0,0,.7))}.card:hover .card-info,.card:focus-visible .card-info{opacity:1;transform:none}.card-title{font-size:14px;font-weight:500}.card-index{font-size:10px;letter-spacing:.1em}.play{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
+.card{position:relative;display:block;width:100%;height:auto;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;text-align:left;opacity:1;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out,transform 1.8s ease-in-out}.card.ratio-3-2{aspect-ratio:3/2}.card.ratio-1-1{aspect-ratio:1}.card.ratio-4-3{aspect-ratio:4/3}.card.ratio-16-9{aspect-ratio:16/9}.card.ratio-2-3{aspect-ratio:2/3}.card.ratio-3-4{aspect-ratio:3/4}.card.ratio-2-1{aspect-ratio:2/1}.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .5s}.card:hover img,.card:focus-visible img{transform:scale(1.025);filter:brightness(.72)}.card.is-dashboard img{object-fit:contain;background:var(--surface)}.card.is-dashboard:hover img,.card.is-dashboard:focus-visible img{transform:none;filter:brightness(.85)}.card-info{position:absolute;inset:auto 0 0;display:flex;align-items:flex-end;padding:16px;opacity:0;transform:translateY(5px);transition:.3s;background:linear-gradient(transparent,rgba(0,0,0,.7))}.card:hover .card-info,.card:focus-visible .card-info{opacity:1;transform:none}.card-description{color:#fff;font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.play{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
 .card.is-changing{opacity:0;filter:brightness(.15);transform:scale(.995)}.card.is-arriving{animation:card-arrive 1.4s ease both}.scroll-sentinel{height:1px}
 @keyframes card-arrive{from{opacity:0;filter:brightness(.2)}to{opacity:1;filter:brightness(1)}}
 .modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;padding:24px;visibility:hidden;opacity:0;transition:.35s}.modal.open{visibility:visible;opacity:1}.modal-backdrop{position:absolute;inset:0;border:0;background:rgba(5,3,1,.85);backdrop-filter:blur(8px);cursor:zoom-out}.modal-panel{position:relative;width:min(1180px,100%);max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);transform:translateY(18px);transition:.4s cubic-bezier(.2,.8,.2,1)}.modal.open .modal-panel{transform:none}.modal-close{position:absolute;z-index:2;top:12px;right:14px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(21,16,9,.9);color:var(--ink);font-size:27px;line-height:1;cursor:pointer}.modal-media{display:grid;place-items:center;background:#0b0704;min-height:300px}.modal-media img,.modal-media video{display:block;max-width:100%;max-height:70vh}.modal-media iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.modal-copy{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:28px}.modal-kicker{margin:0 0 5px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.modal-copy h2{margin:0;font-family:"DM Sans",sans-serif;font-size:38px;font-weight:600}.modal-description{max-width:500px;margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
 footer{display:flex;justify-content:space-between;margin:0 28px;padding:22px 0 30px;border-top:1px solid var(--line);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cta-float{position:fixed;z-index:15;left:50%;bottom:22px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;background:var(--orange);color:#151009;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .25s ease,box-shadow .25s ease}.cta-float:hover{transform:translateX(-50%) translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.6)}.cta-float span{font-size:17px;line-height:1}
+@media(max-width:700px){.cta-float{bottom:14px;padding:12px 18px;font-size:12.5px;text-align:center;width:calc(100% - 32px)}main{padding-bottom:96px}}
 body.modal-open{overflow:hidden}
 @media(max-width:1200px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:1000px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -62,6 +64,11 @@ body.modal-open{overflow:hidden}
   </div>
 
   <footer><span>UAU DA FAMA</span><span>© <span id="year"></span></span></footer>
+
+  <a class="cta-float" href="participar.html">
+    <span aria-hidden="true">★</span> Quero fazer parte do UAU da fama
+  </a>
+
   <script>
 /*
   PARA ADICIONAR UM ITEM:
@@ -199,12 +206,29 @@ window.GALLERY_ITEMS = [
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  function isDashboardItem(item) {
+    const tags = (item.tags || []).map(t => String(t).toLowerCase().trim());
+    return tags.includes("dashboard") || String(item.categoria || "").toLowerCase().trim() === "dashboard";
+  }
+
+  const landscapeRatios = ["16-9", "3-2", "2-1"];
+
+  function pickRatio(item, fallbackRatio) {
+    if (isDashboardItem(item)) {
+      return landscapeRatios.includes(fallbackRatio)
+        ? fallbackRatio
+        : landscapeRatios[Math.floor(Math.random() * landscapeRatios.length)];
+    }
+    return fallbackRatio;
+  }
+
   function markup(item, ratio, arriving = false) {
     cardNumber++;
-    return `<button class="card ratio-${ratio}${arriving && !reducedMotion ? " is-arriving" : ""}" type="button" data-id="${item.id}" data-ratio="${ratio}" aria-label="Abrir ${item.titulo}">
+    const dashboard = isDashboardItem(item);
+    return `<button class="card ratio-${ratio}${dashboard ? " is-dashboard" : ""}${arriving && !reducedMotion ? " is-arriving" : ""}" type="button" data-id="${item.id}" data-ratio="${ratio}" aria-label="Abrir ${item.titulo}">
       <img src="${item.thumbnail}" alt="${item.titulo}" loading="lazy" decoding="async">
       ${item.tipo === "video" ? '<span class="play" aria-hidden="true">▶</span>' : ""}
-      <span class="card-info"><span class="card-title">${item.titulo}</span><span class="card-index">${String(cardNumber).padStart(2, "0")}</span></span>
+      ${item.descricao ? `<span class="card-info"><span class="card-description">${item.descricao}</span></span>` : ""}
     </button>`;
   }
 
@@ -242,7 +266,8 @@ window.GALLERY_ITEMS = [
     const batchSize = Math.max(16, Math.min(24, items.length));
     for (let i = 0; i < batchSize; i++) {
       const item = pickItem(usedIds());
-      shortestColumn().insertAdjacentHTML("beforeend", markup(item, ratios[(startIndex + i) % ratios.length], arriving));
+      const ratio = pickRatio(item, ratios[(startIndex + i) % ratios.length]);
+      shortestColumn().insertAdjacentHTML("beforeend", markup(item, ratio, arriving));
       if (!reducedMotion) await new Promise(resolve => setTimeout(resolve, 110));
     }
     adding = false;
@@ -263,7 +288,7 @@ window.GALLERY_ITEMS = [
   function changeCard(card) {
     if (!card?.isConnected || card.classList.contains("is-changing")) return;
     const next = pickItem(usedIds());
-    const ratio = card.dataset.ratio;
+    const ratio = pickRatio(next, card.dataset.ratio);
     card.classList.add("is-changing");
     setTimeout(() => {
       const holder = document.createElement("div");
