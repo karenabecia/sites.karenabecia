@@ -11,15 +11,14 @@
   <style>
     :root{--paper:#151009;--surface:#221810;--ink:#f4ece1;--orange:#ff7a2e;--muted:#a89178;--line:rgba(244,236,225,.14)}
     *{box-sizing:border-box}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+    body{margin:0;background:linear-gradient(rgba(10,6,3,.55),rgba(10,6,3,.78)),url("https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/uau-fama/UAU%20DA%20FAMA.png") center/cover no-repeat fixed;color:var(--ink);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px}
     .wrap{width:100%;max-width:560px}
     .brand{display:block;color:var(--orange);text-decoration:none;font-family:"Anton",sans-serif;font-size:22px;text-align:center;margin-bottom:28px;letter-spacing:.015em}
-    .panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:36px 32px}
-    h1{margin:0 0 8px;font-family:"Anton",sans-serif;font-weight:400;font-size:clamp(28px,5vw,38px);color:var(--ink);letter-spacing:-.01em}
+    .panel{background:rgba(21,16,9,.4);border:1px solid rgba(244,236,225,.22);border-radius:20px;padding:36px 32px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
     .subtitle{margin:0 0 28px;color:var(--muted);font-size:14px;line-height:1.5}
     label{display:block;font-size:13px;font-weight:600;margin:0 0 6px;color:var(--ink)}
     .field{margin-bottom:20px}
-    input,textarea{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:14px}
+    input,textarea{width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(244,236,225,.22);background:rgba(21,16,9,.45);color:var(--ink);font:inherit;font-size:14px}
     input:focus,textarea:focus{outline:2px solid var(--orange);outline-offset:1px}
     textarea{resize:vertical;min-height:120px}
     button{width:100%;padding:15px 20px;border:0;border-radius:10px;background:var(--orange);color:#151009;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:filter .2s ease}
@@ -38,7 +37,6 @@
     <a class="brand" href="index.html">UAU DA FAMA</a>
     <div class="panel">
       <div id="form-state">
-        <h1>Conte sua história</h1>
         <p class="subtitle">Compartilhe o seu Efeito UAU e, com sua autorização, ele pode aparecer na nossa galeria.</p>
         <form id="participar-form" novalidate>
           <div class="field">
