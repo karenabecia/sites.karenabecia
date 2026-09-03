@@ -21,7 +21,7 @@ button{font:inherit;color:inherit}
 main{padding:48px 28px 100px}
 .gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);align-items:start}.gallery-column{display:flex;min-width:0;flex-direction:column;gap:var(--gap)}
 .gallery-message{column-span:all;margin:30px 0 90px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
-.card{position:relative;display:block;width:100%;height:auto;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;text-align:left;opacity:1;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out,transform 1.8s ease-in-out}.card.ratio-3-2{aspect-ratio:3/2}.card.ratio-1-1{aspect-ratio:1}.card.ratio-4-3{aspect-ratio:4/3}.card.ratio-16-9{aspect-ratio:16/9}.card.ratio-2-3{aspect-ratio:2/3}.card.ratio-3-4{aspect-ratio:3/4}.card.ratio-2-1{aspect-ratio:2/1}.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .5s}.card:hover img,.card:focus-visible img{transform:scale(1.025);filter:brightness(.72)}.card.is-dashboard img{object-fit:contain;background:var(--surface)}.card.is-dashboard:hover img,.card.is-dashboard:focus-visible img{transform:none;filter:brightness(.85)}.card-info{position:absolute;inset:auto 0 0;display:flex;align-items:flex-end;padding:16px;opacity:0;transform:translateY(5px);transition:.3s;background:linear-gradient(transparent,rgba(0,0,0,.7))}.card:hover .card-info,.card:focus-visible .card-info{opacity:1;transform:none}.card-description{color:#fff;font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.play{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
+.card{position:relative;display:block;width:100%;height:auto;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;text-align:left;opacity:1;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out,transform 1.8s ease-in-out}.card.ratio-3-2{aspect-ratio:3/2}.card.ratio-1-1{aspect-ratio:1}.card.ratio-4-3{aspect-ratio:4/3}.card.ratio-16-9{aspect-ratio:16/9}.card.ratio-2-3{aspect-ratio:2/3}.card.ratio-3-4{aspect-ratio:3/4}.card.ratio-2-1{aspect-ratio:2/1}.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .5s}.card:hover img,.card:focus-visible img{transform:scale(1.025);filter:brightness(.72)}.card.is-dashboard img{object-fit:contain;background:var(--surface)}.card.is-dashboard:hover img,.card.is-dashboard:focus-visible img{transform:none;filter:brightness(.85)}.card-info{position:absolute;inset:auto 0 0;padding:14px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff}.card-name{display:block;font-size:13px;font-weight:600;letter-spacing:.01em}.card-description{display:block;margin-top:0;max-height:0;opacity:0;overflow:hidden;font-size:12px;line-height:1.45;color:rgba(255,255,255,.88);transition:max-height .3s ease,opacity .3s ease,margin-top .3s ease}.card:hover .card-description,.card:focus-visible .card-description{max-height:90px;opacity:1;margin-top:4px;-webkit-line-clamp:4;display:-webkit-box;-webkit-box-orient:vertical}.play{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
 .card.is-changing{opacity:0;filter:brightness(.15);transform:scale(.995)}.card.is-arriving{animation:card-arrive 1.4s ease both}.scroll-sentinel{height:1px}
 @keyframes card-arrive{from{opacity:0;filter:brightness(.2)}to{opacity:1;filter:brightness(1)}}
 .modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;padding:24px;visibility:hidden;opacity:0;transition:.35s}.modal.open{visibility:visible;opacity:1}.modal-backdrop{position:absolute;inset:0;border:0;background:rgba(5,3,1,.85);backdrop-filter:blur(8px);cursor:zoom-out}.modal-panel{position:relative;width:min(1180px,100%);max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);transform:translateY(18px);transition:.4s cubic-bezier(.2,.8,.2,1)}.modal.open .modal-panel{transform:none}.modal-close{position:absolute;z-index:2;top:12px;right:14px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(21,16,9,.9);color:var(--ink);font-size:27px;line-height:1;cursor:pointer}.modal-media{display:grid;place-items:center;background:#0b0704;min-height:300px}.modal-media img,.modal-media video{display:block;max-width:100%;max-height:70vh}.modal-media iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.modal-copy{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:28px}.modal-kicker{margin:0 0 5px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.modal-copy h2{margin:0;font-family:"DM Sans",sans-serif;font-size:38px;font-weight:600}.modal-description{max-width:500px;margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
@@ -31,7 +31,7 @@ footer{display:flex;justify-content:space-between;margin:0 28px;padding:22px 0 3
 body.modal-open{overflow:hidden}
 @media(max-width:1200px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:1000px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:700px){.site-header,main{padding-left:16px;padding-right:16px}.site-banner{max-height:32vh}main{padding-top:32px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gallery-column{gap:8px}.card-info{opacity:1;transform:none;padding:11px}.modal{padding:0}.modal-panel{width:100%;max-height:100vh;min-height:100vh}.modal-copy{grid-template-columns:1fr;gap:16px;padding:22px}.modal-media{min-height:50vh}.modal-copy h2{font-size:34px}footer{margin:0 16px}}
+@media(max-width:700px){.site-header,main{padding-left:16px;padding-right:16px}.site-banner{max-height:32vh}main{padding-top:32px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gallery-column{gap:8px}.card-info{padding:11px}.modal{padding:0}.modal-panel{width:100%;max-height:100vh;min-height:100vh}.modal-copy{grid-template-columns:1fr;gap:16px;padding:22px}.modal-media{min-height:50vh}.modal-copy h2{font-size:34px}footer{margin:0 16px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.gallery.is-shuffling{transform:none}}
 
   </style>
@@ -196,12 +196,23 @@ window.GALLERY_ITEMS = [
     return copy;
   };
 
-  function usedIds() {
-    return new Set([...gallery.querySelectorAll(".card")].map(card => card.dataset.id));
+  function personKey(item) {
+    return item.titulo ? String(item.titulo).toLowerCase().trim() : item.id;
   }
 
-  function pickItem(excludeIds) {
-    const pool = items.filter(item => !excludeIds.has(item.id));
+  function activePeople(margin = 600) {
+    return new Set(
+      [...gallery.querySelectorAll(".card:not(.is-changing)")]
+        .filter(card => {
+          const box = card.getBoundingClientRect();
+          return box.bottom > -margin && box.top < innerHeight + margin;
+        })
+        .map(card => card.dataset.person)
+    );
+  }
+
+  function pickItem(excludePeople) {
+    const pool = items.filter(item => !excludePeople.has(personKey(item)));
     if (pool.length) return pool[Math.floor(Math.random() * pool.length)];
     return items[Math.floor(Math.random() * items.length)];
   }
@@ -225,10 +236,13 @@ window.GALLERY_ITEMS = [
   function markup(item, ratio, arriving = false) {
     cardNumber++;
     const dashboard = isDashboardItem(item);
-    return `<button class="card ratio-${ratio}${dashboard ? " is-dashboard" : ""}${arriving && !reducedMotion ? " is-arriving" : ""}" type="button" data-id="${item.id}" data-ratio="${ratio}" aria-label="Abrir ${item.titulo}">
+    return `<button class="card ratio-${ratio}${dashboard ? " is-dashboard" : ""}${arriving && !reducedMotion ? " is-arriving" : ""}" type="button" data-id="${item.id}" data-person="${personKey(item)}" data-ratio="${ratio}" aria-label="Abrir ${item.titulo}">
       <img src="${item.thumbnail}" alt="${item.titulo}" loading="lazy" decoding="async">
       ${item.tipo === "video" ? '<span class="play" aria-hidden="true">▶</span>' : ""}
-      ${item.descricao ? `<span class="card-info"><span class="card-description">${item.descricao}</span></span>` : ""}
+      <span class="card-info">
+        ${item.titulo ? `<span class="card-name">${item.titulo}</span>` : ""}
+        ${item.descricao ? `<span class="card-description">${item.descricao}</span>` : ""}
+      </span>
     </button>`;
   }
 
@@ -265,7 +279,7 @@ window.GALLERY_ITEMS = [
     const startIndex = cardNumber;
     const batchSize = Math.max(16, Math.min(24, items.length));
     for (let i = 0; i < batchSize; i++) {
-      const item = pickItem(usedIds());
+      const item = pickItem(activePeople());
       const ratio = pickRatio(item, ratios[(startIndex + i) % ratios.length]);
       shortestColumn().insertAdjacentHTML("beforeend", markup(item, ratio, arriving));
       if (!reducedMotion) await new Promise(resolve => setTimeout(resolve, 110));
@@ -287,7 +301,7 @@ window.GALLERY_ITEMS = [
 
   function changeCard(card) {
     if (!card?.isConnected || card.classList.contains("is-changing")) return;
-    const next = pickItem(usedIds());
+    const next = pickItem(activePeople());
     const ratio = pickRatio(next, card.dataset.ratio);
     card.classList.add("is-changing");
     setTimeout(() => {
