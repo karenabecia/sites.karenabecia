@@ -8,7 +8,7 @@
   <title>UAU DA FAMA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
 :root{--paper:#151009;--surface:#221810;--ink:#f4ece1;--orange:#ff7a2e;--muted:#a89178;--gap:12px;--line:rgba(244,236,225,.14)}
 *{box-sizing:border-box}
@@ -16,7 +16,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit}
 .site-banner{display:block;width:100%;height:auto;max-height:46vh;object-fit:cover}
-.site-header{position:sticky;z-index:10;top:0;display:flex;justify-content:center;align-items:center;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(21,16,9,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.site-header{position:fixed;z-index:10;top:0;left:0;right:0;display:flex;justify-content:center;align-items:center;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(21,16,9,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease}.site-header.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
 .brand{color:var(--orange);text-decoration:none;font-family:"Anton",sans-serif;font-size:22px;font-weight:400;letter-spacing:.015em}
 main{padding:48px 28px 72px}
 .gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap);align-items:start}.gallery-column{display:flex;min-width:0;flex-direction:column;gap:var(--gap)}
@@ -24,7 +24,7 @@ main{padding:48px 28px 72px}
 .card{position:relative;display:block;width:100%;height:auto;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;text-align:left;opacity:1;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out,transform 1.8s ease-in-out}.card.ratio-3-2{aspect-ratio:3/2}.card.ratio-1-1{aspect-ratio:1}.card.ratio-4-3{aspect-ratio:4/3}.card.ratio-16-9{aspect-ratio:16/9}.card.ratio-2-3{aspect-ratio:2/3}.card.ratio-3-4{aspect-ratio:3/4}.card.ratio-2-1{aspect-ratio:2/1}.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .5s}.card:hover img,.card:focus-visible img{transform:scale(1.025);filter:brightness(.72)}.card-info{position:absolute;inset:auto 0 0;display:flex;align-items:flex-end;justify-content:space-between;padding:16px;color:#fff;opacity:0;transform:translateY(5px);transition:.3s;background:linear-gradient(transparent,rgba(0,0,0,.7))}.card:hover .card-info,.card:focus-visible .card-info{opacity:1;transform:none}.card-title{font-size:14px;font-weight:500}.card-index{font-size:10px;letter-spacing:.1em}.play{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.25);backdrop-filter:blur(6px)}
 .card.is-changing{opacity:0;filter:brightness(.15);transform:scale(.995)}.card.is-arriving{animation:card-arrive 1.4s ease both}.scroll-sentinel{height:1px}
 @keyframes card-arrive{from{opacity:0;filter:brightness(.2)}to{opacity:1;filter:brightness(1)}}
-.modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;padding:24px;visibility:hidden;opacity:0;transition:.35s}.modal.open{visibility:visible;opacity:1}.modal-backdrop{position:absolute;inset:0;border:0;background:rgba(5,3,1,.85);backdrop-filter:blur(8px);cursor:zoom-out}.modal-panel{position:relative;width:min(1180px,100%);max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);transform:translateY(18px);transition:.4s cubic-bezier(.2,.8,.2,1)}.modal.open .modal-panel{transform:none}.modal-close{position:absolute;z-index:2;top:12px;right:14px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(21,16,9,.9);color:var(--ink);font-size:27px;line-height:1;cursor:pointer}.modal-media{display:grid;place-items:center;background:#0b0704;min-height:300px}.modal-media img,.modal-media video{display:block;max-width:100%;max-height:70vh}.modal-media iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.modal-copy{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:28px}.modal-kicker{margin:0 0 5px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.modal-copy h2{margin:0;font-family:"Instrument Serif",serif;font-size:42px;font-weight:400}.modal-description{max-width:500px;margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
+.modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;padding:24px;visibility:hidden;opacity:0;transition:.35s}.modal.open{visibility:visible;opacity:1}.modal-backdrop{position:absolute;inset:0;border:0;background:rgba(5,3,1,.85);backdrop-filter:blur(8px);cursor:zoom-out}.modal-panel{position:relative;width:min(1180px,100%);max-height:calc(100vh - 48px);overflow:auto;background:var(--paper);border:1px solid var(--line);transform:translateY(18px);transition:.4s cubic-bezier(.2,.8,.2,1)}.modal.open .modal-panel{transform:none}.modal-close{position:absolute;z-index:2;top:12px;right:14px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(21,16,9,.9);color:var(--ink);font-size:27px;line-height:1;cursor:pointer}.modal-media{display:grid;place-items:center;background:#0b0704;min-height:300px}.modal-media img,.modal-media video{display:block;max-width:100%;max-height:70vh}.modal-media iframe{display:block;width:100%;aspect-ratio:16/9;border:0}.modal-copy{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:28px}.modal-kicker{margin:0 0 5px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.modal-copy h2{margin:0;font-family:"DM Sans",sans-serif;font-size:38px;font-weight:600}.modal-description{max-width:500px;margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
 footer{display:flex;justify-content:space-between;margin:0 28px;padding:22px 0 30px;border-top:1px solid var(--line);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 body.modal-open{overflow:hidden}
 @media(max-width:1200px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -189,6 +189,16 @@ window.GALLERY_ITEMS = [
     return copy;
   };
 
+  function usedIds() {
+    return new Set([...gallery.querySelectorAll(".card")].map(card => card.dataset.id));
+  }
+
+  function pickItem(excludeIds) {
+    const pool = items.filter(item => !excludeIds.has(item.id));
+    if (pool.length) return pool[Math.floor(Math.random() * pool.length)];
+    return items[Math.floor(Math.random() * items.length)];
+  }
+
   function markup(item, ratio, arriving = false) {
     cardNumber++;
     return `<button class="card ratio-${ratio}${arriving && !reducedMotion ? " is-arriving" : ""}" type="button" data-id="${item.id}" data-ratio="${ratio}" aria-label="Abrir ${item.titulo}">
@@ -229,10 +239,9 @@ window.GALLERY_ITEMS = [
     adding = true;
     buildColumns();
     const startIndex = cardNumber;
-    const shuffled = shuffle(items);
-    const batchSize = Math.max(16, Math.min(24, shuffled.length));
+    const batchSize = Math.max(16, Math.min(24, items.length));
     for (let i = 0; i < batchSize; i++) {
-      const item = shuffled[i % shuffled.length];
+      const item = pickItem(usedIds());
       shortestColumn().insertAdjacentHTML("beforeend", markup(item, ratios[(startIndex + i) % ratios.length], arriving));
       if (!reducedMotion) await new Promise(resolve => setTimeout(resolve, 110));
     }
@@ -253,8 +262,7 @@ window.GALLERY_ITEMS = [
 
   function changeCard(card) {
     if (!card?.isConnected || card.classList.contains("is-changing")) return;
-    const choices = items.filter(item => item.id !== card.dataset.id);
-    const next = choices[Math.floor(Math.random() * choices.length)] || items[0];
+    const next = pickItem(usedIds());
     const ratio = card.dataset.ratio;
     card.classList.add("is-changing");
     setTimeout(() => {
@@ -358,6 +366,15 @@ window.GALLERY_ITEMS = [
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => buildColumns(), 180);
   });
+
+  const banner = document.querySelector(".site-banner");
+  const header = document.querySelector(".site-header");
+  if (banner && header && "IntersectionObserver" in window) {
+    new IntersectionObserver(
+      entries => header.classList.toggle("is-visible", !entries[0].isIntersecting),
+      { threshold: 0 }
+    ).observe(banner);
+  }
 
   async function start() {
     const sheetLoaded = await loadSheet();
