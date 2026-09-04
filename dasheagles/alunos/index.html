@@ -6,16 +6,13 @@
   <title>Central de Links — DashEagles</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ─── Reset & Base ─────────────────────────────────── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --brand-orange:  #FF7000;
       --brand-green:   #57B95C;
+      --brand-purple:  #7C5CBF;
+      --brand-blue:    #2E86DE;
       --bg-global:     #F0F0F0;
       --surface-white: #FFFFFF;
       --text-main:     #020617;
@@ -34,7 +31,7 @@
       flex-direction: column;
     }
 
-    /* ─── Header ────────────────────────────────────────── */
+    /* ─── Header ── */
     header {
       background-color: var(--surface-white);
       padding: 18px 32px;
@@ -46,27 +43,16 @@
       top: 0;
       z-index: 100;
     }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .header-logo img { height: 48px; width: auto; }
 
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
-
-    .header-logo img {
-      height: 48px;
-      width: auto;
-    }
-
-    /* ─── Hero ──────────────────────────────────────────── */
+    /* ─── Hero ── */
     .hero {
       background: linear-gradient(135deg, var(--brand-orange) 0%, #e05f00 100%);
       color: #fff;
       text-align: center;
       padding: 52px 24px 44px;
     }
-
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
@@ -74,16 +60,9 @@
       line-height: 1.25;
       margin-bottom: 12px;
     }
+    .hero p { font-size: 1rem; opacity: 0.92; max-width: 500px; margin: 0 auto; line-height: 1.6; }
 
-    .hero p {
-      font-size: 1rem;
-      opacity: 0.92;
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* ─── Main Container ────────────────────────────────── */
+    /* ─── Main ── */
     main {
       flex: 1;
       width: 100%;
@@ -95,7 +74,7 @@
       gap: 40px;
     }
 
-    /* ─── Section Title ─────────────────────────────────── */
+    /* ─── Section Title ── */
     .section-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
@@ -106,31 +85,18 @@
       align-items: center;
       gap: 10px;
     }
-
     .section-title::before {
       content: '';
       display: inline-block;
-      width: 4px;
-      height: 22px;
+      width: 4px; height: 22px;
       background-color: var(--brand-orange);
       border-radius: 4px;
       flex-shrink: 0;
     }
+    .section-subtitle { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; padding-left: 14px; }
 
-    .section-subtitle {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      padding-left: 14px;
-    }
-
-    /* ─── Cards Grid ─────────────────────────────────────── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 18px;
-    }
-
+    /* ─── Cards ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
     .card {
       background: var(--surface-white);
       border-radius: var(--radius-card);
@@ -142,38 +108,16 @@
       gap: 14px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.10);
-    }
-
+    .card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.10); }
     .card-icon {
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       background-color: rgba(255, 112, 0, 0.10);
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem;
     }
-
-    .card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text-main);
-      line-height: 1.3;
-    }
-
-    .card p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-      flex: 1;
-    }
-
+    .card h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--text-main); line-height: 1.3; }
+    .card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; flex: 1; }
     .btn {
       display: inline-block;
       padding: 10px 20px;
@@ -185,70 +129,23 @@
       transition: opacity 0.2s ease, transform 0.15s ease;
       text-align: center;
     }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary { background-color: var(--brand-orange); color: #fff; }
+    .btn-green   { background-color: var(--brand-green);  color: #fff; }
 
-    .btn:hover {
-      opacity: 0.88;
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background-color: var(--brand-orange);
-      color: #fff;
-    }
-
-    .btn-green {
-      background-color: var(--brand-green);
-      color: #fff;
-    }
-
-    /* ─── Calendário ─────────────────────────────────────── */
-    .calendar-wrapper {
-      background: var(--surface-white);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-    }
-
+    /* ─── Calendário ── */
+    .calendar-wrapper { background: var(--surface-white); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
     .calendar-header {
       background: linear-gradient(135deg, var(--brand-orange) 0%, #e05f00 100%);
       padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
     }
+    .calendar-header h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: 0.02em; }
+    .calendar-body { padding: 20px; }
 
-    .calendar-header h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-      letter-spacing: 0.02em;
-    }
-
-    .calendar-body {
-      padding: 20px;
-    }
-
-    /* Layout calendário + legenda lado a lado */
-    .calendar-layout {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    /* Grade ocupa 60% */
-    .calendar-layout .calendar-grid {
-      flex: 0 0 60%;
-    }
-
-    /* Legenda ocupa o restante */
-    .calendar-layout .events-list {
-      flex: 1;
-      border-top: none;
-      padding-top: 0;
-      margin-top: 0;
-    }
+    .calendar-layout { display: flex; gap: 24px; align-items: flex-start; }
+    .calendar-layout .calendar-grid { flex: 0 0 60%; }
+    .calendar-layout .events-list   { flex: 1; border-top: none; padding-top: 0; margin-top: 0; }
 
     .events-list-title {
       font-family: 'Montserrat', sans-serif;
@@ -260,29 +157,8 @@
       margin-bottom: 12px;
     }
 
-    @media (max-width: 660px) {
-      .calendar-layout {
-        flex-direction: column;
-      }
-      .calendar-layout .calendar-grid {
-        flex: none;
-        width: 100%;
-      }
-      .calendar-layout .events-list {
-        border-top: 1px solid rgba(2,6,23,0.07);
-        padding-top: 16px;
-        margin-top: 4px;
-        width: 100%;
-      }
-    }
-
-    /* Grade dos dias da semana */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-    }
-
+    /* Grade */
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .cal-weekday {
       text-align: center;
       font-family: 'Montserrat', sans-serif;
@@ -293,67 +169,44 @@
       letter-spacing: 0.04em;
       padding: 8px 4px;
     }
-
     .cal-day {
       aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
       padding: 6px 3px;
       border-radius: 10px;
-      position: relative;
       min-height: 52px;
     }
+    .cal-day.empty { background: transparent; }
+    .cal-day-num { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.82rem; color: var(--text-main); line-height: 1; margin-bottom: 3px; }
+    .cal-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-    .cal-day.empty {
-      background: transparent;
-    }
+    /* ── Tipos de evento ── */
+    /* Laranja: Encontro Karen */
+    .cal-day.ev-karen    { background-color: rgba(255, 112,   0, 0.10); }
+    .cal-day.ev-karen    .cal-day-num { color: var(--brand-orange); font-weight: 700; }
+    .cal-day.ev-karen    .cal-dot     { background-color: var(--brand-orange); }
 
-    .cal-day-num {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      font-size: 0.82rem;
-      color: var(--text-main);
-      line-height: 1;
-      margin-bottom: 3px;
-    }
+    /* Roxo: Encontro Jéssica */
+    .cal-day.ev-jessica  { background-color: rgba(124,  92, 191, 0.12); }
+    .cal-day.ev-jessica  .cal-day-num { color: var(--brand-purple); font-weight: 700; }
+    .cal-day.ev-jessica  .cal-dot     { background-color: var(--brand-purple); }
 
-    .cal-day.has-event {
-      background-color: rgba(255, 112, 0, 0.07);
-    }
+    /* Azul: Imersão Copilot */
+    .cal-day.ev-imersao  { background-color: rgba( 46, 134, 222, 0.12); }
+    .cal-day.ev-imersao  .cal-day-num { color: var(--brand-blue); font-weight: 700; }
+    .cal-day.ev-imersao  .cal-dot     { background-color: var(--brand-blue); }
 
-    .cal-day.has-event .cal-day-num {
-      color: var(--brand-orange);
-      font-weight: 700;
-    }
+    /* Verde: Aula de dúvidas comunidade */
+    .cal-day.ev-comunidade { background-color: rgba( 87, 185,  92, 0.12); }
+    .cal-day.ev-comunidade .cal-day-num { color: var(--brand-green); font-weight: 700; }
+    .cal-day.ev-comunidade .cal-dot     { background-color: var(--brand-green); }
 
-    .cal-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--brand-orange);
-      flex-shrink: 0;
-    }
-
-    /* Legenda de eventos */
-    .events-list {
-      margin-top: 20px;
-      border-top: 1px solid rgba(2,6,23,0.07);
-      padding-top: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .event-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
+    /* ── Legenda ── */
+    .events-list { margin-top: 20px; border-top: 1px solid rgba(2,6,23,0.07); padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .event-item  { display: flex; align-items: flex-start; gap: 12px; }
 
     .event-date-badge {
-      background-color: var(--brand-orange);
       color: #fff;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
@@ -365,87 +218,46 @@
       min-width: 50px;
       text-align: center;
     }
+    .event-date-badge.badge-karen      { background-color: var(--brand-orange); }
+    .event-date-badge.badge-jessica    { background-color: var(--brand-purple); }
+    .event-date-badge.badge-imersao    { background-color: var(--brand-blue);   }
+    .event-date-badge.badge-comunidade { background-color: var(--brand-green);  }
 
-    .event-date-badge.july {
-      background-color: var(--brand-green);
+    /* Chave de cores */
+    .legend-keys { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    .legend-key  { display: flex; align-items: center; gap: 6px; font-size: 0.73rem; color: var(--text-muted); font-family: 'Poppins', sans-serif; }
+    .legend-key-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    .event-desc { font-size: 0.82rem; color: var(--text-main); line-height: 1.45; padding-top: 2px; }
+    .event-desc strong { font-weight: 500; }
+
+    /* ─── Footer ── */
+    footer { background-color: var(--surface-white); border-top: 1px solid rgba(2,6,23,0.06); text-align: center; padding: 20px 24px; }
+    footer p { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ─── Responsividade ── */
+    @media (max-width: 660px) {
+      .calendar-layout { flex-direction: column; }
+      .calendar-layout .calendar-grid { flex: none; width: 100%; }
+      .calendar-layout .events-list { border-top: 1px solid rgba(2,6,23,0.07); padding-top: 16px; margin-top: 4px; width: 100%; }
     }
-
-    .event-desc {
-      font-size: 0.82rem;
-      color: var(--text-main);
-      line-height: 1.45;
-      padding-top: 2px;
-    }
-
-    .event-desc strong {
-      font-weight: 500;
-    }
-
-    /* ─── Footer ─────────────────────────────────────────── */
-    footer {
-      background-color: var(--surface-white);
-      border-top: 1px solid rgba(2,6,23,0.06);
-      text-align: center;
-      padding: 20px 24px;
-    }
-
-    footer p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    /* ─── Responsividade ─────────────────────────────────── */
     @media (max-width: 600px) {
-      header {
-        padding: 14px 18px;
-      }
-
-      .header-logo img {
-        height: 38px;
-      }
-
-      .header-title {
-        font-size: 0.95rem;
-      }
-
-      .hero {
-        padding: 36px 18px 32px;
-      }
-
-      .cards-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-      }
-
-      .card {
-        padding: 20px 16px;
-      }
-
-      .cal-day {
-        min-height: 40px;
-        padding: 4px 2px;
-      }
-
-      .cal-day-num {
-        font-size: 0.72rem;
-      }
-
-      .event-date-badge {
-        font-size: 0.65rem;
-        padding: 3px 6px;
-      }
+      header { padding: 14px 18px; }
+      .header-logo img { height: 38px; }
+      .hero { padding: 36px 18px 32px; }
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .card { padding: 20px 16px; }
+      .cal-day { min-height: 40px; padding: 4px 2px; }
+      .cal-day-num { font-size: 0.72rem; }
+      .event-date-badge { font-size: 0.65rem; padding: 3px 6px; }
     }
-
     @media (max-width: 380px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
+      .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── Header ────────────────────────────────────── -->
   <header>
     <a class="header-logo" href="#">
       <img
@@ -456,35 +268,27 @@
     </a>
   </header>
 
-  <!-- ── Hero ──────────────────────────────────────── -->
   <section class="hero">
     <h1>Central de Links — DashEagles</h1>
     <p>Tudo o que você precisa para acompanhar sua jornada em um só lugar.</p>
   </section>
 
-  <!-- ── Conteúdo principal ─────────────────────────── -->
   <main>
 
-    <!-- SEÇÃO: Calendário (primeiro) -->
+    <!-- SEÇÃO: Calendário -->
     <section>
       <h2 class="section-title">Agenda de Setembro · 2026</h2>
       <p class="section-subtitle">Compromissos do mês — não perca nenhum encontro importante.</p>
 
       <div class="calendar-wrapper">
-
         <div class="calendar-header">
           <h3>📆 Setembro 2026</h3>
         </div>
-
         <div class="calendar-body">
-
-          <!-- Layout lado a lado: grade + legenda -->
           <div class="calendar-layout">
 
-            <!-- Grade do calendário de setembro -->
+            <!-- Grade -->
             <div class="calendar-grid">
-
-              <!-- Cabeçalho dias da semana -->
               <div class="cal-weekday">Dom</div>
               <div class="cal-weekday">Seg</div>
               <div class="cal-weekday">Ter</div>
@@ -493,10 +297,10 @@
               <div class="cal-weekday">Sex</div>
               <div class="cal-weekday">Sáb</div>
 
-              <!-- Semana 1: 01/09 = terça-feira (col 3) -->
+              <!-- Semana 1: 01/09 = terça -->
               <div class="cal-day empty"></div>
               <div class="cal-day empty"></div>
-              <div class="cal-day has-event"><span class="cal-day-num">1</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-karen"><span class="cal-day-num">1</span><div class="cal-dot"></div></div>
               <div class="cal-day"><span class="cal-day-num">2</span></div>
               <div class="cal-day"><span class="cal-day-num">3</span></div>
               <div class="cal-day"><span class="cal-day-num">4</span></div>
@@ -505,7 +309,7 @@
               <!-- Semana 2 -->
               <div class="cal-day"><span class="cal-day-num">6</span></div>
               <div class="cal-day"><span class="cal-day-num">7</span></div>
-              <div class="cal-day has-event"><span class="cal-day-num">8</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-jessica"><span class="cal-day-num">8</span><div class="cal-dot"></div></div>
               <div class="cal-day"><span class="cal-day-num">9</span></div>
               <div class="cal-day"><span class="cal-day-num">10</span></div>
               <div class="cal-day"><span class="cal-day-num">11</span></div>
@@ -513,8 +317,8 @@
 
               <!-- Semana 3 -->
               <div class="cal-day"><span class="cal-day-num">13</span></div>
-              <div class="cal-day has-event"><span class="cal-day-num">14</span><div class="cal-dot"></div></div>
-              <div class="cal-day has-event"><span class="cal-day-num">15</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-imersao"><span class="cal-day-num">14</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-jessica"><span class="cal-day-num">15</span><div class="cal-dot"></div></div>
               <div class="cal-day"><span class="cal-day-num">16</span></div>
               <div class="cal-day"><span class="cal-day-num">17</span></div>
               <div class="cal-day"><span class="cal-day-num">18</span></div>
@@ -522,8 +326,8 @@
 
               <!-- Semana 4 -->
               <div class="cal-day"><span class="cal-day-num">20</span></div>
-              <div class="cal-day has-event"><span class="cal-day-num">21</span><div class="cal-dot"></div></div>
-              <div class="cal-day has-event"><span class="cal-day-num">22</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-imersao"><span class="cal-day-num">21</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-karen"><span class="cal-day-num">22</span><div class="cal-dot"></div></div>
               <div class="cal-day"><span class="cal-day-num">23</span></div>
               <div class="cal-day"><span class="cal-day-num">24</span></div>
               <div class="cal-day"><span class="cal-day-num">25</span></div>
@@ -531,119 +335,112 @@
 
               <!-- Semana 5 -->
               <div class="cal-day"><span class="cal-day-num">27</span></div>
-              <div class="cal-day has-event"><span class="cal-day-num">28</span><div class="cal-dot"></div></div>
-              <div class="cal-day has-event"><span class="cal-day-num">29</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-comunidade"><span class="cal-day-num">28</span><div class="cal-dot"></div></div>
+              <div class="cal-day ev-jessica"><span class="cal-day-num">29</span><div class="cal-dot"></div></div>
               <div class="cal-day"><span class="cal-day-num">30</span></div>
               <div class="cal-day empty"></div>
               <div class="cal-day empty"></div>
               <div class="cal-day empty"></div>
-
             </div>
-            <!-- fim calendar-grid -->
 
             <!-- Legenda à direita -->
             <div class="events-list">
-
               <p class="events-list-title">Compromissos</p>
 
+              <!-- Chave de cores -->
+              <div class="legend-keys">
+                <span class="legend-key">
+                  <span class="legend-key-dot" style="background:var(--brand-orange)"></span>
+                  Encontro com a Karen
+                </span>
+                <span class="legend-key">
+                  <span class="legend-key-dot" style="background:var(--brand-purple)"></span>
+                  Encontro com a Jéssica
+                </span>
+                <span class="legend-key">
+                  <span class="legend-key-dot" style="background:var(--brand-blue)"></span>
+                  Imersão Copilot
+                </span>
+                <span class="legend-key">
+                  <span class="legend-key-dot" style="background:var(--brand-green)"></span>
+                  Aula de Dúvidas
+                </span>
+              </div>
+
               <div class="event-item">
-                <span class="event-date-badge">01 Set</span>
+                <span class="event-date-badge badge-karen">01 Set</span>
                 <p class="event-desc"><strong>Encontro com a Karen</strong></p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">08 Set</span>
+                <span class="event-date-badge badge-jessica">08 Set</span>
                 <p class="event-desc"><strong>Encontro com a Jéssica</strong></p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">14 Set</span>
+                <span class="event-date-badge badge-imersao">14 Set</span>
                 <p class="event-desc"><strong>Imersão Copilot</strong> — Aula 1</p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">15 Set</span>
+                <span class="event-date-badge badge-jessica">15 Set</span>
                 <p class="event-desc"><strong>Encontro com a Jéssica</strong></p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">21 Set</span>
+                <span class="event-date-badge badge-imersao">21 Set</span>
                 <p class="event-desc"><strong>Imersão Copilot</strong> — Aula 2</p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">22 Set</span>
+                <span class="event-date-badge badge-karen">22 Set</span>
                 <p class="event-desc"><strong>Encontro com a Karen</strong></p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">28 Set</span>
+                <span class="event-date-badge badge-comunidade">28 Set</span>
                 <p class="event-desc"><strong>Aula de Dúvidas</strong> — Comunidade Efeito UAU</p>
               </div>
-
               <div class="event-item">
-                <span class="event-date-badge">29 Set</span>
+                <span class="event-date-badge badge-jessica">29 Set</span>
                 <p class="event-desc"><strong>Encontro com a Jéssica</strong></p>
               </div>
-
             </div>
-            <!-- fim events-list -->
 
           </div>
-          <!-- fim calendar-layout -->
-
         </div>
-        <!-- fim calendar-body -->
       </div>
-      <!-- fim calendar-wrapper -->
-
     </section>
 
-    <!-- SEÇÃO: Acesso Rápido (segundo) -->
+    <!-- SEÇÃO: Acesso Rápido -->
     <section>
       <h2 class="section-title">Acesso Rápido</h2>
       <p class="section-subtitle">Acesse os principais recursos da sua mentoria com um clique.</p>
 
       <div class="cards-grid">
-
-        <!-- Card 1: Encontro semanal -->
         <div class="card">
           <div class="card-icon">📺</div>
           <h3>Encontro Semanal</h3>
           <p>Acesse o link do encontro ao vivo da semana e acompanhe o passo a passo em tempo real.</p>
           <a href="https://teams.microsoft.com/meet/22553232127145?p=Iv3bx0uv7OyneqPj6X" class="btn btn-primary">Entrar no encontro</a>
         </div>
-
-        <!-- Card 2: Marcar encontro individual -->
         <div class="card">
           <div class="card-icon">📅</div>
           <h3>Encontro Individual</h3>
           <p>Reserve um horário para uma sessão individual e avance com mais clareza na sua jornada.</p>
           <a href="https://koalendar.com/e/encontro-individual-dasheagles" class="btn btn-primary">Marcar sessão</a>
         </div>
-
-        <!-- Card 3: Área de membros -->
         <div class="card">
           <div class="card-icon">🔐</div>
           <h3>Área de Membros</h3>
           <p>Acesse as gravações, materiais e todo o conteúdo da mentoria na plataforma de aulas.</p>
           <a href="https://hotmart.com/pt-br/club/karenabecia/products/1017484" class="btn btn-green">Acessar plataforma</a>
         </div>
-
-        <!-- Card 4: Central de Agentes -->
         <div class="card">
           <div class="card-icon">🤖</div>
           <h3>Central de Agentes</h3>
           <p>Explore os agentes de I.A. disponíveis para acelerar suas análises e entregas com mais resultado.</p>
           <a href="https://site.escolakarenabecia.com/agentes.ia/" class="btn btn-primary">Acessar agentes</a>
         </div>
-
       </div>
     </section>
 
   </main>
 
-  <!-- ── Footer ─────────────────────────────────────── -->
   <footer>
     <p>© Todos os direitos reservados para Escola Karen Abecia — 2026</p>
   </footer>
