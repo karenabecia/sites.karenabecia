@@ -253,6 +253,142 @@
     .whatsapp-green { fill: #25D366; }
     .youtube-red    { fill: #FF0000; }
     .linkedin-blue  { fill: #0A66C2; }
+
+    /* Card Imersão Copilot — efeito de profundidade e borda animada */
+    .copilot-card {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      padding: 2px;
+      border-radius: 20px;
+      background: #25202e;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .copilot-card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -120%;
+      background: conic-gradient(from 0deg, transparent 0 16%, #bf66f1 24%, #ffffff 27%, #bf66f1 30%, transparent 38% 65%, #7030A0 76%, transparent 85%);
+      animation: copilot-border-spin 7s linear infinite;
+    }
+    .copilot-card-inner {
+      position: relative;
+      min-height: 252px;
+      padding: 25px 24px 24px;
+      border-radius: 18px;
+      background: #100e18;
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      transition: background .35s ease;
+    }
+    .copilot-accent {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 100% 0%, rgba(191,102,241,.24), transparent 55%);
+      pointer-events: none;
+    }
+    .copilot-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    .copilot-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      color: #d9b2fa;
+      margin-bottom: 12px;
+    }
+    .copilot-dot {
+      width: 7px;
+      height: 7px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #bf66f1;
+      box-shadow: 0 0 12px rgba(191,102,241,.8);
+    }
+    .copilot-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.22rem, 5vw, 1.55rem);
+      line-height: 1.28;
+      letter-spacing: -.025em;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    .copilot-title span { color: #d9a5fa; }
+    .copilot-description {
+      margin: 10px 0 19px;
+      max-width: 340px;
+      color: #c9c4d2;
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+    .copilot-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      min-height: 46px;
+      padding: 13px 16px;
+      border-radius: 10px;
+      background: #bf66f1;
+      color: #170a21;
+      font-family: 'Poppins', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .copilot-button svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .copilot-button:hover, .copilot-button:focus-visible {
+      background: #d9a5fa;
+      box-shadow: 0 0 22px rgba(191,102,241,.3);
+    }
+    .copilot-button:active { transform: scale(.98); }
+    .copilot-decor {
+      position: absolute;
+      right: -75px;
+      top: -105px;
+      width: 275px;
+      height: 275px;
+      pointer-events: none;
+      opacity: .6;
+      transition: transform .6s ease, opacity .4s ease;
+    }
+    .copilot-orbit {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(191,102,241,.38);
+      border-radius: 38%;
+      transform: rotate(30deg);
+    }
+    .orbit-two { inset: 36px; border-radius: 42%; transform: rotate(65deg); }
+    .orbit-three { inset: 72px; border-radius: 35%; transform: rotate(15deg); }
+    .copilot-spark { position: absolute; left: 44px; bottom: 29px; color: #bf66f1; font-size: 22px; }
+    @keyframes copilot-border-spin { to { transform: rotate(360deg); } }
+    @media (hover: hover) and (pointer: fine) {
+      .copilot-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(55,20,84,.2);
+      }
+      .copilot-card:hover .copilot-decor { transform: rotate(18deg) scale(1.08); opacity: .9; }
+      .copilot-card:hover .copilot-card-inner { background: #171020; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .copilot-card, .copilot-card::before, .copilot-card-inner,
+      .copilot-decor, .copilot-button { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -272,19 +408,27 @@
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="main">
 
-    <!-- 1. Aniversário de 10 anos — banner clicável -->
-    <a
-      class="card-banner"
-      href="https://sites.karenabecia.com.br/10anos/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Aniversário de 10 anos da Escola Karen Abecia"
-    >
-      <img
-        src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/insta/bot%C3%A3o_insta.png"
-        alt="Aniversário de 10 anos da Escola Karen Abecia"
-      />
-    </a>
+    <!-- 1. Imersão Copilot — últimas vagas -->
+    <div class="copilot-card">
+      <div class="copilot-card-inner">
+        <div class="copilot-accent"></div>
+        <div class="copilot-content">
+          <div class="copilot-eyebrow"><span class="copilot-dot"></span> IMERSÃO COPILOT</div>
+          <h2 class="copilot-title">Últimas vagas para<br><span>Imersão de Copilot</span></h2>
+          <p class="copilot-description">Ao vivo e online, dias 14 e 21 de setembro.</p>
+          <a class="copilot-button" href="https://sites.karenabecia.com.br/imersao-copilot/" target="_blank" rel="noopener noreferrer">
+            Conheça o treinamento
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="copilot-decor" aria-hidden="true">
+          <div class="copilot-orbit orbit-one"></div>
+          <div class="copilot-orbit orbit-two"></div>
+          <div class="copilot-orbit orbit-three"></div>
+          <span class="copilot-spark">✦</span>
+        </div>
+      </div>
+    </div>
 
     <!-- 2. Implementação Claude — próxima turma -->
     <div class="card card-claude">
