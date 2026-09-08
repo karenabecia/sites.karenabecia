@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Projeto | Sistema de Cotações</title><style>
+:root{--bg:#f5f6f8;--ink:#172033;--muted:#657186;--line:#e2e6ed;--white:#fff;--accent:#7030a0;--light:#f0e8f8;--green:#178553;--orange:#e87928}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}button,input{font:inherit}button{cursor:pointer}.sidebar{position:fixed;inset:0 auto 0 0;width:252px;background:#fff;border-right:1px solid var(--line);padding:25px 16px;z-index:5;overflow:auto}.brand{font-weight:850;font-size:18px;line-height:1.25;padding:0 10px 25px}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:1.8px;margin-bottom:8px}.nav{display:grid;gap:3px}.nav a{display:block;padding:10px 12px;border-radius:9px;color:#526077;text-decoration:none;font-size:13px;font-weight:650}.nav a:hover,.nav a.active{background:var(--light);color:var(--accent)}.sidefoot{margin-top:30px;padding:12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}main{margin-left:252px;padding:40px clamp(22px,5vw,72px) 90px;max-width:1530px}.topline{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:26px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;font-weight:800;color:var(--accent)}.pill{border:1px solid var(--line);border-radius:30px;padding:5px 12px;color:var(--muted);font-size:12px;background:#fff}.hero{background:#172033;border-radius:22px;color:#fff;padding:clamp(27px,5vw,52px);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:320px;height:320px;border:1px solid #ffffff15;border-radius:50%;right:-70px;top:-170px;box-shadow:0 0 0 55px #ffffff05,0 0 0 110px #ffffff04}.hero h1{font-size:clamp(29px,4vw,47px);line-height:1.12;letter-spacing:-1.5px;max-width:700px;margin:17px 0}.hero p{color:#c4ccda;max-width:670px;font-size:16px}.hero .eyebrow{color:#cba5ed}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 16px;border-radius:9px;font-size:13px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}.btn:hover{filter:brightness(.97)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.dark{background:#fff;color:#172033;border-color:#fff}.btn.ghost{background:transparent;color:inherit}.section{scroll-margin-top:25px;margin-top:58px}.section-head{margin-bottom:23px}.section-head h2{font-size:clamp(24px,3vw,31px);line-height:1.2;letter-spacing:-.7px;margin:7px 0 10px}.section-head p{max-width:760px;color:var(--muted);margin:0}.kicker{font-size:11px;font-weight:850;letter-spacing:1.6px;color:var(--accent);text-transform:uppercase}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}.card h3{font-size:16px;margin:0 0 9px;line-height:1.35}.card p{font-size:13px;color:var(--muted);margin:0}.card .icon{width:38px;height:38px;background:var(--light);color:var(--accent);border-radius:10px;display:grid;place-items:center;font-size:18px;font-weight:800;margin-bottom:17px}.tag{display:inline-block;color:var(--accent);background:var(--light);font-size:10px;font-weight:800;padding:4px 8px;border-radius:5px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}.tool-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center}.tool-flow .card{height:100%}.arrow{font-size:24px;color:#9ca5b4}.note{padding:17px 20px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;color:#526077;font-size:13px;margin-top:17px}.note strong{color:var(--ink)}.journey{display:grid;gap:10px}.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}.num{flex:0 0 32px;height:32px;border-radius:9px;background:var(--light);color:var(--accent);font-weight:800;display:grid;place-items:center}.step h3{margin:0 0 4px;font-size:15px}.step p{margin:0;color:var(--muted);font-size:13px}.screen{display:flex;flex-direction:column}.screen .screen-no{font-size:11px;font-weight:850;color:var(--accent);margin-bottom:12px}.screen ul{padding-left:18px;margin:12px 0 0;color:#526077;font-size:13px}.screen li{margin:5px 0}.screen p{flex:0}.wide{grid-column:1/-1}.statusrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.status{font-size:11px;font-weight:750;padding:5px 9px;border-radius:20px;background:#edf0f5;color:#59677b}.status.purple{background:#f0e8f8;color:#7030a0}.status.green{background:#e4f5eb;color:#178553}.status.orange{background:#fff0e3;color:#a75a1b}.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}th,td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f9fafb;color:#59677b;font-size:11px;text-transform:uppercase;letter-spacing:.5px}tr:last-child td{border-bottom:0}td:first-child{font-weight:750;white-space:nowrap}td{color:#526077}.phase{display:flex;gap:20px;padding:23px 0;border-bottom:1px solid var(--line)}.phase:last-child{border:0}.phase-number{font-size:12px;font-weight:850;color:var(--accent);background:var(--light);border-radius:9px;padding:8px 12px;height:max-content;white-space:nowrap}.phase h3{margin:0 0 7px;font-size:16px}.phase p{margin:0;color:var(--muted);font-size:13px}.promptbox{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}.promptbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.promptbar strong{font-size:13px}.promptbar span{font-size:12px;color:var(--muted)}.prompt{margin:0;padding:25px;max-height:570px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;color:#344055;background:#fbfcfe}.footer{margin-top:55px;padding-top:23px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.mobilebar{display:none}.overlay{display:none}@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tool-flow{grid-template-columns:1fr;gap:10px}.tool-flow .card{height:auto}.arrow{transform:rotate(90deg);text-align:center;line-height:1}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .2s;width:270px}.sidebar.open{transform:translateX(0)}.overlay.show{display:block;position:fixed;inset:0;background:#17203380;z-index:4}.mobilebar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}.mobilebar button{border:0;background:#f0e8f8;border-radius:8px;padding:7px 12px;color:var(--accent);font-size:20px}main{margin:0;padding:24px 17px 65px}.grid,.grid.two{grid-template-columns:1fr}.wide{grid-column:auto}.hero{border-radius:15px}.section{margin-top:43px;scroll-margin-top:75px}.card{padding:19px}.phase{gap:12px}.prompt{padding:17px;max-height:490px}.topline{margin-bottom:18px}}
+</style></head><body>
+<div class="mobilebar"><strong>Sistema de Cotações</strong><button id="menuBtn" aria-label="Abrir menu">☰</button></div><div class="overlay" id="overlay"></div>
+<aside class="sidebar" id="sidebar"><div class="brand"><small>ESCOLA KAREN ABECIA</small>Sistema de<br>Cotações</div><nav class="nav" id="nav"><a href="#inicio">Visão geral</a><a href="#ferramentas">Lógica das ferramentas</a><a href="#jornada">Jornada da cotação</a><a href="#telas">Telas e funcionalidades</a><a href="#regras">Regras do processo</a><a href="#planilhas">Estrutura das planilhas</a><a href="#etapas">Etapas de criação</a><a href="#prompt">Prompt copia e cola</a></nav><div class="sidefoot">Material de apoio para apresentação e desenvolvimento do projeto.</div></aside>
+<main><div class="topline"><span class="eyebrow">Projeto prático • Construção civil</span><span class="pill">Guia de funcionalidades</span></div>
+<section id="inicio" class="hero"><span class="eyebrow">Do pedido à contratação</span><h1>Um sistema para organizar as compras de cada obra.</h1><p>Uma central onde engenheiros solicitam produtos e serviços, fornecedores enviam propostas e a equipe de compras acompanha cada negociação até o faturamento.</p><div class="hero-actions"><a class="btn dark" href="#ferramentas">Entender o projeto ↓</a><a class="btn ghost" href="#prompt">Ir para o prompt →</a></div></section>
+<section class="section" id="ferramentas"><div class="section-head"><span class="kicker">01 / Como tudo se conecta</span><h2>A lógica das ferramentas</h2><p>O sistema utiliza três peças principais. Cada uma possui uma função diferente, mas juntas formam a aplicação que será utilizada pela empresa.</p></div><div class="tool-flow"><article class="card"><div class="icon">1</div><span class="tag">Interface</span><h3>GitHub Pages</h3><p>É onde a página do sistema fica publicada. Os usuários acessam pelo navegador, visualizam as telas, preenchem formulários e acompanham as informações.</p></article><div class="arrow">→</div><article class="card"><div class="icon">2</div><span class="tag">Comunicação</span><h3>Google Apps Script</h3><p>Recebe as ações realizadas nas telas, consulta ou atualiza as informações e devolve os resultados. Faz a ligação entre o site e as planilhas.</p></article><div class="arrow">→</div><article class="card"><div class="icon">3</div><span class="tag">Base de dados</span><h3>Google Sheets</h3><p>Armazena os cadastros, projetos, solicitações, propostas e históricos. Cada aba organiza um conjunto de informações, funcionando como as tabelas do sistema.</p></article></div><div class="grid two" style="margin-top:14px"><div class="card"><h3>O que o usuário enxerga?</h3><p>Uma página com login, menu lateral, Dashboard, formulários, tabelas e botões. Não é necessário abrir as planilhas para realizar o trabalho diário.</p></div><div class="card"><h3>O que acontece ao salvar?</h3><p>O formulário envia os dados, a informação é registrada na planilha correspondente e as outras telas passam a apresentar os registros atualizados.</p></div></div><div class="note"><strong>Exemplo:</strong> o engenheiro seleciona a obra e cadastra uma solicitação. O sistema grava o registro no Google Sheets, e a equipe de compras passa a enxergá-lo na sua fila de aprovação.</div></section>
+<section class="section" id="jornada"><div class="section-head"><span class="kicker">02 / Processo de negócio</span><h2>A jornada de uma cotação</h2><p>Da criação do projeto até a conclusão financeira, cada etapa possui um responsável e um registro de acompanhamento.</p></div><div class="journey"><div class="step"><div class="num">1</div><div><h3>Compras cadastra a obra</h3><p>O projeto recebe um ID único, que será utilizado para conectar todas as solicitações e cotações daquela obra.</p></div></div><div class="step"><div class="num">2</div><div><h3>Engenheiro envia a solicitação</h3><p>Seleciona o projeto e informa os produtos ou serviços necessários, quantidades, detalhes, plantas, prazos e o valor disponível para a etapa.</p></div></div><div class="step"><div class="num">3</div><div><h3>Compras analisa e aceita o pedido</h3><p>A equipe pode aprovar, pedir ajustes ou rejeitar a solicitação. Depois de aceita, define o prazo e os fornecedores convidados.</p></div></div><div class="step"><div class="num">4</div><div><h3>Fornecedores enviam propostas</h3><p>Cada fornecedor recebe um link próprio e preenche sua cotação, com valores, condições, prazos e documentos, sem acessar as informações internas da empresa.</p></div></div><div class="step"><div class="num">5</div><div><h3>Compras compara e negocia</h3><p>As propostas são avaliadas e podem voltar aos fornecedores para novas rodadas. Cada versão é preservada, incluindo valores, datas e responsáveis.</p></div></div><div class="step"><div class="num">6</div><div><h3>Contratação e faturamento</h3><p>A proposta escolhida é marcada como contratada. A solicitação é fechada, encaminhada ao financeiro e permanece disponível para consulta e auditoria.</p></div></div></div></section>
+<section class="section" id="telas"><div class="section-head"><span class="kicker">03 / Estrutura do sistema</span><h2>Telas e funcionalidades</h2><p>O menu lateral centraliza o trabalho. Cada perfil visualiza as telas e ações necessárias para sua participação no processo.</p></div><div class="grid">
+<article class="card screen"><span class="screen-no">TELA 01</span><h3>Login</h3><p>Acesso interno por usuário e senha, com cadastros controlados pelo Google Sheets.</p><ul><li>Cadastro de usuários pela administração.</li><li>Login, senha e situação ativo/inativo.</li><li>Perfil de acesso e projetos autorizados.</li><li>Usuários inativos não podem entrar.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 02</span><h3>Início</h3><p>Central de navegação com resumo das atividades e atalhos para os principais processos.</p><ul><li>Menu lateral.</li><li>Indicadores de atenção.</li><li>Solicitações recentes.</li><li>Ações rápidas de cadastro e acompanhamento.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 03</span><h3>Cadastro de projetos</h3><p>Organiza as obras da empresa e cria a referência que conecta todos os registros.</p><ul><li>ID único do projeto.</li><li>Nome, cliente, local e responsáveis.</li><li>Orçamento, datas e status.</li><li>Edição e consulta dos dados da obra.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 04</span><h3>Dashboard</h3><p>Visão geral de todos os projetos, com filtro para analisar uma obra específica.</p><ul><li>Solicitações por status.</li><li>Valores previstos e contratados.</li><li>Economia em relação ao orçamento.</li><li>Prazos vencidos e pendências.</li><li>Gráficos e indicadores consolidados.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 05</span><h3>Nova solicitação</h3><p>Formulário para engenheiros e solicitantes, também disponível por um link separado.</p><ul><li>Seleção obrigatória do ID do projeto.</li><li>Produto ou serviço, descrição e quantidade.</li><li>Plantas, imagens e documentos por link.</li><li>Detalhes de contratação e orçamento disponível.</li><li>Prazo, prioridade e envio para aprovação.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 06</span><h3>Aprovação de solicitações</h3><p>Fila da equipe de compras para conferir o que foi solicitado antes de iniciar as cotações.</p><ul><li>Aceitar, rejeitar ou solicitar ajustes.</li><li>Definir prazo de recebimento.</li><li>Selecionar fornecedores.</li><li>Registrar observações e histórico.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 07</span><h3>Cadastro de fornecedores</h3><p>Base de contatos e empresas que poderão ser convidadas a participar das cotações.</p><ul><li>Razão social, CNPJ, contato e e-mail.</li><li>Categorias e região de atendimento.</li><li>Situação ativo/inativo.</li><li>Histórico de participação.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 08</span><h3>Cotação do fornecedor</h3><p>Página externa acessada por um link individual, sem necessidade de entrar no sistema interno.</p><ul><li>Detalhes da solicitação e arquivos.</li><li>Valores unitários e totais.</li><li>Prazo, pagamento, frete e garantias.</li><li>Envio de proposta comercial.</li><li>Resposta às novas rodadas de negociação.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 09</span><h3>Cotações e comparação</h3><p>Área de compras para visualizar as propostas recebidas e comparar as condições comerciais.</p><ul><li>Filtros por obra, item, fornecedor e status.</li><li>Mapa comparativo de preços e prazos.</li><li>Documentos e observações.</li><li>Seleção da proposta e início da negociação.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 10</span><h3>Acompanhamento por projeto</h3><p>Uma visão completa da obra, com informações gerais no topo e lista de solicitações abaixo.</p><ul><li>Resumo de orçamento e andamento.</li><li>Status e última atualização de cada pedido.</li><li>Quantidade de propostas recebidas.</li><li>Clique para abrir propostas e histórico.</li><li>Filtros por período, categoria e status.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 11</span><h3>Negociação</h3><p>Histórico completo das idas e vindas de cada proposta, preservando todas as versões.</p><ul><li>Rodada 1, 2, 3 e assim por diante.</li><li>Valores e condições de cada versão.</li><li>Datas, responsáveis e documentos.</li><li>Declinar, continuar negociando ou contratar.</li></ul></article>
+<article class="card screen"><span class="screen-no">TELA 12</span><h3>Faturamento</h3><p>Recebe os processos fechados e apresenta os dados necessários para a continuidade financeira.</p><ul><li>Fornecedor e valor contratado.</li><li>Condições de pagamento.</li><li>Pedido, contrato e documentos.</li><li>Status e data de conclusão.</li></ul></article>
+<article class="card screen wide"><span class="screen-no">TELA 13</span><h3>Configurações e listas suspensas</h3><p>Área administrativa para manter os cadastros que alimentam os formulários, sem precisar alterar o código do sistema.</p><div class="statusrow"><span class="status">Categorias</span><span class="status">Unidades de medida</span><span class="status">Centros de custo</span><span class="status">Etapas da obra</span><span class="status">Prioridades</span><span class="status">Condições de pagamento</span><span class="status">Regiões</span><span class="status">Outros parâmetros</span></div></article>
+</div></section>
+<section class="section" id="regras"><div class="section-head"><span class="kicker">04 / Regras importantes</span><h2>Como os registros devem funcionar</h2><p>Essas regras garantem que o histórico seja preservado e que seja possível acompanhar o processo sem perder informações.</p></div><div class="grid two"><article class="card"><div class="icon">ID</div><h3>Tudo pertence a um projeto</h3><p>A solicitação deve ter um ID único e estar ligada ao ID da obra. Cada proposta pertence a uma solicitação e a um fornecedor. O projeto é selecionado no formulário, e seu ID é preenchido automaticamente.</p></article><article class="card"><div class="icon">↻</div><h3>Negociações preservam versões</h3><p>Uma nova proposta não apaga a anterior. O histórico permite saber quantas rodadas aconteceram, quem respondeu e como os valores e condições mudaram até a contratação.</p></article><article class="card"><div class="icon">✓</div><h3>Status de solicitação e proposta</h3><p>A solicitação representa o andamento da compra. Cada proposta possui seu próprio status, permitindo que vários fornecedores estejam em negociação enquanto apenas um é contratado, conforme a regra definida.</p><div class="statusrow"><span class="status orange">Aberto</span><span class="status purple">Em negociação</span><span class="status green">Fechado</span><span class="status">Declinado</span></div></article><article class="card"><div class="icon">○</div><h3>Links externos controlados</h3><p>Engenheiros e fornecedores utilizam páginas específicas. O fornecedor deve visualizar somente a cotação destinada a ele, sem acesso aos valores internos disponíveis ou às propostas de concorrentes.</p></article></div><div class="note"><strong>Login simplificado:</strong> a administração mantém uma aba com usuário, login, senha protegida, perfil e situação ativo/inativo. O sistema consulta esse cadastro para autorizar o acesso. Mesmo com uma gestão simples, as senhas não devem ficar visíveis no site público nem ser armazenadas em texto puro.</div></section>
+<section class="section" id="planilhas"><div class="section-head"><span class="kicker">05 / Organização dos dados</span><h2>Estrutura das planilhas</h2><p>Uma planilha principal pode conter diferentes abas. Cada aba guarda um tipo de informação e utiliza IDs para conectar os registros.</p></div><div class="tablewrap"><table><thead><tr><th>Aba</th><th>O que armazena</th><th>Exemplos de informações</th></tr></thead><tbody><tr><td>Usuários</td><td>Controle de acesso interno.</td><td>ID, nome, login/e-mail, senha protegida, perfil, ativo/inativo.</td></tr><tr><td>Projetos</td><td>Cadastro das obras.</td><td>ID, nome, cliente, responsáveis, orçamento, datas e status.</td></tr><tr><td>Usuários por Projeto</td><td>Define a quais obras cada pessoa tem acesso.</td><td>ID do usuário, ID do projeto e permissão.</td></tr><tr><td>Solicitações</td><td>Pedidos realizados pelos engenheiros.</td><td>ID, projeto, solicitante, datas, orçamento, prioridade e status.</td></tr><tr><td>Itens</td><td>Produtos ou serviços de cada solicitação.</td><td>ID, solicitação, descrição, quantidade, unidade e detalhes.</td></tr><tr><td>Fornecedores</td><td>Cadastro das empresas e contatos.</td><td>ID, razão social, CNPJ, e-mail, categoria e situação.</td></tr><tr><td>Convites</td><td>Controle de quem foi convidado para cotar.</td><td>ID, solicitação, fornecedor, prazo, link e situação.</td></tr><tr><td>Propostas</td><td>Registro principal de cada proposta.</td><td>ID, projeto, solicitação, fornecedor, status e versão atual.</td></tr><tr><td>Versões das Propostas</td><td>Histórico das rodadas de negociação.</td><td>ID, proposta, rodada, valores, condições, data e responsável.</td></tr><tr><td>Histórico</td><td>Registro das mudanças e decisões.</td><td>Registro relacionado, ação, status, usuário, data e observação.</td></tr><tr><td>Faturamento</td><td>Processos contratados enviados ao financeiro.</td><td>Solicitação, fornecedor, valor, pedido, contrato e situação.</td></tr><tr><td>Configurações</td><td>Itens que alimentam listas suspensas.</td><td>Tipo, código, descrição, ordem e ativo/inativo.</td></tr></tbody></table></div><div class="note"><strong>Por que separar as abas?</strong> Uma obra pode ter muitas solicitações, uma solicitação pode ter vários itens e cada item pode receber diversas propostas. Essa organização permite consultar tudo sem repetir informações desnecessariamente.</div></section>
+<section class="section" id="etapas"><div class="section-head"><span class="kicker">06 / Roteiro das aulas</span><h2>Etapas de criação do sistema</h2><p>O desenvolvimento será feito em partes funcionais, começando pela estrutura e avançando até a negociação e os indicadores.</p></div><div class="card"><div class="phase"><span class="phase-number">ETAPA 01</span><div><h3>Planejamento e organização</h3><p>Definir o fluxo, as telas, os campos, os status e as permissões. Criar o desenho das abas e entender como os IDs conectam cada informação.</p></div></div><div class="phase"><span class="phase-number">ETAPA 02</span><div><h3>Preparação do Google Sheets</h3><p>Criar a planilha principal, as abas, os cabeçalhos e as listas suspensas. Preparar os cadastros iniciais e o controle de usuários.</p></div></div><div class="phase"><span class="phase-number">ETAPA 03</span><div><h3>Primeiras telas e login</h3><p>Criar a página inicial, o menu lateral e o acesso dos usuários. Conectar os primeiros formulários para que os dados sejam salvos e consultados na planilha.</p></div></div><div class="phase"><span class="phase-number">ETAPA 04</span><div><h3>Projetos e solicitações</h3><p>Construir o cadastro de obras, a seleção obrigatória do projeto, o formulário dos engenheiros e a fila de aprovação da equipe de compras.</p></div></div><div class="phase"><span class="phase-number">ETAPA 05</span><div><h3>Fornecedores e cotações</h3><p>Cadastrar fornecedores, criar os convites individuais e desenvolver a página externa para envio de propostas, com seus documentos e condições comerciais.</p></div></div><div class="phase"><span class="phase-number">ETAPA 06</span><div><h3>Comparação e negociação</h3><p>Montar o mapa comparativo, permitir novas rodadas de proposta e preservar o histórico completo até a escolha do fornecedor contratado.</p></div></div><div class="phase"><span class="phase-number">ETAPA 07</span><div><h3>Acompanhamento, Dashboard e faturamento</h3><p>Criar os indicadores gerais e por obra, a tela de acompanhamento das solicitações e o encaminhamento dos processos fechados ao financeiro.</p></div></div><div class="phase"><span class="phase-number">ETAPA 08</span><div><h3>Testes e publicação</h3><p>Testar a jornada completa com diferentes perfis, conferir registros e permissões, corrigir problemas e publicar a versão final no GitHub Pages.</p></div></div></div></section>
+<section class="section" id="prompt"><div class="section-head"><span class="kicker">07 / Material para copiar</span><h2>Prompt completo do projeto</h2><p>Use este texto como ponto de partida para orientar a IA. Ele descreve as funcionalidades e o processo de negócio, deixando a implementação técnica para ser definida durante o desenvolvimento.</p></div><div class="promptbox"><div class="promptbar"><div><strong>Especificação do Sistema de Cotações</strong><br><span>Prompt editável e pronto para copiar</span></div><button class="btn primary" id="copyBtn" type="button">Copiar prompt</button></div><pre class="prompt" id="promptText"></pre></div><div class="note">O prompt foi organizado para que a IA apresente primeiro o planejamento e depois desenvolva cada etapa. O conteúdo pode ser ajustado conforme as regras reais da empresa forem definidas.</div></section>
+<footer class="footer">Escola Karen Abecia • Material de apoio didático • Projeto de sistema de cotações para construção civil.</footer></main>
+<script>
+const promptText = `Atue como um especialista em criação de sistemas e em organização de processos de compras para empresas de construção civil.
+
+Quero desenvolver um sistema web para gerenciar solicitações, cotações e negociações de produtos e serviços utilizados em diferentes obras. O sistema ficará publicado no GitHub Pages, utilizará o Google Sheets como base de dados e o Google Apps Script para fazer a comunicação entre as páginas e as planilhas.
+
+O foco principal é criar uma plataforma funcional, intuitiva e organizada, que substitua controles manuais e permita acompanhar o processo desde o pedido do engenheiro até a contratação e o faturamento.
+
+Antes de começar a programar, apresente a estrutura do sistema, as telas, os campos, as regras do processo e a organização das abas do Google Sheets. Evite explicações técnicas excessivas; explique as decisões de forma didática e orientada ao funcionamento do negócio.
+
+1. LÓGICA DAS FERRAMENTAS
+
+O GitHub Pages será utilizado para publicar a interface que as pessoas acessam pelo navegador. O Google Sheets será a base onde os cadastros, solicitações, propostas e históricos ficam armazenados. O Google Apps Script fará a ligação entre as telas e as planilhas, permitindo consultar, cadastrar e atualizar informações.
+
+O usuário deve trabalhar pelas telas do sistema, sem precisar acessar diretamente as planilhas para executar as tarefas do dia a dia. As planilhas serão utilizadas principalmente para armazenar os dados e para a administração dos cadastros.
+
+2. LOGIN E CONTROLE DE USUÁRIOS
+
+Criar uma tela de login com usuário e senha. O controle será realizado por uma aba do Google Sheets, com os seguintes campos:
+
+- ID do usuário.
+- Nome do usuário.
+- Login (e-mail ou identificação de acesso).
+- Senha protegida.
+- Perfil de acesso.
+- Situação: ativo ou inativo.
+- Projetos aos quais possui acesso, quando aplicável.
+
+A administração deverá conseguir cadastrar, editar e desativar usuários pela planilha. Um usuário inativo não poderá acessar o sistema.
+
+Manter a experiência de login simples, mas sem deixar senhas visíveis no código público ou armazená-las em texto puro. A validação do acesso deve ser feita de forma protegida, sem expor a planilha de usuários ao navegador.
+
+Perfis previstos: Administrador, Compras, Engenheiro/Solicitante e Financeiro. Os fornecedores utilizarão links individuais para enviar suas cotações, sem acesso ao sistema interno.
+
+3. TELA INICIAL E MENU LATERAL
+
+Criar uma página inicial que centralize os processos, com um menu lateral que permita acessar todas as áreas. O menu deve apresentar apenas as opções autorizadas para cada perfil.
+
+Áreas: Início, Dashboard, Projetos, Solicitações, Cotações, Acompanhamento, Fornecedores, Faturamento e Configurações.
+
+A tela inicial deve apresentar um resumo das atividades, solicitações que precisam de atenção, indicadores e atalhos para as ações mais utilizadas.
+
+4. CADASTRO DE PROJETOS
+
+Criar uma tela para cadastrar e administrar as obras da empresa.
+
+Campos: ID único gerado automaticamente, nome do projeto, código interno (se houver), cliente, endereço/localização, engenheiro responsável, responsável de compras, data de início, previsão de término, orçamento total, status e observações.
+
+Todas as solicitações e cotações deverão estar obrigatoriamente relacionadas a um projeto existente. O ID do projeto será a principal referência para conectar os registros.
+
+5. DASHBOARD
+
+Criar um Dashboard com indicadores de todos os projetos e a opção de filtrar por um projeto específico.
+
+Indicadores sugeridos: projetos ativos, total de solicitações, solicitações aguardando aprovação, abertas, em cotação, em negociação, fechadas e enviadas ao faturamento; valores previstos, propostas recebidas, valores contratados, economia em relação ao orçamento, prazos vencidos e negociações aguardando resposta.
+
+Incluir gráficos e tabelas para identificar o andamento das obras, os valores envolvidos e os processos que precisam de atenção. Todos os indicadores devem utilizar os dados reais das planilhas e respeitar os filtros selecionados.
+
+6. CADASTRO DE NOVA SOLICITAÇÃO
+
+Criar uma tela interna e um link separado para que engenheiros e pessoas autorizadas de fora do setor de compras possam cadastrar solicitações.
+
+O formulário deverá exigir a seleção do projeto em uma lista suspensa, exibindo o ID e o nome da obra. O ID deverá ser preenchido automaticamente no registro, sem depender de digitação manual.
+
+Campos sugeridos: ID único da solicitação, projeto, solicitante, data, tipo (produto ou serviço), categoria, nome do item ou serviço, descrição detalhada, quantidade, unidade de medida, local de entrega ou execução, prazo necessário, data limite para receber cotações, link da imagem ou planta, links de documentos, detalhes técnicos e de contratação, valor máximo disponível para aquela etapa, centro de custo, prioridade e observações.
+
+Permitir que uma solicitação contenha um ou mais itens, de maneira que os fornecedores possam apresentar valores por item e a equipe de compras consiga comparar as propostas. O formulário deve permitir salvar rascunho e enviar para aprovação.
+
+7. APROVAÇÃO DA SOLICITAÇÃO
+
+Após o envio, a solicitação deverá aparecer em uma fila da equipe de compras. A equipe poderá aceitar, solicitar ajustes ou rejeitar o pedido, sempre registrando o motivo ou observação quando necessário.
+
+Após a aprovação, compras poderá definir ou revisar o prazo para recebimento das propostas e selecionar os fornecedores que serão convidados. Registrar o usuário, a data e o histórico das decisões.
+
+8. CADASTRO DE FORNECEDORES
+
+Criar uma tela de cadastro contendo ID único, razão social, nome fantasia, CNPJ/CPF, contato, e-mail, telefone/WhatsApp, categorias atendidas, região de atendimento, situação ativo/inativo e observações.
+
+Permitir consultar o histórico de participação do fornecedor e selecioná-lo para receber convites de cotação.
+
+9. ENVIO DE COTAÇÕES PELOS FORNECEDORES
+
+Criar uma página externa, acessada por um link individual e controlado, para que o fornecedor possa enviar sua proposta sem entrar no sistema interno.
+
+A página deverá mostrar os dados necessários da solicitação: referência do projeto, produtos ou serviços, quantidades, especificações, plantas, documentos, prazo de envio e condições solicitadas.
+
+O fornecedor deverá preencher valores unitários e totais, prazo de entrega ou execução, condições de pagamento, validade da proposta, frete, demais custos, impostos quando aplicável, garantias, observações e link ou anexo da proposta comercial.
+
+O fornecedor não poderá visualizar propostas de concorrentes nem informações internas confidenciais, como o orçamento máximo disponível, salvo autorização expressa.
+
+10. TELA DE COTAÇÕES E COMPARAÇÃO
+
+Criar uma área para compras visualizar todas as solicitações em cotação e as propostas recebidas, com filtros por projeto, solicitação, fornecedor, categoria, status, período e prazo.
+
+Ao abrir uma solicitação, apresentar um mapa comparativo com fornecedores, valores, prazos, condições de pagamento, observações e documentos. A avaliação deve considerar preço e também os demais critérios comerciais e técnicos.
+
+11. NEGOCIAÇÃO E HISTÓRICO DE PROPOSTAS
+
+Uma proposta pode ser enviada e revisada várias vezes durante a negociação. É indispensável preservar todas as versões anteriores.
+
+Cada proposta deve possuir um ID único e estar vinculada ao projeto, à solicitação e ao fornecedor. Cada nova rodada deverá registrar o número da versão, data, responsável, valores, condições comerciais, prazo, observações e documentos.
+
+O sistema deve permitir comparar a primeira proposta com as versões seguintes, visualizar quantas vezes ela foi enviada e acompanhar toda a troca entre compras e fornecedor.
+
+Status possíveis de uma proposta: Recebida, Em análise, Em negociação, Aguardando fornecedor, Aguardando compras, Declinada e Fechada/Contratada.
+
+Compras poderá solicitar uma nova rodada, e o fornecedor poderá responder pelo seu link controlado. Uma proposta declinada deverá manter todo o histórico. A proposta escolhida será marcada como contratada.
+
+12. ACOMPANHAMENTO POR PROJETO
+
+Criar uma tela específica para acompanhar cada obra. No topo, apresentar as informações gerais do projeto, responsáveis, orçamento, valores contratados e indicadores de andamento.
+
+Na parte inferior, apresentar uma lista de todas as solicitações vinculadas ao projeto, com ID, produto ou serviço, solicitante, data de criação, prazo, status, data da última atualização, valor previsto, valor contratado e quantidade de propostas recebidas.
+
+Ao clicar em uma solicitação, abrir seus detalhes e mostrar todas as propostas enviadas para aquele item, com fornecedores, valores, status, histórico de negociação e documentos.
+
+13. STATUS E FLUXO DO PROCESSO
+
+Organizar o fluxo principal da seguinte maneira:
+
+Projeto cadastrado → Solicitação criada → Aguardando aprovação → Solicitação aceita → Fornecedores convidados → Propostas recebidas → Análise → Negociação → Contratação → Enviado para faturamento → Concluído.
+
+A solicitação poderá ter os estados: Rascunho, Aguardando aprovação, Ajustes solicitados, Rejeitada, Aberta para cotação, Em análise, Em negociação, Fechada, Enviada para faturamento, Concluída e Cancelada.
+
+Separar o status da solicitação do status de cada proposta. Uma solicitação poderá ter vários fornecedores em negociação simultaneamente. Definir uma regra clara para contratação de um fornecedor, contratação parcial ou contratação de vários fornecedores, quando permitido.
+
+Ao fechar a solicitação, registrar fornecedor contratado, valor final, data, responsável e condições. Depois, encaminhar o processo ao faturamento.
+
+14. FATURAMENTO
+
+Criar uma tela para visualizar solicitações fechadas e encaminhadas ao financeiro, contendo projeto, solicitação, fornecedor contratado, valor, condições de pagamento, data de contratação, documentos, número do pedido ou contrato, status do faturamento e data de conclusão.
+
+O financeiro deverá poder registrar o andamento e concluir o processo, mantendo o histórico para consulta.
+
+15. CONFIGURAÇÕES E LISTAS SUSPENSAS
+
+Criar uma área para cadastrar, editar, ativar e desativar as opções utilizadas nos formulários, como categorias de produtos e serviços, unidades de medida, centros de custo, etapas de obra, prioridades, condições de pagamento, regiões e outros parâmetros.
+
+Essas opções devem ser armazenadas no Google Sheets, para que a administração consiga atualizá-las sem alterar o código.
+
+16. ORGANIZAÇÃO DO GOOGLE SHEETS
+
+Proponha uma planilha principal com abas para Usuários, Projetos, Usuários por Projeto, Solicitações, Itens, Fornecedores, Convites, Propostas, Versões das Propostas, Histórico, Faturamento e Configurações.
+
+Explique de forma simples quais colunas cada aba precisa ter e como os IDs conectam as informações. Evite duplicidades desnecessárias e garanta que os registros de uma obra não se misturem com os de outra.
+
+17. REGRAS GERAIS
+
+- Todos os cadastros e atualizações devem ser salvos de verdade no Google Sheets.
+- Não utilizar dados fictícios como se fossem dados reais.
+- Não apagar o histórico de propostas quando houver uma nova rodada.
+- Registrar as alterações e decisões importantes com data e responsável.
+- Não permitir que usuários inativos acessem o sistema.
+- Respeitar os perfis de acesso e os projetos autorizados.
+- Proteger os links externos dos fornecedores e limitar o que cada um pode visualizar.
+- Não expor senhas, dados internos ou credenciais no código público.
+- Apresentar mensagens claras de sucesso, erro e confirmação.
+- Criar uma interface responsiva, organizada e simples de utilizar.
+
+18. EXPERIÊNCIA VISUAL
+
+O sistema deve ter aparência profissional, moderna e adequada a uma empresa de construção civil. Utilizar menu lateral, Dashboard com indicadores, tabelas com filtros e busca, formulários organizados, status visuais, histórico em linha do tempo e comparação de propostas lado a lado.
+
+Priorizar clareza, produtividade e facilidade de uso. O sistema deve funcionar bem em computadores e celulares.
+
+19. ETAPAS DE DESENVOLVIMENTO
+
+Não desenvolva todas as telas de uma só vez. Primeiro apresente o planejamento e depois construa o sistema em etapas funcionais:
+
+1. Planejamento do fluxo, telas e regras.
+2. Organização das abas e campos do Google Sheets.
+3. Criação da página inicial, menu e login.
+4. Cadastro de projetos e solicitações.
+5. Aprovação dos pedidos.
+6. Cadastro de fornecedores e envio de cotações.
+7. Comparação e histórico de negociação.
+8. Acompanhamento por projeto, Dashboard e faturamento.
+9. Configurações, testes e publicação no GitHub Pages.
+
+Em cada etapa, explique o que será criado, quais planilhas serão utilizadas e como testar o funcionamento. Preserve as funcionalidades já desenvolvidas e evite entregar apenas telas ilustrativas quando a etapa exigir gravação real dos dados.
+
+Comece apresentando a estrutura do sistema, o fluxo de navegação, as regras principais e a organização das planilhas. Depois, proponha a ordem de desenvolvimento e indique quais decisões de negócio precisam ser definidas antes da programação.`;
+document.getElementById('promptText').textContent=promptText;
+const copyBtn=document.getElementById('copyBtn');copyBtn.addEventListener('click',async()=>{try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(promptText)}else{const t=document.createElement('textarea');t.value=promptText;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();if(!document.execCommand('copy'))throw Error('copy');t.remove()}copyBtn.textContent='✓ Prompt copiado';setTimeout(()=>copyBtn.textContent='Copiar prompt',2500)}catch(e){copyBtn.textContent='Selecione e copie o texto';document.getElementById('promptText').scrollIntoView({behavior:'smooth'})}});
+const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay');function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('show')}document.getElementById('menuBtn').addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('show')});overlay.addEventListener('click',closeMenu);document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',closeMenu));const links=[...document.querySelectorAll('.nav a')],sections=links.map(a=>document.querySelector(a.getAttribute('href')));if('IntersectionObserver'in window){const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-15% 0px -70% 0px'});sections.forEach(s=>obs.observe(s))}
+</script></body></html>
