@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerador de Prompt | Sistema Personalizado</title>
+<style>
+:root{
+  --bg:#f5f6f8;
+  --ink:#172033;
+  --muted:#657186;
+  --line:#e2e6ed;
+  --white:#ffffff;
+  --accent:#7030a0;
+  --accent-dark:#56237d;
+  --light:#f0e8f8;
+  --success:#178553;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+.sidebar{
+  position:fixed;
+  inset:0 auto 0 0;
+  width:252px;
+  background:#fff;
+  border-right:1px solid var(--line);
+  padding:25px 16px;
+  z-index:10;
+}
+.brand{
+  font-weight:850;
+  font-size:18px;
+  line-height:1.25;
+  padding:0 10px 24px;
+}
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:1.8px;
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.brand strong{color:var(--accent)}
+.step-list{display:grid;gap:7px}
+.step-item{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#6a7487;
+  font-size:13px;
+  font-weight:700;
+}
+.step-dot{
+  width:26px;height:26px;
+  border-radius:50%;
+  border:1px solid #d6dbe4;
+  display:grid;place-items:center;
+  font-size:11px;
+  flex:0 0 26px;
+  background:#fff;
+}
+.step-item.active{
+  background:var(--light);
+  color:var(--accent);
+}
+.step-item.active .step-dot{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.step-item.done .step-dot{
+  background:#edf8f2;
+  border-color:#b8dfcc;
+  color:var(--success);
+}
+.sidefoot{
+  position:absolute;
+  left:16px;right:16px;bottom:20px;
+  padding:13px 12px 0;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:12px;
+}
+
+main{
+  margin-left:252px;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:42px 26px 70px;
+}
+.shell{
+  width:min(920px,100%);
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.eyebrow{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:1.7px;
+  font-size:11px;
+  font-weight:850;
+}
+.counter{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.progress{
+  height:7px;
+  background:#e8ebf0;
+  border-radius:99px;
+  overflow:hidden;
+  margin-bottom:22px;
+}
+.progress span{
+  display:block;height:100%;width:0;
+  background:var(--accent);
+  transition:.25s;
+}
+.hero{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:18px;
+  box-shadow:0 10px 28px rgba(23,32,51,.04);
+}
+.hero h1{
+  margin:6px 0 9px;
+  font-size:clamp(28px,4vw,44px);
+  line-height:1.08;
+  letter-spacing:-1.2px;
+}
+.hero h1 span{color:var(--accent)}
+.hero p{margin:0;color:var(--muted);max-width:720px}
+
+.stage{
+  display:none;
+}
+.stage.active{
+  display:block;
+  animation:fade .22s ease;
+}
+@keyframes fade{
+  from{opacity:.3;transform:translateY(6px)}
+  to{opacity:1;transform:none}
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(23,32,51,.045);
+}
+.card-head{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+  margin-bottom:19px;
+}
+.icon{
+  width:42px;height:42px;
+  border-radius:11px;
+  display:grid;place-items:center;
+  background:var(--light);
+  color:var(--accent);
+  font-weight:900;
+  flex:0 0 42px;
+}
+.card h2{font-size:21px;margin:0 0 4px}
+.card-head p{font-size:13px;color:var(--muted);margin:0}
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.field{
+  display:grid;
+  gap:6px;
+  margin-top:14px;
+}
+.field label{
+  font-size:12px;
+  font-weight:850;
+  color:#344054;
+}
+.field small{
+  color:#98a2b3;
+  font-size:11px;
+}
+input,textarea,select{
+  width:100%;
+  border:1px solid #d5dae2;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  padding:12px 13px;
+  outline:none;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:#9d64c5;
+  box-shadow:0 0 0 3px rgba(112,48,160,.08);
+}
+textarea{min-height:110px;resize:vertical}
+
+.checks{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+.check{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  font-size:12px;
+  cursor:pointer;
+}
+.check input{width:auto;accent-color:var(--accent)}
+.check:has(input:checked){
+  background:var(--light);
+  border-color:#d4bbe7;
+  color:var(--accent);
+}
+
+.nav-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:18px;
+}
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 18px;
+  font-weight:850;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn-copy{background:var(--accent);color:#fff;width:100%}
+
+.prompt-box{
+  min-height:470px;
+  max-height:650px;
+  overflow:auto;
+  background:#f9fafb;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;
+  color:#344054;
+  white-space:pre-wrap;
+}
+.final-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.final-actions .full{grid-column:1/-1}
+.tip{
+  margin-top:14px;
+  background:var(--light);
+  color:#5d327a;
+  padding:12px 13px;
+  border-radius:10px;
+  font-size:12px;
+}
+.toast{
+  position:fixed;
+  right:22px;bottom:22px;
+  background:var(--ink);
+  color:#fff;
+  padding:11px 14px;
+  border-radius:9px;
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:.2s;
+  z-index:100;
+}
+.toast.show{opacity:1;transform:none}
+
+@media(max-width:800px){
+  .sidebar{display:none}
+  main{margin-left:0;padding:24px 14px 50px}
+  .grid2,.checks,.final-actions{grid-template-columns:1fr}
+  .final-actions .full{grid-column:auto}
+  .card,.hero{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <small>Escola Karen Abecia</small>
+    Gerador de <strong>Prompt</strong>
+  </div>
+
+  <div class="step-list" id="stepList">
+    <div class="step-item active"><span class="step-dot">1</span> Sobre o sistema</div>
+    <div class="step-item"><span class="step-dot">2</span> Usuários</div>
+    <div class="step-item"><span class="step-dot">3</span> Telas</div>
+    <div class="step-item"><span class="step-dot">4</span> Cadastros</div>
+    <div class="step-item"><span class="step-dot">5</span> Processo</div>
+    <div class="step-item"><span class="step-dot">6</span> Regras</div>
+    <div class="step-item"><span class="step-dot">7</span> Dashboard</div>
+    <div class="step-item"><span class="step-dot">8</span> Entrega</div>
+    <div class="step-item"><span class="step-dot">9</span> Prompt pronto</div>
+  </div>
+
+  <div class="sidefoot">
+    Responda uma etapa por vez. Suas respostas serão organizadas automaticamente no prompt final.
+  </div>
+</aside>
+
+<main>
+  <div class="shell">
+
+    <div class="topbar">
+      <div class="eyebrow">Gerador personalizado</div>
+      <div class="counter" id="counter">Etapa 1 de 9</div>
+    </div>
+    <div class="progress"><span id="progressBar"></span></div>
+
+    <section class="hero">
+      <div class="eyebrow">Do processo para o sistema</div>
+      <h1>Crie o prompt do <span>seu próprio sistema</span></h1>
+      <p>Você não precisa pensar em termos técnicos. Basta explicar como o processo funciona, quem utiliza o sistema e o que precisa existir em cada etapa.</p>
+    </section>
+
+    <section class="stage active">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">01</div>
+          <div><h2>Sobre o sistema</h2><p>Comece explicando o que você quer criar e qual problema deseja resolver.</p></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Nome do sistema</label><input id="nome" placeholder="Ex.: Sistema de Cotações"></div>
+          <div class="field"><label>Empresa, área ou atividade</label><input id="area" placeholder="Ex.: Construção civil / Compras"></div>
+        </div>
+        <div class="field"><label>Objetivo principal</label><textarea id="objetivo" placeholder="Qual problema esse sistema deve resolver?"></textarea></div>
+        <div class="field"><label>Como esse processo funciona hoje?</label><textarea id="hoje" placeholder="Explique como a atividade é feita atualmente e onde existem dificuldades."></textarea></div>
+        <div class="nav-actions"><span></span><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">02</div>
+          <div><h2>Usuários e acessos</h2><p>Quem utiliza o sistema e quais acessos cada pessoa precisa ter?</p></div>
+        </div>
+        <div class="field"><label>Tipos de usuários</label><textarea id="usuariosTxt" placeholder="Ex.: Administrador, Compras, Engenheiro, Financeiro, Fornecedor..."></textarea></div>
+        <div class="field"><label>Regras de acesso</label><textarea id="acessos" placeholder="Ex.: Compras vê tudo; fornecedor vê apenas sua própria cotação."></textarea></div>
+        <div class="field"><label>Como será o login?</label>
+          <select id="login">
+            <option value="">Selecione</option>
+            <option>Login simples controlado pelo Google Sheets</option>
+            <option>Parte interna com login e páginas externas por link</option>
+            <option>Não será necessário login</option>
+          </select>
+          <small>No modelo simples, a planilha pode conter usuário, login, senha e ativo/inativo.</small>
+        </div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">03</div>
+          <div><h2>Telas do sistema</h2><p>Marque as principais telas que fazem sentido para o seu projeto.</p></div>
+        </div>
+        <div class="checks">
+          <label class="check"><input type="checkbox" class="tela" value="Tela de login"> Login</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela inicial com central dos processos"> Tela inicial</label>
+          <label class="check"><input type="checkbox" class="tela" value="Dashboard com indicadores e filtros"> Dashboard</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela de cadastros"> Cadastros</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela para novas solicitações"> Solicitações</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela de acompanhamento"> Acompanhamento</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela externa para clientes, fornecedores ou outros usuários"> Página externa</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela de configurações e listas suspensas"> Configurações</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela de relatórios"> Relatórios</label>
+          <label class="check"><input type="checkbox" class="tela" value="Tela com histórico de alterações"> Histórico</label>
+        </div>
+        <div class="field"><label>Outras telas necessárias</label><textarea id="outrasTelas" placeholder="Descreva páginas específicas do seu processo."></textarea></div>
+        <div class="field"><label>O que deve aparecer na tela inicial?</label><textarea id="home" placeholder="Ex.: atalhos, pendências, indicadores rápidos..."></textarea></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">04</div>
+          <div><h2>Cadastros e informações</h2><p>Defina quais informações precisam existir dentro do sistema.</p></div>
+        </div>
+        <div class="field"><label>Principais cadastros</label><textarea id="cadastros" placeholder="Ex.: usuários, projetos, clientes, fornecedores, solicitações..."></textarea></div>
+        <div class="field"><label>Informações importantes em cada cadastro</label><textarea id="campos" placeholder="Ex.: Projeto: ID, nome, responsável, data, orçamento e status."></textarea></div>
+        <div class="field"><label>Existem listas suspensas?</label><textarea id="listas" placeholder="Ex.: status, categorias, responsáveis, prioridades..."></textarea></div>
+        <div class="field"><label>Existe algum ID que ligue as informações?</label><textarea id="ids" placeholder="Ex.: cada projeto terá um ID único usado nas solicitações."></textarea></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">05</div>
+          <div><h2>Fluxo do processo</h2><p>Explique a sequência real do trabalho, do início ao encerramento.</p></div>
+        </div>
+        <div class="field"><label>Passo a passo do processo</label><textarea id="processo" placeholder="Ex.: cadastro > solicitação > aprovação > negociação > fechamento..."></textarea></div>
+        <div class="field"><label>Quais aprovações ou mudanças de status acontecem?</label><textarea id="status" placeholder="Ex.: aguardando aprovação, aberto, em negociação, fechado..."></textarea></div>
+        <div class="field"><label>O processo possui histórico?</label><textarea id="historico" placeholder="Ex.: registrar data, pessoa responsável, alterações, versões..."></textarea></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">06</div>
+          <div><h2>Regras importantes</h2><p>Descreva as condições que o sistema precisa respeitar.</p></div>
+        </div>
+        <div class="field"><label>Regras de negócio</label><textarea id="regrasTxt" placeholder="Ex.: uma solicitação sempre deve estar ligada a um projeto."></textarea></div>
+        <div class="field"><label>O que não pode acontecer?</label><textarea id="naoPode" placeholder="Ex.: fornecedor não pode visualizar proposta de outro fornecedor."></textarea></div>
+        <div class="field"><label>Automatizações desejadas</label><textarea id="automacoes" placeholder="Ex.: gerar IDs, atualizar datas, calcular totais, mudar status..."></textarea></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">07</div>
+          <div><h2>Dashboard e aparência</h2><p>Defina os indicadores e a forma como o sistema deve ser apresentado.</p></div>
+        </div>
+        <div class="field"><label>Indicadores do Dashboard</label><textarea id="indicadores" placeholder="Ex.: total de projetos, processos abertos, valores, pendências..."></textarea></div>
+        <div class="field"><label>Filtros necessários</label><textarea id="filtros" placeholder="Ex.: projeto, período, responsável, status..."></textarea></div>
+        <div class="field"><label>Estrutura visual</label>
+          <select id="layout">
+            <option>Menu lateral e conteúdo principal</option>
+            <option>Menu superior e conteúdo principal</option>
+            <option>Dashboard como página inicial</option>
+            <option>Deixar a IA sugerir a melhor estrutura</option>
+          </select>
+        </div>
+        <div class="field"><label>Cores ou identidade visual</label><input id="cores" value="Roxo, branco e cinza"></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Próxima etapa</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">08</div>
+          <div><h2>Como você quer receber o projeto?</h2><p>Marque como a IA deve conduzir a construção do sistema.</p></div>
+        </div>
+        <div class="checks">
+          <label class="check"><input type="checkbox" class="entrega" value="Explicar a estrutura antes de começar a criar"> Explicar antes</label>
+          <label class="check"><input type="checkbox" class="entrega" value="Criar o projeto por etapas"> Criar por etapas</label>
+          <label class="check"><input type="checkbox" class="entrega" value="Considerar Google Sheets como base de dados"> Usar Google Sheets</label>
+          <label class="check"><input type="checkbox" class="entrega" value="Considerar publicação da página no GitHub"> Publicar no GitHub</label>
+          <label class="check"><input type="checkbox" class="entrega" value="Entregar os arquivos completos a cada etapa"> Arquivos completos</label>
+          <label class="check"><input type="checkbox" class="entrega" value="Explicar como testar cada etapa"> Explicar testes</label>
+        </div>
+        <div class="field"><label>Observações finais</label><textarea id="obs" placeholder="Inclua qualquer detalhe que não apareceu nas perguntas anteriores."></textarea></div>
+        <div class="nav-actions"><button class="btn btn-light" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Gerar meu prompt</button></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="card">
+        <div class="card-head">
+          <div class="icon">✓</div>
+          <div><h2>Seu prompt está pronto</h2><p>Copie e cole na IA que você utilizará para construir o sistema.</p></div>
+        </div>
+        <div class="prompt-box" id="promptBox"></div>
+        <div class="final-actions">
+          <button class="btn btn-primary full" onclick="copiarPrompt()">Copiar prompt</button>
+          <button class="btn btn-light" onclick="prevStep()">Voltar e editar</button>
+          <button class="btn btn-light" onclick="baixarPrompt()">Baixar .txt</button>
+        </div>
+        <div class="tip"><strong>Dica:</strong> se quiser melhorar o resultado, volte às etapas anteriores e acrescente mais detalhes do processo real.</div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toast" id="toast">Prompt copiado!</div>
+
+<script>
+let current=0;
+const stages=[...document.querySelectorAll(".stage")];
+const stepItems=[...document.querySelectorAll(".step-item")];
+
+function v(id){
+  const el=document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+function selecionados(cls){
+  return [...document.querySelectorAll("."+cls+":checked")].map(x=>x.value);
+}
+function linha(titulo, conteudo){
+  return conteudo ? `\n${titulo}\n${conteudo}\n` : "";
+}
+
+function updateStage(){
+  stages.forEach((s,i)=>s.classList.toggle("active",i===current));
+  stepItems.forEach((s,i)=>{
+    s.classList.toggle("active",i===current);
+    s.classList.toggle("done",i<current);
+  });
+  document.getElementById("counter").textContent=`Etapa ${current+1} de ${stages.length}`;
+  document.getElementById("progressBar").style.width=`${((current+1)/stages.length)*100}%`;
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(current===stages.length-1) gerarPrompt();
+}
+
+function nextStep(){
+  if(current<stages.length-1){
+    current++;
+    updateStage();
+  }
+}
+function prevStep(){
+  if(current>0){
+    current--;
+    updateStage();
+  }
+}
+
+function gerarPrompt(){
+  const telas=selecionados("tela");
+  const entregas=selecionados("entrega");
+
+  let txt=`Quero criar um sistema${v("nome") ? ` chamado "${v("nome")}"` : ""}.`;
+  txt+= v("area") ? ` Ele será utilizado em ${v("area")}.` : "";
+  txt+=`\n\nQuero que você me ajude a estruturar e criar esse sistema focando primeiro no funcionamento, nas telas e nas regras do processo. Evite complicar a explicação com muitos conceitos técnicos.`;
+
+  txt+=linha("OBJETIVO DO SISTEMA",v("objetivo"));
+  txt+=linha("COMO O PROCESSO FUNCIONA HOJE",v("hoje"));
+  txt+=linha("USUÁRIOS DO SISTEMA",v("usuariosTxt"));
+  txt+=linha("REGRAS DE ACESSO",v("acessos"));
+  txt+=linha("LOGIN",v("login"));
+
+  if(telas.length) txt+=`\nTELAS QUE O SISTEMA DEVE TER\n- ${telas.join("\n- ")}\n`;
+  txt+=linha("OUTRAS TELAS",v("outrasTelas"));
+  txt+=linha("TELA INICIAL",v("home"));
+  txt+=linha("PRINCIPAIS CADASTROS",v("cadastros"));
+  txt+=linha("INFORMAÇÕES DOS CADASTROS",v("campos"));
+  txt+=linha("LISTAS SUSPENSAS E CONFIGURAÇÕES",v("listas"));
+  txt+=linha("LIGAÇÃO ENTRE AS INFORMAÇÕES / IDs",v("ids"));
+  txt+=linha("FLUXO COMPLETO DO PROCESSO",v("processo"));
+  txt+=linha("STATUS E APROVAÇÕES",v("status"));
+  txt+=linha("HISTÓRICO",v("historico"));
+  txt+=linha("REGRAS DE NEGÓCIO",v("regrasTxt"));
+  txt+=linha("O QUE NÃO PODE ACONTECER",v("naoPode"));
+  txt+=linha("AUTOMATIZAÇÕES DESEJADAS",v("automacoes"));
+  txt+=linha("INDICADORES DO DASHBOARD",v("indicadores"));
+  txt+=linha("FILTROS",v("filtros"));
+  txt+=linha("ESTRUTURA VISUAL",v("layout"));
+  txt+=linha("IDENTIDADE VISUAL",v("cores"));
+
+  if(entregas.length) txt+=`\nCOMO QUERO QUE O PROJETO SEJA CONSTRUÍDO\n- ${entregas.join("\n- ")}\n`;
+  txt+=linha("OBSERVAÇÕES FINAIS",v("obs"));
+
+  txt+=`\nORIENTAÇÕES PARA A CRIAÇÃO\n- Antes de começar, organize o fluxo completo do sistema e apresente a estrutura proposta.\n- Considere as informações preenchidas acima como regras principais do projeto.\n- Quando alguma parte puder ser simplificada para facilitar o uso, proponha a solução mais simples.\n- Mantenha todas as telas conectadas ao mesmo processo.\n- Preserve as funcionalidades já criadas quando avançar para novas etapas.\n- O sistema deve ser fácil de entender e usar por pessoas que não são técnicas.\n- Quando forem necessárias listas suspensas, permita que sejam administradas pela área de configurações.\n- Sempre que houver relacionamento entre registros, utilize IDs únicos para evitar confusão entre informações.\n- Ao final de cada etapa, explique de forma simples o que foi criado e como testar.`;
+
+  document.getElementById("promptBox").textContent=txt;
+}
+
+async function copiarPrompt(){
+  const text=document.getElementById("promptBox").textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+  }
+  const t=document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),1800);
+}
+
+function baixarPrompt(){
+  const nome=v("nome") || "meu-sistema";
+  const blob=new Blob([document.getElementById("promptBox").textContent],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="prompt-"+nome.toLowerCase().replace(/[^a-z0-9]+/gi,"-")+".txt";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+updateStage();
+</script>
+</body>
+</html>
