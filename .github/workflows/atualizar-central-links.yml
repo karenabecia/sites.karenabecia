@@ -1,0 +1,49 @@
+name: Atualizar Central de Links
+
+on:
+  schedule:
+    # 21h do dia 14/09/2026 no horário de Brasília
+    # equivale a 00h do dia 15/09/2026 em UTC
+    - cron: '0 0 15 9 *'
+
+  # Permite testar manualmente pelo GitHub
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar data
+        id: data
+        run: |
+          if [ "$(date -u +%Y-%m-%d)" = "2026-09-15" ]; then
+            echo "executar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "executar=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Baixar repositório
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Substituir Central de Links
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          cp imersao-copilot/central-links-agendada.html imersao-copilot/central-links.html
+
+      - name: Publicar alteração
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add imersao-copilot/central-links.html
+
+          git diff --cached --quiet && exit 0
+
+          git commit -m "Atualiza Central de Links - 14/09 às 21h"
+          git push
