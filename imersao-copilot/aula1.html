@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aula 1 — Imersão Copilot | Detetive Questionador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --accent:#bf66f1;--accent2:#d58cff;--green:#98f166;--pink:#d758bd;
+      --bg:#06010a;--card:#13051c;--card2:#1c0928;--border:#321344;--border2:#4d2265;
+      --text:#f7eefc;--muted:#b99cca;--muted2:#8b6b9c;--ok:#4caf7d;--warn:#d4a843;--red:#e07070;
+      --radius:14px;--hh:64px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hh) + 12px)}
+    body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.55}
+    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+    .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 24px}
+    header{position:sticky;top:0;z-index:100;background:rgba(6,1,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:var(--hh)}
+    .header-inner{height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:14px}
+    .header-inner img{height:42px;max-width:250px;object-fit:contain;flex-shrink:0}
+    .logo-text-fb{font-family:'Anton',sans-serif;font-size:1rem;color:var(--text);flex-shrink:0}.logo-text-fb span{color:var(--accent)}
+    .header-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+    .hbtn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;padding:7px 14px;border-radius:100px;text-decoration:none;transition:all .2s;white-space:nowrap;border:1px solid var(--border2);cursor:pointer;color:var(--text);background:rgba(255,255,255,.04)}
+    .hbtn-main{background:var(--accent);color:#fff;border-color:var(--accent2)}.hbtn:hover{transform:translateY(-1px);border-color:rgba(191,102,241,.55)}.hbtn-main:hover{background:var(--accent2)}
+    .hero{padding:56px 0 38px;text-align:center;position:relative}
+    .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(800px,100%);height:320px;background:radial-gradient(ellipse at center,rgba(191,102,241,.26) 0%,rgba(215,88,189,.12) 38%,transparent 72%);pointer-events:none}
+    .hero-tag{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;display:block}
+    h1{font-family:'Anton',sans-serif;font-size:clamp(2rem,5vw,3.45rem);font-weight:400;line-height:1.06;margin-bottom:14px;letter-spacing:.02em}
+    .hero-sub{font-size:.96rem;color:var(--muted);line-height:1.75;max-width:760px;margin:0 auto}
+    .section{position:relative;z-index:1;padding:44px 0;border-top:1px solid var(--border)}
+    .section-label{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);margin-bottom:6px}
+    h2{font-family:'Anton',sans-serif;font-size:clamp(1.35rem,3vw,2rem);font-weight:400;letter-spacing:.03em;margin-bottom:22px}
+    h3{font-family:'Anton',sans-serif;font-size:1.05rem;font-weight:400;letter-spacing:.02em;margin-bottom:10px}
+    p{line-height:1.72}
+    .index-nav{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:38px}
+    .idx-label{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);margin-bottom:12px;display:block}
+    .index-nav ul{list-style:none;columns:2;gap:24px}.index-nav li{break-inside:avoid;margin-bottom:6px}
+    .index-nav a{font-size:.82rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}.index-nav a:hover{color:var(--text)}.index-nav a::before{content:'→';color:var(--accent);font-size:.72rem;flex-shrink:0}
+    .info-box{background:rgba(255,255,255,.035);border:1px solid var(--border2);border-radius:var(--radius);padding:16px 18px;display:flex;gap:12px;align-items:flex-start;margin-bottom:20px}
+    .ico{font-size:1.18rem;flex-shrink:0;margin-top:2px}.info-box p{font-size:.86rem;color:var(--muted);line-height:1.68}.info-box strong{color:var(--text)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent)}.card.green::before{background:var(--green)}.card.pink::before{background:var(--pink)}.card.red::before{background:var(--red)}
+    .card h3{margin-bottom:8px}.card p,.card li{font-size:.83rem;color:var(--muted);line-height:1.62}
+    .card ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px}.card li{display:flex;gap:7px}.card li::before{content:'→';color:var(--accent);flex-shrink:0}.card.green li::before{color:var(--green)}.card.pink li::before{color:var(--pink)}
+    .license-tower{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+    .tower{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;position:relative}.tower.premium{border-color:rgba(191,102,241,.44);box-shadow:0 0 0 1px rgba(191,102,241,.10) inset}
+    .tower-head{padding:18px 18px 12px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.025)}.tower-head span{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2)}
+    .tower-head h3{font-size:1.25rem;margin:4px 0 0}.tower-list{display:flex;flex-direction:column}.tower-row{display:flex;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.83rem;color:var(--muted);line-height:1.5}.tower-row:last-child{border-bottom:none}.check{color:var(--green);font-weight:700}.dash{color:var(--muted2)}
+    .alert{background:linear-gradient(135deg,rgba(152,241,102,.10),rgba(19,5,28,1));border:1px solid rgba(152,241,102,.32);border-radius:var(--radius);padding:16px 18px;margin-top:16px}.alert strong{color:#dff8cf}
+    .mindset{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .mind-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;min-height:230px}
+    .mind-card.wrong{border-color:rgba(224,112,112,.32);background:linear-gradient(135deg,rgba(224,112,112,.08),rgba(19,5,28,1))}
+    .mind-card.right{border-color:rgba(152,241,102,.32);background:linear-gradient(135deg,rgba(152,241,102,.08),rgba(19,5,28,1))}
+    .mind-card .tag{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:inline-flex;border-radius:100px;padding:5px 9px}
+    .wrong .tag{color:#f3bbbb;background:rgba(224,112,112,.10);border:1px solid rgba(224,112,112,.24)}.right .tag{color:#dff8cf;background:rgba(152,241,102,.10);border:1px solid rgba(152,241,102,.24)}
+    .example-box{margin-top:12px;padding:12px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--border)}.example-box p{font-size:.82rem;color:var(--muted)}
+    .prompt-framework{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.framework-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}.framework-card .big{font-family:'Anton',sans-serif;font-size:1.25rem;color:var(--accent2);margin-bottom:8px}
+    .case-hero{background:linear-gradient(135deg,rgba(191,102,241,.18),rgba(152,241,102,.08));border:1px solid rgba(191,102,241,.42);border-radius:calc(var(--radius) + 8px);padding:24px;margin-bottom:20px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+    .case-hero h2{margin-bottom:10px}.case-hero p{color:var(--muted);font-size:.9rem}
+    .question-form{display:grid;gap:12px}.q-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+    .q-item label{display:block;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
+    .q-item input,.q-item textarea{width:100%;border:1px solid var(--border2);background:#09020f;color:var(--text);border-radius:10px;padding:11px 12px;font-family:'Open Sans',sans-serif;font-size:.86rem;outline:none}
+    .q-item textarea{min-height:82px;resize:vertical}.q-item input:focus,.q-item textarea:focus{border-color:rgba(191,102,241,.72);box-shadow:0 0 0 3px rgba(191,102,241,.12)}
+    .btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .action-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:100px;padding:10px 15px;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .2s;border:1px solid var(--border2);color:var(--text);background:var(--card2)}
+    .action-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent2)}.action-btn.green{background:rgba(152,241,102,.14);color:#dff8cf;border-color:rgba(152,241,102,.34)}.action-btn:hover{transform:translateY(-1px);border-color:rgba(191,102,241,.55)}
+    .prompt-box{background:#09020f;border:1px solid var(--border2);border-radius:12px;overflow:hidden;margin-top:16px}
+    .prompt-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.025)}
+    .prompt-tools span{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2)}
+    .copy-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:100px;padding:9px 13px;font-family:'DM Mono',monospace;font-size:.61rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text);border:1px solid rgba(191,102,241,.35);background:rgba(191,102,241,.12);cursor:pointer;transition:all .2s}
+    .copy-btn.copied{background:rgba(152,241,102,.16);border-color:rgba(152,241,102,.35);color:#dff8cf}
+    .prompt-text{width:100%;min-height:360px;border:none;resize:vertical;outline:none;display:block;padding:15px;background:transparent;color:#efe2f8;font-family:'DM Mono',monospace;font-size:.75rem;line-height:1.65}
+    .prompt-text.generated{min-height:520px}
+    .step-list{display:grid;gap:10px}.step{display:flex;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}.num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(191,102,241,.14);border:1px solid rgba(191,102,241,.34);font-family:'DM Mono',monospace;font-size:.68rem;color:var(--accent2)}.step p{font-size:.84rem;color:var(--muted)}.step strong{color:var(--text)}
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 0 28px;text-align:center;margin-top:48px}footer p{font-size:.78rem;color:var(--muted2)}
+    @media(max-width:860px){.grid-2,.grid-3,.mindset,.prompt-framework,.license-tower{grid-template-columns:1fr}.index-nav ul{columns:1}.header-inner{padding:0 14px}.header-inner img{height:36px;max-width:190px}.hbtn{font-size:.56rem;padding:7px 10px}.prompt-text{min-height:460px}}
+    @media print{header,.copy-btn,.hbtn,.action-btn{display:none!important}body{background:#13051c!important}.section,.card,.info-box,.prompt-box,.case-hero,.mind-card,.q-item,.step,.tower{break-inside:avoid}}
+  
+    .download-banner{
+      background:linear-gradient(135deg,rgba(152,241,102,.12),rgba(191,102,241,.10));
+      border:1px solid rgba(152,241,102,.36);
+      border-radius:calc(var(--radius) + 8px);
+      padding:24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      box-shadow:0 18px 50px rgba(0,0,0,.18);
+    }
+    .download-banner h2{margin-bottom:6px}
+    .download-banner p{color:var(--muted);font-size:.88rem;max-width:660px}
+    .download-banner .action-btn{flex-shrink:0;background:rgba(152,241,102,.14);color:#dff8cf;border-color:rgba(152,241,102,.36)}
+    .download-banner .action-btn:hover{background:rgba(152,241,102,.23);border-color:rgba(152,241,102,.55)}
+    .accordion-wrap{display:grid;gap:14px}
+    .accordion-item{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) + 4px);
+      overflow:hidden;
+    }
+    .accordion-item summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      font-family:'Anton',sans-serif;
+      font-size:1.08rem;
+      letter-spacing:.02em;
+      color:var(--text);
+      background:linear-gradient(135deg,rgba(191,102,241,.13),rgba(255,255,255,.02));
+    }
+    .accordion-item summary::-webkit-details-marker{display:none}
+    .accordion-item summary::after{
+      content:'+';
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      font-family:'DM Mono',monospace;
+      font-size:1rem;
+      color:var(--accent2);
+      border:1px solid rgba(191,102,241,.35);
+      background:rgba(191,102,241,.12);
+    }
+    .accordion-item[open] summary::after{content:'–'}
+    .accordion-content{padding:20px}
+    .accordion-content .info-box{margin-bottom:18px}
+    @media(max-width:720px){
+      .download-banner{flex-direction:column;align-items:flex-start}
+    }
+
+
+    .case-anchor{scroll-margin-top:calc(var(--hh) + 16px)}
+    .accordion-single{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) + 4px);
+      overflow:hidden;
+      margin-top:16px;
+    }
+    .accordion-single summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      font-family:'Anton',sans-serif;
+      font-size:1.08rem;
+      letter-spacing:.02em;
+      color:var(--text);
+      background:linear-gradient(135deg,rgba(191,102,241,.13),rgba(255,255,255,.02));
+    }
+    .accordion-single summary::-webkit-details-marker{display:none}
+    .accordion-single summary::after{
+      content:'+';
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      font-family:'DM Mono',monospace;
+      font-size:1rem;
+      color:var(--accent2);
+      border:1px solid rgba(191,102,241,.35);
+      background:rgba(191,102,241,.12);
+    }
+    .accordion-single[open] summary::after{content:'–'}
+    .accordion-content{padding:20px}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/refs/heads/main/imagens/logo-claro/logo%20imersao%20copilot.png" alt="Imersão Copilot" onerror="this.style.display='none';document.getElementById('ltxt').style.display='block'"/>
+    <div id="ltxt" style="display:none" class="logo-text-fb">IMERSÃO <span>COPILOT</span></div>
+    <div class="header-btns">
+      <a class="hbtn" href="https://sites.karenabecia.com.br/imersao-copilot/central-links">← Central</a>
+      <button class="hbtn hbtn-main" onclick="downloadPDF()">Baixar PDF</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none">
+  <div class="wrap">
+    <span class="hero-tag">Material de Apoio · Aula 1</span>
+    <h1>Copilot com segurança e análise de dados</h1>
+    <p class="hero-sub">Use o Copilot com mais consciência no Microsoft 365, construa prompts melhores e aprenda a transformar a IA em um Detetive Questionador para investigar dados de negócio.</p>
+  </div>
+</section>
+
+<div id="main-content">
+  <div class="wrap" style="padding-top:0">
+    <div class="index-nav">
+      <span class="idx-label">Nesta página</span>
+      <ul>
+        <li><a href="#antes">1. Copilot no ambiente corporativo</a></li>
+        <li><a href="#licencas">2. Licença e acesso</a></li>
+        <li><a href="#seguranca">3. Segurança e conversas</a></li>
+        <li><a href="#dados">4. Uso de dados: pode ou não pode</a></li>
+        <li><a href="#mentalidade">5. Jeito errado × jeito certo</a></li>
+        <li><a href="#bom-prompt">6. Como escrever um bom prompt</a></li>
+        <li><a href="#case1">7. Case 1 — Detetive Questionador</a></li>
+        <li><a href="#case2">8. Case 2 — Xereta Professor</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="section" id="antes">
+    <div class="wrap">
+      <div class="section-label">Antes de começar</div>
+      <h2>Copilot no ambiente corporativo</h2>
+      <div class="info-box">
+        <div class="ico">🔐</div>
+        <p><strong>Antes de usar o Copilot com arquivos da empresa, entenda o ambiente onde você está trabalhando.</strong> O Copilot pode aparecer em experiências pessoais, familiares e corporativas, mas as permissões, os recursos disponíveis e as regras de segurança mudam conforme o tipo de conta, licença e política da organização.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Conta e licença</h3>
+          <p>Verifique se você está usando uma conta pessoal, familiar ou corporativa. Isso muda quais recursos aparecem no Word, Excel, PowerPoint, Outlook, Teams e no chat do Copilot.</p>
+        </div>
+        <div class="card green">
+          <h3>Permissões</h3>
+          <p>Em contas corporativas, o Copilot respeita as permissões do Microsoft 365. Se você não tem acesso a um arquivo, ele não deveria usar aquele conteúdo como base para resposta.</p>
+        </div>
+        <div class="card pink">
+          <h3>Responsabilidade</h3>
+          <p>Mesmo com IA, você continua responsável por validar resultados, proteger dados sensíveis e seguir as políticas internas da empresa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="licencas">
+    <div class="wrap">
+      <div class="section-label">Licença e acesso</div>
+      <h2>O que muda entre Microsoft 365 padrão e Copilot pago?</h2>
+      <div class="info-box">
+        <div class="ico">🧾</div>
+        <p><strong>Ter Microsoft 365 não significa, automaticamente, ter todos os recursos premium do Copilot.</strong> O pacote padrão entrega os aplicativos e alguns recursos de produtividade. Já o Copilot premium adiciona recursos de IA mais integrados aos aplicativos, com maior profundidade e mais possibilidades de trabalho dentro do Microsoft 365.</p>
+      </div>
+
+      <div class="license-tower">
+        <div class="tower">
+          <div class="tower-head">
+            <span>Licença padrão</span>
+            <h3>Microsoft 365</h3>
+          </div>
+          <div class="tower-list">
+            <div class="tower-row"><span class="check">✓</span><span>Uso dos aplicativos Office, como Word, Excel, PowerPoint e Outlook, conforme o plano contratado.</span></div>
+            <div class="tower-row"><span class="check">✓</span><span>Armazenamento, colaboração e compartilhamento com OneDrive e demais recursos do plano.</span></div>
+            <div class="tower-row"><span class="dash">–</span><span>Recursos de IA podem ser limitados, variar por plano ou depender de créditos, elegibilidade e disponibilidade.</span></div>
+            <div class="tower-row"><span class="dash">–</span><span>Não substitui uma licença premium de Copilot quando a empresa precisa de integração avançada com dados corporativos.</span></div>
+          </div>
+        </div>
+
+        <div class="tower premium">
+          <div class="tower-head">
+            <span>Licença paga à parte</span>
+            <h3>Copilot Premium</h3>
+          </div>
+          <div class="tower-list">
+            <div class="tower-row"><span class="check">✓</span><span>Experiências de IA mais integradas nos aplicativos do Microsoft 365.</span></div>
+            <div class="tower-row"><span class="check">✓</span><span>Ajuda para criar, revisar, resumir, analisar e preparar entregas com base no contexto disponível.</span></div>
+            <div class="tower-row"><span class="check">✓</span><span>Em ambientes corporativos, pode trabalhar com dados do Microsoft Graph respeitando permissões, políticas e configurações da organização.</span></div>
+            <div class="tower-row"><span class="check">✓</span><span>Mais indicado para uso profissional recorrente, análise de documentos, e-mails, reuniões, apresentações e bases de trabalho.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Planos Personal e Família</h3>
+          <p>São voltados para uso individual ou doméstico. Mesmo quando o plano pode ser compartilhado com familiares, os recursos de IA não funcionam necessariamente para todos da mesma forma.</p>
+        </div>
+        <div class="card green">
+          <h3>Planos empresariais</h3>
+          <p>São administrados pela organização. O acesso ao Copilot depende da licença atribuída ao usuário, das políticas do administrador e das permissões aplicadas aos arquivos, e-mails, chats e reuniões.</p>
+        </div>
+      </div>
+
+      <div class="alert">
+        <p><strong>Aviso importante:</strong> nos planos Família, apenas o titular da conta tem acesso aos recursos de IA do Copilot incluídos no Microsoft 365. Esse é o padrão do Microsoft 365 e não é compartilhado automaticamente com todos os membros do plano familiar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="seguranca">
+    <div class="wrap">
+      <div class="section-label">Segurança</div>
+      <h2>Posso usar dados sensíveis da empresa?</h2>
+      <div class="info-box">
+        <div class="ico">🛡️</div>
+        <p><strong>A regra principal é: não leve para a IA dados que você não tem autorização para processar.</strong> Em ambiente corporativo, o Copilot pode ser uma ferramenta de produtividade, mas o uso deve respeitar políticas internas, LGPD, confidencialidade, contratos com clientes e regras de segurança da informação.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card red">
+          <h3>Evite inserir</h3>
+          <ul>
+            <li>CPF, dados bancários, prontuários ou informações pessoais sensíveis.</li>
+            <li>Contratos confidenciais sem autorização.</li>
+            <li>Dados de clientes, fornecedores ou colaboradores sem base legal ou permissão.</li>
+            <li>Informações estratégicas que não poderiam circular fora do time responsável.</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Prefira usar</h3>
+          <ul>
+            <li>Bases fictícias ou anonimizadas para estudo.</li>
+            <li>Relatórios sem dados pessoais identificáveis.</li>
+            <li>Arquivos que você já tem permissão para acessar e analisar.</li>
+            <li>Informações necessárias para a tarefa, evitando excesso de contexto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top:18px">
+        <div class="ico">👀</div>
+        <p><strong>O administrador da empresa vê todas as minhas conversas?</strong> Em contas corporativas, a organização pode ter controles de segurança, auditoria, retenção, conformidade e administração definidos no Microsoft 365. Isso não significa que todo administrador lê automaticamente cada conversa, mas significa que o uso do Copilot pode estar sujeito às políticas corporativas. Use a ferramenta como usaria e-mail, Teams ou arquivos da empresa: com responsabilidade e sabendo que o ambiente é administrado pela organização.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="dados">
+    <div class="wrap">
+      <div class="section-label">Uso de dados</div>
+      <h2>O que pode e o que não pode levar para a IA</h2>
+
+      <div class="grid-2">
+        <div class="card green">
+          <h3>Pode, em geral</h3>
+          <ul>
+            <li>Dados fictícios criados para treinamento.</li>
+            <li>Bases anonimizadas, sem identificação de pessoas.</li>
+            <li>Relatórios públicos ou internos permitidos para sua função.</li>
+            <li>Documentos de trabalho que você tem autorização para analisar.</li>
+            <li>Pedidos bem delimitados, com apenas o contexto necessário.</li>
+          </ul>
+        </div>
+        <div class="card red">
+          <h3>Não leve sem autorização</h3>
+          <ul>
+            <li>Dados pessoais sensíveis ou informações protegidas por contrato.</li>
+            <li>Planilhas completas quando apenas um recorte resolveria.</li>
+            <li>Informações de clientes, pacientes, alunos ou colaboradores sem permissão.</li>
+            <li>Estratégias, preços, contratos ou dados financeiros confidenciais.</li>
+            <li>Arquivos de áreas às quais você não deveria ter acesso.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert">
+        <p><strong>Regra prática:</strong> antes de colar, anexar ou pedir análise de um arquivo, pergunte: “eu poderia compartilhar isso com uma pessoa externa sem autorização?”. Se a resposta for não, trate como dado sensível e valide a política da empresa antes de usar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mentalidade">
+    <div class="wrap">
+      <div class="section-label">Mudança de mentalidade</div>
+      <h2>O jeito errado × o jeito certo de usar IA</h2>
+
+      <div class="mindset">
+        <div class="mind-card wrong">
+          <span class="tag">Jeito errado</span>
+          <h3>Perguntar solto</h3>
+          <p>Abrir o Copilot e escrever: “analise essa planilha” ou “por que meu faturamento caiu?”, sem explicar contexto, objetivo, período, variáveis importantes ou formato da resposta.</p>
+          <div class="example-box"><p><strong>Exemplo:</strong> “Veja essa base e me diga o que está acontecendo.”</p></div>
+        </div>
+        <div class="mind-card right">
+          <span class="tag">Jeito certo</span>
+          <h3>Direcionar a investigação</h3>
+          <p>Explicar o problema, informar o que deve ser comparado, dizer quais dimensões importam e pedir uma resposta que separe fatos, evidências, hipóteses e recomendações.</p>
+          <div class="example-box"><p><strong>Exemplo:</strong> “Compare o faturamento de agosto com julho por produto, região e canal. Identifique onde a queda está concentrada e levante hipóteses com evidências.”</p></div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Como muita gente usa</h3>
+          <p>Faz perguntas genéricas, aceita a primeira resposta, não valida os números e não pede explicação do raciocínio.</p>
+        </div>
+        <div class="card green">
+          <h3>Como deveria usar</h3>
+          <p>Define o problema, limita o escopo, pede comparação, exige evidências e transforma a resposta em uma entrega útil para decisão.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="bom-prompt">
+    <div class="wrap">
+      <div class="section-label">Prompt bem escrito</div>
+      <h2>Um bom prompt precisa de contexto, objetivo e direção</h2>
+      <div class="info-box">
+        <div class="ico">✍️</div>
+        <p><strong>Prompt bom não é frase bonita: é instrução clara.</strong> Para análise de dados, o Copilot precisa entender o cenário, o que você quer descobrir e como a resposta deve ser entregue.</p>
+      </div>
+
+      <div class="prompt-framework">
+        <div class="framework-card">
+          <div class="big">1. Contexto</div>
+          <p>Explique a situação: quais arquivos existem, quais dados aparecem, qual período será analisado e qual problema está sendo investigado.</p>
+        </div>
+        <div class="framework-card">
+          <div class="big">2. Objetivo</div>
+          <p>Diga o que você quer descobrir. Exemplo: entender queda de vendas, comparar desempenho, encontrar anomalias ou levantar hipóteses.</p>
+        </div>
+        <div class="framework-card">
+          <div class="big">3. Direção</div>
+          <p>Defina como quer receber: tabela, resumo executivo, lista de hipóteses, nível de atenção, ações recomendadas ou perguntas para a gestão.</p>
+        </div>
+      </div>
+
+      <div class="step-list" style="margin-top:16px">
+        <div class="step"><div class="num">1</div><p><strong>Comece pelo cenário.</strong> “Tenho três planilhas de vendas com produto, região, canal, vendedor, quantidade, preço e desconto.”</p></div>
+        <div class="step"><div class="num">2</div><p><strong>Declare a pergunta de negócio.</strong> “Quero entender por que as vendas do produto X caíram 12% no mês selecionado.”</p></div>
+        <div class="step"><div class="num">3</div><p><strong>Peça o formato da entrega.</strong> “Entregue uma tabela com descoberta, evidência, possível causa, nível de atenção e ação recomendada.”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="planilhas">
+    <div class="wrap">
+      <div class="download-banner">
+        <div>
+          <div class="section-label">Material da prática</div>
+          <h2>Baixe as planilhas da aula</h2>
+          <p>Use os arquivos da pasta para acompanhar os cases da aula e praticar a análise com o Copilot.</p>
+        </div>
+        <a class="action-btn" href="https://drive.google.com/drive/folders/1H20qI3d3nbdk5pf3aCVlboCKpHtzNSj3?usp=sharing" target="_blank" rel="noopener">Baixar planilhas</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-anchor" id="case1">
+    <div class="wrap">
+      <div class="case-hero">
+        <div class="section-label">Case 1</div>
+        <h2>Detetive Questionador 🔎</h2>
+        <p>Você vai trabalhar com uma situação de análise de vendas. A intenção não é simplesmente perguntar “por que meu faturamento caiu?”, mas fazer o Copilot atuar como um investigador dos dados.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>O Copilot deverá</h3>
+          <ul>
+            <li>Receber três planilhas</li>
+            <li>Unir as informações</li>
+            <li>Analisar os dados</li>
+            <li>Investigar uma queda de faturamento</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>O papel da IA</h3>
+          <ul>
+            <li>Levantar hipóteses</li>
+            <li>Fazer novas perguntas</li>
+            <li>Aprofundar a investigação</li>
+            <li>Encontrar explicações relevantes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-list" style="margin-top:16px">
+        <div class="step"><div class="num">1</div><p><strong>Não comece pela resposta.</strong> Primeiro, organize o cenário de análise.</p></div>
+        <div class="step"><div class="num">2</div><p><strong>Informe os dados disponíveis.</strong> Explique quais planilhas existem, quais colunas são importantes e qual período será analisado.</p></div>
+        <div class="step"><div class="num">3</div><p><strong>Peça investigação, não apenas descrição.</strong> A IA deve questionar, comparar, levantar hipóteses e separar fatos de conclusões.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="prompt-case1">
+    <div class="wrap">
+      <div class="section-label">Detetive Questionador</div>
+      <h2>Monte seu prompt</h2>
+
+      <details class="accordion-single">
+        <summary>Abrir construtor do Case 1</summary>
+        <div class="accordion-content">
+          <div class="info-box">
+            <div class="ico">🧩</div>
+            <p><strong>Preencha as perguntas abaixo sobre a sua base.</strong> Depois clique em gerar para criar um prompt personalizado com a lógica do Detetive Questionador.</p>
+          </div>
+
+          <div class="question-form">
+            <div class="q-item">
+              <label for="qPlanilhas">1. Quais planilhas e arquivos serão analisados?</label>
+              <textarea id="qPlanilhas" placeholder="Ex.: vendas.xlsx, produtos.xlsx e clientes.xlsx"></textarea>
+            </div>
+            <div class="q-item">
+              <label for="qTema">2. Qual é o tema da análise?</label>
+              <input id="qTema" placeholder="Ex.: análise de vendas, faturamento, clientes, produtos..." />
+            </div>
+            <div class="q-item">
+              <label for="qProblema">3. Qual problema precisa ser investigado?</label>
+              <textarea id="qProblema" placeholder="Ex.: queda de 12% nas vendas de um produto no mês selecionado"></textarea>
+            </div>
+            <div class="q-item">
+              <label for="qPeriodo">4. Qual período deve ser analisado e comparado?</label>
+              <input id="qPeriodo" placeholder="Ex.: mês selecionado comparado com meses anteriores" />
+            </div>
+            <div class="q-item">
+              <label for="qDimensoes">5. Quais dimensões podem explicar o problema?</label>
+              <textarea id="qDimensoes" placeholder="Ex.: produto, região, cliente, canal, vendedor, volume, preço, desconto, mix..."></textarea>
+            </div>
+            <div class="q-item">
+              <label for="qSaida">6. Como você quer receber o resultado?</label>
+              <textarea id="qSaida" placeholder="Ex.: resumo executivo em tabela, conclusão para gestão e ações recomendadas"></textarea>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="action-btn primary" onclick="generatePrompt()">Gerar prompt personalizado</button>
+            <button class="action-btn green" onclick="clearBuilder()">Limpar respostas</button>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-tools">
+              <span>Prompt personalizado · Case 1</span>
+              <button class="copy-btn" onclick="copyPrompt('generatedPrompt', this)">⧉ Copiar prompt</button>
+            </div>
+            <textarea id="generatedPrompt" class="prompt-text generated" readonly>Abra o construtor, preencha as perguntas acima e clique em “Gerar prompt personalizado”.</textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="prompt-aula-case1">
+    <div class="wrap">
+      <div class="section-label">Prompt da aula</div>
+      <h2>Prompt da aula — Detetive Questionador</h2>
+      <div class="info-box">
+        <div class="ico">🔎</div>
+        <p><strong>Use este prompt durante a aula.</strong> Ele mantém a lógica completa da investigação e pode ser adaptado conforme a sua base de dados.</p>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-tools">
+          <span>Prompt da aula · Case 1</span>
+          <button class="copy-btn" onclick="copyPrompt('promptFinal', this)">⧉ Copiar prompt</button>
+        </div>
+        <textarea id="promptFinal" class="prompt-text generated" readonly>Atue como um **Analista de Dados Sênior no papel de
+Detetive Questionador**.
+
+Tenho uma base de dados dividida em 3 planilhas. Primeiro,
+unifique os dados dessas 3 planilhas em uma única base de análise, garantindo
+que as colunas equivalentes estejam corretamente combinadas e sinalizando
+possíveis problemas de estrutura, duplicidade ou inconsistência.
+
+Depois, investigue uma **queda de 12% nas vendas de um
+produto no mês selecionado**.
+
+Sua missão não é apenas descrever o que aconteceu, mas
+investigar profundamente os dados como um analista experiente faria.
+
+Durante a análise:
+
+- Identifique onde a queda está concentrada e quais dimensões mais ajudam a explicá-la.
+- Analise padrões, tendências, anomalias e relações entre os dados.
+- Procure comportamentos que poderiam passar despercebidos por um analista iniciante.
+- Compare o período com meses anteriores e, quando fizer sentido, com outros produtos, regiões, clientes, canais ou demais variáveis disponíveis.
+- Identifique mudanças relevantes de volume, preço, desconto, mix, clientes, vendedores ou outras variáveis existentes na base.
+- Levante hipóteses que possam explicar a queda de 12%.
+- Para cada hipótese, apresente as evidências encontradas nos dados e também o que ainda não pode ser comprovado.
+- Não trate correlação como causa. Diferencie claramente fato, evidência, hipótese e conclusão.
+
+Para cada hipótese encontrada, classifique o **nível de
+atenção** que a gestão deveria dar:
+
+**Alta, Média ou Baixa**
+
+e explique o motivo dessa classificação.
+
+Depois, responda:
+
+1. Quais são as descobertas mais importantes desta investigação?
+2. Existe alguma descoberta relevante que eu não perguntei, mas que um analista sênior deveria destacar?
+3. Quais informações adicionais seriam necessárias para confirmar ou descartar as principais hipóteses?
+4. O que merece ação imediata?
+5. O que deveria apenas continuar sendo monitorado?
+6. Que perguntas a gestão deveria fazer depois de receber esta análise?
+
+Por fim, prepare uma versão para apresentação à gestão.
+
+Crie um **resumo executivo** em formato de tabela
+contendo:
+
+**Descoberta | Evidência nos dados | Possível causa | Nível
+de atenção | Ação recomendada**
+
+Depois da tabela, escreva uma conclusão executiva curta, em
+linguagem de negócio, respondendo:
+
+**O que aconteceu?**
+
+**Onde aconteceu?**
+
+**O que provavelmente explica?**
+
+**Qual o impacto?**
+
+**O que recomendamos fazer agora?**
+
+Priorize descobertas realmente relevantes para tomada de
+decisão e explique o raciocínio de forma clara, sem simplificar excessivamente
+a análise.</textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-anchor" id="case2">
+    <div class="wrap">
+      <div class="case-hero">
+        <div class="section-label">Case 2</div>
+        <h2>Xereta Professor 👀</h2>
+        <p>Neste case, o Copilot assume um papel mais didático: ele investiga a base com curiosidade, explica o que encontrou e ajuda você a entender como interpretar os dados antes de tirar conclusões.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>O Copilot deverá</h3>
+          <ul>
+            <li>Explorar a base com perguntas</li>
+            <li>Apontar padrões e exceções</li>
+            <li>Explicar o raciocínio de forma simples</li>
+            <li>Separar fatos de interpretações</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>O papel da IA</h3>
+          <ul>
+            <li>Ensinar o aluno a analisar melhor</li>
+            <li>Mostrar cuidados antes de concluir</li>
+            <li>Sugerir próximas perguntas</li>
+            <li>Transformar a análise em explicação didática</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="prompt-case2">
+    <div class="wrap">
+      <div class="section-label">Xereta Professor</div>
+      <h2>Monte seu prompt</h2>
+
+      <details class="accordion-single">
+        <summary>Abrir construtor do Case 2</summary>
+        <div class="accordion-content">
+          <div class="info-box">
+            <div class="ico">👀</div>
+            <p><strong>Preencha as perguntas abaixo para adaptar o Xereta Professor à sua base.</strong> O foco é receber uma análise didática, explicada e fácil de apresentar.</p>
+          </div>
+
+          <div class="question-form">
+            <div class="q-item">
+              <label for="xArquivos">1. Quais planilhas, arquivos ou relatórios serão analisados?</label>
+              <textarea id="xArquivos" placeholder="Ex.: relatório de vendas, cadastro de clientes, base de atendimento..."></textarea>
+            </div>
+            <div class="q-item">
+              <label for="xAssunto">2. Sobre o que você quer aprender ou entender melhor?</label>
+              <input id="xAssunto" placeholder="Ex.: comportamento dos clientes, variação de vendas, desempenho por região..." />
+            </div>
+            <div class="q-item">
+              <label for="xDificuldade">3. O que está confuso ou difícil de interpretar?</label>
+              <textarea id="xDificuldade" placeholder="Ex.: não sei quais indicadores olhar, não entendo a diferença entre regiões, não sei explicar a queda..."></textarea>
+            </div>
+            <div class="q-item">
+              <label for="xPublico">4. Para quem essa explicação será apresentada?</label>
+              <input id="xPublico" placeholder="Ex.: gestão, equipe comercial, diretoria, cliente..." />
+            </div>
+            <div class="q-item">
+              <label for="xFormato">5. Como você quer receber a explicação?</label>
+              <textarea id="xFormato" placeholder="Ex.: tabela didática, resumo simples, perguntas para investigação, roteiro de apresentação..."></textarea>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="action-btn primary" onclick="generateXeretaPrompt()">Gerar prompt personalizado</button>
+            <button class="action-btn green" onclick="clearXeretaBuilder()">Limpar respostas</button>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-tools">
+              <span>Prompt personalizado · Case 2</span>
+              <button class="copy-btn" onclick="copyPrompt('generatedXeretaPrompt', this)">⧉ Copiar prompt</button>
+            </div>
+            <textarea id="generatedXeretaPrompt" class="prompt-text generated" readonly>Abra o construtor, preencha as perguntas acima e clique em “Gerar prompt personalizado”.</textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="prompt-aula-case2">
+    <div class="wrap">
+      <div class="section-label">Prompt da aula</div>
+      <h2>Prompt da aula — Xereta Professor</h2>
+      <div class="info-box">
+        <div class="ico">👀</div>
+        <p><strong>Use este prompt para pedir uma análise mais didática.</strong> Ele ajuda o Copilot a explicar a base como um professor curioso, investigativo e cuidadoso.</p>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-tools">
+          <span>Prompt da aula · Case 2</span>
+          <button class="copy-btn" onclick="copyPrompt('promptXeretaFinal', this)">⧉ Copiar prompt</button>
+        </div>
+        <textarea id="promptXeretaFinal" class="prompt-text generated" readonly>Atue como um **Xereta Professor**.
+
+Sua função é analisar minha base como alguém curioso, didático e investigativo. Não quero apenas uma resposta pronta: quero que você me ajude a entender os dados, me ensine a enxergar padrões e explique o raciocínio de forma simples.
+
+Analise os arquivos enviados e siga este processo:
+
+1. Primeiro, identifique quais informações existem na base.
+2. Explique quais colunas, períodos, categorias ou indicadores parecem mais importantes.
+3. Faça perguntas que um bom professor faria para me ajudar a interpretar melhor os dados.
+4. Aponte padrões, exceções, comportamentos curiosos e possíveis inconsistências.
+5. Explique o que cada descoberta significa em linguagem simples.
+6. Mostre quais análises eu deveria fazer antes de apresentar uma conclusão.
+7. Separe claramente:
+- O que é fato observado nos dados;
+- O que é uma possível interpretação;
+- O que ainda precisa ser validado.
+
+Depois, monte uma explicação didática para apresentação, com:
+
+**Ponto observado | O que os dados mostram | Como interpretar | Cuidado antes de concluir | Próxima pergunta**
+
+Finalize com um resumo simples respondendo:
+
+**O que eu aprendi com essa base?**
+**O que merece atenção?**
+**O que eu deveria investigar depois?**
+**Como eu posso explicar isso para outra pessoa?**
+
+Use uma linguagem clara, prática e didática, como se estivesse me ensinando a analisar melhor os dados.</textarea>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap"><p>© 2026 Escola Karen Abecia · Todos os direitos reservados</p></div>
+</footer>
+
+<script>
+function copyText(text, btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    if(btn){
+      const original=btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML='✓ Copiado';
+      setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML=original},1800);
+    }
+  });
+}
+function copyPrompt(id, btn){
+  const el=document.getElementById(id);
+  if(!el)return;
+  copyText(el.value, btn);
+}
+function val(id){
+  const el=document.getElementById(id);
+  return el && el.value.trim() ? el.value.trim() : '[preencher]';
+}
+function generatePrompt(){
+  const prompt = `Atue como um Analista de Dados Sênior no papel de Detetive Questionador.
+
+Tenho uma base de dados relacionada a: ${val('qTema')}.
+
+Planilhas e arquivos que serão analisados:
+${val('qPlanilhas')}
+
+Primeiro, unifique os dados em uma única base de análise, garantindo que as colunas equivalentes estejam corretamente combinadas e sinalizando possíveis problemas de estrutura, duplicidade ou inconsistência.
+
+Depois, investigue o seguinte problema:
+${val('qProblema')}
+
+Período de análise e comparação:
+${val('qPeriodo')}
+
+Dimensões e variáveis que devem ser consideradas na investigação:
+${val('qDimensoes')}
+
+Sua missão não é apenas descrever o que aconteceu, mas investigar profundamente os dados como um analista experiente faria.
+
+Durante a análise:
+- Identifique onde o problema está concentrado e quais dimensões mais ajudam a explicá-lo.
+- Analise padrões, tendências, anomalias e relações entre os dados.
+- Procure comportamentos que poderiam passar despercebidos por um analista iniciante.
+- Compare o período indicado com períodos anteriores e, quando fizer sentido, com outros produtos, regiões, clientes, canais, vendedores ou demais variáveis disponíveis.
+- Identifique mudanças relevantes de volume, preço, desconto, mix, clientes, vendedores ou outras variáveis existentes na base.
+- Levante hipóteses que possam explicar o problema.
+- Para cada hipótese, apresente as evidências encontradas nos dados e também o que ainda não pode ser comprovado.
+- Não trate correlação como causa. Diferencie claramente fato, evidência, hipótese e conclusão.
+
+Para cada hipótese encontrada, classifique o nível de atenção que a gestão deveria dar:
+Alta, Média ou Baixa.
+
+Depois, responda:
+1. Quais são as descobertas mais importantes desta investigação?
+2. Existe alguma descoberta relevante que eu não perguntei, mas que um analista sênior deveria destacar?
+3. Quais informações adicionais seriam necessárias para confirmar ou descartar as principais hipóteses?
+4. O que merece ação imediata?
+5. O que deveria apenas continuar sendo monitorado?
+6. Que perguntas a gestão deveria fazer depois de receber esta análise?
+
+Formato esperado da resposta:
+${val('qSaida')}
+
+Prepare uma versão para apresentação à gestão em linguagem de negócio. Priorize descobertas realmente relevantes para tomada de decisão e explique o raciocínio de forma clara, sem simplificar excessivamente a análise.`;
+  document.getElementById('generatedPrompt').value = prompt;
+}
+function clearBuilder(){
+  ['qPlanilhas','qTema','qProblema','qPeriodo','qDimensoes','qSaida'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value = '';
+  });
+  document.getElementById('generatedPrompt').value='Preencha as perguntas acima e clique em “Gerar prompt personalizado”.';
+}
+
+function generateXeretaPrompt(){
+  const prompt = `Atue como um Xereta Professor.
+
+Sua função é analisar minha base como alguém curioso, didático e investigativo. Não quero apenas uma resposta pronta: quero que você me ajude a entender os dados, me ensine a enxergar padrões e explique o raciocínio de forma simples.
+
+Arquivos, planilhas ou relatórios que serão analisados:
+${val('xArquivos')}
+
+Assunto que quero entender melhor:
+${val('xAssunto')}
+
+O que está confuso ou difícil de interpretar:
+${val('xDificuldade')}
+
+Público que receberá a explicação:
+${val('xPublico')}
+
+Formato desejado da resposta:
+${val('xFormato')}
+
+Analise os arquivos enviados e siga este processo:
+1. Primeiro, identifique quais informações existem na base.
+2. Explique quais colunas, períodos, categorias ou indicadores parecem mais importantes.
+3. Faça perguntas que um bom professor faria para me ajudar a interpretar melhor os dados.
+4. Aponte padrões, exceções, comportamentos curiosos e possíveis inconsistências.
+5. Explique o que cada descoberta significa em linguagem simples.
+6. Mostre quais análises eu deveria fazer antes de apresentar uma conclusão.
+7. Separe claramente o que é fato observado nos dados, o que é interpretação e o que ainda precisa ser validado.
+
+Finalize com uma explicação didática para que eu consiga apresentar essa análise com clareza.`;
+  document.getElementById('generatedXeretaPrompt').value = prompt;
+}
+function clearXeretaBuilder(){
+  ['xArquivos','xAssunto','xDificuldade','xPublico','xFormato'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value = '';
+  });
+  document.getElementById('generatedXeretaPrompt').value='Abra o construtor, preencha as perguntas acima e clique em “Gerar prompt personalizado”.';
+}
+
+function downloadPDF(){
+  const original=document.title;
+  document.title='imersao_copilot_aula1';
+  window.print();
+  document.title=original;
+}
+</script>
+</body>
+</html>
