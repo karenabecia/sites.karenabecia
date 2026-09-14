@@ -1,0 +1,48 @@
+name: Atualizar Central de Links - Aula 2
+
+on:
+  schedule:
+    # 21/09/2026 às 21h no horário de Brasília
+    # equivale a 22/09/2026 às 00h UTC
+    - cron: '0 0 22 9 *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar data
+        id: data
+        run: |
+          if [ "$(date -u +%Y-%m-%d)" = "2026-09-22" ]; then
+            echo "executar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "executar=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Baixar repositório
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Atualizar Central de Links
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          cp imersao-copilot/central-links-agendamento2.html imersao-copilot/central-links.html
+
+      - name: Publicar alteração
+        if: steps.data.outputs.executar == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add imersao-copilot/central-links.html
+
+          git diff --cached --quiet && exit 0
+
+          git commit -m "Atualiza Central de Links - Aula 2 - 21/09 às 21h"
+          git push
