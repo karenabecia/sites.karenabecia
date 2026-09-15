@@ -54,6 +54,18 @@ a{text-decoration:none;color:inherit}
 .brand strong{color:var(--accent)}
 .step-list{display:grid;gap:7px}
 .step-item{
+  width:100%;
+  border:0;
+  text-align:left;
+  background:transparent;
+  font:inherit;
+  cursor:pointer;
+}
+.step-item:hover{
+  background:#f7f2fb;
+  color:var(--accent);
+}
+.step-item{
   display:flex;
   gap:10px;
   align-items:center;
@@ -324,15 +336,15 @@ textarea{min-height:110px;resize:vertical}
   </div>
 
   <div class="step-list" id="stepList">
-    <div class="step-item active"><span class="step-dot">1</span> Sobre o sistema</div>
-    <div class="step-item"><span class="step-dot">2</span> Usuários</div>
-    <div class="step-item"><span class="step-dot">3</span> Telas</div>
-    <div class="step-item"><span class="step-dot">4</span> Cadastros</div>
-    <div class="step-item"><span class="step-dot">5</span> Processo</div>
-    <div class="step-item"><span class="step-dot">6</span> Regras</div>
-    <div class="step-item"><span class="step-dot">7</span> Dashboard</div>
-    <div class="step-item"><span class="step-dot">8</span> Entrega</div>
-    <div class="step-item"><span class="step-dot">9</span> Prompt pronto</div>
+    <button type="button" class="step-item active" data-step="0"><span class="step-dot">1</span> Sobre o sistema</button>
+    <button type="button" class="step-item" data-step="1"><span class="step-dot">2</span> Usuários</button>
+    <button type="button" class="step-item" data-step="2"><span class="step-dot">3</span> Telas</button>
+    <button type="button" class="step-item" data-step="3"><span class="step-dot">4</span> Cadastros</button>
+    <button type="button" class="step-item" data-step="4"><span class="step-dot">5</span> Processo</button>
+    <button type="button" class="step-item" data-step="5"><span class="step-dot">6</span> Regras</button>
+    <button type="button" class="step-item" data-step="6"><span class="step-dot">7</span> Dashboard</button>
+    <button type="button" class="step-item" data-step="7"><span class="step-dot">8</span> Entrega</button>
+    <button type="button" class="step-item" data-step="8"><span class="step-dot">9</span> Prompt pronto</button>
   </div>
 
   <div class="sidefoot">
@@ -508,7 +520,7 @@ textarea{min-height:110px;resize:vertical}
           <button class="btn btn-light" onclick="prevStep()">Voltar e editar</button>
           <button class="btn btn-light" onclick="baixarPrompt()">Baixar .txt</button>
         </div>
-        <div class="tip"><strong>Dica:</strong> se quiser melhorar o resultado, volte às etapas anteriores e acrescente mais detalhes do processo real.</div>
+        <div class="tip"><strong>Dica:</strong> você só precisa detalhar o processo e as telas. As orientações de GitHub Pages, Google Sheets, Google Apps Script, testes e construção por etapas já entram automaticamente no prompt final.</div>
       </div>
     </section>
 
@@ -557,14 +569,27 @@ function prevStep(){
     updateStage();
   }
 }
+function goToStep(index){
+  if(index < 0 || index >= stages.length) return;
+  current = index;
+  updateStage();
+}
+
+document.querySelectorAll(".step-item[data-step]").forEach(item=>{
+  item.addEventListener("click",()=>{
+    goToStep(Number(item.dataset.step));
+  });
+});
 
 function gerarPrompt(){
   const telas=selecionados("tela");
   const entregas=selecionados("entrega");
 
-  let txt=`Quero criar um sistema${v("nome") ? ` chamado "${v("nome")}"` : ""}.`;
+  let txt=`Quero desenvolver um sistema web${v("nome") ? ` chamado "${v("nome")}"` : ""}.`;
   txt+= v("area") ? ` Ele será utilizado em ${v("area")}.` : "";
-  txt+=`\n\nQuero que você me ajude a estruturar e criar esse sistema focando primeiro no funcionamento, nas telas e nas regras do processo. Evite complicar a explicação com muitos conceitos técnicos.`;
+  txt+=`\n\nO sistema ficará publicado no GitHub Pages, utilizará o Google Sheets como base de dados e o Google Apps Script para fazer a comunicação entre as páginas e as planilhas.`;
+  txt+=`\n\nO foco principal é criar uma plataforma funcional, intuitiva e organizada, que substitua controles manuais, centralize as informações e permita acompanhar o processo de ponta a ponta.`;
+  txt+=`\n\nQuero que você me ajude a estruturar e criar esse sistema focando primeiro no funcionamento, nas telas e nas regras do processo. A explicação para mim deve ser simples e sem excesso de termos técnicos, mas o desenvolvimento precisa considerar a estrutura necessária para o sistema funcionar de verdade.`;
 
   txt+=linha("OBJETIVO DO SISTEMA",v("objetivo"));
   txt+=linha("COMO O PROCESSO FUNCIONA HOJE",v("hoje"));
@@ -593,7 +618,55 @@ function gerarPrompt(){
   if(entregas.length) txt+=`\nCOMO QUERO QUE O PROJETO SEJA CONSTRUÍDO\n- ${entregas.join("\n- ")}\n`;
   txt+=linha("OBSERVAÇÕES FINAIS",v("obs"));
 
-  txt+=`\nORIENTAÇÕES PARA A CRIAÇÃO\n- Antes de começar, organize o fluxo completo do sistema e apresente a estrutura proposta.\n- Considere as informações preenchidas acima como regras principais do projeto.\n- Quando alguma parte puder ser simplificada para facilitar o uso, proponha a solução mais simples.\n- Mantenha todas as telas conectadas ao mesmo processo.\n- Preserve as funcionalidades já criadas quando avançar para novas etapas.\n- O sistema deve ser fácil de entender e usar por pessoas que não são técnicas.\n- Quando forem necessárias listas suspensas, permita que sejam administradas pela área de configurações.\n- Sempre que houver relacionamento entre registros, utilize IDs únicos para evitar confusão entre informações.\n- Ao final de cada etapa, explique de forma simples o que foi criado e como testar.`;
+  txt+=`\nORIENTAÇÕES PARA A CRIAÇÃO
+- Antes de começar, organize o fluxo completo do sistema e apresente a estrutura proposta.
+- Considere as informações preenchidas acima como regras principais do projeto.
+- Quando alguma parte puder ser simplificada para facilitar o uso, proponha a solução mais simples.
+- Mantenha todas as telas conectadas ao mesmo processo.
+- Preserve as funcionalidades já criadas quando avançar para novas etapas.
+- O sistema deve ser fácil de entender e usar por pessoas que não são técnicas.
+- Quando forem necessárias listas suspensas, permita que sejam administradas pela área de configurações.
+- Sempre que houver relacionamento entre registros, utilize IDs únicos para evitar confusão entre informações.
+- Todas as informações cadastradas, editadas ou atualizadas nas etapas funcionais devem ser gravadas e consultadas no Google Sheets.
+- Evite entregar apenas telas ilustrativas quando a etapa exigir leitura, gravação, edição ou atualização real dos dados.
+- Sempre que uma tela depender de dados reais, conecte essa tela às planilhas antes de considerar a etapa concluída.
+- Ao final de cada etapa, explique de forma simples o que foi criado, quais abas ou planilhas foram utilizadas e como testar o funcionamento.
+
+FORMA DE DESENVOLVIMENTO
+Não desenvolva todas as telas de uma só vez. Primeiro apresente o planejamento e depois construa o sistema em etapas funcionais.
+
+Use esta sequência como referência e adapte quando necessário ao sistema descrito acima:
+
+1. Planejamento do fluxo, telas, usuários e regras.
+2. Organização das abas, campos e relações do Google Sheets.
+3. Criação da página inicial, menu e login.
+4. Criação dos principais cadastros e formulários de entrada.
+5. Criação das etapas de aprovação ou validação do processo.
+6. Criação dos cadastros externos, páginas externas ou participação de terceiros, quando existirem.
+7. Criação das análises, comparações, histórico e negociações do processo.
+8. Criação das telas de acompanhamento, Dashboard, relatórios e etapas finais.
+9. Configurações, testes gerais e publicação no GitHub Pages.
+
+Em cada etapa:
+- Explique o que será criado antes de começar.
+- Informe quais abas do Google Sheets serão utilizadas ou criadas.
+- Entregue os arquivos completos necessários para aquela etapa.
+- Explique de forma simples onde cada arquivo deve ser colocado.
+- Explique como testar a etapa antes de avançar.
+- Preserve tudo o que já estava funcionando anteriormente.
+- Não substitua funcionalidades reais por dados fictícios sem deixar isso claramente identificado.
+- Quando uma etapa depender de dados reais, faça a gravação e a leitura desses dados funcionarem antes de avançar para a próxima etapa.
+
+ESTRUTURA TÉCNICA PADRÃO
+Considere, salvo se houver uma necessidade específica em contrário:
+- GitHub Pages para publicar as páginas do sistema.
+- Google Sheets para armazenar os dados.
+- Google Apps Script para receber, consultar, gravar e atualizar os dados entre o sistema e as planilhas.
+- HTML, CSS e JavaScript para construir as telas e interações.
+- IDs únicos para ligar registros relacionados.
+- Uma área de configurações para administrar listas suspensas e cadastros auxiliares.
+- Separação entre páginas internas e páginas externas quando usuários de fora da equipe precisarem enviar informações.
+- Controle de usuários e permissões de acordo com o que foi definido nas respostas acima.`;
 
   document.getElementById("promptBox").textContent=txt;
 }
