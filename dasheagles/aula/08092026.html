@@ -81,12 +81,12 @@
           <td class="program-status"><span class="status done">✅ Concluída</span></td>
           <td>Etapa 3</td>
         </tr>
-        <tr data-tela="Início" data-etapa="8" data-numero="02">
+        <tr data-tela="Início" data-etapa="3" data-numero="02">
           <td>02</td>
           <td>Início</td>
           <td>Cartões de resumo, como aprovação pendente e cotações vencendo, além do menu lateral de acordo com o perfil.</td>
           <td class="program-status"><span class="status yellow">🟡 Parcial — falta plugar dados reais</span></td>
-          <td>Etapa 8</td>
+          <td>Etapa 3 (feita) + Etapa 8 (dados)</td>
         </tr>
         <tr data-tela="Cadastro de projetos" data-etapa="4" data-numero="03">
           <td>03</td>
@@ -406,10 +406,11 @@ function ordenarStatus(tipo){
       return numeroA - numeroB;
     }
 
-    const numeroA = a.dataset.numero === "Extra" ? 999 : Number(a.dataset.numero || 999);
-    const numeroB = b.dataset.numero === "Extra" ? 999 : Number(b.dataset.numero || 999);
-
-    return numeroA - numeroB;
+    return (a.dataset.tela || "").localeCompare(
+      b.dataset.tela || "",
+      "pt-BR",
+      {sensitivity:"base"}
+    );
   });
 
   linhas.forEach(linha => tbody.appendChild(linha));
