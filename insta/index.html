@@ -48,7 +48,7 @@
     }
 
     .header-title span {
-      color: #FF7000;
+      color: #f768f7;
     }
 
     /* ── MAIN ── */
@@ -161,8 +161,8 @@
       transform: scale(0.98);
     }
 
-    .btn-orange { background: #FF7000; }
-    .btn-green  { background: #57B95C; }
+    .btn-orange { background: #f768f7; }
+    .btn-green  { background: #8ee192; }
     .btn-red    { background: #FF4D4D; }
 
     .card-claude {
@@ -271,7 +271,7 @@
       position: absolute;
       z-index: -1;
       inset: -120%;
-      background: conic-gradient(from 0deg, transparent 0 16%, #bf66f1 24%, #ffffff 27%, #bf66f1 30%, transparent 38% 65%, #7030A0 76%, transparent 85%);
+      background: conic-gradient(from 0deg, transparent 0 16%, #f768f7 24%, #ffffff 27%, #f768f7 30%, transparent 38% 65%, #7030A0 76%, transparent 85%);
       animation: copilot-border-spin 7s linear infinite;
     }
     .copilot-card-inner {
@@ -305,7 +305,7 @@
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .13em;
-      color: #d9b2fa;
+      color: #8ee192;
       margin-bottom: 12px;
     }
     .copilot-dot {
@@ -313,7 +313,7 @@
       height: 7px;
       flex-shrink: 0;
       border-radius: 50%;
-      background: #bf66f1;
+      background: #f768f7;
       box-shadow: 0 0 12px rgba(191,102,241,.8);
     }
     .copilot-title {
@@ -325,7 +325,7 @@
       color: #fff;
       margin: 0;
     }
-    .copilot-title span { color: #d9a5fa; }
+    .copilot-title span { color: #8ee192; }
     .copilot-description {
       margin: 10px 0 19px;
       max-width: 340px;
@@ -342,7 +342,7 @@
       min-height: 46px;
       padding: 13px 16px;
       border-radius: 10px;
-      background: #bf66f1;
+      background: #f768f7;
       color: #170a21;
       font-family: 'Poppins', sans-serif;
       font-size: .88rem;
@@ -352,7 +352,7 @@
     }
     .copilot-button svg { width: 18px; height: 18px; flex-shrink: 0; }
     .copilot-button:hover, .copilot-button:focus-visible {
-      background: #d9a5fa;
+      background: #8ee192;
       box-shadow: 0 0 22px rgba(191,102,241,.3);
     }
     .copilot-button:active { transform: scale(.98); }
@@ -375,7 +375,7 @@
     }
     .orbit-two { inset: 36px; border-radius: 42%; transform: rotate(65deg); }
     .orbit-three { inset: 72px; border-radius: 35%; transform: rotate(15deg); }
-    .copilot-spark { position: absolute; left: 44px; bottom: 29px; color: #bf66f1; font-size: 22px; }
+    .copilot-spark { position: absolute; left: 44px; bottom: 29px; color: #f768f7; font-size: 22px; }
     @keyframes copilot-border-spin { to { transform: rotate(360deg); } }
     @media (hover: hover) and (pointer: fine) {
       .copilot-card:hover {
@@ -389,6 +389,474 @@
       .copilot-card, .copilot-card::before, .copilot-card-inner,
       .copilot-decor, .copilot-button { animation: none !important; transition: none !important; }
     }
+
+
+    /* ── TEMA BLACK26 ── */
+    body {
+      background: #050505;
+      color: #f5f5f5;
+    }
+
+    .header {
+      background: #050505;
+      border-bottom: 1px solid #1f1f1f;
+      box-shadow: none;
+    }
+
+    .logo {
+      filter: brightness(0) invert(1);
+      opacity: .96;
+    }
+
+    .header-title {
+      color: #f5f5f5;
+    }
+
+    .header-title span {
+      color: #a8ff5a;
+    }
+
+    .main {
+      padding-top: 22px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #262626;
+      box-shadow: none;
+    }
+
+    .card-claude {
+      background: #101010;
+      border-color: #DE7356;
+    }
+
+    .card-label {
+      color: #ffffff;
+    }
+
+    .card-desc {
+      color: #a7a7ad;
+    }
+
+    footer {
+      color: #ffffff;
+    }
+
+    .footer-label,
+    .footer-copy {
+      color: #ffffff;
+    }
+
+    .social-btn {
+      background: #111111;
+      border: 1px solid #252525;
+      box-shadow: none;
+    }
+
+    .social-btn span {
+      color: #f3f3f3;
+    }
+
+    /* Banner principal BLACK26 */
+    .black26-hero {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: 350px;
+      padding: 30px 25px 26px;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid #343434;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.035), transparent 38%),
+        #090909;
+      color: #ffffff;
+      text-decoration: none;
+      box-shadow: 0 24px 55px rgba(0,0,0,.36);
+      isolation: isolate;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+
+    .black26-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(120deg, transparent 20%, rgba(168,255,90,.08) 48%, transparent 65%);
+      transform: translateX(-110%);
+      animation: black26-sweep 5.5s ease-in-out infinite;
+    }
+
+    .black26-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to right, transparent 0%, #000 42%, #000 100%);
+      pointer-events: none;
+    }
+
+    .black26-glow {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: .20;
+      pointer-events: none;
+    }
+
+    .black26-glow-green {
+      right: -90px;
+      top: -85px;
+      background: #95ff49;
+    }
+
+    .black26-glow-orange {
+      right: 55px;
+      bottom: -150px;
+      background: #ff6a2b;
+      opacity: .16;
+    }
+
+    .black26-content {
+      position: relative;
+      z-index: 2;
+      max-width: 390px;
+    }
+
+    .black26-kicker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .68rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: #a8ff5a;
+    }
+
+    .black26-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #a8ff5a;
+      box-shadow: 0 0 0 4px rgba(168,255,90,.09), 0 0 16px rgba(168,255,90,.65);
+    }
+
+    .black26-brand {
+      margin-bottom: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 13vw, 4rem);
+      line-height: .9;
+      letter-spacing: -.075em;
+      color: #ffffff;
+    }
+
+    .black26-brand span {
+      color: #ff6a2b;
+    }
+
+    .black26-title {
+      margin: 0;
+      max-width: 360px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.05rem, 4.5vw, 1.35rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -.025em;
+      color: #f5f5f5;
+    }
+
+    .black26-title strong {
+      color: #a8ff5a;
+      font-weight: 700;
+    }
+
+    .black26-desc {
+      margin: 13px 0 20px;
+      max-width: 365px;
+      color: #aaaaaf;
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+
+    .black26-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 11px;
+      background: #a8ff5a;
+      color: #080808;
+      font-size: .86rem;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .black26-cta svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .black26-pixels {
+      position: absolute;
+      right: 18px;
+      top: 25px;
+      width: 120px;
+      height: 115px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .black26-pixels i {
+      position: absolute;
+      display: block;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.04);
+      transform: rotate(8deg);
+    }
+
+    .black26-pixels i:nth-child(1) { right: 5px; top: 0; width: 15px; height: 15px; border-color: rgba(168,255,90,.65); }
+    .black26-pixels i:nth-child(2) { right: 38px; top: 19px; }
+    .black26-pixels i:nth-child(3) { right: 69px; top: 4px; width: 6px; height: 6px; background: #ff6a2b; border: 0; }
+    .black26-pixels i:nth-child(4) { right: 16px; top: 51px; width: 7px; height: 7px; background: #a8ff5a; border: 0; }
+    .black26-pixels i:nth-child(5) { right: 52px; top: 60px; width: 14px; height: 14px; }
+    .black26-pixels i:nth-child(6) { right: 91px; top: 45px; }
+    .black26-pixels i:nth-child(7) { right: 84px; top: 88px; width: 5px; height: 5px; background: #a8ff5a; border: 0; }
+    .black26-pixels i:nth-child(8) { right: 25px; top: 94px; width: 12px; height: 12px; border-color: rgba(255,106,43,.6); }
+    .black26-pixels i:nth-child(9) { right: 58px; top: 101px; width: 6px; height: 6px; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .black26-hero:hover {
+        transform: translateY(-4px);
+        border-color: #4c4c4c;
+        box-shadow: 0 30px 70px rgba(0,0,0,.5);
+      }
+
+      .black26-hero:hover .black26-cta {
+        background: #bbff81;
+        transform: translateX(2px);
+      }
+    }
+
+    @keyframes black26-sweep {
+      0%, 58% { transform: translateX(-115%); }
+      78%, 100% { transform: translateX(115%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .black26-hero,
+      .black26-hero::before,
+      .black26-cta {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+  
+    /* BLACK26 — identidade oficial */
+    .black26-card {
+      position: relative;
+      isolation: isolate;
+      display: block;
+      width: 100%;
+      border-radius: 22px;
+      padding: 2px;
+      text-decoration: none;
+      background: #101010;
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .black26-card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -160%;
+      background:
+        conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 55deg,
+          #8ee192 82deg,
+          #f768f7 112deg,
+          #8ee192 145deg,
+          transparent 175deg,
+          transparent 235deg,
+          #f768f7 270deg,
+          #8ee192 305deg,
+          transparent 338deg
+        );
+      animation: black26-border-spin 5.5s linear infinite;
+    }
+
+    .black26-card-inner {
+      position: relative;
+      min-height: 285px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(247,104,247,.15), transparent 30%),
+        radial-gradient(circle at 8% 90%, rgba(142,225,146,.13), transparent 35%),
+        #050505;
+      overflow: hidden;
+      padding: 28px 24px 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .black26-content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+
+    .black26-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: #8ee192;
+      margin-bottom: 18px;
+    }
+
+    .black26-tag span {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: #f768f7;
+      box-shadow: 0 0 14px rgba(247,104,247,.55);
+    }
+
+    .black26-logo {
+      display: block;
+      width: min(310px, 82%);
+      max-height: 112px;
+      object-fit: contain;
+      object-position: left center;
+      margin-bottom: 15px;
+    }
+
+    .black26-text {
+      max-width: 330px;
+      margin: 0 0 20px;
+      color: #d7d7db;
+      font-size: .80rem;
+      line-height: 1.55;
+    }
+
+    .black26-button {
+      min-height: 46px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: 11px;
+      background: #8ee192;
+      color: #050505;
+      font-weight: 700;
+      font-size: .88rem;
+      transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+
+    .black26-button svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .black26-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .09;
+      background-image:
+        linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to left, black, transparent 72%);
+    }
+
+    .black26-pixels {
+      position: absolute;
+      right: 20px;
+      top: 22px;
+      width: 130px;
+      height: 130px;
+      opacity: .78;
+      pointer-events: none;
+    }
+
+    .black26-pixels i {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      background: #8ee192;
+      box-shadow: 0 0 14px rgba(142,225,146,.18);
+    }
+
+    .black26-pixels i:nth-child(1){right:8px;top:5px}
+    .black26-pixels i:nth-child(2){right:34px;top:28px;background:#f768f7}
+    .black26-pixels i:nth-child(3){right:6px;top:58px;width:18px;height:18px}
+    .black26-pixels i:nth-child(4){right:52px;top:68px;background:#f768f7}
+    .black26-pixels i:nth-child(5){right:27px;top:95px;width:8px;height:8px}
+    .black26-pixels i:nth-child(6){right:76px;top:15px;width:7px;height:7px;background:#f768f7}
+
+
+    @keyframes black26-border-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (hover:hover) and (pointer:fine) {
+      .black26-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 42px rgba(0,0,0,.32);
+      }
+
+      .black26-card:hover .black26-button {
+        background: #f768f7;
+        box-shadow: 0 0 24px rgba(247,104,247,.22);
+      }
+    }
+
+    .black26-card:focus-visible {
+      outline: 3px solid #8ee192;
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .black26-card,
+      .black26-button {
+        transition: none;
+      }
+
+      .black26-card::before {
+        animation: none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -408,27 +876,54 @@
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="main">
 
-    <!-- 1. Imersão Copilot — últimas vagas -->
-    <div class="copilot-card">
-      <div class="copilot-card-inner">
-        <div class="copilot-accent"></div>
-        <div class="copilot-content">
-          <div class="copilot-eyebrow"><span class="copilot-dot"></span> IMERSÃO COPILOT</div>
-          <h2 class="copilot-title">Últimas vagas para<br><span>Imersão de Copilot</span></h2>
-          <p class="copilot-description">Ao vivo e online, dias 14 e 21 de setembro.</p>
-          <a class="copilot-button" href="https://sites.karenabecia.com.br/imersao-copilot/" target="_blank" rel="noopener noreferrer">
-            Conheça o treinamento
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+        <!-- 1. BLACK26 — convite principal -->
+    <a
+      class="black26-card"
+      href="https://sites.karenabecia.com.br/black26/?utm_source=insta&utm_medium=bio&utm_campaign=black26"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Conheça a BLACK26"
+    >
+      <div class="black26-card-inner">
+        <div class="black26-grid" aria-hidden="true"></div>
+
+        <div class="black26-content">
+          <div class="black26-tag">
+            <span></span>
+            CONVITE ESPECIAL
+          </div>
+
+          <img
+            class="black26-logo"
+            src="https://github.com/karenabecia/sites.karenabecia/blob/main/black26/logo_black.png?raw=true"
+            alt="BLACK26"
+          />
+
+          <p class="black26-text">
+            Entre para a lista e receba em primeira mão todos os detalhes da BLACK26.
+          </p>
+
+          <span class="black26-button">
+            Quero receber o convite
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 12h14m-6-6 6 6-6 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
         </div>
-        <div class="copilot-decor" aria-hidden="true">
-          <div class="copilot-orbit orbit-one"></div>
-          <div class="copilot-orbit orbit-two"></div>
-          <div class="copilot-orbit orbit-three"></div>
-          <span class="copilot-spark">✦</span>
+
+        <div class="black26-pixels" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
       </div>
-    </div>
+    </a>
+
+
 
     <!-- 2. Implementação Claude — próxima turma -->
     <div class="card card-claude">
@@ -465,7 +960,7 @@
           <div class="card-icon orange">
             <!-- Ícone: prédio / empresa -->
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21v-4h6v4" stroke="#FF7000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21v-4h6v4" stroke="#f768f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <p class="card-label">Treinamento In Company</p>
@@ -494,9 +989,9 @@
           <div class="card-icon green">
             <!-- Ícone: pessoa com interrogação / suporte -->
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#57B95C" stroke-width="2"/>
-              <path d="M9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12V14" stroke="#57B95C" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="12" cy="17" r="1" fill="#57B95C"/>
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#8ee192" stroke-width="2"/>
+              <path d="M9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12V14" stroke="#8ee192" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="17" r="1" fill="#8ee192"/>
             </svg>
           </div>
           <p class="card-label">Sou aluno e preciso de ajuda</p>
