@@ -8,6 +8,7 @@
  if(!variant){variant=crypto.getRandomValues(new Uint8Array(1))[0]<128?'A':'B';if(!save(variant)){document.body.textContent='Permita o armazenamento deste site no navegador e recarregue a página para continuar.';return;}}
  const current=document.documentElement.dataset.variant;
  if(document.body.hasAttribute('data-router')||(current&&current!==variant)){location.replace(variant.toLowerCase()+'.html'+location.search+location.hash);return;}
+ window.BLACK_LANDING_READY=true;
  let visitor;try{visitor=localStorage.getItem(key+'-visitor');if(!visitor){visitor=crypto.randomUUID();localStorage.setItem(key+'-visitor',visitor);}}catch(e){visitor=null;}
  const params=new URLSearchParams(location.search);
  const attribution={};for(const name of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']){attribution[name]=(params.get(name)||'').slice(0,300);}
@@ -30,7 +31,7 @@
    const data={name:name.value.trim(),phone:digits,email:email.value.trim().toLowerCase()};
    if(!pending||JSON.stringify(pending.data)!==JSON.stringify(data))pending={id:crypto.randomUUID(),data};
    const status=form.querySelector('.status');const buttons=[...document.querySelectorAll('.signup button')];busy=true;buttons.forEach(b=>b.disabled=true);status.textContent='';modal.showModal();
-   try{await visitPromise;await send({event:'lead',experiment:key,variant,visitorId:visitor,requestId:pending.id,...data,...attribution});try{sessionStorage.setItem('black2026_receipt',JSON.stringify({confirmed:true,at:Date.now()}));}catch(e){}location.assign('obrigado.html');}
+   try{await visitPromise;await send({event:'lead',experiment:key,variant,visitorId:visitor,requestId:pending.id,...data,...attribution});try{sessionStorage.setItem('black2026_receipt',JSON.stringify({confirmed:true,at:Date.now(),requestId:pending.id,variant,origin:document.documentElement.dataset.metaPage==='landing'?'ab':'other'}));}catch(e){}location.assign('obrigado.html');}
    catch(error){modal.close();status.textContent=error.name==='AbortError'?'A confirmação demorou mais do que o esperado. Tente novamente.':error.message;busy=false;buttons.forEach(b=>b.disabled=false);form.querySelector('button').focus();}
   });
   form.addEventListener('input',event=>{if(event.target.setCustomValidity)event.target.setCustomValidity('');});
