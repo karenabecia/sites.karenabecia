@@ -15,7 +15,7 @@
   overlay.className='tour-overlay';overlay.hidden=true;
   overlay.innerHTML='<div class="tour-spotlight" aria-hidden="true"></div><section class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourText"><div class="tour-top"><span id="tourCounter"></span><button class="tour-skip" type="button" data-tour="skip">Pular tutorial</button></div><div class="tour-story"><div class="tour-character" role="img"></div><div class="tour-bubble"><span class="tour-speaker" id="tourSpeaker"></span><h2 id="tourTitle"></h2><p id="tourText"></p></div></div><div class="tour-progress" id="tourProgress" aria-label="Progresso do tutorial"></div><p class="tour-error" id="tourError" role="alert" hidden></p><div class="tour-actions"><button class="tour-back" type="button" data-tour="back">Voltar</button><button class="tour-next" type="button" data-tour="next">Entendi, próximo →</button></div><p class="tour-note">Você pode rever a visita em “Como jogar”.</p></section>';
   const $=selector=>overlay.querySelector(selector);
-  let index=0,open=false,busy=false,storageKey='uaulingo-tour-v2-local',previousFocus=null;
+  let index=0,open=false,busy=false,storageKey='uaulingo-tour-v3-local',previousFocus=null;
   function visibleTarget(selector){return [...document.querySelectorAll(selector)].find(el=>{const box=el.getBoundingClientRect();return box.width>0&&box.height>0&&getComputedStyle(el).visibility!=='hidden'})||null}
   function setView(name){if(!name)return;const current=document.querySelector('.view.active')?.id;if(current==='view-'+name)return;const nav=[...document.querySelectorAll('[data-view="'+name+'"]')].find(el=>el.closest('.sidebar'))||document.querySelector('[data-view="'+name+'"]');nav?.click()}
   function place(){
@@ -62,6 +62,6 @@
   document.addEventListener('keydown',event=>{if(!open)return;if(event.key==='Escape'){close(true);return}if(event.key==='Tab'){const buttons=[...overlay.querySelectorAll('button:not([hidden])')],first=buttons[0],last=buttons.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}});
   document.addEventListener('click',event=>{if(event.target.closest('[data-open-tour]'))show()});
   window.addEventListener('resize',place);
-  document.addEventListener('DOMContentLoaded',async()=>{document.body.appendChild(overlay);const access=await window.UauStudentGate?.ready?.();if(!access)return;try{const session=await window.UauSupabase?.session?.();if(session?.user?.id)storageKey='uaulingo-tour-v2-'+session.user.id}catch{}const forced=new URLSearchParams(location.search).get('tutorial')==='1';let seen=false;try{seen=localStorage.getItem(storageKey)==='1'}catch{}if(forced||!seen)setTimeout(show,700)});
+  document.addEventListener('DOMContentLoaded',async()=>{document.body.appendChild(overlay);const access=await window.UauStudentGate?.ready?.();if(!access)return;try{const session=await window.UauSupabase?.session?.();if(session?.user?.id)storageKey='uaulingo-tour-v3-'+session.user.id}catch{}const forced=new URLSearchParams(location.search).get('tutorial')==='1';let seen=false;try{seen=localStorage.getItem(storageKey)==='1'}catch{}if(forced||!seen)setTimeout(show,700)});
   window.UauTour={open:show};
 })();
