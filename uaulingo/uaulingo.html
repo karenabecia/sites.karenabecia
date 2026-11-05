@@ -8,7 +8,7 @@
   <title>Uaulingo · Excel + IA</title>
   <link rel="icon" type="image/png" href="uaulingo-favicon.png">
   <link rel="stylesheet" href="uaulingo-student-support.css">
-  <link rel="stylesheet" href="uaulingo-tour.css">
+  <link rel="stylesheet" href="uaulingo-tour.css?v=2">
   <style>.uau-student-checking body{visibility:hidden}.uau-access-error{max-width:600px;margin:12vh auto;padding:24px;font:16px/1.5 Arial,sans-serif;color:#063d2e}.uau-access-error a{color:#6e24aa;font-weight:800}</style>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
@@ -525,14 +525,14 @@
   $('#closeModal').onclick=closeModal;
   $('#modalScrim').onclick=event=>{if(event.target.id==='modalScrim')closeModal();};
   document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal();});
-  window.addEventListener('uaulingo:tour-reward',event=>{if(!state.lessons.includes(0))state.lessons.push(0);const points=Number(event.detail?.points)||0;if(studentContext.preview){award(points)}else{state.xp=studentContext.xp;user().points=studentContext.xp;save();renderHeader();renderMapSummary();renderAchievements();renderRanking()}refreshMap();showToast('Tutorial concluído! +'+points+' XP');});
+  window.addEventListener('uaulingo:tour-reward',event=>{if(!state.lessons.includes(0))state.lessons.push(0);const points=Number(event.detail?.points)||0;if(studentContext.preview){award(points)}else{state.xp=studentContext.xp;user().points=studentContext.xp;save();renderHeader();renderMapSummary();renderAchievements();renderRanking()}refreshMap();showToast(points>0?'Tutorial concluído! +'+points+' XP':'Tutorial concluído!');});
   if(!studentContext.preview){$('.avatar').setAttribute('aria-label','Perfil de '+studentContext.student.full_name);$('.avatar').textContent=studentContext.student.full_name.trim().charAt(0).toUpperCase();$('#closeRound').closest('.panel').hidden=true;$('#resetDemo').hidden=true;$('#rankingTable').closest('.panel').querySelector('.rank-head p').textContent='Classificação atual das pessoas participantes.';$('#view-support .private-note').remove();$('#view-map .section-title p').textContent='Siga o caminho e acompanhe a liberação de cada implementação.';$('#view-schedule .schedule-toolbar span').textContent='Datas das implementações';}
   if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(localStorage.getItem('uaulingo-map-hud-seen-v1')==='1');localStorage.setItem('uaulingo-map-hud-seen-v1','1');renderAchievements();renderRanking();
   if(new URLSearchParams(location.search).get('implementacao')==='1')openIntroStep('challenge');
 })();
 
 });</script>
-<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour.js"></script>
+<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour.js?v=2"></script>
 </head>
 <body>
   <div class="app-shell">
