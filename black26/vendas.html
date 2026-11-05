@@ -3,89 +3,434 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Black 26 — Escola Karen Abecia</title>
-<meta name="description" content="Black 26: 10 implementações ao vivo, 13 treinamentos gravados e acesso à equipe de especialistas para colocar Excel e I.A. em prática.">
+<title>Black Friday Vitalícia 2026 — Escola Karen Abecia</title>
+<meta name="description" content="10 implementações ao vivo para fazer junto com a gente e 13 treinamentos com acesso vitalício. Experimente por 7 dias.">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
+<script>
+/* DATAS DA CAMPANHA (horário de Brasília) — para testar: ?fase=parcial ou ?fase=completa no endereço */
+window.BLACK_DATAS = {
+  faseCompleta: '2026-11-06T03:00:00-03:00',   // antes disso: só hero, "olha só a diferença" e dúvidas
+  fimBonusClaude: '2026-11-07T00:01:00-03:00'  // a partir daqui somem todas as menções ao bônus de Claude com Dados
+};
+(function () {
+  var q = new URLSearchParams(location.search).get('fase');
+  var parcial = q === 'completa' ? false : q === 'parcial' ? true : Date.now() < Date.parse(window.BLACK_DATAS.faseCompleta);
+  window.BLACK_PARCIAL = parcial;
+  if (parcial) document.documentElement.classList.add('fase-parcial');
+})();
+</script>
+<script>
+/* Pixel da Meta — o mesmo das páginas de inscrição (1484706788221857) */
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('set','autoConfig',false,'1484706788221857');
+fbq('init','1484706788221857');
+fbq('track','PageView',{page_variant:'vendas'});
+fbq('track','ViewContent',{content_name:'black26-vendas',content_category:window.BLACK_PARCIAL?'fase-inicial':'fase-completa'});
+</script>
 <style>
 :root{
   --bg:#050505; --surface:#101010; --surface-2:#161616; --line:rgba(255,255,255,.10);
-  --text:#F4F4F4; --muted:rgba(244,244,244,.68);
+  --text:#F4F4F4; --muted:rgba(244,244,244,.70);
   --green:#8ee192; --pink:#f768f7; --ink:#050505;
-  --r:20px;
+  --r:22px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3{font-family:'Montserrat',sans-serif;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+img{max-width:100%;display:block}
 a{color:inherit}
+ul{list-style:none}
 .wrap{width:min(1120px,100% - 32px);margin-inline:auto}
-section{padding:84px 0}
+.narrow{width:min(720px,100% - 32px);margin-inline:auto}
+section{padding:84px 0;scroll-margin-top:12px}
 .eyebrow{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
-.sec-title{font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:12px;max-width:760px}
-.sec-sub{color:var(--muted);max-width:640px;margin-bottom:44px}
+.sec-title{font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:14px}
+.sec-sub{color:var(--muted);font-size:1.05rem;max-width:680px}
+.head{margin-bottom:44px}
+.head.center{text-align:center}
+.head.center .sec-sub{margin-inline:auto}
+.center{text-align:center}
+.ico-s{width:1em;height:1em;fill:currentColor;flex:none}
 
 /* Botões */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:10px;padding:15px 26px;font-family:'Poppins',sans-serif;font-weight:500;font-size:1rem;text-decoration:none;transition:transform .15s,background .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:10px;padding:16px 30px;font-family:'Poppins',sans-serif;font-weight:500;font-size:1rem;letter-spacing:.02em;text-decoration:none;transition:transform .15s,background .15s;text-align:center}
 .btn:active{transform:scale(.98)}
 .btn-green{background:var(--green);color:var(--ink)}
 .btn-green:hover{background:#a3eba6}
+/* Botões de compra: mais destaque (brilho que pulsa, faixa de luz e seta) */
+.btn-green[data-go],.btn-green[data-buy],#fixa-btn,#tdlg-go{position:relative;overflow:hidden;background:linear-gradient(135deg,#8ee192,#c4f7c7);font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.04em;padding:19px 38px;box-shadow:0 8px 28px rgba(142,225,146,.35);animation:pulso 2.4s ease-out infinite}
+.btn-green[data-go]::after,.btn-green[data-buy]::after,#fixa-btn::after,#tdlg-go::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:brilho 3.2s ease-in-out infinite}
+.btn-green[data-go]:hover,.btn-green[data-buy]:hover,#fixa-btn:hover,#tdlg-go:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 34px rgba(142,225,146,.55)}
+@keyframes pulso{0%{box-shadow:0 8px 28px rgba(142,225,146,.35),0 0 0 0 rgba(142,225,146,.55)}70%{box-shadow:0 8px 28px rgba(142,225,146,.35),0 0 0 16px rgba(142,225,146,0)}100%{box-shadow:0 8px 28px rgba(142,225,146,.35),0 0 0 0 rgba(142,225,146,0)}}
+@keyframes brilho{0%,55%{left:-60%}100%{left:130%}}
 .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
 .btn-ghost:hover{border-color:var(--green)}
 .btn-block{width:100%}
 :focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.cta-row{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:44px}
+
+/* Selos */
+.seals{display:flex;flex-wrap:wrap;gap:10px;list-style:none}
+.seals li{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;color:var(--muted);padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+.seals li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
+.cta-row .seals{justify-content:center}
 
 /* Header + hero */
-header{padding:22px 0}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.bar img{height:34px;width:auto}
-.hero{position:relative;padding:56px 0 96px;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 70% 20%,#000 0,transparent 65%);-webkit-mask-image:radial-gradient(ellipse at 70% 20%,#000 0,transparent 65%);opacity:.55}
+header{padding:22px 0;position:relative;z-index:2}
+header img{height:36px;width:auto}
+.hero{position:relative;padding:40px 0 64px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 70% 10%,#000 0,transparent 65%);-webkit-mask-image:radial-gradient(ellipse at 70% 10%,#000 0,transparent 65%);opacity:.55}
 .hero .wrap{position:relative}
-.mark{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.2em;padding:7px 14px;border:1px solid var(--pink);color:var(--pink);border-radius:999px;display:inline-block;margin-bottom:26px}
-.hero h1{font-size:clamp(2.2rem,6vw,4rem);max-width:880px;margin-bottom:22px}
+/* Banner da primeira dobra: texto à esquerda, imagem à direita */
+.hero.com-banner{padding:76px 0 84px}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;z-index:0}
+.hero.com-banner::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 36%,rgba(5,5,5,.7) 54%,transparent 74%),linear-gradient(0deg,var(--bg) 0%,transparent 14%),linear-gradient(180deg,var(--bg) 0%,rgba(5,5,5,.6) 9%,transparent 24%);pointer-events:none}
+.hero.com-banner .wrap{z-index:1}
+.hero.com-banner h1{max-width:640px;font-size:clamp(2.1rem,4.2vw,3.4rem)}
+.hero.com-banner p.lead{max-width:540px}
+@media (max-width:900px){
+  .hero.com-banner{padding:0 0 56px}
+  .hero-img{position:relative;display:block;height:230px;object-position:76% center;-webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 62%,transparent);mask-image:linear-gradient(180deg,transparent,#000 22%,#000 62%,transparent);margin-bottom:22px}
+  .hero.com-banner::after{display:none}
+}
+.mark{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.16em;padding:8px 16px;border:1px solid var(--pink);color:var(--pink);border-radius:999px;display:inline-block;margin-bottom:28px;text-transform:uppercase}
+.hero h1{font-size:clamp(2.2rem,5.6vw,4rem);max-width:900px;margin-bottom:24px}
 .hero h1 em{font-style:normal;color:var(--green)}
-.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:640px;margin-bottom:34px}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px;max-width:760px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-.stat b{display:block;font-family:'Montserrat',sans-serif;font-size:2rem;color:var(--green);line-height:1}
-.stat span{display:block;margin-top:8px;font-size:.88rem;color:var(--muted)}
+.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:700px;margin-bottom:34px}
+.hero p.lead em{font-style:normal;font-weight:500;color:var(--pink)}
+.hero .btn{margin-bottom:22px}
 
-/* Cards */
-.grid{display:grid;gap:18px}
-.grid-3{grid-template-columns:repeat(3,1fr)}
-.grid-2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px}
-.card.wide{grid-column:span 2}
-.card h3{font-size:1.15rem;margin:14px 0 8px}
-.card p{color:var(--muted);font-size:.95rem}
-.ico{width:44px;height:44px;border-radius:12px;background:rgba(142,225,146,.12);display:grid;place-items:center;color:var(--green)}
-.ico svg{width:22px;height:22px;fill:currentColor}
-.ico.pk{background:rgba(247,104,247,.12);color:var(--pink)}
+/* Faixas de tópicos em movimento (mesmo efeito da página In Company, com a paleta da Black) */
+.marq{display:grid;gap:12px;padding:0}
+.marq-row{overflow:hidden;padding:6px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq-track{display:flex;width:max-content;animation:mq 92s linear infinite}
+.marq-row.rev .marq-track{animation-direction:reverse;animation-duration:116s}
+.marq-track span{--c:var(--green);flex:none;margin-right:12px;padding:10px 18px;border:1px solid var(--c);border-radius:999px;color:#fff;font:600 .9rem 'Montserrat',sans-serif;white-space:nowrap;background:rgba(255,255,255,.03);cursor:pointer;transition:background .22s,color .22s,box-shadow .22s}
+.marq-track span:nth-child(even){--c:var(--pink)}
+.marq-track span:hover{background:var(--c);color:var(--ink);box-shadow:0 0 20px var(--c)}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-/* Ofertas */
-.offers{align-items:stretch}
-.offer{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:30px}
-.offer.feat{border-color:var(--green);background:linear-gradient(180deg,rgba(142,225,146,.07),var(--surface) 40%)}
-.tag{align-self:flex-start;font-size:.74rem;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(247,104,247,.14);color:var(--pink);margin-bottom:16px}
-.offer h3{font-size:1.4rem;margin-bottom:6px}
-.offer .for{color:var(--muted);font-size:.93rem;margin-bottom:20px}
-.price{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:20px;min-height:104px}
-.price .de{color:var(--muted);text-decoration:line-through;font-size:.9rem}
-.price .por{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.9rem;color:var(--text)}
-.price .parc{color:var(--green);font-size:.92rem}
-.price .soon{color:var(--muted);font-size:.95rem}
-.offer ul{list-style:none;display:grid;gap:10px;margin-bottom:26px;flex:1}
-.offer li{display:flex;gap:10px;font-size:.93rem;color:var(--text)}
-.offer li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:5px;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23050505' d='M9.5 16.6 5.4 12.5l-1.4 1.4 5.5 5.5L20.7 7.2l-1.4-1.4z'/%3E%3C/svg%3E") center/14px no-repeat}
-.note{margin-top:22px;color:var(--muted);font-size:.9rem;text-align:center}
+/* Entrada suave dos blocos ao rolar */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.tema,.pf,.bcard,.dest,.icard,.tcard,.prof,.slide{transition:transform .25s ease,border-color .25s ease}
+.tema:hover,.pf:hover,.bcard:hover,.dest:hover,.icard:hover,.tcard:hover,.prof:hover,.slide:hover{transform:translateY(-4px);border-color:rgba(142,225,146,.55)}
 
-/* Passos */
-.step-n{font-family:'Montserrat',sans-serif;font-weight:700;font-size:2.4rem;color:var(--pink);line-height:1}
+/* Temas */
+.temas{display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+.tema{position:relative;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 8px 16px}
+.tema svg{width:42px;height:42px;fill:var(--green);margin:0 auto 12px}
+.tema span.n{display:block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.9rem;line-height:1.25}
+.tema.hl{border-color:var(--pink);background:linear-gradient(180deg,rgba(247,104,247,.12),var(--surface))}
+.tema.hl svg{fill:var(--pink)}
+.novo{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--pink);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;padding:3px 10px;border-radius:999px}
+
+.fase-parcial [data-fase="completa"]{display:none !important}
+
+/* Dor */
+.dor p{font-size:1.1rem;margin-bottom:20px;color:var(--muted)}
+.dor p b{color:var(--text);background:linear-gradient(transparent 62%,rgba(142,225,146,.28) 62%)}
+.dor p.pivot{font-size:1.3rem;color:var(--text)}
+.story{width:min(1040px,100% - 32px);margin-inline:auto}
+.story{text-align:center;width:min(1120px,100% - 32px)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.ev{--cc:var(--green);transition:opacity .8s,filter .8s}
+.ev.rea{--cc:var(--pink)}
+.ev.dim{opacity:.3;filter:saturate(.5)}
+.ev-chip{display:inline-block;font:800 .9rem 'Montserrat',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:8px 20px;border-radius:999px;border:1.5px solid var(--cc);color:var(--cc);background:color-mix(in srgb,var(--cc) 9%,transparent);margin-bottom:6px}
+.orb{position:relative;width:min(520px,100% - 12px);aspect-ratio:1;margin:6px auto 0}
+.orb-ring{position:absolute;inset:11%;border-radius:50%;border:1px dashed rgba(255,255,255,.16)}
+.orb-g{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.orb-g circle{fill:none;stroke-width:2.2}
+.orb-g .tr{stroke:rgba(255,255,255,.08)}
+.orb-g .pg{stroke:var(--cc);stroke-linecap:round;stroke-dasharray:135.1;stroke-dashoffset:135.1;transition:stroke-dashoffset .8s ease,stroke .8s;filter:drop-shadow(0 0 4px color-mix(in srgb,var(--cc) 60%,transparent))}
+.orb-core{position:absolute;left:50%;top:50%;width:35%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0 8%;border:1.5px solid color-mix(in srgb,var(--cc) 40%,transparent);background:#0a0a0a;color:var(--cc);transition:border-color .6s,box-shadow .6s,color .6s}
+.orb-core svg{width:clamp(20px,4.4vw,32px);height:clamp(20px,4.4vw,32px);stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.orb-core b{font:800 clamp(.68rem,1.5vw,.98rem)/1.2 'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;transition:opacity .4s}
+.ev.done .orb-core{box-shadow:0 0 60px color-mix(in srgb,var(--cc) 30%,transparent),inset 0 0 26px color-mix(in srgb,var(--cc) 8%,transparent);border-color:var(--cc)}
+.ev.tired{--cc:#8d8d8d}
+.ev.tired .nd-c{box-shadow:none}
+.nd{position:absolute;width:0;height:0;opacity:0;transition:opacity .6s}
+.nd.on{opacity:1}
+.nd-i{position:absolute;left:0;top:0;transform:translate(-50%,-50%) scale(.6);transition:transform .6s cubic-bezier(.2,.9,.3,1.2)}
+.nd.on .nd-i{transform:translate(-50%,-50%) scale(1)}
+.nd-f{display:flex;flex-direction:column;align-items:center;gap:7px;animation:flutua var(--d,6s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.nd-c{width:clamp(44px,8vw,72px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;border:1.5px solid color-mix(in srgb,var(--cc) 55%,transparent);background:#0d0d0d;color:var(--cc);box-shadow:0 0 22px color-mix(in srgb,var(--cc) 16%,transparent);transition:color .8s,border-color .8s,box-shadow .8s}
+.nd-c svg{width:44%;height:44%;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nd-t{font:700 clamp(.6rem,1.15vw,.78rem)/1.15 'Montserrat',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#e8e8ec;text-align:center;width:clamp(74px,10vw,118px)}
+@keyframes flutua{0%,100%{transform:translate(0,0)}25%{transform:translate(4px,-6px)}50%{transform:translate(-3px,-10px)}75%{transform:translate(-5px,-3px)}}
+@media (max-width:760px){
+  .duo{grid-template-columns:1fr;gap:34px}
+  .orb{width:min(440px,100% - 12px)}
+  .orb-core svg{width:clamp(20px,6vw,30px);height:clamp(20px,6vw,30px)}
+  .orb-core b{font-size:clamp(.66rem,2.6vw,.9rem)}
+  .nd-c{width:clamp(44px,13vw,62px)}
+  .nd-t{font-size:clamp(.58rem,2vw,.74rem);width:clamp(74px,21vw,120px)}
+}
+@media (prefers-reduced-motion:reduce){.nd-f{animation:none}.nd,.nd-i,.orb-g .pg{transition:none}}
+.dor p.pivot{font-family:'Montserrat',sans-serif;font-size:clamp(1.5rem,4.2vw,2.3rem);line-height:1.25;font-weight:700;color:var(--text);text-align:center;margin:10px 0 34px}
+.dor p.pivot b{display:inline-block;color:var(--green);font-weight:800;font-size:1.18em;background:none;text-shadow:0 0 34px rgba(142,225,146,.35);padding:2px 0}
+.dor p.fim{font-family:'Montserrat',sans-serif;font-size:1.35rem;font-weight:700;color:#fff;margin-top:34px}
+
+/* Preço */
+.compare{display:grid;grid-template-columns:1fr 1.12fr;gap:22px;align-items:stretch}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;display:flex;flex-direction:column}
+.pcard.left{background:#141414;color:var(--muted)}
+.pcard.right{border:2px solid var(--green);background:linear-gradient(180deg,rgba(142,225,146,.09),var(--surface) 38%);color:var(--text);position:relative}
+.pcard h3{font-size:1.3rem;color:var(--text)}
+.pcard .st{font-size:.92rem;color:#fff;text-align:left;margin:4px 0 22px}
+.pcard h3{text-align:left}
+.inc li.linha-preco{align-items:baseline}
+.inc li.linha-preco span{flex:1}
+.inc li.linha-preco em{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--green);white-space:nowrap}
+.bon-t{display:flex;align-items:center;gap:9px;font:700 1.02rem 'Montserrat',sans-serif;color:var(--text);margin-bottom:6px}
+.bon .bon-t svg{width:20px;height:20px;fill:var(--pink);margin-top:0}
+.bon li.bon-t{padding:0 0 6px}
+.bon li.mk::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--pink);margin-top:.62em}
+.bon li .q{font-weight:700;color:var(--pink)}
+.precos .preco{--c:var(--green);border:1.5px solid var(--c);transition:transform .25s ease,box-shadow .25s ease}
+.precos .preco:nth-child(2){--c:var(--pink)}
+.precos .preco:hover{transform:scale(1.03);box-shadow:0 0 22px color-mix(in srgb,var(--c) 38%,transparent)}
+.precos .preco{grid-template-columns:auto 1fr;column-gap:0;padding:12px 18px}
+.precos .preco .g{grid-row:1/span 2;grid-column:1;align-self:stretch;display:flex;align-items:center;min-width:112px;padding:6px 22px 6px 4px;text-align:left;font-weight:800;font-size:1.4rem;line-height:1.15;letter-spacing:.01em;text-transform:uppercase;color:var(--c)}
+.precos .preco .d{grid-column:2;grid-row:1;text-align:right;padding-left:22px;align-self:end}
+.precos .preco .p{grid-column:2;grid-row:2;text-align:right;padding-left:22px;align-self:start}
+.ptag{align-self:flex-start;background:var(--green);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.lista{margin-bottom:6px}
+.lista li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.lista li b{font-weight:500;white-space:nowrap;color:var(--text)}
+.lista li.destaque{color:var(--text)}
+.lista li.destaque b{color:var(--pink)}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 18px;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--text)}
+.total span{font-size:1.5rem}
+.nao li{display:flex;gap:10px;font-size:.9rem;padding:4px 0;color:rgba(244,244,244,.45)}
+.nao svg{fill:#ff8f8f;margin-top:4px}
+.inc li,.bon li{display:flex;gap:11px;padding:7px 0;font-size:.97rem;color:var(--text)}
+.inc svg{fill:var(--green);width:18px;height:18px;margin-top:5px}
+.bon{margin-top:10px;padding:14px 16px;border-radius:14px;background:rgba(247,104,247,.09);border:1px solid rgba(247,104,247,.35)}
+.bon svg{fill:var(--pink);width:17px;height:17px;margin-top:5px}
+.precos{margin:22px 0 22px;display:grid;gap:10px}
+.preco{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
+.preco .g{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.95rem;color:var(--text)}
+.preco .g small{display:block;font-family:'Poppins',sans-serif;font-weight:400;font-size:.74rem;color:var(--muted)}
+.preco .d{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.55rem;color:var(--green);text-align:right;line-height:1.1}
+.preco .p{font-size:.88rem;color:var(--text);text-align:right;grid-column:2}
+.preco .p small{color:var(--muted);font-size:.78rem}
+.pcard .btn{margin-top:4px}
+.pcard .under{text-align:center;color:var(--muted);font-size:.88rem;margin:14px 0 14px}
+.pcard .seals{justify-content:center}
+.faixa{margin-top:-1px;background:linear-gradient(90deg,var(--green),#b6f0b9);color:var(--ink);border-radius:var(--r);padding:20px 28px;font-size:.98rem;line-height:1.55}
+.faixa b{font-weight:700}
+.faixa-wrap{margin-top:22px}
+
+/* Implementações */
+.destaques{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.dest{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
+.dest svg{width:30px;height:30px;fill:var(--green);margin-bottom:12px}
+.dest b{display:block;font-family:'Montserrat',sans-serif;font-size:1rem;margin-bottom:6px;line-height:1.25}
+.dest p{font-size:.88rem;color:var(--muted);line-height:1.5}
+.comuns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px}
+.comum{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;font-size:.96rem;line-height:1.4}
+.comum .ck{flex:none;width:28px;height:28px;border-radius:50%;background:rgba(142,225,146,.16);display:grid;place-items:center}
+.comum .ck svg{width:16px;height:16px;fill:var(--green)}
+.icard .desc{display:flex;flex-direction:column;gap:12px}
+.icard .desc span{display:block}
+.car.i .car-vp{padding:8px 0}
+.icard{--c:var(--green);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 12%,var(--surface)),var(--surface) 55%);border:1.5px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;text-align:left}
+.icard.ia{--c:var(--pink)}
+.icard .ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);border:1.5px solid var(--c);color:var(--c)}
+.icard.mix .ic{background:rgba(142,225,146,.18);border-color:var(--green);color:var(--green)}
+.icard .top .num{color:var(--c)}
+.icard.mix .top .num{color:var(--green)}
+.comum{transition:transform .25s ease,border-color .25s ease}
+.comum:hover{transform:scale(1.04);border-color:rgba(142,225,146,.6)}
+.icard.mix{background:linear-gradient(180deg,color-mix(in srgb,var(--pink) 9%,var(--surface)),var(--surface) 55%);border-color:rgba(142,225,146,.5)}
+.icard .ic svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icard .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.chip{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(142,225,146,.12);color:var(--green)}
+.chip.ia{background:rgba(247,104,247,.14);color:var(--pink)}
+.icard .num{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.5rem;color:rgba(244,244,244,.22)}
+.icard h3{font-size:1.25rem;margin-bottom:10px}
+.icard p.desc{color:var(--muted);font-size:.93rem;margin-bottom:18px;flex:1}
+.icard ul.f{display:grid;gap:6px;font-size:.88rem;margin-bottom:14px}
+.icard ul.f li{display:flex;gap:9px;align-items:flex-start}
+.icard ul.f svg{fill:var(--green);margin-top:5px;width:13px;height:13px}
+.datas{border-top:1px solid var(--line);padding-top:14px;display:grid;gap:6px;font-size:.9rem}
+.datas div{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.datas span{color:var(--muted)}
+.datas b{font-weight:500}
+.com{font-size:.8rem;color:var(--muted);margin-top:10px}
+.nota-h{font-size:.85rem;color:var(--muted);text-align:center;margin-top:20px}
+
+/* Prints */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.gcol{display:grid;gap:22px;align-content:start}
+.gallery figure{margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:zoom-in;display:block;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .25s}
+.gallery figure:hover{transform:translateY(-3px)}
+.gallery figure[hidden]{display:none}
+.gallery img{width:100%;height:auto}
+.gallery-note{margin-top:14px;font-size:1.05rem;color:var(--muted);text-align:center}
+
+/* Treinamentos */
+.treinos{display:grid;gap:22px}
+.tcard{display:grid;grid-template-columns:300px 1fr;gap:34px;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:22px;align-items:center}
+.tcard img{width:100%;height:auto;border-radius:18px;aspect-ratio:720/1040;object-fit:cover}
+.tcard .apoio{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.tcard h3{font-size:1.7rem;margin-bottom:12px}
+.tcard .t{color:var(--muted);margin-bottom:18px}
+.tcard .t b{color:var(--text)}
+.tcard .sai{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.tcard ul.l{display:grid;gap:8px;margin-bottom:22px}
+.tcard ul.l li{display:flex;gap:11px;font-size:.95rem}
+.tcard ul.l svg{fill:var(--green);margin-top:5px;width:14px;height:14px}
+.nums{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.nums span{font-size:.86rem;padding:7px 14px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.nums b{font-family:'Montserrat',sans-serif;color:var(--green)}
+.selo-v{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:var(--ink);padding:5px 12px;border-radius:999px}
+.ideal{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);border:1px solid var(--pink);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.mais{margin-top:54px}
+.mais h3{font-size:1.2rem;margin-bottom:18px;text-align:center}
+/* Carrossel (setas dos dois lados, loop infinito) */
+.car{position:relative}
+.car-vp{overflow:hidden;touch-action:pan-y;padding:6px 0}
+.car-track{display:flex;gap:var(--gap,16px);will-change:transform}
+.car-track.anim{transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+.car-track>*{flex:none}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:var(--green);color:var(--ink);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.55);transition:transform .15s,background .15s}
+.car-btn:hover{background:#b6f0b9;transform:translateY(-50%) scale(1.08)}
+.car-btn svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.car-btn.prev{left:-62px}.car-btn.next{right:-62px}
+.car.v .car-btn{top:calc(var(--iw,480px)*.28125 + 6px)}
+.slide{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 16px 16px;text-align:center;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;align-items:center}
+.slide .lg{height:70px;display:grid;place-items:center;margin-bottom:12px}
+.slide .lg img{max-height:70px;max-width:100%;width:auto;object-fit:contain}
+.slide .nm{display:block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.95rem;line-height:1.25;margin-bottom:8px}
+.slide .fr{display:block;font-size:.84rem;color:var(--muted);line-height:1.5;margin-bottom:14px;flex:1}
+.slide .ver{font-size:.8rem;font-weight:500;color:var(--green)}
+.btn-sm{padding:12px 22px;font-size:.9rem}
+.tcard .btn{margin-top:18px}
+
+/* Popup de conteúdo dos treinamentos */
+dialog.pop.tr{width:min(780px,100% - 24px)}
+.modal.wide{padding:34px 32px}
+.tr-eyebrow{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.modal.wide h2{font-size:1.8rem;padding-right:44px;margin-bottom:8px}
+.tr-tag{font-family:'Montserrat',sans-serif;font-weight:600;font-size:1.05rem;color:var(--green);margin-bottom:12px}
+.tr-desc{color:var(--muted);margin-bottom:18px}
+.tr-h{font-size:1.05rem;margin:26px 0 12px}
+.tr-mod{background:var(--bg);border-radius:14px;padding:16px 18px}
+.tr-mod+.tr-mod{margin-top:10px}
+.tr-mod summary{align-items:flex-start;gap:14px;font-weight:600}
+.tr-mod summary .n{font-family:'Montserrat',sans-serif;color:var(--pink);font-size:.95rem;flex:none;margin-top:2px}
+.tr-mod summary div{flex:1}
+.tr-mod summary b{display:block;font-size:.98rem;line-height:1.3}
+.tr-mod summary small{display:block;font-family:'Poppins',sans-serif;font-weight:400;font-size:.84rem;color:var(--muted);margin-top:3px;line-height:1.45}
+.tr-mod ul{margin-top:12px;padding-left:34px;display:grid;gap:6px;font-size:.9rem;color:var(--text)}
+.tr-mod ul li{position:relative}
+.tr-mod ul li::before{content:"";position:absolute;left:-16px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--green)}
+.tr-cta{margin-top:26px}
+
+/* Vídeos */
+.vcard figure{margin:0}
+.vcard .vd{display:block;margin-top:6px;font-family:'Poppins',sans-serif;font-weight:400;font-size:.9rem;color:var(--muted);line-height:1.5}
+#vdlg{border:0;background:transparent;width:min(960px,96vw);max-height:94dvh;margin:auto;overflow:visible}
+#vdlg::backdrop{background:rgba(0,0,0,.88)}
+#vdlg video{width:100%;max-height:78dvh;border-radius:14px;background:#000;display:block}
+#vdlg .vcap{margin-top:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:1.05rem}
+#vdlg .vcap small{display:block;font-family:'Poppins',sans-serif;font-weight:400;color:var(--muted);font-size:.9rem;margin-top:3px}
+#vdlg .vx{position:absolute;top:-16px;right:-6px;width:40px;height:40px;border-radius:50%;border:0;background:var(--green);color:var(--ink);font-size:1.3rem;cursor:pointer;z-index:2}
+.vbox{position:relative;aspect-ratio:16/9;background:#111 linear-gradient(135deg,#1a1a1a,#0b0b0b);border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.vbox button.play{position:absolute;inset:0;width:100%;border:0;background:transparent center/cover no-repeat;cursor:pointer;display:grid;place-items:center}
+.vbox button.play::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.55))}
+.vbox button.play span{position:relative;width:62px;height:62px;border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .15s}
+.vbox button.play:hover span{transform:scale(1.07)}
+.vbox button.play svg{width:24px;height:24px;fill:var(--ink);margin-left:3px}
+.vbox video{position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:cover}
+.vcard figcaption{margin-top:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.98rem}
+.vcard figcaption small{display:block;font-family:'Poppins',sans-serif;font-weight:400;color:var(--muted);font-size:.82rem}
+
+/* Bônus */
+#bonus{background:radial-gradient(ellipse at 50% 0%,rgba(247,104,247,.14),transparent 60%),#0a0a0a;padding:96px 0}
+.bon-eye{display:inline-flex;align-items:center;gap:9px;color:var(--pink)}
+.bon-eye svg{width:20px;height:20px;fill:var(--pink)}
+.sec-title.big{font-size:clamp(1.9rem,4.6vw,3rem)}
+.brow{--c:var(--green);margin-top:8px}
+.brow:nth-child(2){--c:var(--pink)}
+.bdiv{display:flex;align-items:center;gap:22px;margin:44px 0 26px}
+.bdiv::before,.bdiv::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--c) 60%,transparent))}
+.bdiv::after{background:linear-gradient(270deg,transparent,color-mix(in srgb,var(--c) 60%,transparent))}
+.bdiv span{font:800 clamp(1.5rem,3.4vw,2.3rem)/1 'Montserrat',sans-serif;color:var(--c);text-transform:uppercase;letter-spacing:.04em;text-shadow:0 0 26px color-mix(in srgb,var(--c) 45%,transparent);white-space:nowrap}
+.bgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:stretch;overflow:hidden;border:1.5px solid color-mix(in srgb,var(--c) 65%,transparent);border-radius:var(--r);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 12%,var(--surface)),var(--surface) 60%);box-shadow:0 0 44px color-mix(in srgb,var(--c) 16%,transparent)}
+.bdet{padding:38px 36px}
+.bchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.bdet .chip{background:color-mix(in srgb,var(--c) 12%,transparent);border:1.5px solid var(--c);color:var(--c)}
+.bdet h3{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:16px;line-height:1.15}
+.bdet p{color:var(--muted);font-size:1.02rem;margin-bottom:14px}
+.bdet p b{color:#fff}
+.bvis{position:relative;min-height:300px;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c) 38%,transparent),color-mix(in srgb,var(--c) 6%,transparent) 72%)}
+.bvis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bpanel{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center}
+.bpanel svg{width:64px;height:64px;fill:var(--c);margin-bottom:8px}
+.bpanel b{font:800 clamp(4.2rem,8vw,6rem)/1 'Montserrat',sans-serif;color:#fff;text-shadow:0 0 34px color-mix(in srgb,var(--c) 60%,transparent)}
+.bpanel small{font:700 1rem 'Montserrat',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+@media (max-width:820px){.bgrid{grid-template-columns:1fr}.bvis{order:-1;min-height:240px}.bdet{padding:28px 22px}.bdiv{gap:12px}.bdiv span{white-space:normal;text-align:center}}
+.bonus{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.bonus.dois{grid-template-columns:repeat(2,1fr)}
+.bcard{background:linear-gradient(180deg,rgba(247,104,247,.10),var(--surface) 46%);border:2px solid rgba(247,104,247,.6);border-radius:var(--r);padding:0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 44px rgba(247,104,247,.16)}
+.bcard .vis{position:relative;aspect-ratio:16/9;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(247,104,247,.38),rgba(247,104,247,.06) 72%);overflow:hidden}
+.bcard .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bcard .vis::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(10,10,10,.55));pointer-events:none}
+.bcard .big{text-align:center;line-height:1;position:relative;z-index:1}
+.bcard .big b{display:block;font:800 clamp(4rem,7vw,5.4rem)/1 'Montserrat',sans-serif;color:var(--pink);text-shadow:0 0 30px rgba(247,104,247,.55)}
+.bcard .big small{display:block;margin-top:6px;font:700 1rem 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.bcard .vtag{position:absolute;left:14px;top:14px;z-index:1;background:var(--pink);color:var(--ink);font:800 .78rem 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+.bcard .body{padding:26px 28px 32px;display:flex;flex-direction:column;flex:1}
+.bcard .chip{align-self:flex-start;margin-bottom:14px;background:rgba(247,104,247,.16);color:var(--pink)}
+.bcard h3{font-size:1.4rem;margin-bottom:10px;line-height:1.2}
+.bcard p{color:var(--muted);font-size:1rem}
+.aviso{text-align:center;margin-top:26px;color:var(--muted)}
+
+/* Oferta final */
+.final-card{max-width:620px;margin-inline:auto}
+.final-card .inc{margin-bottom:6px}
+.ancora{font-family:'Montserrat',sans-serif;font-weight:600;font-size:1rem;margin:20px 0 0;color:var(--muted)}
+.ancora s{color:var(--text)}
+
+/* Já sou aluno */
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pf{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.pf svg{width:34px;height:34px;fill:var(--green);margin-bottom:14px}
+.pf h3{font-size:1.15rem;margin-bottom:10px}
+.pf p{color:var(--muted);font-size:.95rem}
+
+/* 7 dias */
+.garantia{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;max-width:820px;margin-inline:auto;background:linear-gradient(135deg,rgba(142,225,146,.10),var(--surface));border:1px solid rgba(142,225,146,.35);border-radius:28px;padding:40px}
+.selo7{width:150px;height:150px;border-radius:50%;border:3px solid rgba(142,225,146,.22);display:grid;place-items:center;text-align:center;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--green);line-height:1;position:relative}
+.selo7>div{position:relative;z-index:1}
+.selo7::before{content:"";position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(142,225,146,.15) 55%,var(--green) 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));animation:gira 3.2s linear infinite}
+.selo7::after{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(142,225,146,.6);border-radius:50%;animation:gira 16s linear infinite reverse}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.selo7::before,.selo7::after{animation:none}}
+.selo7 b{font-size:3.1rem;display:block}
+.selo7 span{font-size:.95rem;letter-spacing:.2em}
+.garantia h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin-bottom:12px}
+.garantia p{color:var(--muted)}
+.garantia p b{color:var(--text)}
+
+/* Quem ensina */
+.dois{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.prof{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;text-align:center}
+.prof img{width:150px;height:150px;border-radius:50%;object-fit:cover;margin:0 auto 18px;background:var(--surface-2);border:3px solid var(--green)}
+.prof img.roxo{border-color:var(--pink)}
+.prof h3{font-size:1.5rem;margin-bottom:10px}
+.prof .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.prof p{color:var(--muted);font-size:.96rem;text-align:left;margin-bottom:12px}
+.prof p:last-child{margin-bottom:0}
 
 /* FAQ */
 details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 24px}
@@ -94,23 +439,44 @@ summary{cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;list-
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--green);font-size:1.4rem;line-height:1}
 details[open] summary::after{content:"–"}
-details p{color:var(--muted);margin-top:12px;font-size:.95rem}
+details[open]{border-color:rgba(142,225,146,.4)}
+details p{color:var(--muted);margin-top:12px;font-size:.96rem}
+.duvida{margin-top:48px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:34px 24px}
+.duvida h3{font-size:1.4rem;margin-bottom:8px}
+.duvida p{color:var(--muted);margin-bottom:20px}
 
-/* CTA final + rodapé */
-.final{text-align:center}
-.final .sec-title,.final .sec-sub{margin-inline:auto}
-footer{padding:36px 0 48px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+/* Esclarecimento + rodapé */
+.claro{padding:50px 0 40px;border-top:1px solid var(--line)}
+.claro h3{font-size:.95rem;margin-bottom:14px;color:var(--muted)}
+.claro ul{display:grid;gap:8px;font-size:.82rem;color:rgba(244,244,244,.55);line-height:1.55}
+.claro li{padding-left:16px;position:relative}
+.claro li::before{content:"";position:absolute;left:0;top:.7em;width:5px;height:5px;border-radius:50%;background:rgba(244,244,244,.35)}
+footer{padding:30px 0 40px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+footer a{text-decoration:underline;margin:0 6px}
+
+/* Barra fixa (celular) */
+.fixa{display:none}
+.wa-flut{position:fixed;right:20px;bottom:20px;z-index:30;width:58px;height:58px;border-radius:50%;background:var(--green);color:var(--ink);display:grid;place-items:center;box-shadow:0 6px 22px rgba(0,0,0,.5),0 0 0 0 rgba(142,225,146,.5);transition:transform .2s,bottom .25s;animation:waPulso 2.8s ease-out infinite}
+.wa-flut:hover{transform:scale(1.08)}
+.wa-flut svg{width:30px;height:30px;fill:currentColor}
+@keyframes waPulso{0%{box-shadow:0 6px 22px rgba(0,0,0,.5),0 0 0 0 rgba(142,225,146,.5)}70%{box-shadow:0 6px 22px rgba(0,0,0,.5),0 0 0 14px rgba(142,225,146,0)}100%{box-shadow:0 6px 22px rgba(0,0,0,.5),0 0 0 0 rgba(142,225,146,0)}}
+
+/* Lightbox */
+#lb{border:0;background:transparent;max-width:min(960px,96vw);max-height:92dvh;margin:auto;overflow:visible}
+#lb::backdrop{background:rgba(0,0,0,.85)}
+#lb img{max-height:88dvh;width:auto;margin:auto;border-radius:12px;background:#fff}
+#lb button{position:absolute;top:-14px;right:-6px;width:40px;height:40px;border-radius:50%;border:0;background:var(--green);color:var(--ink);font-size:1.3rem;cursor:pointer}
 
 /* Modal */
-dialog{border:0;background:transparent;color:var(--text);width:min(480px,100% - 24px);margin:auto;max-height:calc(100dvh - 24px);overflow:auto}
-dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
+dialog.pop{border:0;background:transparent;color:var(--text);width:min(480px,100% - 24px);margin:auto;max-height:calc(100dvh - 24px);overflow:auto}
+dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
 .modal{background:var(--surface-2);border:1px solid var(--line);border-radius:24px;padding:32px 28px;position:relative}
 .close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-size:1.3rem;line-height:1}
 .modal h2{font-size:1.5rem;margin-bottom:8px;padding-right:36px}
 .modal .sub{color:var(--muted);font-size:.93rem;margin-bottom:22px}
-label{display:block;font-size:.85rem;font-weight:500;margin-bottom:6px}
-input[type=text],input[type=email],input[type=tel]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--text);font:inherit;font-size:1rem}
-input:focus{outline:none;border-color:var(--green)}
+.modal label{display:block;font-size:.85rem;font-weight:500;margin-bottom:6px}
+.modal input[type=text],.modal input[type=email],.modal input[type=tel]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--text);font:inherit;font-size:1rem}
+.modal input:focus{outline:none;border-color:var(--green)}
 .field{margin-bottom:16px}
 .field.err input{border-color:#ff6b6b}
 .msg{display:none;color:#ff8f8f;font-size:.8rem;margin-top:5px}
@@ -119,92 +485,463 @@ input:focus{outline:none;border-color:var(--green)}
 .consent input{margin-top:3px;accent-color:var(--green)}
 .screen{display:none}
 .screen.on{display:block}
-.center{text-align:center}
 .big-ico{width:64px;height:64px;border-radius:18px;margin:0 auto 18px;display:grid;place-items:center;background:rgba(142,225,146,.14);color:var(--green)}
 .big-ico.pk{background:rgba(247,104,247,.14);color:var(--pink)}
 .big-ico svg{width:30px;height:30px;fill:currentColor}
 .spin{width:34px;height:34px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--green);animation:sp .8s linear infinite;margin:0 auto 18px}
 @keyframes sp{to{transform:rotate(360deg)}}
-.bar-load{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin:20px 0}
-.bar-load i{display:block;height:100%;width:0;background:var(--green);transition:width 3s linear}
 .stack{display:grid;gap:10px;margin-top:20px}
-.demo{margin-top:18px;padding:12px;border:1px dashed var(--pink);border-radius:10px;font-size:.75rem;color:var(--pink);word-break:break-all;text-align:left}
 
-@media (max-width:900px){
-  .grid-3,.grid-2{grid-template-columns:1fr}
-  .card.wide{grid-column:auto}
-  .stats{grid-template-columns:1fr}
+@media (max-width:980px){
   section{padding:60px 0}
+  .temas{grid-template-columns:repeat(4,1fr)}
+  .compare{grid-template-columns:1fr}
+  .destaques{grid-template-columns:repeat(2,1fr)}
+  .impl{grid-template-columns:1fr}
+  .tcard{grid-template-columns:1fr;gap:22px}
+  .tcard img{max-width:340px;margin-inline:auto}
+  .tres,.bonus,.bonus.dois{grid-template-columns:1fr}
+  .dois{grid-template-columns:1fr}
+  .garantia{grid-template-columns:1fr;text-align:center;padding:32px 24px;gap:24px}
+  .selo7{margin-inline:auto}
+  .car-btn.prev{left:8px}.car-btn.next{right:8px}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:1240px){
+  .car-btn.prev{left:8px}.car-btn.next{right:8px}
+  .car-btn{width:44px;height:44px;background:rgba(142,225,146,.94)}
+}
+@media (max-width:700px){
+  .gallery{grid-template-columns:1fr}
+  .gcol{display:contents}
+  .vbox button.play span{width:42px;height:42px}
+  .vbox button.play svg{width:18px;height:18px}
+  .vcard figcaption{font-size:.85rem}
+  .vcard .vd{font-size:.76rem;line-height:1.4}
+  .car.v .car-btn{width:34px;height:34px}
+}
+@media (max-width:640px){
+  .temas{grid-template-columns:repeat(2,1fr)}
+  .tema:last-child{grid-column:span 2}
+  .destaques{grid-template-columns:1fr}
+  .pcard{padding:26px 18px}
+  .precos .preco{padding:12px 12px}
+  .preco .d{font-size:1.25rem}
+  .precos .preco .g{font-size:.98rem;min-width:84px;padding-right:12px}
+  .precos .preco .d,.precos .preco .p{padding-left:12px}
+  .faixa{padding:18px}
+  .tcard{padding:16px}
+  .tcard h3{font-size:1.45rem}
+  .btn{width:100%;padding:17px 16px}
+  .cta-row{align-items:stretch}
+  .hero .btn{width:100%}
+  body.com-fixa{padding-bottom:84px}
+  .fixa{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(5,5,5,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .25s}
+  .fixa.on{transform:none}
+  .wa-flut{right:14px;bottom:16px;width:52px;height:52px}
+  .fixa.on + .wa-flut{bottom:88px}
+  .fixa .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 
 <body>
 
+<!-- Ícones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M9.5 16.6 5.4 12.5l-1.4 1.4 5.5 5.5L20.7 7.2l-1.4-1.4z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 11h11.2l-4.6-4.6L13 5l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.500z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm5.200 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.200-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800 0-1.300.7-1.900.9-2.200.2-.3.5-.3.700-.3h.5c.2 0 .4 0 .6.500l.9 2.100c.1.200.1.400 0 .500l-.3.500-.4.400c-.1.200-.3.400-.1.700.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l1-1.200c.2-.3.400-.2.600-.1l2 1c.3.100.5.200.5.300.1.200.1.700-.1 1.300z"/></symbol>
+  <symbol id="i-live" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM6.300 6.300 4.900 4.900a10 10 0 0 0 0 14.200l1.400-1.400a8 8 0 0 1 0-11.400zm11.400 0a8 8 0 0 1 0 11.400l1.400 1.400a10 10 0 0 0 0-14.200z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.200 13.200L11 12.400V7h2v4.200l3.200 1.800z"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><path d="M10 3h4a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4V5a2 2 0 0 1 2-2zm0 2v2h4V5z"/></symbol>
+  <symbol id="i-replay" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.400 0-8 2.200-8 5v3h16v-3c0-2.800-3.600-5-8-5z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM9 13c-3.300 0-7 1.700-7 4v3h14v-3c0-2.300-3.700-4-7-4zm8 0c-.4 0-.8 0-1.200.1 1.400 1 2.200 2.300 2.200 3.900v3h4v-3c0-2-2.700-4-5-4z"/></symbol>
+  <symbol id="i-vital" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.500 14.500-4-4 1.400-1.400 2.600 2.600 5.600-5.600 1.400 1.400z"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M2 7v4a2 2 0 0 1 0 4v4h20v-4a2 2 0 0 1 0-4V7zm11 10h-2v-2h2zm0-4h-2v-2h2zm0-4h-2V7h2z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M20 7h-2.200A3.500 3.500 0 0 0 12 3.700 3.500 3.500 0 0 0 6.200 7H4a2 2 0 0 0-2 2v3h20V9a2 2 0 0 0-2-2zM9.500 5a1.500 1.500 0 0 1 1.500 1.500V7H9.500a1.500 1.500 0 0 1 0-2zm5 0a1.500 1.500 0 0 1 0 2H13v-.5A1.500 1.500 0 0 1 14.500 5zM3 14v5a2 2 0 0 0 2 2h6v-7zm10 0v7h6a2 2 0 0 0 2-2v-5z"/></symbol>
+  <symbol id="i-claude" viewBox="0 0 24 24"><path d="M12 2l1.800 6.200L20 6.200l-4.200 4.800L22 14l-6.200 1.800 4.200 4.800-6.200-2L12 22l-1.800-6.200L4 17.800l4.200-4.800L2 10l6.200-1.800L4 3.400l6.200 2z"/></symbol>
+  <!-- temas -->
+  <symbol id="t-excel" viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v3h5V5zm7 0v3h7V5zM5 10v4h5v-4zm7 0v4h7v-4zM5 16v3h5v-3zm7 0v3h7v-3z"/></symbol>
+  <symbol id="t-ia" viewBox="0 0 24 24"><path d="M9 2l1.700 5.300L16 9l-5.300 1.700L9 16l-1.700-5.300L2 9l5.300-1.700zm9 8l1.100 3.400L22.500 14.500l-3.400 1.100L18 19l-1.100-3.400-3.400-1.100 3.400-1.100zM17 2l.8 2.200L20 5l-2.200.8L17 8l-.8-2.200L14 5l2.200-.8z"/></symbol>
+  <symbol id="t-pbi" viewBox="0 0 24 24"><path d="M4 21V12h4v9zm6 0V4h4v17zm6 0V9h4v12z"/></symbol>
+  <symbol id="t-sheets" viewBox="0 0 24 24"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.500V9h5.500zM7 12v7h10v-7zm2 2h2v1.200H9zm4 0h2v1.200h-2zm-4 2.800h2V18H9zm4 0h2V18h-2z"/></symbol>
+  <symbol id="t-pq" viewBox="0 0 24 24"><path d="M3 4h18l-7 8.500V20l-4-2v-5.500zM16 15l5 3-5 3v-2h-3v-2h3z"/></symbol>
+  <symbol id="t-ppt" viewBox="0 0 24 24"><path d="M3 3h18v2h-1v10a1 1 0 0 1-1 1h-5.500l2.800 5-1.700 1L12 17.700 9.400 22l-1.700-1 2.800-5H5a1 1 0 0 1-1-1V5H3zm3 2v9h12V5zm2 5h2v3H8zm3-2h2v5h-2zm3 1.500h2V13h-2z"/></symbol>
+  <symbol id="t-o365" viewBox="0 0 24 24"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></symbol>
+</svg>
+
 <header>
-  <div class="wrap bar">
-    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-escuro/escola.png" alt="Escola Karen Abecia">
+  <div class="wrap">
+    <img src="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-escuro/escola.png" alt="Escola Karen Abecia" width="108" height="36">
   </div>
 </header>
 
 <main>
-<div class="hero" style="min-height:70vh;display:flex;align-items:center">
+
+<!-- BLOCO 1 · HERO -->
+<div class="hero com-banner" id="topo">
+  <img class="hero-img" src="https://sites.karenabecia.com.br/black26/banner_vendas.png" alt="Notebook com a área de membros e os treinamentos da Escola Karen Abecia, conectados a Excel, Google Sheets, ChatGPT e Claude" width="1920" height="900" fetchpriority="high">
   <div class="wrap">
-    <span class="mark">BLACK 26</span>
-    <h1>Garanta a sua vaga com a <em>condição do seu cadastro</em></h1>
-    <p class="lead">Informe seus dados e levamos você direto para o checkout certo, já com tudo preenchido.</p>
-    <div class="hero-cta">
-      <button class="btn btn-green" id="buy">Garantir minha vaga</button>
-    </div>
-    <p class="note" style="text-align:left;margin-top:18px">Página de teste do mecanismo de compra. Os detalhes da oferta entram na versão final.</p>
+    <span class="mark">Black Friday Vitalícia · Escola Karen Abecia</span>
+    <h1>Você não precisa de mais um curso. <em>Você precisa colocar em prática.</em></h1>
+    <p class="lead">São 10 implementações ao vivo para você fazer <em>JUNTO</em> com a gente. E os 13 treinamentos da escola com acesso vitalício, para consultar sempre que precisar.</p>
+    <button class="btn btn-green" data-go="oferta">QUERO GARANTIR MINHA VAGA</button>
+    <ul class="seals"><li>Ao vivo</li><li>Acesso vitalício</li><li>Experimente por 7 dias</li></ul>
   </div>
 </div>
+
+<!-- BLOCO 2 · TEMAS (faixas animadas) -->
+<section style="padding-top:0;padding-bottom:30px" data-fase="completa">
+  <div class="wrap">
+    <div class="head center" style="margin-bottom:34px"><h2 class="sec-title">Tudo o que você usa no trabalho. Em um lugar só.</h2></div>
+  </div>
+  <div class="marq" aria-label="Excel, Inteligência Artificial, Power BI, Google Sheets, Power Query, PowerPoint, Office 365, Dashboards e automação">
+    <div class="marq-row"><div class="marq-track" id="mq1" aria-hidden="true"></div></div>
+    <div class="marq-row rev"><div class="marq-track" id="mq2" aria-hidden="true"></div></div>
+  </div>
+</section>
+
+<!-- BLOCO 4 · QUANTO VOCÊ PAGARIA x VAI PAGAR -->
+<section id="oferta" style="padding-top:30px;padding-bottom:30px">
+  <div class="wrap">
+    <div class="head center"><h2 class="sec-title">Para você ter uma ideia, olha só a diferença:</h2></div>
+    <div class="compare">
+
+      <div class="pcard left">
+        <h3>QUANTO VOCÊ PAGARIA</h3>
+        <p class="st">comprando tudo separado</p>
+        <ul class="lista" id="lista-separado"></ul>
+        <div class="total"><em style="font-style:normal">Total</em><span id="total-separado">R$ 8.531</span></div>
+        <ul class="nao">
+          <li><svg class="ico-s"><use href="#i-x"/></svg>Acesso vitalício</li>
+          <li><svg class="ico-s"><use href="#i-x"/></svg>1h de consultoria individualizada</li>
+          <li><svg class="ico-s"><use href="#i-x"/></svg>Ingresso para o DashDay presencial em São Paulo</li>
+          <li data-claude><svg class="ico-s"><use href="#i-x"/></svg>Implementação ao vivo de 6 noites sobre Claude com Dados</li>
+        </ul>
+      </div>
+
+      <div class="pcard right">
+        <span class="ptag">OFERTA ESPECIAL</span>
+        <h3>QUANTO VOCÊ VAI PAGAR</h3>
+        <p class="st">na Black Friday Vitalícia</p>
+        <ul class="inc">
+          <li><svg class="ico-s"><use href="#i-check"/></svg><span>Os 13 treinamentos, com os mesmos valores do card ao lado</span></li>
+          <li><svg class="ico-s"><use href="#i-check"/></svg><span><b>10 implementações ao vivo, de 2 noites cada</b></span></li>
+          <li><svg class="ico-s"><use href="#i-check"/></svg><span><b>Acesso VITALÍCIO a tudo, inclusive aos replays das implementações</b></span></li>
+        </ul>
+        <ul class="bon">
+          <li class="bon-t"><svg><use href="#i-gift"/></svg>Bônus especiais</li>
+          <li class="mk"><span><b class="q">15 primeiros</b> 1h de consultoria individualizada</span></li>
+          <li class="mk"><span><b class="q">100 primeiros</b> Ingresso para o DashDay presencial em São Paulo</span></li>
+          <li class="mk" data-claude><span><b class="q">até sexta 23:59</b> Implementação ao vivo de 6 noites sobre Claude com Dados</span></li>
+        </ul>
+        <div class="precos" data-precos></div>
+        <button class="btn btn-green btn-block" data-buy>QUERO GARANTIR MINHA VAGA</button>
+        <ul class="seals" style="margin-top:16px"><li>Treinamentos liberados</li><li>Acesso vitalício</li><li>Experimente por 7 dias</li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOCO 3 · DOR -->
+<section class="dor" style="padding-top:20px" data-fase="completa">
+  <div class="narrow">
+    <h2 class="sec-title" style="margin-bottom:34px;text-align:center">Talvez você já tenha passado por isso.</h2>
+  </div>
+
+  <!-- Animação: a história do curso que fica esperando -->
+  <div class="story" id="story" role="img" aria-label="Expectativa: comprei um curso, assisti empolgado às primeiras aulas, apliquei, terminei no final de semana, efeito uau garantido. Realidade: reunião atrás de reunião, relatório para ontem, mensagem do chefe às 17h59, marido ou esposa, filhos, casa para cuidar, roupa para lavar, comida para fazer. O cansaço já ganhou.">
+    <div class="duo" aria-hidden="true">
+      <div class="ev exp" id="ev-exp"><div class="ev-chip">Expectativa</div><div class="orb"></div></div>
+      <div class="ev rea dim" id="ev-rea"><div class="ev-chip">Realidade</div><div class="orb"></div></div>
+    </div>
+  </div>
+
+  <div class="narrow" style="margin-top:30px">
+    <p class="pivot">Ó, a gente precisa te contar uma coisa: <b>o problema não é você.</b></p>
+    <p class="fim">Foi por isso que nasceu a melhor novidade dessa Black Friday...</p>
+  </div>
+</section>
+
+<!-- BLOCO 6 · IMPLEMENTAÇÕES -->
+<section id="implementacoes" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">A grande novidade desta Black</span>
+      <h2 class="sec-title">10 implementações ao vivo. Nada de assistir e guardar para depois.</h2>
+      <p class="sec-sub">Curso gravado, você encontra por aí. Fazer junto, perguntar na hora e sair com o seu case resolvido, isso você não encontra por aí.</p>
+    </div>
+    <div class="comuns">
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>2 noites ao vivo por implementação</div>
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>2h por noite, com microfone aberto para tirar dúvidas</div>
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>Estudo de caso do mundo real, com exemplos práticos</div>
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>Material de apoio</div>
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>Replay das aulas, com acesso vitalício</div>
+      <div class="comum"><span class="ck"><svg><use href="#i-check"/></svg></span>Todas ao vivo, às 19h30 (horário de Brasília)</div>
+    </div>
+    <div class="car i" id="car-impl">
+      <button class="car-btn prev" aria-label="Implementações anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="car-vp"><div class="car-track" id="impl"></div></div>
+      <button class="car-btn next" aria-label="Próximas implementações"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="cta-row" style="margin-top:34px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 7 · PROVA (PRINTS) -->
+<section id="prints" style="background:#0a0a0a" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <h2 class="sec-title">Mas será que implementar ao vivo funciona?</h2>
+      <p class="sec-sub">Quem responde são os alunos. Estes são prints reais dos nossos grupos de WhatsApp, durante as implementações ao vivo.</p>
+    </div>
+    <div class="gallery" id="gallery"></div>
+    <p class="gallery-note">Gente de verdade, resolvendo problema de verdade.</p>
+    <div class="cta-row" style="margin-top:30px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 8 · TREINAMENTOS -->
+<section id="treinamentos" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Sua biblioteca vitalícia</span>
+      <h2 class="sec-title">Ao vivo, você coloca em prática. No gravado, você aprofunda.</h2>
+      <p class="sec-sub">Junto com as implementações, você leva os 13 treinamentos da Escola Karen Abecia, com acesso vitalício para estudar no seu ritmo.</p>
+    </div>
+    <div class="treinos" id="treinos"></div>
+    <div class="mais">
+      <h3>E mais 9 treinamentos para você consultar sempre que precisar:</h3>
+      <div class="car" id="car-treinos">
+        <button class="car-btn prev" aria-label="Treinamentos anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="car-vp"><div class="car-track" id="slider"></div></div>
+        <button class="car-btn next" aria-label="Próximos treinamentos"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="cta-row" style="margin-top:30px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 9 · VÍDEOS -->
+<section id="resultados" style="background:#0a0a0a" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <h2 class="sec-title">Resultados dos nossos alunos</h2>
+      <p class="sec-sub">Profissionais que passaram pelo DashWay e hoje causam o Efeito UAU no trabalho. Dá o play e veja com seus próprios olhos.</p>
+    </div>
+    <div class="car v" id="car-videos">
+      <button class="car-btn prev" aria-label="Depoimentos anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="car-vp"><div class="car-track" id="videos"></div></div>
+      <button class="car-btn next" aria-label="Próximos depoimentos"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="cta-row" style="margin-top:34px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 10 · BÔNUS -->
+<section id="bonus" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow bon-eye"><svg><use href="#i-gift"/></svg>Bônus especiais</span>
+      <h2 class="sec-title big">Quem chega primeiro aproveita ainda mais.</h2>
+      <p class="sec-sub" id="bonus-sub">Três presentes para quem garantir a vaga antes. Quando acabar, acabou.</p>
+    </div>
+    <div id="bonus-grid">
+      <div class="brow">
+        <div class="bdiv"><span>15 primeiros</span></div>
+        <div class="bgrid">
+          <article class="bdet">
+            <div class="bchips"><span class="chip">Para os 15 primeiros</span></div>
+            <h3>1h de consultoria individualizada</h3>
+            <p>Uma hora só sua, com <b>atenção total ao que você precisa.</b></p>
+            <p>É <b>1 sessão individualizada de 1h</b>, para os 15 primeiros matriculados.</p>
+          </article>
+          <div class="bvis">
+            <img src="https://sites.karenabecia.com.br/black26/encontro-individual.png" alt="Consultoria individualizada de 1 hora com a Karen" width="1672" height="941" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="brow">
+        <div class="bdiv"><span>100 primeiros</span></div>
+        <div class="bgrid">
+          <article class="bdet">
+            <div class="bchips"><span class="chip">Para os 100 primeiros</span></div>
+            <h3>Ingresso para o DashDay presencial em São Paulo</h3>
+            <p>Dois dias de evento presencial, em <b>20 e 21 de fevereiro de 2027.</b></p>
+            <p>É <b>1 ingresso</b>, para os 100 primeiros matriculados. Não inclui viagem, hospedagem ou alimentação.</p>
+          </article>
+          <div class="bvis">
+            <img src="https://sites.karenabecia.com.br/imagens/DashDay.png" alt="Palco do DashDay, evento presencial da Escola Karen Abecia, com a plateia à frente" width="1672" height="941" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="brow" data-claude>
+        <div class="bdiv"><span>Até sexta 23:59</span></div>
+        <div class="bgrid">
+          <article class="bdet">
+            <div class="bchips"><span class="chip">Até sexta, 6 de novembro</span></div>
+            <h3>Implementação ao vivo de 6 noites: Claude com Dados</h3>
+            <p>Seis noites ao vivo usando o Claude para <b>analisar, organizar e tirar respostas dos seus dados.</b></p>
+            <p>Vale para <b>matrículas feitas até sexta-feira, 6 de novembro.</b></p>
+          </article>
+          <div class="bvis">
+            <img src="https://sites.karenabecia.com.br/black26/claude.png" alt="Implementação ao vivo de Claude com Dados, 6 noites" width="1672" height="941" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="aviso">Esgotou ou passou do prazo, acabou. A ordem é a da matrícula.</p>
+    <div class="cta-row" style="margin-top:30px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 11 · OFERTA FINAL -->
+<section id="oferta-final" style="padding-top:30px" data-fase="completa">
+  <div class="wrap">
+    <div class="pcard right final-card">
+      <h2 class="sec-title" style="font-size:clamp(1.5rem,3.2vw,2rem)">Tudo isso com acesso vitalício. E com a gente do seu lado.</h2>
+      <ul class="inc" style="margin-top:12px">
+        <li><svg class="ico-s"><use href="#i-check"/></svg><span>10 implementações ao vivo · R$ 297 cada</span></li>
+        <li><svg class="ico-s"><use href="#i-check"/></svg><span>Replays das implementações com acesso vitalício</span></li>
+        <li><svg class="ico-s"><use href="#i-check"/></svg><span>13 treinamentos com acesso vitalício</span></li>
+        <li><svg class="ico-s"><use href="#i-check"/></svg><span>Certificado individual em cada treinamento</span></li>
+      </ul>
+      <p class="ancora">De <s id="ancora-valor">R$ 8.531</s> por:</p>
+      <div class="precos" data-precos></div>
+      <button class="btn btn-green btn-block" data-buy>QUERO GARANTIR MINHA VAGA</button>
+      <ul class="seals" style="margin-top:16px"><li>Treinamentos liberados</li><li>Acesso vitalício</li><li>Experimente por 7 dias</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 12 · JÁ SOU ALUNO -->
+<section id="aluno" style="padding-top:40px" data-fase="completa">
+  <div class="wrap">
+    <div class="head center">
+      <h2 class="sec-title">Já sou aluno. Isso é para mim?</h2>
+      <p class="sec-sub">É sim. E a sua condição é diferente.</p>
+    </div>
+    <div class="tres">
+      <div class="pf"><svg><use href="#i-user"/></svg><h3>Ainda não sou aluno</h3><p>Você leva tudo: os 13 treinamentos com acesso vitalício e as 10 implementações ao vivo.</p></div>
+      <div class="pf"><svg><use href="#i-users"/></svg><h3>Já sou aluno</h3><p>Já fez algum treinamento com a gente? Você tem condição especial para levar tudo, agora com acesso vitalício.</p></div>
+      <div class="pf"><svg><use href="#i-vital"/></svg><h3>Já tenho acesso vitalício</h3><p>Você já tem os treinamentos gravados com acesso vitalício. O que você ainda não tem são as 10 implementações ao vivo, com replays também vitalícios. Por isso a sua condição é só sua.</p></div>
+    </div>
+    <div class="cta-row" style="margin-top:34px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 13 · 7 DIAS -->
+<section style="padding-top:20px" data-fase="completa">
+  <div class="wrap">
+    <div class="garantia">
+      <div class="selo7"><div><b>7</b><span>DIAS</span></div></div>
+      <div>
+        <h2>Experimente por 7 dias.</h2>
+        <p>Entre, assista aos treinamentos, participe das implementações. Se em 7 dias você sentir que não é para você, é só pedir. <b>A gente devolve 100% do valor.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 14 · QUEM ENSINA -->
+<section id="professoras" style="background:#0a0a0a" data-fase="completa">
+  <div class="wrap">
+    <div class="head center"><h2 class="sec-title">Com quem você vai aprender</h2></div>
+    <div class="dois">
+      <div class="prof">
+        <img src="https://sites.karenabecia.com.br/imagens/karen.png" alt="Karen Abecia" width="150" height="150" loading="lazy">
+        <h3>Karen Abecia</h3>
+        <div class="chips"><span class="chip">6x Microsoft MVP</span><span class="chip">Professora LinkedIn Learning</span></div>
+        <p>Há mais de 20 anos formando profissionais e transformando a relação de empresas com seus dados. Reconhecida 6x pela Microsoft como uma das 10 únicas brasileiras MVPs na categoria Office Apps — a mais alta distinção para especialistas em Excel no mundo.</p>
+        <p>Instrutora oficial do LinkedIn Learning e da UolEdtech e vencedora da palestra de melhor inovação no Global Excel Summit 2026. Canal no YouTube com mais de 1.000 vídeos em português, inglês e espanhol — referência de excelência no ensino de inteligência de dados para o mercado corporativo.</p>
+      </div>
+      <div class="prof">
+        <img class="roxo" src="https://sites.karenabecia.com.br/imagens/jessica.png" alt="Jéssica Gleiciane" width="150" height="150" loading="lazy">
+        <h3>Jéssica Gleiciane</h3>
+        <div class="chips"><span class="chip ia">Especialista em Power BI e I.A.</span><span class="chip ia">+10 anos de experiência</span></div>
+        <p>Jéssica transforma dados complexos em Dashboards que qualquer gestor entende em 30 segundos. Como coordenadora da Escola Karen Abecia, ela conhece de perto as dificuldades de quem está aprendendo — e ensina no ritmo certo, sem jargão, sem enrolação.</p>
+        <p>Se o Power BI sempre pareceu difícil demais, é porque você ainda não tinha visto a Jéssica explicar.</p>
+      </div>
+    </div>
+    <div class="cta-row" style="margin-top:34px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
+  </div>
+</section>
+
+<!-- BLOCO 15 · FAQ + WHATSAPP -->
+<section id="faq">
+  <div class="narrow">
+    <div class="head center" data-fase="completa"><h2 class="sec-title">Perguntas frequentes</h2></div>
+    <div id="faq-lista" data-fase="completa"></div>
+    <div class="duvida">
+      <h3>Ficou com alguma dúvida?</h3>
+      <p>Chama a gente no WhatsApp. A gente te responde.</p>
+      <a class="btn btn-green" id="btn-duvidas" href="#" target="_blank" rel="noopener"><svg class="ico-s" style="width:20px;height:20px"><use href="#i-wa"/></svg><span id="btn-duvidas-txt">FALAR NO WHATSAPP</span></a>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
-  <div class="wrap">© Todos os direitos reservados para Escola Karen Abecia — 2026</div>
+  <div class="wrap">
+    <div>© Todos os direitos reservados para Escola Karen Abecia — 2026</div>
+    <div id="links-legais" style="margin-top:8px" hidden></div>
+  </div>
 </footer>
 
+<!-- Botão fixo no celular -->
+<div class="fixa" id="fixa"><button class="btn btn-green" id="fixa-btn">QUERO GARANTIR MINHA VAGA</button></div>
+
+<!-- Botão flutuante de WhatsApp (em toda a página) -->
+<a class="wa-flut" id="wa-flut" href="#" target="_blank" rel="noopener" aria-label="Falar com a gente no WhatsApp"><svg><use href="#i-wa"/></svg></a>
+
+<!-- Lightbox dos prints -->
+<dialog id="lb" aria-label="Print ampliado"><button aria-label="Fechar" id="lb-x">×</button><img id="lb-img" alt=""></dialog>
+
+<!-- Player dos depoimentos em vídeo -->
+<dialog id="vdlg" aria-label="Depoimento em vídeo">
+  <button class="vx" id="vdlg-x" aria-label="Fechar">×</button>
+  <video id="vdlg-v" controls playsinline preload="none"></video>
+  <div class="vcap" id="vdlg-cap"></div>
+</dialog>
+
+<!-- Popup de conteúdo dos treinamentos -->
+<dialog class="pop tr" id="tdlg" aria-labelledby="tdlg-title">
+  <div class="modal wide" id="tdlg-body"></div>
+</dialog>
+
 <!-- POPUP -->
-<dialog id="dlg" aria-labelledby="dlg-title">
+<dialog class="pop" id="dlg" aria-labelledby="dlg-title">
   <div class="modal">
     <button class="close" id="btn-close" aria-label="Fechar">×</button>
 
-    <!-- 1. Formulário -->
     <div class="screen on" id="s-form">
-      <h2 id="dlg-title">Vamos encontrar a sua condição</h2>
-      <p class="sub">Preencha uma única vez. Seus dados já seguem preenchidos para o checkout.</p>
+      <h2 id="dlg-title">Vamos preparar o seu desconto</h2>
+      <p class="sub">Caso você já seja aluno, preencha com os mesmos dados de acesso aos treinamentos.</p>
       <form id="form" novalidate>
         <div class="field" data-f="nome"><label for="nome">Nome completo</label><input type="text" id="nome" autocomplete="name" placeholder="Maria da Silva"><div class="msg">Informe nome e sobrenome.</div></div>
         <div class="field" data-f="telefone"><label for="telefone">WhatsApp com DDD</label><input type="tel" id="telefone" autocomplete="tel-national" inputmode="numeric" placeholder="(11) 99999-9999"><div class="msg">Informe DDD e número válidos.</div></div>
         <div class="field" data-f="email"><label for="email">E-mail</label><input type="email" id="email" autocomplete="email" placeholder="voce@email.com"><div class="msg">Informe um e-mail válido.</div></div>
-        <label class="consent"><input type="checkbox" id="consent"><span>Autorizo o uso dos meus dados para identificar a minha condição e receber contato sobre esta oferta, conforme a LGPD.</span></label>
-        <div class="field" data-f="consent" style="margin:-12px 0 14px"><div class="msg">Marque a autorização para continuar.</div></div>
         <button class="btn btn-green btn-block" type="submit">Ver a minha condição</button>
       </form>
     </div>
 
-    <!-- 2. Verificando -->
-    <div class="screen center" id="s-load">
+    <div class="screen" id="s-load" style="text-align:center">
       <div class="spin"></div>
       <h2>Conferindo o seu cadastro</h2>
       <p class="sub">Só um instante.</p>
     </div>
 
-    <!-- 3. Redirecionando -->
-    <div class="screen center" id="s-go">
-      <div class="big-ico"><svg viewBox="0 0 24 24"><path d="M9.5 16.6 5.4 12.5l-1.4 1.4 5.5 5.5L20.7 7.2l-1.4-1.4z"/></svg></div>
-      <h2 id="go-title">Encontramos a sua condição</h2>
-      <p class="sub" id="go-sub"></p>
-      <div class="bar-load"><i id="go-bar"></i></div>
-      <a class="btn btn-green btn-block" id="go-link" href="#">Ir para o checkout</a>
-      <div class="demo" id="go-demo" hidden></div>
-    </div>
-
-    <!-- 4. Recuperação: já comprou -->
-    <div class="screen center" id="s-bought">
-      <div class="big-ico pk"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.300 8-6 8-11V5zm-1.200 14.200-3.500-3.500 1.400-1.400 2.100 2.100 4.900-4.900 1.400 1.400z"/></svg></div>
+    <div class="screen" id="s-bought" style="text-align:center">
+      <div class="big-ico pk"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.400 9.700 8 11 4.600-1.300 8-6 8-11V5zm-1.200 14.200-3.500-3.500 1.400-1.400 2.100 2.100 4.900-4.900 1.400 1.400z"/></svg></div>
       <h2 id="bought-title">Sua vaga já está garantida</h2>
       <p class="sub">Encontramos uma compra da Black 26 com estes dados. Não é preciso comprar de novo.</p>
       <div class="stack">
@@ -213,8 +950,7 @@ input:focus{outline:none;border-color:var(--green)}
       </div>
     </div>
 
-    <!-- 5. Erro -->
-    <div class="screen center" id="s-err">
+    <div class="screen" id="s-err" style="text-align:center">
       <div class="big-ico pk"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2zm12-3h-2v-2h2zm0-4h-2v-4h2z"/></svg></div>
       <h2>Não conseguimos conferir agora</h2>
       <p class="sub">Aconteceu uma instabilidade na consulta. Tente novamente ou fale com a nossa equipe.</p>
@@ -231,76 +967,488 @@ input:focus{outline:none;border-color:var(--green)}
    CONFIGURAÇÃO — edite apenas este bloco
    ===================================================================== */
 const CONFIG = {
-  // Supabase (Settings > API). Enquanto estiver com "SEU-PROJETO", a página roda em MODO DEMONSTRAÇÃO.
   supabaseUrl: 'https://wlrhefombygibmnluqck.supabase.co',
   supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndscmhlZm9tYnlnaWJtbmx1cWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODk0OTQsImV4cCI6MjEwODg2NTQ5NH0.f4g_B_QF_qXSXCI9c3QZ3-qAtIn3QV9hK0EwvLx8OSs',
 
-  whatsapp: '5511977248924',          // botão "Chamar nossa equipe"
-  areaAlunosUrl: 'https://sites.karenabecia.com.br/', // para quem já comprou (troque pelo link correto)
-  tagCheckout: 'black26',              // vai no parâmetro sck da Hotmart (rastreio)
+  whatsapp: '5511977248924',            // popup: "Chamar nossa equipe"
+  whatsappDuvidas: '5511981667470',     // bloco 15: "Falar no WhatsApp"
+  whatsappDuvidasTexto: '(11) 98166-7470',
+  areaAlunosUrl: 'https://sites.karenabecia.com.br/',
+  tagCheckout: 'black26',
 
-  // Uma entrada por oferta. "url" = link do checkout da Hotmart daquela oferta (com ?off=... se houver).
-  // Preços: deixe vazio para mostrar "Condição liberada após o cadastro".
+  termosUrl: 'https://escolakarenabecia.com.br/termos/',
+  privacidadeUrl: 'https://escolakarenabecia.com.br/privacidade/',
+
+  // As datas ficam no começo do arquivo (BLACK_DATAS). Os bônus de Claude com Dados saem da página sozinhos depois do horário abaixo (Brasília)
+  fimBonusClaude: window.BLACK_DATAS.fimBonusClaude,
+  faseCompleta: window.BLACK_DATAS.faseCompleta,
+
+  totalSeparado: 8531,
+  // valor = preço à vista. Os percentuais de desconto são calculados sobre o total separado.
   ofertas: {
-    nao_aluno: {
-      titulo: 'Para quem está começando',
-      publico: 'Quem ainda não é aluno da Escola e quer dar o primeiro passo com Excel e I.A.',
-      url: 'https://pay.hotmart.com/H108249229G?off=0l0bkglb',
-      de: '', por: 'R$ 1.297', parcelas: '12x de R$ 134,14'
-    },
-    dashway: {
-      titulo: 'Alunos sem vitalício',
-      publico: 'Condição especial para quem já faz parte da jornada DashWay.',
-      url: 'https://pay.hotmart.com/H108249229G?off=6mc0k0yu',
-      de: '', por: 'R$ 897', parcelas: '12x de R$ 92,77'
-    },
-    vitalicio: {
-      titulo: 'Para alunos vitalício',
-      publico: 'Condição especial para quem tem acesso vitalício à Escola.',
-      url: 'https://pay.hotmart.com/H108249229G?off=xvycs1wh',
-      de: '', por: 'R$ 697', parcelas: '12x de R$ 72,09'
-    }
+    nao_aluno: { rotulo: 'Novo aluno', url: 'https://pay.hotmart.com/H108249229G?off=0l0bkglb', valor: 1297, parcela: '12x de R$ 134,14' },
+    dashway:   { rotulo: 'Aluno DashWay', url: 'https://pay.hotmart.com/H108249229G?off=6mc0k0yu', valor: 897, parcela: '12x de R$ 92,77' },
+    vitalicio: { rotulo: 'Aluno vitalício', url: 'https://pay.hotmart.com/H108249229G?off=xvycs1wh', valor: 697, parcela: '12x de R$ 72,09' }
   },
-  destaque: 'dashway' // qual card ganha o contorno verde
+
+  // Imagens e vídeos (repositório sites.karenabecia, publicado no GitHub Pages)
+  imgBase: 'https://sites.karenabecia.com.br/imagens/',
+  logoBase: 'https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/logo-escuro/',
+  posterBase: 'https://sites.karenabecia.com.br/black26/img/'
 };
+
+/* Itens "comprando tudo separado" (a soma precisa bater com totalSeparado) */
+const SEPARADO = [
+  ['DashWay 4.0', 997], ['OnPower 2.0', 997], ['I.A. com Dados', 697], ['Excel Target', 497],
+  ['Conexão Power Query', 497], ['Excel Money', 497], ['Excel Scout', 197], ['Office 365 Explorer', 197],
+  ['DashBusiness', 197], ['PPT Efeito UAU', 197], ['Imersão em Gráficos Efeito UAU', 197],
+  ['Scout for Google Sheets', 197], ['Multiplicador Efeito UAU', 197]
+];
+
+/* Implementações — datas: [segunda, quarta], todas às 19h30 */
+const HORA = '19h30';
+const IMPL = [
+  { t: 'Excel', n: 'Do caos à base confiável', q: 'Karen', d: ['Seg, 07/12/2026', 'Qua, 09/12/2026'],
+    p: 'Sabe aquela planilha que chega por e-mail com o nome do cliente escrito de três jeitos, data que não é data, célula mesclada e linha em branco no meio? Você passa a manhã arrumando. No mês seguinte, chega outra igualzinha e começa tudo de novo. Nesta implementação, a gente pega uma base bagunçada, igual às que você recebe no trabalho, e transforma em uma base limpa, organizada e pronta para qualquer análise. Do jeito certo, para você não precisar refazer tudo na próxima vez.' },
+  { t: 'Inteligência Artificial', n: 'De bate-papo a processo de trabalho', q: 'Jéssica', d: ['Seg, 18/01/2027', 'Qua, 20/01/2027'],
+    p: 'Você abre a I.A., faz um pedido e a resposta vem genérica. Reescreve, tenta de novo e, no fim, faz na mão. Conhece? O problema não é a ferramenta, é o jeito de pedir. Aqui você aprende a transformar um pedido solto em um passo a passo que funciona toda vez: para o relatório da semana, o e-mail para o cliente, o resumo da reunião. É o que separa quem brinca com I.A. de quem trabalha com ela.' },
+  { t: 'Excel', n: 'Sua planilha virou ferramenta de decisão', q: 'Karen', d: ['Seg, 01/02/2027', 'Qua, 03/02/2027'],
+    p: 'O chefe pede os números do mês. Você manda aquela planilha cheia de abas, que só você entende. Ele rola a tela e pergunta: "Mas e aí, estamos bem ou mal?" Nesta implementação, você pega os seus dados e transforma em um Dashboard claro, que qualquer gestor lê em 10 segundos e usa para decidir. Vendas, despesas, metas, estoque: a mesma informação, agora com Efeito UAU.' },
+  { t: 'Inteligência Artificial', n: 'ChatGPT além do básico', q: 'Jéssica', d: ['Seg, 01/03/2027', 'Qua, 03/03/2027'],
+    p: 'Você provavelmente usa o ChatGPT para fazer perguntas. E só. Enquanto isso, ele lê planilhas, analisa PDFs, monta tabelas, gera gráficos e guarda as suas instruções para você não precisar repetir tudo toda vez. Nesta implementação, a gente abre esses recursos que quase ninguém usa e aplica na sua rotina: o relatório que você monta toda segunda, a análise daquele arquivo enorme, a fórmula que você nunca lembra. Você sai usando, não só conhecendo.' },
+  { t: 'Excel + I.A.', n: 'Dados que respondem, não só mostram', q: 'Karen e Jéssica', d: ['Seg, 15/03/2027', 'Qua, 17/03/2027'],
+    p: 'Ter os dados não é o problema. O problema é saber o que eles estão dizendo. Qual produto está dando prejuízo? Qual mês fugiu do padrão? Onde está aquele gasto que ninguém viu? Nesta implementação, você aprende a fazer as perguntas certas para os seus dados, usando planilha e Inteligência Artificial juntas, e chega na reunião com a resposta pronta. Não uma planilha bonita. Uma conclusão.' },
+  { t: 'Inteligência Artificial', n: 'Claude na prática', q: 'Jéssica', d: ['Seg, 05/04/2027', 'Qua, 07/04/2027'],
+    p: 'Muita gente já ouviu falar do Claude, mas não sabe por onde começar. Aqui você vê o Claude trabalhando de verdade: lendo um contrato longo e apontando o que importa, analisando uma planilha inteira, organizando projetos com os seus arquivos para você não precisar explicar tudo de novo a cada conversa. Você traz um problema real do seu trabalho e sai com ele resolvido, sabendo quando o Claude é a melhor ferramenta para a tarefa.' },
+  { t: 'Excel + I.A.', n: 'Menos clique, mais entrega', q: 'Karen e Jéssica', d: ['Seg, 26/04/2027', 'Qua, 28/04/2027'],
+    p: 'Todo mês é a mesma coisa: copiar daqui, colar ali, ajustar a fórmula, formatar, salvar, enviar. São horas fazendo uma tarefa repetida que não precisa de você para acontecer. Nesta implementação, a gente escolhe uma dessas tarefas e automatiza, com a ajuda da I.A., até o fim do encontro. Fechamento do mês, relatório semanal, atualização de base: você aprende a lógica e repete nas próximas, sozinho.' },
+  { t: 'Inteligência Artificial', n: 'De ideia a sistema funcionando', q: 'Jéssica', d: ['Seg, 10/05/2027', 'Qua, 12/05/2027'],
+    p: 'Sabe aquele controle que você sempre quis ter, de pedidos, de clientes, de despesas da equipe ou de casa? Você até imagina como seria, mas nunca saiu do papel porque parecia coisa de programador. Nesta implementação, você chega com uma necessidade real e constrói o sistema junto com a gente, usando a Inteligência Artificial como parceira. Sem saber programar. E sai com ele funcionando, não só planejado.' },
+  { t: 'Excel + I.A.', n: 'Sua rotina com etapas a menos', q: 'Karen e Jéssica', d: ['Seg, 07/06/2027', 'Qua, 09/06/2027'],
+    p: 'Recebe o arquivo por e-mail, baixa, abre, copia para a planilha, atualiza o relatório, envia para o chefe. Cada etapa depende de você. Nesta implementação, você escolhe um processo repetitivo seu e conecta as peças: planilha, arquivo e I.A. trabalhando juntos, sem você no meio de cada passo. O que hoje toma uma tarde inteira pode virar poucos minutos.' },
+  { t: 'Inteligência Artificial', n: 'Sua própria ferramenta de I.A.', q: 'Jéssica', d: ['Seg, 21/06/2027', 'Qua, 23/06/2027'],
+    p: 'E se você tivesse um assistente que já conhece o seu trabalho? Que sabe como você monta o relatório, o padrão dos seus e-mails, as regras da sua planilha? Nesta implementação, você constrói o seu próprio Agente ou Skill de I.A., especializado em uma tarefa da sua rotina. Nada de prompt genérico: uma ferramenta feita por você, para você, pronta para usar na segunda-feira.' }
+];
+
+/* Treinamentos em destaque */
+const TREINOS = [
+  { img: 'banner/banner_dashway.png', n: 'DashWay 4.0', apoio: 'Dashboards profissionais em Excel',
+    t: 'Sabe aquela planilha que só recebe um "legal"? No DashWay ela vira o Dashboard que faz todo mundo perguntar: <b>"Foi você que fez isso?"</b>',
+    l: ['Modelar a sua base de dados do zero', 'Escolher o gráfico certo para cada análise', 'Criar Dashboards interativos, com filtros, navegação e macros', 'Montar um Dashboard bilíngue e apresentar em tela cheia', 'Usar Agentes de I.A. como apoio no seu projeto'],
+    nums: ['+60 aulas', '23h de conteúdo', '8 módulos'] },
+  { img: 'banner/banner_scout.png', n: 'Excel Scout', apoio: 'Seu kit de sobrevivência para trabalhar com planilhas', ideal: 'Ideal para quem está no início da jornada',
+    t: 'Não é sobre decorar o Excel. É sobre trabalhar melhor com ele.',
+    l: ['Navegar no Excel com segurança, sem caçar botão', 'Usar atalhos que cortam tarefas repetitivas', 'Aplicar PROCX, SE, FILTRO e outras funções em situações reais', 'Resumir dados com tabelas e gráficos dinâmicos', 'Usar o ChatGPT para criar e corrigir fórmulas'],
+    nums: ['26 aulas', '4h de conteúdo', '5 módulos'] },
+  { img: 'banner/banner_iacomdados.png', n: 'I.A. com Dados', apoio: 'Inteligência Artificial aplicada à análise',
+    t: 'Pare de testar ferramenta por ferramenta. Aprenda qual I.A. usar em cada tarefa, e use direto no Excel e no Power BI.',
+    l: ['Escrever prompts estruturados, que dão respostas úteis', 'Usar ChatGPT, Copilot, Claude, Gemini e Manus no trabalho com dados', 'Criar fórmulas, macros, Power Query e DAX com a ajuda da I.A.', 'Construir agentes e miniaplicativos para a sua rotina', 'Usar I.A. com segurança, respeitando a LGPD'],
+    nums: ['+50 aulas', '+14h de conteúdo', '9 módulos'] },
+  { img: 'banner/banner_onpower.png', n: 'OnPower 2.0', apoio: 'Power BI na prática',
+    t: 'Da importação dos dados ao relatório publicado. Dashboards no Power BI que comunicam, atualizam e impressionam.',
+    l: ['Tratar e organizar dados com Power Query', 'Montar um modelo de dados consistente', 'Criar medidas e indicadores com DAX', 'Escolher o visual certo para cada análise', 'Publicar relatórios profissionais e interativos'],
+    nums: ['+50 aulas', '10h de conteúdo', '6 módulos'] }
+];
+
+/* Slider com os outros 9 treinamentos (logos da pasta logo-escuro) */
+const OUTROS = [
+  ['Excel Target', 'logo_excel_target_negativo.png', 'Aprenda fórmulas e funções resolvendo desafios reais da rotina profissional.'],
+  ['Conexão Power Query', 'ConexaoPowerQuery_FundoPreto.png', 'Organize, transforme e automatize dados sem repetir tarefas manuais.'],
+  ['Excel Money', 'money_branco_png.png', 'Transforme suas habilidades com Excel e dados em serviços valorizados.'],
+  ['DashBusiness', 'logo_Dash_business_branco.png', 'Conecte indicadores, análises e Dashboards às decisões estratégicas do negócio.'],
+  ['Office 365 Explorer', 'Office_365_Exproler_sem_fundo.png', 'Explore os principais recursos do Microsoft 365 e conecte as ferramentas à sua rotina.'],
+  ['PPT Efeito UAU', 'ppt_branco.png', 'Crie apresentações profissionais, claras e capazes de prender a atenção.'],
+  ['Imersão em Gráficos Efeito UAU', 'gráficos_branco.png', 'Construa gráficos que comuniquem a informação certa com clareza e impacto.'],
+  ['Scout for Google Sheets', 'google_sheets_branco.png', 'Crie planilhas mais organizadas e produtivas usando o Google Sheets.'],
+  ['Multiplicador Efeito UAU', 'multiplicador_branco.png', 'Amplie o impacto, o alcance e o valor das suas entregas profissionais.']
+];
+
+/* Conteúdo completo dos 13 treinamentos (extraído das páginas de treinamento do site da escola) */
+const TR_DATA = /*TR_DATA*/{"DashWay 4.0":{"tag":"Aprenda a construir Dashboards em Excel do zero, seja reconhecido e receba o seu Efeito UAU.","desc":"Aprenda a transformar dados em análises claras e Dashboards visuais, personalizados e fáceis de navegar — daqueles que fazem as pessoas perguntarem: “Foi você que fez isso?”.","fatos":["+60 aulas","23h de conteúdo"],"mods":[{"t":"O que você precisa saber antes de começar","d":"Conheça as referências, versões e ambientes usados ao longo do treinamento.","l":["Biblioteca de projetos dos alunos e biblioteca da Karen","Versões do Excel e verificador de compatibilidade","OneDrive, Excel Online e suas limitações"]},{"t":"Modelagem de dados","d":"Estruture, importe e trate bases para que o Excel trabalhe a seu favor.","l":["Como o Excel entende as bases de dados","Modelagem de dados no Power Query","Importação de dados externos com arquivos, guias anuais e meses em colunas","Criação de colunas auxiliares com TEXTO, MÊS e ANO","Cadastros auxiliares com PROCV e PROCX","Correção e tratamento de dados no Power Query"]},{"t":"Análises 1: fundamentos do Dashboard","d":"Planeje indicadores e construa as primeiras análises visuais e interativas.","l":["Definição das análises e planejamento do projeto","Criação de filtros com segmentação de dados","Construção das análises com tabelas dinâmicas","Escolha do melhor gráfico para cada análise","Vinculação de valores em formas para criar cartões","Análise de até três itens com gráfico de rosca","Gráfico de evolução com linhas e ícones","Análise de mapas do Microsoft 365 com regiões e UFs","Ranking Top 5 com gráficos de barras e colunas","Análise com mapa compatível com todas as versões"]},{"t":"Layout: seu primeiro Dashboard","d":"Organize a tela, aplique identidade visual e transforme as análises em uma experiência.","l":["Definição das cores do projeto","Dimensão da tela e organização das informações","Criação do layout do Dashboard","Detalhes Nota 11: alinhamento e ajustes de gráficos","Navegação do Dashboard com hiperlinks","Proteção e bloqueio do sistema","Finalização do primeiro Dashboard"]},{"t":"Análises 2: funções e gráficos avançados","d":"Use recursos modernos do Excel para criar análises dinâmicas e reaproveitáveis.","l":["Conceito de matrizes, referências e erro #DESPEJAR!","Funções matriciais aplicadas a Dashboards","Segmentações auxiliares","Produção por unidade com a função AGRUPARPOR","Gráfico de preenchimento de imagem","Análise geral de meta com velocímetro","Meta de produção diária com barras, colunas e formatação condicional","Um gráfico para múltiplas análises e rótulos variáveis em %, R$ e kg","Gráfico de bolhas"]},{"t":"Dashboard Nota 12","d":"Leve o acabamento, a automação e a experiência de uso a um novo nível.","l":["Alinhamento e distribuição de elementos","Tratamento de erros com SEERRO e funções matriciais","Identificação e correção de erros nas análises","Macros para atualização do Dashboard","Macro de carimbo de data e hora","Dashboard bilíngue em português e inglês","Macro para exibir o projeto em tela cheia"]},{"t":"Ambiente multiusuário","d":"Entenda como compartilhar projetos e os limites de cada plataforma.","l":["Compatibilidade e limitações no Google Sheets","Limitações e restrições do Excel no Mac","Compartilhamento pelo Excel Online, OneDrive, navegador, servidor e nuvem","Uso do arquivo por várias pessoas","Avisos e configurações de segurança para macros e Power Query"]},{"t":"Agentes de Inteligência Artificial","d":"Conheça assistentes especializados que apoiam diferentes etapas do trabalho com dados.","l":["Como usar um agente de Inteligência Artificial","Tabel.IA para apoiar o trabalho com tabelas","GA.IA para apoiar análises e gráficos","Tarsil.IA","Excel.IA para dúvidas e tarefas no Excel","ABEC.IA","Midas.IA"]}]},"Excel Scout":{"tag":"Seu kit de sobrevivência para trabalhar com planilhas.","desc":"Domine o que realmente importa no Excel para organizar dados, automatizar cálculos e criar relatórios com mais segurança — sem aulas engessadas e sem enrolação.","fatos":["26 aulas gravadas","4h de conteúdo"],"mods":[{"t":"Excel sem mistério","d":"Entenda seu ambiente de trabalho e evite problemas de compatibilidade.","l":["Identificação da versão do Excel","Como lidar com arquivos criados em outras versões","Menus, guias e barras de ferramentas","Formatação de células","Alça de preenchimento"]},{"t":"Cálculos, fórmulas e funções","d":"Automatize cálculos e construa respostas para situações reais.","l":["Cálculos matemáticos no Excel","Referências relativas e absolutas: como travar células","SOMA, MÉDIA, MÍNIMO, MÁXIMO e CONT.VALORES","Função SE para análises condicionais","PROCV e PROCX para buscas","ÚNICO, CLASSIFICAR e FILTRO","Combinação de funções para cenários mais completos","Identificação e correção de erros comuns"]},{"t":"Organização e controle de dados","d":"Prepare planilhas que ficam mais fáceis de consultar e atualizar.","l":["Formatação como tabela","Filtros de informações","Segmentação de dados","Validação de dados","Formatação condicional","Formatação personalizada","Destaque automático de informações importantes"]},{"t":"Análises, gráficos e relatórios","d":"Resuma dados e apresente informações de forma profissional.","l":["Criação e formatação de gráficos","Tabelas dinâmicas","Gráficos dinâmicos","Análises condicionais para diferentes cenários","Criação de relatórios","Navegação através de hiperlinks"]},{"t":"Excel com apoio do ChatGPT","d":"Use a I.A. para ganhar velocidade sem abrir mão da compreensão.","l":["Como o ChatGPT interpreta suas solicitações","Como se comunicar melhor com a ferramenta","Criação de fórmulas com apoio da I.A.","Explicação e melhoria de fórmulas existentes","Soluções criativas para desafios em planilhas"]}]},"I.A. com Dados":{"tag":"O guia completo para colocar a Inteligência Artificial na sua rotina de análise.","desc":"Aplique ChatGPT, Copilot, Claude, Gemini, Manus e outras ferramentas diretamente no trabalho com dados, Excel e Power BI — escolhendo a I.A. certa para cada tarefa.","fatos":["+14h de conteúdo","+50 aulas e aplicações","Multiplataforma"],"mods":[{"t":"Fundamentos","d":"Construa uma base segura antes de acelerar.","l":["Dicionário do mundo de I.A.","O que cada I.A. faz de melhor","Como escrever prompts que funcionam","Política de segurança e LGPD","Investimento e valores das plataformas","I.A. no ambiente de trabalho"]},{"t":"ChatGPT e Copilot","d":"Use chatbots e o Microsoft 365 para produzir, organizar e analisar.","l":["Recursos escondidos do ChatGPT","Limpeza e tratamento de dados sujos","Agentes para estruturar relatórios","Criação de imagens","Copilot no Word, Outlook, Teams e PowerPoint"]},{"t":"Claude e Gemini","d":"Trabalhe com documentos, pesquisa, automação e Google Workspace.","l":["E-mails, propostas, contratos e documentos com Claude","Claude para automação, Cowork e Artefatos","Deep Research e pesquisa em tempo real com Gemini","Gemini no Gmail e Google Docs","Google Sheets com I.A. e automação de recursos"]},{"t":"Manus e agentes autônomos","d":"Delegue atividades complexas e fluxos com várias etapas.","l":["O que é um agente autônomo","Pesquisas complexas","Automação de relatórios periódicos","Fluxos com múltiplos passos"]},{"t":"Excel com Inteligência Artificial","d":"Acelere análises, fórmulas, macros e Dashboards.","l":["Copilot no Excel com linguagem natural","Reorganização e transformação de dados","Fórmulas complexas geradas com Claude","Macros VBA com Claude","Workflow de Dashboard dinâmico","Desafio e estudo de caso"]},{"t":"Power BI com Inteligência Artificial","d":"Use I.A. na modelagem, no DAX e nas visualizações.","l":["Power Query avançado com I.A.","Modelagem de dados eficiente","Criação, depuração e otimização de DAX com Claude","Copilot no Power BI e visuais automáticos","Narrativas inteligentes e Q&A","Desafio e estudo de caso"]},{"t":"Criação de ferramentas de I.A.","d":"Construa soluções personalizadas para você e sua equipe.","l":["Fundamentos de agentes de I.A.","Primeiro GPT personalizado","GPTs com ferramentas habilitadas","Diferenças entre GPT e Gem","Criação de um projeto GPT","Miniaplicativos HTML para equipes","Skills e habilidades"]},{"t":"Outras ferramentas de I.A.","d":"Amplie seu repertório para imagens, materiais e documentos.","l":["Magic Design e imagens com I.A. no Canva","Bases de conhecimento e materiais no NotebookLM","Comparação de documentos com Kimi","Extração estruturada de dados de PDFs"]},{"t":"Aplicação integrada","d":"Conecte as ferramentas e escolha o melhor caminho para cada desafio.","l":["Seleção da plataforma conforme o problema","Integração entre dados, documentos e apresentações","Construção de fluxos de trabalho com I.A.","Aplicações voltadas ao mercado de trabalho"]}]},"OnPower 2.0":{"tag":"Aprenda a criar Dashboards profissionais no Power BI e transforme dados em decisões com Efeito UAU.","desc":"Domine o processo completo: importe e trate dados, construa análises com DAX, escolha as melhores visualizações e publique relatórios claros, interativos e profissionais.","fatos":["+50 aulas","10h de conteúdo"],"mods":[{"t":"Primeiros passos no Power BI","d":"Conheça a ferramenta, suas versões e a relação com o Excel.","l":["Diferenças e semelhanças entre Power BI e Excel","Download e diferentes versões do Power BI","Como o Power BI interpreta os dados","Menus, botões e funcionalidades da ferramenta"]},{"t":"Importação e Power Query","d":"Conecte diferentes fontes e prepare os dados antes das análises.","l":["Importação de arquivos em diferentes formatos","Conexão com fontes de dados","Tratamento de dados no Power Query","Limpeza e preparação das informações"]},{"t":"Modelagem e ferramentas de análise","d":"Crie a estrutura que sustentará os indicadores do relatório.","l":["Fundamentos de modelagem de dados","Organização das tabelas do modelo","Relacionamentos entre informações","Análises com Power Pivot","Recursos visuais do Power View"]},{"t":"DAX e análise de datas","d":"Construa cálculos e indicadores que respondem ao contexto do negócio.","l":["O que é DAX e como funciona no Power BI","Principais funções DAX","Criação de cálculos e indicadores","Trabalho com datas no Power BI","Análises temporais"]},{"t":"Visualização e layout","d":"Apresente as análises com clareza, hierarquia e identidade profissional.","l":["Padrões de visualização do Power BI","Escolha do visual adequado para cada análise","Construção do layout do relatório","Aplicação profissional de cores, ícones e imagens","Organização e navegação das informações"]},{"t":"Apresentação e publicação","d":"Finalize o projeto e disponibilize o relatório para outras pessoas.","l":["Revisão visual e técnica do relatório","Apresentação dos resultados","Publicação do relatório no Power BI","Preparação de uma entrega com Efeito UAU"]}]},"Excel Target":{"tag":"Acerte o alvo: use a função certa para cada desafio.","desc":"Aprenda as principais fórmulas e funções do Excel e descubra como combiná-las para resolver análises, controles e relatórios de situações reais.","fatos":["74 aulas gravadas","16h30 de conteúdo"],"mods":[{"t":"Lógica, condições e tratamento de erros","d":"Construa fórmulas que tomam decisões e lidam com diferentes cenários.","l":["SE, E, OU e NÃO.DISP","SEERRO, ÉERROS e INFORMAÇÃO","CONT.SE, CONT.SES e CONT.VALORES","SOMASE, SOMASES, MÉDIASE, MÁXIMOSE e MÍNIMOSES"]},{"t":"Buscas e referências","d":"Localize informações e crie consultas mais flexíveis.","l":["PROCV, PROCH e PROCX","ÍNDICE, CORRESP e CORRESPX","DESLOC e INDIRETO","HIPERLINK"]},{"t":"Texto e padronização","d":"Limpe, localize, transforme e organize informações textuais.","l":["DIREITA, ESQUERDA e EXT.TEXTO","LOCALIZAR e PROCURAR","ARRUMAR e SUBSTITUIR","MAIÚSCULA, MINÚSCULA e PRI.MAIÚSCULA","TEXTO, VALOR e REPT"]},{"t":"Datas, prazos e tempo","d":"Faça cálculos temporais para controles e relatórios.","l":["AGORA, HOJE e TEMPO","ANO, MÊS, DIA e FIMMÊS","DATA, DATA.VALOR e DATADIF","DIA.DA.SEMANA e NÚM.SEMANA","DIATRABALHO e DIATRABALHOTOTAL"]},{"t":"Matrizes, listas e cálculos dinâmicos","d":"Explore funções modernas para análises mais ágeis.","l":["ÚNICO, FILTRO e SEQUÊNCIA","CLASSIFICAR e CLASSIFICARPOR","ALEATÓRIO e ALEATÓRIOENTRE","MAIOR, MENOR e INT"]},{"t":"Projetos com situações reais","d":"Combine diferentes funções para entregar soluções completas.","l":["Solicitações de site","Status report","Análise de vendas de padaria","Histórico de contratações","Controle de boletos","Controle de logística e estoque","Orçamento familiar"]}]},"Conexão Power Query":{"tag":"Menos trabalho repetitivo. Mais tempo para analisar.","desc":"Aprenda a conectar, limpar, padronizar e atualizar dados automaticamente para construir planilhas mais leves e Dashboards mais eficientes — sem precisar programar.","fatos":["13 aulas gravadas","5h30 de conteúdo"],"mods":[{"t":"Primeiros passos no Power Query","d":"Conheça a ferramenta e trabalhe com diferentes versões do Excel.","l":["O papel do Power Query na rotina de dados","Como usar o recurso em diferentes versões","Estrutura do editor de consultas","Carregamento e atualização das informações"]},{"t":"Conexão com fontes de dados","d":"Importe informações de arquivos e serviços diferentes.","l":["Conexão com CSV","Conexão com XLS e XLSX","Importação de dados de PDF","Conexão com páginas de site","Integração do Excel com Google Forms"]},{"t":"Consolidação automática","d":"Una vários arquivos sem repetir o processo manualmente.","l":["Leitura de vários arquivos de uma pasta","Padronização das estruturas","Combinação automática das bases","Atualização do conjunto quando novos arquivos chegam"]},{"t":"Limpeza, transformação e modelagem","d":"Prepare dados consistentes para análises mais confiáveis.","l":["Limpeza e padronização de relatórios de sistemas","Criação de colunas calculadas","Transformação de tipos e formatos","Tratamento prático de datas","Relacionamento entre tabelas diferentes"]},{"t":"Filtros e aplicação em Dashboards","d":"Organize a experiência de análise e melhore a performance.","l":["Filtros avançados através de botões","Definição da ordem das informações nos filtros","Preparação da base para Dashboards","Redução do peso das planilhas","Atualizações rápidas e reutilizáveis"]}]},"Excel Money":{"tag":"Transforme seu conhecimento de Excel em uma nova fonte de renda.","desc":"Aprenda o que é fundamental para divulgar, precificar e vender serviços de planilhas, automações e Dashboards — mesmo que ainda não se considere uma pessoa avançada.","fatos":["26 aulas gravadas","13h de conteúdo"],"mods":[{"t":"Mentalidade para monetizar","d":"Supere as barreiras que impedem você de começar.","l":["Desenvolvimento da mentalidade","Como enfrentar seus medos","O conhecimento que você já pode transformar em serviço","Como gerar o Efeito UAU nos seus trabalhos"]},{"t":"Posicionamento e divulgação","d":"Mostre seu trabalho para as pessoas certas.","l":["Divulgação nas redes sociais","Construção de presença profissional","Criação de portfólio","Apresentação de planilhas, automações e Dashboards"]},{"t":"Conquista e atendimento de clientes","d":"Conduza os primeiros contatos com mais confiança.","l":["Como prospectar clientes","Preparação para a primeira reunião","Levantamento da necessidade","Alinhamento de expectativas"]},{"t":"Planejamento e precificação","d":"Transforme a necessidade do cliente em um projeto viável.","l":["Definição do escopo do projeto","Cálculo de horas de trabalho","Precificação do serviço","Organização de prazos e entregas","Modelo de proposta comercial"]},{"t":"Prática para entrar em ação","d":"Aplique o processo antes de levar sua solução ao mercado.","l":["Desafios práticos","Estruturação de ofertas com planilhas","Projetos de automação em Excel","Dashboards como serviço","Construção de uma experiência que gera indicação"]}]},"DashBusiness":{"tag":"Faça seu trabalho com dados ser visto, compreendido e valorizado.","desc":"Aprenda a enxergar oportunidades de crescimento na sua rotina, entender o que os gestores esperam e apresentar suas habilidades em Excel e Power BI de forma estratégica.","fatos":["7 temas estratégicos","3h de conteúdo"],"mods":[{"t":"O que as empresas esperam","d":"Entenda como suas habilidades são avaliadas no mercado.","l":["O que as empresas esperam de quem trabalha com planilhas","Testes de Excel usados em processos seletivos","Exercícios baseados em avaliações de empresas","Excel e Power BI como competências profissionais"]},{"t":"A visão dos gestores","d":"Descubra o que transforma execução em contribuição estratégica.","l":["O que gestores esperam do profissional","Como avaliar se o time está pronto para trabalhar com planilhas","Como conectar seu trabalho aos objetivos da área"]},{"t":"Currículo e portfólio","d":"Apresente seu repertório de maneira atrativa e objetiva.","l":["Como criar um currículo realmente interessante","Como construir um portfólio direto ao ponto","Como demonstrar resultados e não apenas ferramentas"]},{"t":"Entrevistas e apresentações","d":"Comunique suas habilidades com clareza e confiança.","l":["O que apresentar em reuniões sobre habilidades em planilhas","Como apresentar seu trabalho na empresa","Como se diferenciar de mais um “planilheiro”"]},{"t":"Visibilidade e oportunidades","d":"Crie espaço para crescer mesmo quando ele não aparece sozinho.","l":["O que fazer quando o gestor não oferece visibilidade","Como encontrar novas aplicações para seu conhecimento","Como gerar oportunidades sem depender das redes sociais"]},{"t":"Projetos de mudança","d":"Apresente melhorias de forma que gestores e clientes queiram avançar.","l":["Como lidar com pessoas avessas a mudanças","Como propor melhorias para planilhas que já funcionam","Como apresentar benefícios, impacto e segurança"]},{"t":"Vídeo estratégico","d":"Mostre seu trabalho de maneira rápida, clara e memorável.","l":["O que mostrar em um vídeo profissional","Como apresentar seu trabalho para gestores","Como compartilhar projetos com sua rede de contatos"]}]},"Office 365 Explorer":{"tag":"Explore um jeito mais conectado, flexível e produtivo de trabalhar.","desc":"Aprenda a integrar OneDrive, SharePoint, Word, PowerPoint e Excel — na nuvem e no computador — para colaborar melhor e aproveitar recursos que você já tem à disposição.","fatos":["5 aplicativos integrados","4h de conteúdo"],"mods":[{"t":"Visão geral do Microsoft 365","d":"Entenda o ecossistema e escolha os recursos certos para sua rotina.","l":["Diferenças entre os planos doméstico e empresarial","Benefícios da utilização do Microsoft 365","Aplicativos na nuvem e versões instaladas","Flexibilidade, colaboração e produtividade"]},{"t":"OneDrive e SharePoint","d":"Organize arquivos com segurança e trabalhe em equipe.","l":["Armazenamento e compartilhamento na nuvem","Recursos de segurança e privacidade","Histórico de versões","Recuperação de arquivos","Colaboração em equipe com SharePoint","Acesso a arquivos pelo celular"]},{"t":"Word mais produtivo","d":"Use recursos inteligentes para escrever e revisar documentos.","l":["Digitação por voz","Leitura para revisão de texto","Trabalho com documentos na nuvem","Colaboração e compartilhamento"]},{"t":"PowerPoint conectado","d":"Crie apresentações melhores e colabore em tempo real.","l":["Integração com o Power BI","Guia Transformar","Recursos do Designer","Banco de imagens","Legendas automáticas em apresentações","Coautoria com vários usuários"]},{"t":"Excel 365 e automação","d":"Explore análises modernas, Power Query Online e funções dinâmicas.","l":["Recursos exclusivos de tabelas dinâmicas","Mapa de calor automático","Guia Automatizar","Power Query Online","PROCX, CORRESPX, FILTRO, CLASSIFICAR e CLASSIFICARPOR","ÚNICO, TEXTOANTES, TEXTODEPOIS e DIVIDIRTEXTO","IMAGEM, EMPILHARV, EMPILHARH, ESCOLHERCOLS e ESCOLHERLINS","SEQUÊNCIA, QUEBRARCOLS, QUEBRARLINS e MAKEARRAY","MÍNIMOSES, MÁXIMOSES, TRANSPOR, LET e MATRIZALEATÓRIA"]}]},"PPT Efeito UAU":{"tag":"Crie apresentações que prendem a atenção e fazem sua mensagem ser lembrada.","desc":"Use um método para transformar slides, imagens, animações e vídeos em soluções profissionais — mesmo que você não se considere uma pessoa criativa.","fatos":["9 aplicações práticas","3h de conteúdo"],"mods":[{"t":"Estratégia da apresentação","d":"Comece pela mensagem e escolha o formato certo.","l":["Quando usar o PowerPoint","Como planejar e aprimorar uma apresentação","O que não fazer em slides"]},{"t":"Criatividade com método","d":"Desenvolva soluções visuais sem depender de inspiração.","l":["Ferramentas para desenvolver a criatividade","Organização e hierarquia visual","Aplicações práticas e replicáveis"]},{"t":"Imagens e comunicação","d":"Transforme o PowerPoint em uma ferramenta de design.","l":["Como trabalhar e editar imagens","Materiais de comunicação e marketing","Mídias em diferentes formatos"]},{"t":"Animações e transições","d":"Use movimento para guiar a atenção.","l":["O que é animação","Animações profissionais","Uso estratégico de transições"]},{"t":"Criação e gravação de vídeos","d":"Produza conteúdos para sua equipe e outros canais.","l":["Gravação de vídeos no PowerPoint","Criação de vídeos para equipes","Edição e exportação de vídeos"]}]},"Imersão em Gráficos Efeito UAU":{"tag":"Atitudes diferentes geram resultados diferentes.","desc":"Vá além dos gráficos comuns de linha, coluna e barras. Aprenda a criar visuais personalizados que comunicam melhor suas análises e provocam o Efeito UAU.","fatos":["28 aulas gravadas","5h30 de conteúdo"],"mods":[{"t":"Conceitos e personalização","d":"Construa uma base visual antes de explorar efeitos avançados.","l":["Conceitos essenciais de visualização","Escolha do gráfico conforme a análise","Organização, hierarquia e destaque","Pontas arredondadas","Gráficos 3D com propósito"]},{"t":"Roscas e indicadores visuais","d":"Apresente percentuais e seleções de formas mais marcantes.","l":["Gráfico de rosca com ícones","Gráfico de rosca com seleção","Preenchimento gradual","Gráfico de percentual do total","Gráfico de performance"]},{"t":"Colunas, barras e rankings","d":"Compare categorias sem perder clareza.","l":["Coluna que muda de cor","Ranking com barra de rolagem","Comparativo entre categorias","Gráfico de dois eixos","Gráfico de Gantt"]},{"t":"Linhas, evolução e movimento","d":"Mostre mudanças ao longo do tempo com mais impacto.","l":["Variação mensal - MTD","Linha com ícone que se movimenta","Linha com pontos altos e baixos","Gráfico de montanha","Análise dupla"]},{"t":"Imagens e composições especiais","d":"Leve seus gráficos além dos formatos tradicionais.","l":["Preenchimento com imagens","Composição de indicadores personalizados","Acabamento visual para apresentações","Aplicações em planilhas e Dashboards"]}]},"Scout for Google Sheets":{"tag":"Domine planilhas online e trabalhe de verdade em conjunto.","desc":"Aprenda Google Sheets do zero aos relatórios: organize dados, construa fórmulas, automatize análises e compartilhe projetos com segurança.","fatos":["33 aulas e missões","6h30 de conteúdo"],"mods":[{"t":"Território Google Sheets","d":"Acesse, organize e compartilhe seus primeiros projetos.","l":["Conta Google, Google Drive e acesso ao Sheets","Plataforma Hotmart e suporte para dúvidas","Compartilhar, acessar e duplicar uma planilha","Interface, guias, barra de fórmulas e limites","Formatos, modo offline e histórico de versões"]},{"t":"Formatação e produtividade","d":"Organize planilhas profissionais com mais velocidade.","l":["Formatação de células, bordas e cores","Filtros rápidos","Tabela verdadeira","Alça de preenchimento para textos, números e datas","Inclusão e remoção de linhas","Congelamento de painéis"]},{"t":"Fórmulas e decisões","d":"Construa cálculos e lógicas para diferentes cenários.","l":["Diferenças entre fórmulas e funções","Referências absolutas e relativas","SOMA, MÉDIA, MÍNIMO, MÁXIMO e CONT.VALORES","SE, E, OU, CONT.SE e MÁXIMO.SE","Funções SE, E e OU aninhadas"]},{"t":"Busca e funções que mudam o jogo","d":"Encontre, filtre e conecte informações.","l":["PROCV, PROCV aproximado e SEERRO","PROCX","ÚNICO, CLASSIFICAR e FILTRO","FILTRO com dois argumentos","IMPORTRANGE e IMPORTDATA","GOOGLETRANSLATE e GOOGLEFINANCE"]},{"t":"Planilhas à prova de erros","d":"Controle entradas e destaque o que exige atenção.","l":["Formatação condicional por valor, data e texto","Criação e edição de regras","Validação interna e externa por intervalo","Validação de datas e e-mails","Validação com múltipla seleção","Formatação dos itens com cores"]},{"t":"Análises, gráficos e Dashboards","d":"Transforme dados em informações fáceis de explorar.","l":["Tabelas dinâmicas, campos, filtros e atualização","Visualizações e controles de filtro","Segmentação de dados","Escolha, inserção e edição de gráficos","Menu de navegação e links de células","Conceito de Dashboard e necessidade do mercado"]},{"t":"Colaboração, carreira e I.A.","d":"Publique seu trabalho e explore novas possibilidades.","l":["Compartilhamento com terceiros","Segurança online e trabalho multiusuário","Excel versus Google Sheets: armazenamento, processamento, big data e licenças","Compatibilidade, colaboração e histórico de versões","Divulgação do trabalho no LinkedIn","Google Sheets com ChatGPT"]}]},"Multiplicador Efeito UAU":{"tag":"Aprenda a multiplicar conhecimento e se tornar uma referência para quem está ao seu redor.","desc":"Uma jornada interativa com Karen Abecia para desenvolver mentalidade, aplicar I.A., fortalecer feedbacks e construir um ambiente que impulsiona sua evolução.","fatos":["4 aulas","5h de conteúdo","Ao vivo e na prática"],"mods":[{"t":"Mentalidade","d":"Prepare a forma de pensar para transformar conhecimento em impacto.","l":["Experimento da fenda dupla como metáfora de mentalidade","Construção do quadro dos sonhos","Criação de uma Wiki como biblioteca corporativa de conhecimento","Gravação de vídeos com atalhos do Excel","Exercício prático de multiplicação de conhecimento"]},{"t":"Inteligência Artificial","d":"Use a I.A. como parceira para criar, ensinar e resolver problemas.","l":["ChatGPT nas versões gratuita e paga","Criação e personalização de prompts","Memória e instruções personalizadas do ChatGPT","Comparação entre ChatGPT e Microsoft Copilot","Aplicações em Excel e Power BI","Dashboards, tabelas dinâmicas, roteiros e revisão de textos"]},{"t":"Feedback","d":"Transforme conversas difíceis em oportunidades de evolução.","l":["Tipos de feedback e feedback construtivo","Diferença entre opinião e prova","Como dar e receber feedback","Dinâmica Hot Seat","Uso do ChatGPT para estruturar feedbacks"]},{"t":"Ambiente","d":"Construa ao seu redor as condições para continuar crescendo.","l":["Diagnóstico do ambiente e da rede de convivência","Identificação de ambientes tóxicos","Dinâmicas práticas e plano de ação pessoal","Recapitulação de mentalidade, I.A. e feedback","DashEagles como possibilidade de próximo passo"]}]}}/*FIM_TR_DATA*/;
+
+/* Prints de WhatsApp: cada item lista os nomes de arquivo possíveis (vai para o próximo se o primeiro não existir).
+   Para incluir mais prints, suba dep6.png, dep7.png e dep8.png na pasta imagens/depoimento. */
+const PRINTS = [
+  ['dep1.png'], ['dep2.png'], ['dep3.png'], ['dep 4.png', 'dep4.png'], ['dep5.png'],
+  ['dep6.png', 'dep 6.png'], ['dep7.png', 'dep 7.png'], ['dep8.png', 'dep 8.png']
+];
+
+/* Vídeos de depoimento (nome e cargo/empresa: preencha "cargo" quando tiver) */
+const VIDEOS = [
+  { nome: 'Aline Zanetti', desc: 'Trocou o PowerPoint por um Dashboard e saiu da reunião de diretoria com uma promoção.', arq: 'aline_zanetti_pronto.mp4', poster: 'dep-aline-zanetti.jpg' },
+  { nome: 'Marco Polo', desc: 'Reduziu em 50% o tempo de atualização de um relatório que já rodava há 8 anos.', arq: 'Marco Polo.mp4', poster: 'dep-marco-polo.jpg' },
+  { nome: 'Nancy Delint', desc: 'Consultora se destaca em empresa com mais de 45 mil colaboradores.', arq: 'nancy_pronto.mp4', poster: 'dep-nancy.jpg' },
+  { nome: 'Rafael Ferreira', desc: 'De semanas de trabalho manual a um processo pronto em 3 dias.', arq: 'rafael_pronto.mp4', poster: 'dep-rafael.jpg' },
+  { nome: 'Michele Gois', desc: 'Depois do DashWay conquistou uma proposta com o dobro do salário.', arq: 'michele_pronto.mp4', poster: 'dep-michele.jpg' },
+  { nome: 'Josiclei Silva', desc: 'Vendeu o mesmo Dashboard para mais de 50 empresas.', arq: 'josiclei_pronto.mp4', poster: 'dep-josiclei.jpg' },
+  { nome: 'Hellen Fink', desc: 'Vendeu o primeiro Dashboard por R$ 1.000 em menos de 20 dias de curso.', arq: 'hellen_pronto.mp4', poster: 'dep-hellen.jpg' }
+];
+
+const FAQ = [
+  ['Quando recebo o acesso aos treinamentos?', 'Logo depois da confirmação da matrícula. O acesso é imediato, pela Hotmart.'],
+  ['Quando acontecem as implementações?', 'Cada implementação tem 2 noites ao vivo, com 2h por noite. As datas e os horários estão na <a href="#implementacoes" style="color:var(--green)">agenda das implementações</a>, aqui em cima.'],
+  ['E se eu não puder assistir ao vivo?', 'Sem problema. Todas as implementações ficam gravadas, e o replay tem acesso vitalício.'],
+  ['Já tenho acesso vitalício. Por que comprar de novo?', 'O seu acesso vitalício é dos treinamentos gravados. As 10 implementações são novas, ao vivo, e os replays delas também têm acesso vitalício. E você tem uma condição só para quem já é aluno vitalício.'],
+  ['Sou iniciante. Serve para mim?', 'Serve. O Excel Scout começa do básico, e nas implementações você abre o microfone e pergunta na hora.'],
+  ['Os treinamentos têm certificado?', 'Sim. Cada treinamento tem o seu certificado individual.'],
+  ['Onde ficam as aulas?', 'Na área de membros da Hotmart. Você assiste pelo computador ou pelo celular.'],
+  ['Como sei se ganhei os bônus dos primeiros?', 'Os bônus seguem a ordem de matrícula. Se você estiver entre os primeiros, a gente te avisa por mensagem no WhatsApp.'],
+  ['O que o acesso vitalício inclui?', 'Os 13 treinamentos listados nesta página e os replays das 10 implementações ao vivo. Treinamentos lançados no futuro não fazem parte desta oferta.'],
+  ['Como funciona a consultoria individualizada?', 'É 1 sessão individualizada de 1h, para os 15 primeiros matriculados.'],
+  ['O que inclui o ingresso do DashDay?', 'Inclui 1 ingresso para o DashDay, o evento presencial em São Paulo, para os 100 primeiros matriculados. Não inclui viagem, hospedagem ou alimentação.'],
+  ['Como funciona a implementação de Claude com Dados?', 'São 6 noites ao vivo, válidas para matrículas feitas até sexta-feira, 6 de novembro.', true],
+  ['E se eu não gostar?', 'Você tem 7 dias para experimentar. Se não for para você, é só pedir o reembolso completo pela Hotmart, dentro do prazo.']
+];
 /* ===================================================================== */
 
-const NOMES = { nao_aluno: 'Não alunos', dashway: 'Alunos sem vitalício', vitalicio: 'Alunos vitalício' };
-const ITENS = [
-  '10 implementações ao vivo de Excel e I.A.',
-  '13 treinamentos gravados',
-  'Acesso à equipe de especialistas',
-  'Bônus extras da Black 26'
-];
-const DEMO = CONFIG.supabaseUrl.includes('SEU-PROJETO');
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl = n => 'R$ ' + n.toLocaleString('pt-BR');
+const ico = (id, cls = '') => `<svg class="ico-s ${cls}"><use href="#${id}"/></svg>`;
 
-/* ---------- Popup ---------- */
+/* ---------- Bônus de Claude com Dados: some depois do prazo ---------- */
+const bonusEncerrado = Date.now() > new Date(CONFIG.fimBonusClaude).getTime();
+if (bonusEncerrado) {
+  $$('[data-claude]').forEach(el => el.remove());
+  $('#bonus-grid').classList.add('dois');
+  const sub = $('#bonus-sub'); if (sub) sub.textContent = 'Dois presentes para quem garantir a vaga antes. Quando acabar, acabou.';
+}
+/* Quando uma data da campanha chega com a página aberta, recarrega para entrar na fase nova */
+[window.BLACK_PARCIAL ? CONFIG.faseCompleta : null, bonusEncerrado ? null : CONFIG.fimBonusClaude].forEach(d => {
+  const ms = d ? Date.parse(d) - Date.now() : 0;
+  if (ms > 0 && ms < 2147483647) setTimeout(() => location.reload(), ms + 1500);
+});
+
+/* ---------- Conteúdo montado a partir dos dados ---------- */
+$('#lista-separado').innerHTML = SEPARADO.map(([n, v]) => `<li><span>${esc(n)}</span><b>${brl(v)}</b></li>`).join('') +
+  `<li><span>10 implementações ao vivo (R$ 297 cada)</span><b>R$ 2.970</b></li>`;
+$('#total-separado').textContent = brl(CONFIG.totalSeparado);
+$('#ancora-valor').textContent = brl(CONFIG.totalSeparado);
+
+const desc = v => Math.round((1 - v / CONFIG.totalSeparado) * 100);
+const precosHTML = ['nao_aluno', 'dashway', 'vitalicio'].map(k => {
+  const o = CONFIG.ofertas[k];
+  return `<div class="preco"><div class="g">${esc(o.rotulo).replace(' ', '<br>')}</div><div class="d">${desc(o.valor)}% de desconto</div><div class="p">${esc(o.parcela)} <small>ou ${brl(o.valor)} à vista</small></div></div>`;
+}).join('');
+$$('[data-precos]').forEach(el => el.innerHTML = precosHTML);
+
+/* Ícones (um por implementação, na ordem de IMPL) */
+const IMPL_ICONES = [
+  '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+  '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 8h8M8 12h5"/>',
+  '<path d="M18 20V10M12 20V4M6 20v-6"/>',
+  '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
+  '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8.5 12.5l2-2 1.5 1.5 2.5-3"/>',
+  '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',
+  '<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6"/><path d="M13 13l2 2-2 2"/>',
+  '<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 14h.01M15 14h.01M2 14h2M20 14h2"/><circle cx="12" cy="3" r="1"/>'
+];
+/* Quebra o texto em parágrafos curtos: gancho | desenvolvimento | solução */
+function paragrafos(txt) {
+  const t = txt.replace(/I\.A\./g, 'I§A§');
+  const fr = (t.match(/[^.?!]+[.?!]+["”]?\s*/g) || [t]).map(s => s.trim());
+  let k = fr.findIndex((s, i) => i > 0 && /^(Nesta|Aqui)/.test(s)); if (k < 0) k = Math.ceil(fr.length / 2);
+  const antes = fr.slice(0, k), depois = fr.slice(k);
+  const partes = antes.length > 3 ? [antes.slice(0, 2), antes.slice(2), depois] : [antes, depois];
+  return partes.filter(p => p.length).map(p => p.join(' ').replace(/§/g, '.'));
+}
+const IMPL_CARDS = IMPL.map((c, i) => {
+  const cls = c.t.startsWith('Intel') ? 'ia' : c.t.includes('+') ? 'mix' : '';
+  const grad = cls === 'mix' ? `<defs><linearGradient id="gm${i}" gradientUnits="userSpaceOnUse" x1="3" y1="3" x2="21" y2="21"><stop offset="0" stop-color="#8ee192"/><stop offset="1" stop-color="#f768f7"/></linearGradient></defs>` : '';
+  return `<article class="icard ${cls}">
+    <div class="top"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${IMPL_ICONES[i]}</svg></span><span class="num">${String(i + 1).padStart(2, '0')}</span></div>
+    <span class="chip ${c.t.startsWith('Intel') ? 'ia' : ''}" style="align-self:flex-start;margin-bottom:12px">${esc(c.t)}</span>
+    <h3>${esc(c.n)}</h3>
+    <p class="desc">${paragrafos(c.p).map(x => `<span>${esc(x)}</span>`).join('')}</p>
+    <div class="datas"><div><span>Aula 1</span><b>${c.d[0]} · ${HORA}</b></div><div><span>Aula 2</span><b>${c.d[1]} · ${HORA}</b></div></div>
+  </article>`;
+});
+carrossel('#car-impl', IMPL_CARDS, () => innerWidth <= 700 ? 1 : 2, 7000);
+
+$('#treinos').innerHTML = TREINOS.map(t => `
+  <article class="tcard">
+    <img src="${CONFIG.imgBase}${t.img}" alt="Capa do treinamento ${esc(t.n)}" width="720" height="1040" loading="lazy">
+    <div>
+      <div class="apoio">${esc(t.apoio)}</div>
+      ${t.ideal ? `<div class="ideal">${esc(t.ideal)}</div>` : ''}
+      <h3>${esc(t.n)}</h3>
+      <p class="t">${t.t}</p>
+      <div class="sai">Você sai sabendo:</div>
+      <ul class="l">${t.l.map(x => `<li>${ico('i-arrow')}<span>${esc(x)}</span></li>`).join('')}</ul>
+      <div class="nums">${t.nums.map(n => `<span><b>${esc(n.split(' ')[0])}</b> ${esc(n.split(' ').slice(1).join(' '))}</span>`).join('')}</div>
+      <button class="btn btn-ghost btn-sm" data-tr="${esc(t.n)}">Ver conteúdo completo</button>
+    </div>
+  </article>`).join('');
+
+/* ---------- Carrossel com setas e loop infinito ---------- */
+function carrossel(rootSel, itens, perView, autoMs) {
+  const root = $(rootSel), track = $('.car-track', root), vp = $('.car-vp', root);
+  const n = itens.length, gap = 16;
+  track.innerHTML = [0, 1, 2].map(() => itens.join('')).join('');
+  const kids = [...track.children];
+  kids.forEach((k, i) => { if (i < n || i >= 2 * n) { k.setAttribute('aria-hidden', 'true'); $$('button,a', k).forEach(x => x.tabIndex = -1); } });
+  let idx = n, busy = false, iw = 0;
+  const pos = anim => { track.classList.toggle('anim', anim); track.style.transform = `translateX(${-idx * (iw + gap)}px)`; };
+  const layout = () => {
+    const per = perView(); iw = (vp.clientWidth - gap * (per - 1)) / per;
+    kids.forEach(k => k.style.width = iw + 'px'); root.style.setProperty('--iw', iw + 'px'); pos(false);
+  };
+  const go = d => {
+    if (busy) return; busy = true; idx += d; pos(true);
+    setTimeout(() => { if (idx >= 2 * n) idx -= n; else if (idx < n) idx += n; pos(false); busy = false; }, 540);
+  };
+  // Passagem automática (a cada autoMs) até a pessoa interagir pela primeira vez
+  let timer = null, visivel = false;
+  const para = () => { if (timer) { clearInterval(timer); timer = null; } };
+  if (autoMs && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    timer = setInterval(() => { if (visivel && !document.hidden) go(1); }, autoMs);
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { visivel = es[0].isIntersecting; }, { threshold: .3 }).observe(root); else visivel = true;
+  }
+  $('.prev', root).addEventListener('click', () => { para(); go(-1); });
+  $('.next', root).addEventListener('click', () => { para(); go(1); });
+  let x0 = null;
+  vp.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  vp.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 45) { para(); go(dx < 0 ? 1 : -1); } });
+  addEventListener('resize', layout); addEventListener('load', layout);
+  layout();
+}
+carrossel('#car-treinos',
+  OUTROS.map(([n, f, fr]) => `<button class="slide" data-tr="${esc(n)}"><span class="lg"><img src="${CONFIG.logoBase}${encodeURIComponent(f)}" alt="${esc(n)}" loading="lazy"></span><span class="fr">${esc(fr)}</span><span class="ver">Ver conteúdo completo →</span></button>`),
+  () => innerWidth <= 700 ? 1 : innerWidth <= 980 ? 2 : 3);
+
+/* Popup com o conteúdo completo de cada treinamento */
+const tdlg = $('#tdlg');
+function abrirTreino(nome) {
+  const d = TR_DATA[nome]; if (!d) return;
+  const fatos = d.fatos.map(f => `<span>${esc(f)}</span>`).join('');
+  const mods = d.mods.map((m, i) => `
+    <details class="tr-mod"${i === 0 ? ' open' : ''}><summary><span class="n">${String(i + 1).padStart(2, '0')}</span><div><b>${esc(m.t)}</b>${m.d ? `<small>${esc(m.d)}</small>` : ''}</div></summary>${m.l.length ? `<ul>${m.l.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</details>`).join('');
+  $('#tdlg-body').innerHTML = `
+    <button class="close" id="tdlg-x" aria-label="Fechar">×</button>
+    <div class="tr-eyebrow">Treinamento gravado</div>
+    <h2 id="tdlg-title">${esc(nome)}</h2>
+    <p class="tr-tag">${esc(d.tag)}</p>
+    <p class="tr-desc">${esc(d.desc)}</p>
+    <div class="nums">${fatos.replace(/<span>([+\d][^ ]*) /g, '<span><b>$1</b> ')}<span><b>Acesso</b> vitalício</span></div>
+    ${mods ? `<h3 class="tr-h">Conteúdo completo</h3>${mods}` : ''}
+    <div class="tr-cta"><button class="btn btn-green btn-block" id="tdlg-go">QUERO GARANTIR MINHA VAGA</button></div>`;
+  tdlg.showModal(); tdlg.scrollTop = 0;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-tr]'); if (b) abrirTreino(b.dataset.tr);
+  if (e.target.closest('#tdlg-x')) tdlg.close();
+  if (e.target.closest('#tdlg-go')) { tdlg.close(); document.getElementById('oferta-final').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+});
+tdlg.addEventListener('click', e => { if (e.target === tdlg) tdlg.close(); });
+
+$('#faq-lista').innerHTML = FAQ.filter(f => !(f[2] && bonusEncerrado)).map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${a}</p></details>`).join('');
+
+/* Prints: só aparecem os arquivos que existem; distribuídos em 2 colunas equilibradas */
+(function () {
+  const g = $('#gallery');
+  const cols = [0, 1].map(() => { const c = document.createElement('div'); c.className = 'gcol'; g.appendChild(c); return c; });
+  const res = new Array(PRINTS.length).fill(null);
+  let fim = 0;
+  const fecha = () => {
+    if (++fim < PRINTS.length) return;
+    if (res.filter(Boolean).length < 3) { $('#prints').hidden = true; return; }
+    // Layout definido: coluna esquerda = dep6, dep8, dep1; coluna direita = dep2, dep4, dep7, dep3, dep5
+    const LAYOUT = [[5, 7, 0], [1, 3, 6, 2, 4]];
+    const h = [0, 0];
+    const poe = (idx, c) => {
+      const img = res[idx]; if (!img) return;
+      const fig = document.createElement('figure'); fig.appendChild(img);
+      h[c] += img.naturalHeight / img.naturalWidth; cols[c].appendChild(fig);
+      fig.addEventListener('click', () => { $('#lb-img').src = img.src; $('#lb').showModal(); });
+    };
+    LAYOUT.forEach((lista, c) => lista.forEach(idx => poe(idx, c)));
+    res.forEach((_, idx) => { if (!LAYOUT.flat().includes(idx)) poe(idx, h[0] <= h[1] ? 0 : 1); });
+  };
+  PRINTS.forEach((cands, idx) => {
+    const img = new Image(); img.alt = 'Print de conversa de aluno no WhatsApp durante uma implementação ao vivo';
+    let i = 0;
+    const tenta = () => { img.src = CONFIG.imgBase + 'depoimento/' + encodeURIComponent(cands[i]); };
+    img.onload = () => { res[idx] = img; fecha(); };
+    img.onerror = () => { if (++i < cands.length) tenta(); else fecha(); };
+    tenta();
+  });
+  $('#lb-x').addEventListener('click', () => $('#lb').close());
+  $('#lb').addEventListener('click', e => { if (e.target === $('#lb')) $('#lb').close(); });
+})();
+
+/* Vídeos: carrossel com 2 por vez; o arquivo só é baixado quando a pessoa dá o play (abre em player maior) */
+carrossel('#car-videos',
+  VIDEOS.map((v, i) => `<figure class="vcard" style="margin:0"><div class="vbox"><video class="thumb" src="${CONFIG.imgBase}dashboards/${encodeURIComponent(v.arq)}#t=0.5" poster="${CONFIG.posterBase}${v.poster}" preload="metadata" muted playsinline tabindex="-1" aria-hidden="true"></video><button class="play" data-i="${i}" aria-label="Assistir ao depoimento de ${esc(v.nome)}"><span><svg><use href="#i-play"/></svg></span></button></div><figcaption>${esc(v.nome)}<span class="vd">${esc(v.desc)}</span></figcaption></figure>`),
+  () => 2);
+const vdlg = $('#vdlg'), vv = $('#vdlg-v');
+document.addEventListener('click', e => {
+  const b = e.target.closest('button.play'); if (!b) return;
+  const v = VIDEOS[b.dataset.i];
+  vv.src = CONFIG.imgBase + 'dashboards/' + encodeURIComponent(v.arq);
+  $('#vdlg-cap').innerHTML = `${esc(v.nome)}<small>${esc(v.desc)}</small>`;
+  vdlg.showModal(); vv.play().catch(() => {});
+});
+$('#vdlg-x').addEventListener('click', () => vdlg.close());
+vdlg.addEventListener('click', e => { if (e.target === vdlg) vdlg.close(); });
+vdlg.addEventListener('close', () => { vv.pause(); vv.removeAttribute('src'); vv.load(); });
+
+/* WhatsApp de dúvidas */
+$('#btn-duvidas').href = `https://wa.me/${CONFIG.whatsappDuvidas}`;
+$('#btn-duvidas-txt').textContent = 'FALAR NO WHATSAPP';
+$('#wa-flut').href = `https://wa.me/${CONFIG.whatsappDuvidas}`;
+
+/* Links legais (só aparecem quando preenchidos) */
+(function () {
+  const l = [];
+  if (CONFIG.termosUrl) l.push(`<a href="${esc(CONFIG.termosUrl)}" target="_blank" rel="noopener">Termos de uso</a>`);
+  if (CONFIG.privacidadeUrl) l.push(`<a href="${esc(CONFIG.privacidadeUrl)}" target="_blank" rel="noopener">Política de privacidade</a>`);
+  if (l.length) { $('#links-legais').innerHTML = l.join(' · '); $('#links-legais').hidden = false; }
+})();
+
+/* ---------- Faixas de tópicos (direita para a esquerda; a segunda faixa vai no sentido contrário) ---------- */
+(function () {
+  const L1 = ['Excel', 'Power BI', 'Power Query', 'Dashboards', 'Inteligência Artificial', 'Storytelling com Dados', 'Automação'];
+  const L2 = ['Google Sheets', 'PowerPoint', 'Office 365', 'ChatGPT', 'Claude', 'Copilot', 'Agentes de I.A.'];
+  const monta = (id, lista) => { $(id).innerHTML = Array(6).fill(lista).flat().map(t => `<span>${esc(t)}</span>`).join(''); };
+  monta('#mq1', L1); monta('#mq2', L2);
+
+  // Animação "Talvez você já tenha passado por isso": expectativa e realidade lado a lado, uma depois da outra
+  (function () {
+    const box = $('#story'); if (!box) return;
+    const IC = {
+      curso: '<path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.76L20 8H6.2"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/>',
+      play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/>',
+      ok: '<circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/>',
+      fim: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+      reuniao: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/>',
+      relatorio: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+      chefe: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/>',
+      casal: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+      casa: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/>',
+      roupa: '<path d="M8 3 3 6l2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
+      comida: '<path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M9 4c0 1.5 1 1.5 1 3M14 4c0 1.5 1 1.5 1 3"/>',
+      livro: '<path d="M12 6c-2-1.6-5-2-8-2v14c3 0 6 .4 8 2 2-1.6 5-2 8-2V4c-3 0-6 .4-8 2zM12 6v14"/>',
+      user: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+      uau: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
+      lua: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'
+    };
+    const EXP = [['curso', 'Comprei um curso'], ['play', 'Assiste empolgado as primeiras aulas'], ['ok', 'Apliquei'], ['fim', 'Terminei no final de semana']];
+    const REA = [['reuniao', 'Reunião atrás de reunião'], ['relatorio', 'Relatório pra ontem'], ['chefe', 'Mensagem do chefe às 17:59'], ['casal', 'Marido/esposa'], ['casa', 'Filhos, casa pra cuidar'], ['roupa', 'Roupa pra lavar'], ['comida', 'Comida pra fazer']];
+    const svgI = k => `<svg viewBox="0 0 24 24">${IC[k]}</svg>`;
+    function monta(ev, itens, icone, tituloIni) {
+      const orb = $('.orb', ev), N = itens.length;
+      orb.innerHTML = `<div class="orb-ring"></div><svg class="orb-g" viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="21.5"/><circle class="pg" cx="50" cy="50" r="21.5"/></svg><div class="orb-core">${svgI(icone)}<b></b></div>`;
+      const nos = itens.map(([k, t], i) => {
+        const ang = (-90 + i * 360 / N) * Math.PI / 180, R = 37;
+        const n = document.createElement('div'); n.className = 'nd';
+        n.style.left = (50 + R * Math.cos(ang)) + '%'; n.style.top = (50 + R * Math.sin(ang)) + '%';
+        n.innerHTML = `<div class="nd-i"><div class="nd-f" style="--d:${(5 + (i % 4) * .9).toFixed(1)}s;--dl:${(-i * .7).toFixed(1)}s"><span class="nd-c">${svgI(k)}</span><span class="nd-t">${esc(t)}</span></div></div>`;
+        orb.appendChild(n); return n;
+      });
+      const pg = $('.pg', orb), core = $('.orb-core', orb), tit = $('b', core);
+      const prog = n => { pg.style.strokeDashoffset = 135.1 * (1 - n / N); };
+      const fim = (ic, txt) => { core.querySelector('svg').outerHTML = svgI(ic); tit.textContent = txt; };
+      return { ev, nos, prog, fim, N };
+    }
+    const A = monta($('#ev-exp'), EXP, 'livro'), B = monta($('#ev-rea'), REA, 'user');
+    const fimA = () => { A.ev.classList.add('done'); A.fim('uau', 'Efeito UAU garantido'); };
+    const fimB = () => { B.ev.classList.add('done'); B.fim('lua', 'O cansaço já ganhou'); };
+    function mostraTudo() {
+      [A, B].forEach(x => { x.nos.forEach(n => n.classList.add('on')); x.prog(x.N); });
+      B.ev.classList.remove('dim'); fimA(); fimB();
+    }
+    function roda() {
+      let t = 600;
+      A.nos.forEach((n, i) => { setTimeout(() => { n.classList.add('on'); A.prog(i + 1); }, t); t += 1100; });
+      setTimeout(fimA, t + 300); t += 2600;
+      setTimeout(() => B.ev.classList.remove('dim'), t); t += 700;
+      B.nos.forEach((n, i) => { setTimeout(() => { n.classList.add('on'); B.prog(i + 1); }, t); t += 780; });
+      setTimeout(fimB, t + 300);
+    }
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion:reduce)').matches) { mostraTudo(); return; }
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); roda(); } }, { threshold: .3 });
+    io.observe(box);
+  })();
+
+  // Clicar em qualquer etiqueta leva para a seção de treinamentos
+  $$('.marq-track').forEach(t => t.addEventListener('click', e => {
+    if (!e.target.closest('span')) return;
+    document.getElementById('treinamentos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+
+  // Velocidade fixa de 20 px por segundo nas duas faixas
+  const VEL = 20;
+  const ajusta = () => $$('.marq-track').forEach(t => { if (t.scrollWidth) t.style.animationDuration = (t.scrollWidth / 2 / VEL) + 's'; });
+  ajusta(); addEventListener('load', ajusta); if (document.fonts) document.fonts.ready.then(ajusta);
+
+  // Ao passar o mouse, a faixa desacelera aos poucos (e volta à velocidade normal ao sair)
+  $$('.marq-row').forEach(row => {
+    const anim = () => row.querySelector('.marq-track').getAnimations()[0];
+    let alvo = 1, raf = 0;
+    const passo = () => {
+      const a = anim(); if (!a) return;
+      const r = a.playbackRate; const n = r + (alvo - r) * 0.08;
+      a.playbackRate = Math.abs(n - alvo) < 0.01 ? alvo : n;
+      if (a.playbackRate !== alvo) raf = requestAnimationFrame(passo);
+    };
+    const ir = v => { alvo = v; cancelAnimationFrame(raf); raf = requestAnimationFrame(passo); };
+    row.addEventListener('mouseenter', () => ir(0.15));
+    row.addEventListener('mouseleave', () => ir(1));
+  });
+})();
+
+/* ---------- Entrada suave ao rolar ---------- */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const alvos = '.tema,.dest,.icard,.tcard,.pf,.bcard,.prof,.pcard,.garantia,.duvida,.preco,.dor p,.head';
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target); e.target.classList.add('in');
+    e.target.addEventListener('transitionend', function f(ev) {
+      if (ev.propertyName !== 'opacity') return;
+      e.target.classList.remove('rv', 'in'); e.target.style.removeProperty('--d'); e.target.removeEventListener('transitionend', f);
+    });
+  }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  $$(alvos).forEach(el => {
+    const irmaos = el.parentElement ? [...el.parentElement.children].filter(c => c.matches(alvos)) : [el];
+    el.style.setProperty('--d', Math.min(irmaos.indexOf(el), 4) * 0.08 + 's');
+    el.classList.add('rv'); io.observe(el);
+  });
+})();
+
+/* ---------- Navegação dos botões ---------- */
+$$('[data-go]').forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: 'smooth', block: 'start' })));
+
+/* Botão fixo (celular): aparece depois do topo e some quando um bloco de preço está na tela */
+(function () {
+  const fixa = $('#fixa'), hero = $('#topo'), b4 = $('#oferta'), b11 = $('#oferta-final');
+  let passouHero = false, noPreco = 0;
+  const atualiza = () => { const on = passouHero && noPreco === 0; fixa.classList.toggle('on', on); document.body.classList.toggle('com-fixa', passouHero); };
+  new IntersectionObserver(([e]) => { passouHero = !e.isIntersecting && e.boundingClientRect.top < 0; atualiza(); }).observe(hero);
+  const io = new IntersectionObserver(es => { es.forEach(e => { e.target._v = e.isIntersecting; }); noPreco = [b4, b11].filter(x => x._v).length; atualiza(); }, { threshold: .15 });
+  io.observe(b4); io.observe(b11);
+  $('#fixa-btn').addEventListener('click', () => {
+    const alvo = (window.scrollY < b4.offsetTop - 200 || !b11.offsetParent) ? b4 : b11;
+    alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+
+/* ---------- Popup + consulta (Supabase) + checkout Hotmart ---------- */
 const dlg = $('#dlg');
-let timer = null;
-
 function tela(id) { $$('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
 let aquecida = false;
-function aquecer() { // acorda a função e guarda o preflight do CORS, para a consulta real ser mais rápida
-  if (aquecida || DEMO) return; aquecida = true;
+function aquecer() {
+  if (aquecida) return; aquecida = true;
   fetch(`${CONFIG.supabaseUrl}/functions/v1/checar-oferta`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': CONFIG.supabaseAnonKey, 'Authorization': `Bearer ${CONFIG.supabaseAnonKey}` }, body: '{}' }).catch(() => {});
 }
-function abrir() {
-  aquecer();
-  tela('s-form');
-  dlg.showModal();
-  setTimeout(() => $('#nome').focus(), 50);
-}
-function fechar() { clearTimeout(timer); dlg.close(); }
+function abrir() { aquecer(); tela('s-form'); dlg.showModal(); setTimeout(() => $('#nome').focus(), 50); }
+$$('[data-buy]').forEach(b => b.addEventListener('click', abrir));
+$('#btn-close').addEventListener('click', () => dlg.close());
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 
-$('#buy').addEventListener('click', abrir);
-$('#btn-close').addEventListener('click', fechar);
-dlg.addEventListener('click', e => { if (e.target === dlg) fechar(); });
-dlg.addEventListener('close', () => clearTimeout(timer));
-
-/* Máscara de telefone */
 $('#telefone').addEventListener('input', e => {
   let d = e.target.value.replace(/\D/g, '').slice(0, 11);
   e.target.value = d.length > 10 ? d.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
@@ -308,45 +1456,30 @@ $('#telefone').addEventListener('input', e => {
                  : d.length > 2 ? d.replace(/(\d{2})(\d{0,5})/, '($1) $2') : d;
 });
 
-/* ---------- Validação ---------- */
 function lerForm() {
-  return {
-    nome: $('#nome').value.trim().replace(/\s+/g, ' '),
-    telefone: $('#telefone').value.trim(),
-    email: $('#email').value.trim().toLowerCase(),
-    consent: $('#consent').checked
-  };
+  return { nome: $('#nome').value.trim().replace(/\s+/g, ' '), telefone: $('#telefone').value.trim(), email: $('#email').value.trim().toLowerCase() };
 }
 function validar(d) {
   const digits = d.telefone.replace(/\D/g, '');
   const erros = {
     nome: d.nome.split(' ').filter(Boolean).length < 2,
     telefone: !(digits.length === 10 || digits.length === 11) || /^(\d)\1+$/.test(digits),
-    email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email),
-    consent: !d.consent
+    email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)
   };
   Object.entries(erros).forEach(([k, v]) => $(`[data-f="${k}"]`).classList.toggle('err', v));
   return !Object.values(erros).some(Boolean);
 }
-
-/* ---------- Consulta (Supabase Edge Function) ---------- */
 function utmDaPagina() {
   const p = new URLSearchParams(location.search), out = {};
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'].forEach(k => p.get(k) && (out[k] = p.get(k)));
   return out;
 }
 async function consultar(d) {
-  if (DEMO) { // simula a resposta para você testar o visual
-    await new Promise(r => setTimeout(r, 900));
-    const m = d.email;
-    return { segmento: m.includes('vitalicio') ? 'vitalicio' : m.includes('dashway') ? 'dashway' : 'nao_aluno', ja_comprou: m.includes('comprou') };
-  }
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 12000);
   try {
     const r = await fetch(`${CONFIG.supabaseUrl}/functions/v1/checar-oferta`, {
-      method: 'POST',
-      signal: ctrl.signal,
+      method: 'POST', signal: ctrl.signal,
       headers: { 'Content-Type': 'application/json', 'apikey': CONFIG.supabaseAnonKey, 'Authorization': `Bearer ${CONFIG.supabaseAnonKey}` },
       body: JSON.stringify({ nome: d.nome, telefone: d.telefone, email: d.email, oferta_clicada: 'unica', utm: utmDaPagina() })
     });
@@ -356,73 +1489,41 @@ async function consultar(d) {
     return j;
   } finally { clearTimeout(t); }
 }
-
-/* ---------- Checkout Hotmart pré-preenchido ---------- */
 function montarCheckout(base, d, segmento) {
   const digits = d.telefone.replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, '');
-  const url = new URL(base || 'https://pay.hotmart.com/EXEMPLO');
-  const extra = {
-    name: d.nome, email: d.email,
-    phoneac: digits.slice(0, 2), phonenumber: digits.slice(2),
-    sck: `${CONFIG.tagCheckout}-${segmento}`
-  };
+  const url = new URL(base);
+  const extra = { name: d.nome, email: d.email, phoneac: digits.slice(0, 2), phonenumber: digits.slice(2), sck: `${CONFIG.tagCheckout}-${segmento}` };
   const u = utmDaPagina();
   if (u.utm_source && !url.searchParams.has('src')) extra.src = u.utm_source;
-  // Monta a query à mão: espaço vira %20 (e não "+"), sem mexer nos parâmetros que já existem no link (ex.: ?off=...)
   const qs = Object.entries(extra).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
   return url.origin + url.pathname + (url.search ? url.search + '&' : '?') + qs + url.hash;
 }
+const waLink = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
 
-function waLink(msg) { return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`; }
-
-/* ---------- Fluxo ---------- */
 let ultimo = null;
 async function processar(d) {
-  ultimo = d;
-  tela('s-load');
+  ultimo = d; tela('s-load');
   try {
     const res = await consultar(d);
-    const seg = res.segmento;
-
-    if (res.ja_comprou) { // tela de recuperação: compra já existente na base da Hotmart
+    if (res.ja_comprou) {
       $('#bought-title').textContent = `${d.nome.split(' ')[0]}, sua vaga já está garantida`;
       $('#bought-area').href = CONFIG.areaAlunosUrl;
       $('#bought-wa').href = waLink(`Olá! Já comprei a Black 26 com o e-mail ${d.email} e preciso de ajuda para acessar.`);
-      tela('s-bought');
-      return;
+      tela('s-bought'); return;
     }
-
-    const oferta = CONFIG.ofertas[seg];
-    const destino = montarCheckout(oferta.url, d, seg);
-
-    if (!DEMO) { // modo real: achou o perfil, vai direto para o checkout da Hotmart
-      if (!oferta.url) throw new Error('checkout não configurado para ' + seg);
-      $('#s-load h2').textContent = 'Levando você ao checkout';
-      location.replace(destino);
-      return;
-    }
-
-    // modo demonstração: mostra o destino sem redirecionar
-    const preco = oferta.por ? ` Valor: ${oferta.por}${oferta.parcelas ? ' (' + oferta.parcelas + ')' : ''}.` : '';
-    $('#go-title').textContent = `Perfil: ${NOMES[seg]}`;
-    $('#go-sub').textContent = preco.trim();
-    $('#go-link').href = destino;
-    $('#go-bar').style.width = '100%';
-    const demo = $('#go-demo'); demo.hidden = false;
-    demo.textContent = 'MODO DEMONSTRAÇÃO (não redireciona). ' + destino;
-    tela('s-go');
+    const oferta = CONFIG.ofertas[res.segmento];
+    if (!oferta || !oferta.url) throw new Error('checkout não configurado para ' + res.segmento);
+    $('#s-load h2').textContent = 'Levando você ao checkout';
+    const destino = montarCheckout(oferta.url, d, res.segmento);
+    try { fbq('track', 'InitiateCheckout', { content_name: 'black26-' + res.segmento, value: oferta.valor, currency: 'BRL' }); } catch (e) {}
+    setTimeout(() => location.replace(destino), 350);
   } catch (err) {
     console.error(err);
     $('#err-wa').href = waLink('Olá! Tive um problema ao consultar minha condição da Black 26.');
     tela('s-err');
   }
 }
-
-$('#form').addEventListener('submit', e => {
-  e.preventDefault();
-  const d = lerForm();
-  if (validar(d)) processar(d);
-});
+$('#form').addEventListener('submit', e => { e.preventDefault(); const d = lerForm(); if (validar(d)) processar(d); });
 $('#err-retry').addEventListener('click', () => ultimo ? processar(ultimo) : tela('s-form'));
 </script>
 </body>
