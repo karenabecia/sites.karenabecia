@@ -1,0 +1,30 @@
+:root{--bg:#f7f8f1;--paper:#fff;--ink:#063d2e;--muted:#6d8277;--green:#16c76a;--green-dark:#063d2e;--green-light:#e4f8e9;--purple:#7d32bd;--purple-dark:#1d0a3b;--purple-light:#f0e4ff;--line:#dce9df}
+.content-wrap{background:radial-gradient(circle at 96% 2%,#eee1ff,transparent 27%),var(--bg)}
+.sidebar{z-index:1001;background:linear-gradient(160deg,#063d2e,#071e22 65%,#1d0a3b);border-right:0;color:#fff;overflow:hidden}
+.sidebar:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
+.sidebar>*{position:relative;z-index:1}
+.brand{display:block;width:195px;max-width:100%;margin:0 0 40px;padding:0;border:0;background:transparent}
+.brand img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.side-label{padding-left:10px;color:#95c6a9;font:800 .65rem monospace;letter-spacing:.14em}
+.side-nav{gap:5px}
+.nav-item{width:100%;border:1px solid transparent;border-radius:10px;color:#d8efe1;font-size:.87rem;padding:12px}
+.nav-item:hover,.nav-item:focus-visible{background:#ffffff1b;color:#fff}
+.nav-item.active{color:#073e2d;background:#b5f8bd;border-color:#64d47b}
+.nav-item>span:first-child{font-weight:900}
+.support-shortcut{margin-left:auto;display:grid;place-items:center;width:24px;height:24px;color:currentColor}
+.support-shortcut svg{display:block;width:20px;height:20px;fill:currentColor}
+.side-foot{border:1px solid #ffffff30;border-radius:11px;background:#ffffff10;box-shadow:none;color:#fff}
+.side-foot p{color:#c6dfce}
+.topbar{z-index:1000;background:#f7f8f1f5;border-bottom:1px solid var(--line)}
+.top-chip{color:#063d2e}
+.top-chip:first-child{color:#7d32bd}
+.notice-bell{color:#063d2e}
+.map-intro{background:linear-gradient(120deg,#eff9ee,#f3ebff);border:1px solid #dce9df;box-shadow:0 12px 30px #063d2e0e}
+#view-map .journey-map{position:relative;z-index:0;isolation:isolate}
+#view-map .map-chapter{position:relative;z-index:0;isolation:isolate}
+#view-map .chapter-head{position:relative;z-index:3}
+#view-map .map-stage{position:relative;z-index:1;isolation:isolate}
+#view-map .map-hud,#view-map .map-hud-reopen{z-index:900}
+.map-hud{background:#fffdf8f7}
+.mobile-brand img{display:block;width:116px;height:auto;image-rendering:pixelated}
+@media(max-width:850px){.mobile-brand{padding:0}.topbar{z-index:1000}.mobile-nav{z-index:1002;background:#f7f8f1}.mobile-nav button svg{display:block;width:21px;height:21px;fill:currentColor}}

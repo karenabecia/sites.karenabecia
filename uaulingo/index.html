@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f1">
+  <title>Uau Língo · Acesso do aluno</title>
+  <link rel="icon" type="image/png" href="uaulingo-favicon.png">
+  <style>
+    :root{--ink:#063d2e;--green:#16c76a;--cream:#f7f8f1;--purple:#1d0a3b;--neon:#a837f2;--lavender:#f0e4ff;--line:#dce9df;--gold:#ffc94b}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink)}body{background:var(--cream)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid var(--neon);outline-offset:3px}
+    .shell{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.04fr) minmax(470px,.96fr)}
+    .story{position:relative;overflow:hidden;padding:32px clamp(28px,5vw,76px) 26px;background:linear-gradient(145deg,#043525,#07543a 58%,#130735);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+    .story:before{content:"";position:absolute;inset:0;opacity:.17;background-image:linear-gradient(#76f58a 1px,transparent 1px),linear-gradient(90deg,#76f58a 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(90deg,#000,transparent 80%)}
+    .story:after{content:"✦";position:absolute;right:9%;top:15%;font:65px monospace;color:#ffe07c;opacity:.8}.story>*:not(.pixel-field){position:relative;z-index:1}
+    .brand{display:inline-flex;align-items:center;color:inherit;text-decoration:none}.brand-logo{display:block;width:clamp(190px,20vw,270px);height:auto;image-rendering:pixelated;filter:drop-shadow(0 5px 3px #04172688)}
+    .story-main{max-width:660px;margin:22px auto 0}.story h1{font-size:clamp(2.5rem,4.3vw,4.7rem);letter-spacing:-.065em;line-height:1.01;margin:15px 0 14px}.story h1 span{color:#b7ff8e}.story p{color:#d5e9df;font-size:1.04rem;line-height:1.5;max-width:520px;margin:0}
+    .hero-art{display:block;width:min(100%,510px);max-height:390px;object-fit:contain;margin:4px auto -8px;image-rendering:pixelated;filter:drop-shadow(0 18px 18px #010d1b44)}
+    .main{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:35px clamp(24px,5vw,88px);background:radial-gradient(circle at 95% 5%,#eedcff 0,transparent 30%),var(--cream)}.access{position:relative;z-index:1;width:min(100%,480px)}.card{border:1px solid var(--line);background:#fff;border-radius:24px;padding:clamp(27px,4vw,45px);box-shadow:0 20px 55px #0a453317,7px 7px 0 #e8f2e8}.pixel-icon{width:48px;height:48px;display:grid;place-items:center;background:#e3f9e4;border:2px solid #6cb983;box-shadow:4px 4px 0 #c9e6cd;font:900 26px monospace;margin-bottom:24px}.pixel-icon.purple{background:var(--lavender);border-color:#bd86ec;box-shadow:4px 4px 0 #e0c9f4;color:var(--neon)}.card h2{font-size:clamp(1.7rem,3vw,2.2rem);letter-spacing:-.045em;margin:0 0 8px}.sub{color:#5b7266;line-height:1.5;margin:0 0 27px;font-size:.95rem}.field{display:block;margin:18px 0 0}.field>span{display:block;font-weight:800;font-size:.82rem;margin-bottom:8px}.field input{width:100%;height:51px;border:1.5px solid #c7d8ca;background:#fcfefb;border-radius:10px;padding:0 14px;color:var(--ink);font-size:.96rem}.field input::placeholder{color:#98a99e}.field input:focus{border-color:var(--green);outline:3px solid #c8f4d7;outline-offset:0}.input-wrap{position:relative}.input-wrap input{padding-right:65px}.reveal{position:absolute;right:7px;top:7px;border:0;background:#edf7ed;color:#176042;border-radius:7px;font-size:.72rem;font-weight:800;padding:9px}
+    .primary{width:100%;border:0;border-radius:10px;background:var(--green);color:#053524;font-weight:900;font-size:.95rem;min-height:52px;margin-top:23px;box-shadow:0 5px 0 #087c47;transition:transform .15s,box-shadow .15s}.primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #087c47}.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #087c47}.secondary{border:0;background:transparent;color:#6d2bb1;font-weight:800;padding:8px 3px;font-size:.84rem}.secondary:hover{text-decoration:underline}.links{display:flex;justify-content:space-between;gap:10px;margin-top:20px;border-top:1px solid #e8eee8;padding-top:14px}.message{min-height:20px;margin:12px 0 0;color:#a43345;font-size:.81rem;font-weight:700}.message.ok{color:#14764d}.note{display:flex;gap:9px;padding:11px 12px;border:1px solid #dde7d9;background:#f4f9f1;border-radius:9px;color:#476453;font-size:.77rem;line-height:1.4;margin-top:19px}.note strong{color:var(--ink)}.success-art{font-size:2.4rem;margin:10px 0}.whatsapp{display:block;text-align:center;text-decoration:none;border:1px solid #5daa81;background:#e9f9ee;color:#145a3a;font-weight:900;padding:13px;border-radius:10px;margin-top:16px}.hidden{display:none!important}.footer-copy{text-align:center;color:#81918a;font-size:.72rem;margin-top:21px}
+    .map-link{display:grid;place-items:center;text-decoration:none}
+    .pixel-field{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}.pixel-field i{position:absolute;left:var(--x);top:var(--y);width:var(--s,7px);height:var(--s,7px);background:var(--c,#a837f2);box-shadow:3px 3px 0 #ffffff65;opacity:0;animation:pixel-appear var(--t,5s) ease-in-out var(--d,0s) infinite}@keyframes pixel-appear{0%,14%,82%,100%{opacity:0;transform:translateY(4px)}35%,58%{opacity:.7;transform:translateY(0)}}
+    .loading-screen[hidden]{display:none}.loading-screen{position:fixed;z-index:99;inset:0;display:grid;place-items:center;background:#f7f8f1f5;backdrop-filter:blur(5px)}.loading-box{width:min(88vw,370px);padding:30px 25px 28px;background:#fff;border:2px solid #1d0a3b;border-radius:18px;box-shadow:8px 8px 0 #1d0a3b25;text-align:center}.loading-box p{font:800 .78rem monospace;letter-spacing:.08em;color:#1d0a3b;margin:0 0 17px}.loading-track{height:24px;display:grid;grid-template-columns:repeat(12,1fr);gap:3px;padding:3px;background:#1d0a3b;border:2px solid #5a278c;border-radius:5px;box-shadow:3px 3px 0 #a837f244}.loading-track span{background:#e7dcf4;box-shadow:inset 0 -3px 0 #d2c3e4}.loading-track span.filled{background:var(--fill);box-shadow:inset 0 -3px 0 #00000024}.loading-percent{display:block;color:#694689;font:800 .68rem monospace;margin-top:12px}
+    .loading-box{background:transparent;border:0;box-shadow:none}.loading-box p,.loading-percent{display:none}
+    @media(prefers-reduced-motion:reduce){.pixel-field i{animation:none;opacity:.35}.primary{transition:none}}
+    @media(max-width:900px){.shell{grid-template-columns:1fr}.story{min-height:290px;padding:23px 25px}.story-main{margin:16px 0 0}.story h1{font-size:2.6rem;max-width:470px}.story p{font-size:.88rem}.hero-art{position:absolute;width:225px;right:2%;bottom:10px;opacity:.9}.story-foot{display:none}.main{padding:36px 20px 50px}}
+    @media(max-width:560px){.story{min-height:0}.story-main{max-width:none}.story h1{font-size:2.12rem}.story p{font-size:.78rem}.hero-art{position:relative;width:195px;right:auto;bottom:auto;margin:2px auto -15px}.card{padding:24px}.links{flex-direction:column;align-items:flex-start;gap:1px}}
+  </style>
+  <script src="uaulingo-supabase.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="story">
+      <div class="pixel-field" aria-hidden="true"><i style="--x:8%;--y:18%;--c:#16c76a;--d:.2s"></i><i style="--x:85%;--y:32%;--c:#a837f2;--d:1.4s"></i><i style="--x:68%;--y:73%;--c:#ffc94b;--d:2.3s"></i><i style="--x:24%;--y:80%;--c:#baffb7;--d:3.7s"></i><i style="--x:76%;--y:12%;--c:#ef9cff;--d:4.1s"></i><i style="--x:48%;--y:46%;--c:#16c76a;--d:2.8s"></i></div>
+      <div class="brand"><img class="brand-logo" src="uaulingo-logo.png" alt="Uau Língo"></div>
+      <div class="story-main"><h1>Aprenda.<br><span>Conquiste.</span><br>Evolua.</h1><img class="hero-art" src="excelo-gptina-acesso.png" alt="Excelo e GPTina, os personagens pixel art do Uau Língo"></div>
+    </aside>
+    <main class="main"><div class="pixel-field" aria-hidden="true"><i style="--x:8%;--y:14%;--c:#a837f2;--d:.8s"></i><i style="--x:91%;--y:23%;--c:#16c76a;--d:2s"></i><i style="--x:80%;--y:78%;--c:#a837f2;--d:3s"></i><i style="--x:11%;--y:82%;--c:#16c76a;--d:4.2s"></i><i style="--x:63%;--y:7%;--c:#ffc94b;--d:1.9s"></i><i style="--x:34%;--y:92%;--c:#e29bff;--d:3.5s"></i></div><div class="access">
+      <section class="card" id="card" aria-live="polite"></section>
+    </div></main>
+  </div>
+  <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite" hidden><div class="loading-box"><p id="loadingLabel">CARREGANDO SUA JORNADA</p><div class="loading-track" id="loadingTrack" aria-hidden="true"></div><span class="loading-percent" id="loadingPercent">0%</span></div></div>
+  <script>
+    (()=>{
+      const card=document.getElementById('card');
+      const api=window.UauSupabase;
+      let view='login',pendingEmail='',linkPurpose='first';
+      const loadingScreen=document.getElementById('loadingScreen'),loadingTrack=document.getElementById('loadingTrack'),loadingLabel=document.getElementById('loadingLabel'),loadingPercent=document.getElementById('loadingPercent');
+      loadingTrack.innerHTML=Array.from({length:12},(_,i)=>'<span style="--fill:'+(i<7?'#16c76a':'#a837f2')+'"></span>').join('');
+      const loadingCells=Array.from(loadingTrack.children);
+      function showLoading(label,done,duration=760){
+        loadingLabel.textContent=label;loadingScreen.hidden=false;loadingCells.forEach(cell=>cell.classList.remove('filled'));loadingPercent.textContent='0%';
+        const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function frame(now){const progress=Math.min(1,(now-start)/(reduced?150:duration));const filled=Math.floor(progress*12);loadingCells.forEach((cell,i)=>cell.classList.toggle('filled',i<filled));loadingPercent.textContent=Math.round(progress*100)+'%';if(progress<1)requestAnimationFrame(frame);else setTimeout(()=>{loadingScreen.hidden=true;if(done)done()},reduced?0:150)}
+        requestAnimationFrame(frame);
+      }
+      const safe=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const field=(id,label,type='text',placeholder='')=>`<label class="field"><span>${label}</span><input id="${id}" type="${type}" placeholder="${placeholder}" ${type==='email'?'autocomplete="email"':'autocomplete="current-password"'} required></label>`;
+      const notice='<div class="note"><span>🔒</span><span><strong>Acesso protegido:</strong> as instruções são enviadas somente ao e-mail de compra cadastrado.</span></div>';
+      function render(next){view=next;let html='';
+        if(view==='login')html=`<div class="pixel-icon">▦</div><h2>ENTRAR</h2><form id="loginForm">${field('email','Seu e-mail','email','voce@exemplo.com')}<label class="field"><span>Senha</span><span class="input-wrap"><input id="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required><button type="button" class="reveal" data-reveal="password">Mostrar</button></span></label><button class="primary">Entrar na jornada →</button><p class="message" id="msg"></p></form><div class="links"><button class="secondary" data-go="first">Meu primeiro acesso</button><button class="secondary" data-go="recover">Esqueci minha senha</button></div>`;
+        if(view==='first')html=`<div class="pixel-icon purple">✦</div><h2>Seu primeiro acesso</h2><p class="sub">Informe o e-mail de compra da Hotmart e crie sua senha. Enviaremos um link para confirmar o endereço.</p><form id="emailForm" data-purpose="first">${field('email','E-mail de compra','email','voce@exemplo.com')}${field('newPassword','Crie sua senha','password','Mínimo de 8 caracteres')}${field('confirmPassword','Confirme sua senha','password','Repita a senha')}<button class="primary">Confirmar meu e-mail →</button><p class="message" id="msg"></p></form>${notice}<div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
+        if(view==='recover')html=`<div class="pixel-icon purple">↗</div><h2>Recuperar senha</h2><p class="sub">Enviaremos um link para você definir uma nova senha sem depender da equipe.</p><form id="emailForm" data-purpose="recover">${field('email','E-mail cadastrado','email','voce@exemplo.com')}<button class="primary">Enviar link de recuperação →</button><p class="message" id="msg"></p></form>${notice}<div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
+        if(view==='sent')html=`<div class="pixel-icon purple">✓</div><h2>Confira seu e-mail</h2><p class="sub">Enviamos instruções ${linkPurpose==='first'?'para confirmar o primeiro acesso':'para recuperar a senha'} para <strong>${safe(pendingEmail)}</strong>. Abra o link recebido antes de continuar.</p><div class="links"><button class="secondary" data-go="login">Voltar para entrar</button></div>`;
+        if(view==='set')html=`<div class="pixel-icon purple">✦</div><h2>${linkPurpose==='first'?'Crie sua senha':'Defina uma nova senha'}</h2><p class="sub">Seu acesso está vinculado a <strong>${safe(pendingEmail)}</strong>.</p><form id="setForm">${field('newPassword','Nova senha','password','Mínimo de 8 caracteres')}${field('confirmPassword','Confirmar senha','password','Repita a senha')}<button class="primary">Salvar senha e continuar →</button><p class="message" id="msg"></p></form><div class="note"><span>▣</span><span>Sua senha é pessoal e não deve ser compartilhada com a equipe.</span></div>`;
+        if(view==='ready')html=`<div class="pixel-icon">✓</div><h2>Senha definida!</h2><p class="sub">Você já pode entrar na sua jornada.</p><button class="primary" data-go="login">Ir para o login →</button>`;
+        if(view==='blocked')html=`<div class="pixel-icon purple">⊘</div><h2>Acesso temporariamente indisponível</h2><p class="sub">Entre em contato com a equipe de suporte para podermos ajudar você.</p><a class="whatsapp" href="https://wa.me/5511958152954?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20meu%20acesso%20ao%20Uau%20L%C3%ADngo." target="_blank" rel="noopener noreferrer">Conversar com o suporte no WhatsApp ↗</a><div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
+        if(view==='inside')html=`<div class="pixel-icon">★</div><h2>Você entrou!</h2><p class="sub">Sua jornada está pronta para continuar.</p><a class="primary map-link" href="uaulingo.html">Abrir mapa da jornada →</a><div class="links"><button class="secondary" data-go="login">Sair</button></div>`;
+        card.innerHTML=html;
+        const email=card.querySelector('#email');if(email&&pendingEmail)email.value=pendingEmail;
+      }
+      document.addEventListener('click',e=>{const map=e.target.closest('.map-link');if(map){e.preventDefault();showLoading('ABRINDO O MAPA',()=>{window.location.href=map.href},850);return}const go=e.target.closest('[data-go]');if(go){render(go.dataset.go);return}const reveal=e.target.closest('[data-reveal]');if(reveal){const input=document.getElementById(reveal.dataset.reveal);input.type=input.type==='password'?'text':'password';reveal.textContent=input.type==='password'?'Mostrar':'Ocultar'}});
+      document.addEventListener('submit',async e=>{
+        e.preventDefault();const form=e.target,msg=document.getElementById('msg');if(!msg)return;
+        const submit=form.querySelector('button[type="submit"],button.primary');if(submit)submit.disabled=true;
+        try{
+          if(form.id==='emailForm'){
+            pendingEmail=document.getElementById('email').value.trim().toLowerCase();linkPurpose=form.dataset.purpose;
+            if(linkPurpose==='first'){
+              const password=document.getElementById('newPassword').value,confirm=document.getElementById('confirmPassword').value;
+              if(password.length<8)throw new Error('Use pelo menos 8 caracteres.');
+              if(password!==confirm)throw new Error('As senhas não coincidem.');
+              await api.signUp(pendingEmail,password);
+            }else await api.sendPasswordLink(pendingEmail);
+            render('sent');return;
+          }
+          if(form.id==='setForm'){
+            const password=document.getElementById('newPassword').value,confirm=document.getElementById('confirmPassword').value;
+            if(password.length<8)throw new Error('Use pelo menos 8 caracteres.');
+            if(password!==confirm)throw new Error('As senhas não coincidem.');
+            await api.updatePassword(password);await api.signOut();render('ready');return;
+          }
+          if(form.id==='loginForm'){
+            pendingEmail=document.getElementById('email').value.trim().toLowerCase();
+            await api.signIn(pendingEmail,document.getElementById('password').value);
+            try{await api.rpc('uaulingo_claim_student')}catch(error){await api.signOut();render('blocked');return}
+            showLoading('ENTRANDO NA JORNADA',()=>render('inside'),850);
+          }
+        }catch(error){msg.textContent=error.message||'Não foi possível continuar. Tente novamente.';if(submit)submit.disabled=false}
+      });
+      (async()=>{
+        render('login');showLoading('CARREGANDO SUA JORNADA');
+        try{
+          const type=new URLSearchParams(location.hash.slice(1)).get('type');
+          const accepted=await api.acceptPasswordLink();
+          if(accepted&&type==='recovery'){pendingEmail=(await api.session())?.user?.email||'';render('set');return}
+          if(accepted){await api.rpc('uaulingo_claim_student');render('inside');return}
+          if(await api.session()){await api.rpc('uaulingo_claim_student');render('inside')}
+        }catch{await api.signOut().catch(()=>{});render('login')}
+      })();
+    })();
+  </script>
+</body>
+</html>

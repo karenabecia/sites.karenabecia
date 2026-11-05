@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" shape-rendering="crispEdges">
+  <g fill="#E7DDFF" opacity=".94">
+    <path d="M23 0h2v15h-2z M23 33h2v15h-2z M0 23h15v2H0z M33 23h15v2H33z"/>
+    <path d="M8 8h3v3H8z M11 11h3v3h-3z M34 11h3v3h-3z M37 8h3v3h-3z M8 37h3v3H8z M11 34h3v3h-3z M34 34h3v3h-3z M37 37h3v3h-3z"/>
+    <path d="M18 6h2v7h-2z M28 6h2v7h-2z M18 35h2v7h-2z M28 35h2v7h-2z M6 18h7v2H6z M6 28h7v2H6z M35 18h7v2h-7z M35 28h7v2h-7z"/>
+  </g>
+  <path d="M11 16h26v16H11z" fill="#5C2E91" stroke="#F4E9FF" stroke-width="2"/>
+  <g fill="#FFFFFF"><rect x="13" y="19" width="2" height="2"/><rect x="15" y="19" width="2" height="2"/><rect x="17" y="19" width="2" height="2"/><rect x="13" y="21" width="2" height="2"/><rect x="13" y="23" width="2" height="2"/><rect x="17" y="23" width="2" height="2"/><rect x="13" y="25" width="2" height="2"/><rect x="17" y="25" width="2" height="2"/><rect x="13" y="27" width="2" height="2"/><rect x="15" y="27" width="2" height="2"/><rect x="17" y="27" width="2" height="2"/><rect x="21" y="19" width="2" height="2"/><rect x="23" y="19" width="2" height="2"/><rect x="21" y="21" width="2" height="2"/><rect x="25" y="21" width="2" height="2"/><rect x="21" y="23" width="2" height="2"/><rect x="23" y="23" width="2" height="2"/><rect x="21" y="25" width="2" height="2"/><rect x="21" y="27" width="2" height="2"/><rect x="29" y="19" width="2" height="2"/><rect x="31" y="19" width="2" height="2"/><rect x="33" y="19" width="2" height="2"/><rect x="31" y="21" width="2" height="2"/><rect x="31" y="23" width="2" height="2"/><rect x="31" y="25" width="2" height="2"/><rect x="31" y="27" width="2" height="2"/></g>
+  <path d="M12 17h24v1H12z" fill="#C7A7F7"/>
+</svg>

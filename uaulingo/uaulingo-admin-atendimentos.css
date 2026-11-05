@@ -1,0 +1,30 @@
+.layout.layout{grid-template-columns:minmax(280px,370px) minmax(0,1fr)}
+.chat-panel{padding:0!important;overflow:hidden}
+.chat-header{display:flex;align-items:center;gap:12px;padding:16px 19px;border-bottom:1px solid #dce9df;background:#f7faf7}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:#cdf4d3;display:grid;place-items:center;font-weight:900}
+.chat-person{border:0;background:transparent;text-align:left;padding:0;color:#063d2e;font-weight:900}
+.chat-person:hover{text-decoration:underline}
+.chat-person small{display:block;color:#647c70;font-weight:500}
+.chat-body{min-height:360px;max-height:55vh;overflow:auto;padding:20px;background-color:#e8f1e7;background-image:linear-gradient(30deg,#fff5 12%,transparent 12%,transparent 88%,#fff5 88%),linear-gradient(150deg,#fff5 12%,transparent 12%,transparent 88%,#fff5 88%);background-size:30px 52px}
+.bubble{width:max-content;max-width:78%;padding:10px 13px;margin:0 0 12px;border-radius:11px;background:#fff;box-shadow:0 2px 5px #173c2818;white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble.staff{margin-left:auto;background:#e5d9fb}
+.bubble strong{display:block;color:#6b2ba0;font-size:.8rem}
+.bubble.student strong{color:#116b49}
+.bubble small{display:block;text-align:right;color:#647c70;margin-top:4px}
+.bubble img{max-width:260px;max-height:260px;display:block;border-radius:8px;margin-top:8px;cursor:pointer}
+.attachment{display:inline-flex;margin-top:7px;border:0;background:#ffffffa8;color:#075838;padding:7px 9px;border-radius:7px;font-size:.8rem;font-weight:800}
+.reply{padding:15px 19px;background:#fff}
+.reply-row{display:flex;gap:9px;align-items:end}
+.reply-row textarea{min-height:70px}
+.reply-row button{align-self:stretch}
+.file-label{cursor:pointer;font-weight:800;color:#6b2ba0;font-size:.82rem}
+.file-label input{display:none}
+.file-name{font-size:.75rem;color:#647c70}
+.profile-dialog{border:0;border-radius:16px;width:min(620px,94vw);max-height:85vh;overflow:auto;padding:23px;box-shadow:0 20px 70px #1118}
+.profile-dialog::backdrop{background:#0c2018aa}
+.profile-dialog header{display:flex;justify-content:space-between;align-items:start}
+.profile-dialog h2{margin:0}
+.profile-section{border-top:1px solid #dce9df;margin-top:18px;padding-top:14px}
+.profile-ticket{display:block;width:100%;text-align:left;border:1px solid #dce9df;background:#f7faf7;padding:10px;border-radius:8px;margin-top:7px;color:#063d2e}
+.profile-ticket small{display:block;color:#647c70}
+@media(max-width:850px){.layout.layout{grid-template-columns:1fr}.chat-body{max-height:60vh}.bubble{max-width:90%}}

@@ -1,0 +1,11 @@
+#view-support .chat-bubble.student{align-self:flex-start;background:#fff;color:#1d4b38;border-bottom-left-radius:4px;border-bottom-right-radius:14px}
+#view-support .chat-bubble.team{align-self:flex-end;background:#e8d9fb;color:#46267c;border-bottom-right-radius:4px;border-bottom-left-radius:14px}
+#view-support .chat-timeline{background-color:#e8f1e7;background-image:linear-gradient(30deg,#fff5 12%,transparent 12%,transparent 88%,#fff5 88%),linear-gradient(150deg,#fff5 12%,transparent 12%,transparent 88%,#fff5 88%);background-size:30px 52px;padding:18px;border-radius:12px;margin:8px 0}
+#view-support .chat-bubble{box-shadow:0 2px 6px #173c2818}
+#view-support .chat-bubble strong{display:block;font-size:.8rem}
+#view-support .support-sort{border:0;background:#f0edff;color:#5d40c0;border-radius:8px;padding:7px;font-size:.7rem;font-weight:900}
+#view-support .support-list-head{flex-wrap:wrap}
+#view-support .support-list-head .support-sort{width:100%}
+#view-support .support-attachment{display:block;border:0;background:#ffffffa8;color:inherit;text-align:left;border-radius:7px;padding:6px 8px;margin-top:7px;font-weight:800}
+#view-support .support-image{max-width:260px;max-height:240px;display:block;border-radius:9px;margin-top:8px}
+#view-support .support-message{font-size:.8rem;color:#79619f}
