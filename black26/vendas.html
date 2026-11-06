@@ -634,9 +634,9 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
         <h3>QUANTO VOCÊ VAI PAGAR</h3>
         <p class="st">na Black Friday Vitalícia</p>
         <ul class="inc">
-          <li><svg class="ico-s"><use href="#i-check"/></svg><span>Os 13 treinamentos, com os mesmos valores do card ao lado</span></li>
+          <li><svg class="ico-s"><use href="#i-check"/></svg><span>Os 13 treinamentos gravados com acesso vitalício</span></li>
           <li><svg class="ico-s"><use href="#i-check"/></svg><span><b>10 implementações ao vivo, de 2 noites cada</b></span></li>
-          <li><svg class="ico-s"><use href="#i-check"/></svg><span><b>Acesso VITALÍCIO a tudo, inclusive aos replays das implementações</b></span></li>
+          <li><svg class="ico-s"><use href="#i-check"/></svg><span><b>Acesso vitalício aos treinamentos gravados + replay das implementações</b></span></li>
         </ul>
         <ul class="bon">
           <li class="bon-t"><svg><use href="#i-gift"/></svg>Bônus especiais</li>
@@ -1002,9 +1002,9 @@ const CONFIG = {
   supabaseUrl: 'https://wlrhefombygibmnluqck.supabase.co',
   supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndscmhlZm9tYnlnaWJtbmx1cWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODk0OTQsImV4cCI6MjEwODg2NTQ5NH0.f4g_B_QF_qXSXCI9c3QZ3-qAtIn3QV9hK0EwvLx8OSs',
 
-  whatsapp: '5511977248924',            // popup: "Chamar nossa equipe"
-  whatsappDuvidas: '5511981667470',     // bloco 15: "Falar no WhatsApp"
-  whatsappDuvidasTexto: '(11) 98166-7470',
+  whatsapp: '5511970339477',            // popup: "Chamar nossa equipe"
+  whatsappDuvidas: '5511970339477',     // bloco 15: "Falar no WhatsApp"
+  whatsappDuvidasTexto: '(11) 97033-9477',
   areaAlunosUrl: 'https://sites.karenabecia.com.br/',
   tagCheckout: 'black26',
 
@@ -1272,7 +1272,7 @@ function abrirTreino(nome) {
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-tr]'); if (b) abrirTreino(b.dataset.tr);
   if (e.target.closest('#tdlg-x')) tdlg.close();
-  if (e.target.closest('#tdlg-go')) { tdlg.close(); document.getElementById('oferta-final').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  if (e.target.closest('#tdlg-go')) { tdlg.close(); abrir(); }
 });
 tdlg.addEventListener('click', e => { if (e.target === tdlg) tdlg.close(); });
 
@@ -1452,7 +1452,7 @@ $('#wa-flut').href = `https://wa.me/${CONFIG.whatsappDuvidas}`;
 })();
 
 /* ---------- Navegação dos botões ---------- */
-$$('[data-go]').forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: 'smooth', block: 'start' })));
+$$('[data-go]').forEach(b => b.addEventListener('click', () => abrir()));
 
 /* Botão fixo (celular): aparece depois do topo e some quando um bloco de preço está na tela */
 (function () {
@@ -1462,10 +1462,7 @@ $$('[data-go]').forEach(b => b.addEventListener('click', () => document.getEleme
   new IntersectionObserver(([e]) => { passouHero = !e.isIntersecting && e.boundingClientRect.top < 0; atualiza(); }).observe(hero);
   const io = new IntersectionObserver(es => { es.forEach(e => { e.target._v = e.isIntersecting; }); noPreco = [b4, b11].filter(x => x._v).length; atualiza(); }, { threshold: .15 });
   io.observe(b4); io.observe(b11);
-  $('#fixa-btn').addEventListener('click', () => {
-    const alvo = (window.scrollY < b4.offsetTop - 200 || !b11.offsetParent) ? b4 : b11;
-    alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  $('#fixa-btn').addEventListener('click', () => abrir());
 })();
 
 /* ---------- Popup + consulta (Supabase) + checkout Hotmart ---------- */
