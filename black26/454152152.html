@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Faturamento Black 26</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/imagens/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505; --surface:#101010; --surface-2:#161616; --line:rgba(255,255,255,.10);
+  --text:#F4F4F4; --muted:rgba(244,244,244,.68);
+  --green:#8ee192; --pink:#f768f7; --third:#d9d9e0; --warn:#ffb86b;
+  --r:20px;
+}
+:root[data-theme="light"]{--bg:#f6f6f8;--surface:#fff;--surface-2:#f0f0f3;--line:rgba(0,0,0,.12);--text:#111;--muted:rgba(17,17,17,.68);--green:#1f8f3a;--pink:#b91fb9;--third:#55555f;--warn:#a65b00}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+h1,h2,h3{font-family:'Montserrat',sans-serif;font-weight:800;line-height:1.15;letter-spacing:-.01em}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1120px,100% - 32px);margin:0 auto;padding:28px 0 70px}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.overline{font:700 .75rem 'Montserrat',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+h1{font-size:clamp(1.7rem,4vw,2.5rem);margin-top:6px}
+.meta{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.85rem;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:999px;font-weight:500;font-size:.88rem;transition:border-color .2s,transform .2s}
+.btn:hover{border-color:var(--green);transform:translateY(-1px)}
+.btn.primary{background:var(--green);color:#050505;border-color:transparent;font-weight:600}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.gate{max-width:480px;margin:12vh auto 0;text-align:center}
+.gate h2{margin-top:12px;font-size:1.5rem}
+.gate form{display:grid;gap:12px;margin-top:20px;text-align:left}
+.gate input[type=password]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--text);font:inherit}
+.gate label.ck{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.88rem}
+.err{color:#ff8a8a;font-size:.88rem;min-height:1.2em}
+.aviso{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--warn) 10%,transparent);border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);color:var(--text);border-radius:14px;padding:12px 16px;font-size:.88rem;margin-bottom:18px}
+.aviso b{color:var(--warn)}
+[hidden]{display:none !important}
+
+.hero-kpi{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.kpi small{display:block;font:700 .72rem 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kpi strong{display:block;font:800 clamp(1.5rem,3.2vw,2.1rem)/1.1 'Montserrat',sans-serif;margin-top:8px;font-variant-numeric:tabular-nums}
+.kpi span{display:block;margin-top:6px;color:var(--muted);font-size:.82rem}
+.kpi.total{border:1.5px solid color-mix(in srgb,var(--green) 70%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--green) 12%,var(--surface)),var(--surface) 75%);box-shadow:0 0 50px color-mix(in srgb,var(--green) 14%,transparent)}
+.kpi.total strong{font-size:clamp(2rem,5.5vw,3.4rem);color:var(--green)}
+.kpi .neg{color:#ff8a8a}
+
+.ofertas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.of{--c:var(--green);background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 60%,transparent);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden}
+.of:nth-child(2){--c:var(--pink)}
+.of:nth-child(3){--c:var(--third)}
+.of .nome{font:800 1.05rem 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--c)}
+.of .preco{color:var(--muted);font-size:.82rem;margin-top:2px}
+.of .qtd{font:800 2.4rem/1 'Montserrat',sans-serif;margin-top:14px;font-variant-numeric:tabular-nums}
+.of .qtd small{font:500 .85rem 'Poppins',sans-serif;color:var(--muted);margin-left:6px}
+.of .val{font:700 1.15rem 'Montserrat',sans-serif;margin-top:6px;color:var(--c);font-variant-numeric:tabular-nums}
+.barra{height:8px;border-radius:99px;background:var(--surface-2);margin-top:14px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--c);border-radius:99px;width:0;transition:width .9s cubic-bezier(.3,.8,.3,1)}
+.of .pct{display:block;margin-top:6px;color:var(--muted);font-size:.82rem}
+
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.panel h3{font-size:1.05rem;margin-bottom:4px}
+.panel .sub{color:var(--muted);font-size:.85rem;margin-bottom:14px}
+.leg{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 0;font-size:.82rem;color:var(--muted)}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+svg.chart{width:100%;height:auto;display:block}
+svg.chart text{fill:var(--muted);font:500 11px 'Poppins',sans-serif}
+svg.chart .grade{stroke:var(--line);stroke-width:1}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{font:700 .7rem 'Montserrat',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 8px 8px;border-bottom:1px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+td.r,th.r{text-align:right}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;border:1px solid var(--c,var(--line));color:var(--c,var(--text));font-size:.78rem;white-space:nowrap}
+.hb{display:grid;grid-template-columns:130px 1fr 70px;align-items:center;gap:12px;margin:12px 0}
+.hb .n{font:700 .85rem 'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.hb .trilho{height:30px;border-radius:10px;background:var(--surface-2);overflow:hidden}
+.hb .trilho i{display:block;height:100%;width:0;border-radius:10px;transition:width .9s cubic-bezier(.3,.8,.3,1)}
+.hb .q{font:800 1.2rem 'Montserrat',sans-serif;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.hb{grid-template-columns:90px 1fr 44px;gap:8px}.hb .n{font-size:.7rem}}
+.vazio{color:var(--muted);text-align:center;padding:26px 0}
+.foot{margin-top:22px;color:var(--muted);font-size:.8rem}
+
+@media (max-width:900px){
+  .hero-kpi{grid-template-columns:1fr 1fr}
+  .kpi.total{grid-column:1/-1}
+  .ofertas{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+}
+@media (max-width:480px){.hero-kpi{grid-template-columns:1fr}.panel{padding:18px 14px}td,th{padding-left:4px;padding-right:4px}table{font-size:.8rem}.tag{padding:1px 7px;font-size:.72rem}}
+.grid2>.panel{min-width:0}#ultimas{overflow-x:auto}
+@media (prefers-reduced-motion:reduce){.barra i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="main">
+    <div class="top">
+      <div>
+        <span class="overline">Black 26 · Black Friday Vitalícia</span>
+        <h1>Faturamento</h1>
+      </div>
+      <div class="meta">
+        <span id="atualizado">—</span>
+        <button class="btn" id="btn-atualizar" type="button">Atualizar</button>
+      </div>
+    </div>
+
+    <div class="aviso" id="aviso-erro" hidden><span id="aviso-erro-txt"></span></div>
+
+    <div class="hero-kpi">
+      <div class="kpi total"><small>Total faturado</small><strong id="k-total">R$ 0</strong><span id="k-total-sub">vendas aprovadas</span></div>
+      <div class="kpi"><small>Vendas</small><strong id="k-vendas">0</strong><span id="k-vendas-sub">&nbsp;</span></div>
+      <div class="kpi"><small>Ticket médio</small><strong id="k-ticket">R$ 0</strong><span>por venda</span></div>
+      <div class="kpi"><small>Reembolsos</small><strong id="k-reemb">0</strong><span id="k-reemb-sub">&nbsp;</span></div>
+    </div>
+
+    <div class="ofertas" id="ofertas"></div>
+
+    <div class="panel" style="margin-bottom:14px">
+      <h3>Vendas por oferta</h3>
+      <p class="sub">Quantidade de vendas aprovadas em cada oferta.</p>
+      <div id="graf-ofertas"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Vendas por dia</h3>
+        <p class="sub">Horário de Brasília, por oferta.</p>
+        <div id="grafico"></div>
+        <div class="leg" id="legenda"></div>
+      </div>
+      <div class="panel">
+        <h3>Últimas vendas</h3>
+        <p class="sub">As 12 mais recentes.</p>
+        <div id="ultimas"></div>
+      </div>
+    </div>
+
+    <p class="foot" id="rodape"></p>
+  </div>
+</div>
+
+<script>
+'use strict';
+(() => {
+const REC_URL = 'https://wlrhefombygibmnluqck.supabase.co/functions/v1/recuperacao';
+const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndscmhlZm9tYnlnaWJtbmx1cWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODk0OTQsImV4cCI6MjEwODg2NTQ5NH0.f4g_B_QF_qXSXCI9c3QZ3-qAtIn3QV9hK0EwvLx8OSs';
+const ATUALIZA_MS = 60000;
+
+/* As 3 ofertas da Hotmart: código (?off=), nome, valor à vista e perfil que a enxerga no formulário */
+const OFERTAS = [
+  { cod: '0l0bkglb', seg: 'nao_aluno', nome: 'Novo aluno',      valor: 1297, desc: 85 },
+  { cod: '6mc0k0yu', seg: 'dashway',   nome: 'Aluno DashWay',   valor: 897,  desc: 89 },
+  { cod: 'xvycs1wh', seg: 'vitalicio', nome: 'Aluno vitalício', valor: 697,  desc: 92 }
+];
+const CORES = ['var(--green)', 'var(--pink)', 'var(--third)'];
+const $ = id => document.getElementById(id);
+const brl = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const brl2 = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const diaBR = iso => new Date(iso).toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+
+let timer = null, reduzido = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+async function chamar(payload) {
+  const ab = new AbortController(), t = setTimeout(() => ab.abort(), 30000);
+  try {
+    const r = await fetch(REC_URL, { method: 'POST', signal: ab.signal,
+      headers: { 'Content-Type': 'application/json', apikey: ANON, Authorization: 'Bearer ' + ANON },
+      body: JSON.stringify(payload) });
+    if (r.status === 400) throw Error('A função recuperacao ainda não foi atualizada no Supabase (falta a consulta de vendas). Publique a versão nova.');
+    if (!r.ok) throw Error('Não foi possível consultar os dados agora. Tente de novo.');
+    return await r.json();
+  } catch (e) { if (e.name === 'AbortError') throw Error('A conexão demorou mais do que o esperado. Tente de novo.'); throw e; }
+  finally { clearTimeout(t); }
+}
+
+/* Normaliza para [{oferta (índice), valor, data, nome, estornada}] */
+async function carregar() {
+  const r = await chamar({ acao: 'vendas' });
+  const vendas = (r.vendas || []).map(v => ({
+    i: OFERTAS.findIndex(o => o.cod === v.oferta_codigo), data: v.data_compra,
+    estorno: v.status === 'REFUNDED' || v.status === 'CHARGEBACK'
+  }));
+  return { vendas, quando: r.atualizado_em };
+}
+
+function contar(el, ate, fmt) {
+  if (reduzido || ate === 0) { el.textContent = fmt(ate); return; }
+  const ini = performance.now(), dur = 900;
+  const passo = t => { const p = Math.min(1, (t - ini) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(Math.round(ate * e)); if (p < 1) requestAnimationFrame(passo); };
+  requestAnimationFrame(passo);
+}
+
+function desenhar(d) {
+  const ok = d.vendas.filter(v => !v.estorno), est = d.vendas.filter(v => v.estorno);
+  const valorDe = v => v.i >= 0 ? OFERTAS[v.i].valor : 0;
+  const bruto = ok.reduce((s, v) => s + valorDe(v), 0);
+  const estValor = est.reduce((s, v) => s + valorDe(v), 0);
+  const total = bruto; // faturamento das vendas aprovadas (reembolsos aparecem à parte)
+  const desconhecidas = ok.filter(v => v.i < 0).length;
+
+  contar($('k-total'), total, brl);
+  $('k-total-sub').textContent = est.length ? `${brl(bruto - estValor)} descontando reembolsos` : 'vendas aprovadas';
+  contar($('k-vendas'), ok.length, n => String(n));
+  $('k-vendas-sub').textContent = desconhecidas ? `${desconhecidas} de outra oferta (sem valor)` : 'compras aprovadas';
+  $('k-ticket').textContent = ok.length ? brl(total / ok.length) : 'R$ 0';
+  $('k-reemb').textContent = String(est.length);
+  $('k-reemb-sub').textContent = est.length ? `${brl(estValor)} devolvidos` : 'nenhum até agora';
+
+  // por oferta
+  $('ofertas').innerHTML = OFERTAS.map((o, i) => {
+    const n = ok.filter(v => v.i === i).length, val = n * o.valor, pct = ok.length ? Math.round(n / ok.length * 100) : 0;
+    return `<div class="of"><div class="nome">${esc(o.nome)}</div><div class="preco">${o.desc}% de desconto · ${brl(o.valor)} à vista</div>
+      <div class="qtd">${n}<small>${n === 1 ? 'venda' : 'vendas'}</small></div><div class="val">${brl(val)}</div>
+      <div class="barra"><i data-w="${pct}"></i></div><span class="pct">${pct}% das vendas</span></div>`;
+  }).join('');
+  requestAnimationFrame(() => document.querySelectorAll('.barra i').forEach(b => b.style.width = b.dataset.w + '%'));
+
+  // gráfico: vendas por oferta
+  const qs = OFERTAS.map((o, i) => ok.filter(v => v.i === i).length), mx = Math.max(1, ...qs);
+  $('graf-ofertas').innerHTML = OFERTAS.map((o, i) => `<div class="hb"><span class="n" style="color:${CORES[i]}">${esc(o.nome)}</span><div class="trilho"><i style="background:${CORES[i]}" data-w="${Math.round(qs[i] / mx * 100)}"></i></div><span class="q">${qs[i]}</span></div>`).join('');
+  requestAnimationFrame(() => document.querySelectorAll('.hb i').forEach(b => b.style.width = b.dataset.w + '%'));
+
+  // gráfico: vendas por dia, empilhado por oferta
+  const porDia = {};
+  ok.forEach(v => { if (!v.data) return; const k = diaBR(v.data); (porDia[k] = porDia[k] || [0, 0, 0])[v.i >= 0 ? v.i : 0] += 1; });
+  const dias = Object.keys(porDia).sort();
+  if (!dias.length) { $('grafico').innerHTML = '<div class="vazio">Nenhuma venda ainda.</div>'; $('legenda').innerHTML = ''; }
+  else {
+    // preenche dias sem venda entre o primeiro e o último (máx. 45 dias)
+    const lista = []; let c = new Date(dias[0] + 'T12:00:00'); const fim = new Date(dias[dias.length - 1] + 'T12:00:00');
+    while (c <= fim && lista.length < 90) { lista.push(c.toLocaleDateString('en-CA')); c = new Date(c.getTime() + 864e5); }
+    const vis = lista.slice(-45), W = 640, H = 230, ml = 30, mb = 26, mt = 10, area = W - ml - 6, alt = H - mb - mt;
+    const max = Math.max(4, ...vis.map(k => (porDia[k] || [0, 0, 0]).reduce((a, b) => a + b, 0)));
+    const teto = Math.ceil(max / 4) * 4, bw = area / vis.length, gap = Math.min(6, bw * .22);
+    let svg = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Vendas por dia, empilhadas por oferta">`;
+    for (let g = 0; g <= 4; g++) { const y = mt + alt - alt * g / 4; svg += `<line class="grade" x1="${ml}" x2="${W - 6}" y1="${y}" y2="${y}"/><text x="${ml - 6}" y="${y + 4}" text-anchor="end">${teto * g / 4}</text>`; }
+    vis.forEach((k, j) => {
+      const v = porDia[k] || [0, 0, 0]; let y = mt + alt; const x = ml + j * bw + gap / 2, w = Math.max(2, bw - gap);
+      v.forEach((n, i) => { if (!n) return; const h = alt * n / teto; y -= h; svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${CORES[i]}"><title>${k.split('-').reverse().slice(0, 2).join('/')} · ${OFERTAS[i].nome}: ${n}</title></rect>`; });
+      if (vis.length <= 14 || j % Math.ceil(vis.length / 10) === 0 || j === vis.length - 1) svg += `<text x="${(x + w / 2).toFixed(1)}" y="${H - 8}" text-anchor="middle">${k.split('-').reverse().slice(0, 2).join('/')}</text>`;
+    });
+    $('grafico').innerHTML = svg + '</svg>';
+    $('legenda').innerHTML = OFERTAS.map((o, i) => `<span><i style="background:${CORES[i]}"></i>${esc(o.nome)}</span>`).join('');
+  }
+
+  // últimas vendas
+  const ult = ok.filter(v => v.data).sort((a, b) => new Date(b.data) - new Date(a.data)).slice(0, 12);
+  $('ultimas').innerHTML = ult.length ? `<table><thead><tr><th>Quando</th><th>Oferta</th><th class="r">Valor</th></tr></thead><tbody>${ult.map(v => {
+    const o = v.i >= 0 ? OFERTAS[v.i] : null, quando = new Date(v.data).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    return `<tr><td>${quando}</td><td><span class="tag" style="--c:${o ? CORES[v.i] : 'var(--muted)'}">${esc(o ? o.nome : 'Outra')}</span></td><td class="r">${o ? brl(o.valor) : '—'}</td></tr>`;
+  }).join('')}</tbody></table>` : '<div class="vazio">Nenhuma venda ainda.</div>';
+
+  $('atualizado').textContent = 'Atualizado ' + new Date(d.quando || Date.now()).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  $('rodape').textContent = 'Valores calculados pelo preço à vista de cada oferta (juros do parcelamento, cupons e taxas da Hotmart não entram). Fonte: vendas da Hotmart, atualizadas pelo webhook. A página se atualiza sozinha a cada minuto.';
+}
+
+let primeira = true;
+async function atualizar(manual) {
+  const b = $('btn-atualizar'); b.disabled = true; b.textContent = 'Atualizando…';
+  try {
+    const d = await carregar();
+    $('aviso-erro').hidden = true;
+    if (primeira || manual) { desenhar(d); primeira = false; } else desenharSemAnimar(d);
+  } catch (e) {
+    $('aviso-erro-txt').textContent = location.protocol === 'file:' ? 'Os dados só carregam com a página publicada no GitHub. Abrindo o arquivo direto do computador o navegador bloqueia a consulta ao servidor.' : e.message === 'Failed to fetch' ? 'Não foi possível falar com o servidor. Confira a internet e tente de novo.' : e.message;
+    $('aviso-erro').hidden = false;
+  } finally { b.disabled = false; b.textContent = 'Atualizar'; }
+}
+function desenharSemAnimar(d) { const r = reduzido; reduzido = true; desenhar(d); reduzido = r; }
+
+$('btn-atualizar').addEventListener('click', () => atualizar(true));
+atualizar(true);
+timer = setInterval(() => { if (!document.hidden) atualizar(false); }, ATUALIZA_MS);
+})();
+</script>
+</body>
+</html>
