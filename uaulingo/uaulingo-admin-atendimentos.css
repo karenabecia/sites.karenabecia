@@ -12,6 +12,7 @@
 .bubble.student strong{color:#116b49}
 .bubble small{display:block;text-align:right;color:#647c70;margin-top:4px}
 .bubble img{max-width:260px;max-height:260px;display:block;border-radius:8px;margin-top:8px;cursor:pointer}
+.support-image-zoom{max-width:94vw;max-height:94vh;padding:16px;border:0;border-radius:12px;background:#101820}.support-image-zoom::backdrop{background:#06110dea}.support-image-zoom img{display:block;max-width:calc(94vw - 32px);max-height:calc(94vh - 32px);object-fit:contain}.support-image-zoom button{position:absolute;right:18px;top:18px;z-index:1;width:34px;height:34px;border:0;border-radius:50%;background:white;color:#173d2d;font-size:1.4rem;cursor:pointer}
 .attachment{display:inline-flex;margin-top:7px;border:0;background:#ffffffa8;color:#075838;padding:7px 9px;border-radius:7px;font-size:.8rem;font-weight:800}
 .reply{padding:15px 19px;background:#fff}
 .reply-row{display:flex;gap:9px;align-items:end}

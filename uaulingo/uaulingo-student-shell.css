@@ -1,0 +1,119 @@
+.uau-student-checking body{visibility:visible}
+.uau-map-loading .app-shell,.uau-student-checking .app-shell{visibility:hidden}
+.uau-map-loading body{overflow:hidden}
+.uau-map-loading-screen[hidden]{display:none!important}
+.uau-map-loading-screen{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;background:#f7f8f1;color:#1d0a3b}
+.uau-map-loading-box{width:min(82vw,340px);text-align:center}
+.uau-map-loading-track{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;height:25px;padding:3px;border:2px solid #56227d;border-radius:5px;background:#1d0a3b;box-shadow:5px 5px 0 #a837f233}
+.uau-map-loading-track i{background:#eee2f7;box-shadow:inset 0 -3px 0 #d1c2de}
+.uau-map-loading-track i.filled{background:#16c76a;box-shadow:inset 0 -3px 0 #075634}
+.uau-map-loading-track i.filled:nth-child(n+8){background:#a837f2;box-shadow:inset 0 -3px 0 #5d1588}
+.uau-map-loading-label{display:block;margin-top:13px;font:800 .68rem monospace;letter-spacing:.11em}
+.topbar{gap:12px;transition:background-color .25s ease,border-color .25s ease}
+.topbar.chapter-absorbed{background:var(--absorbed-header,#0b7a45);border-bottom-color:#ffffff55}
+.topbar.chapter-absorbed .map-top-copy strong,.topbar.chapter-absorbed .map-top-copy small{color:#fff}
+.topbar.chapter-absorbed .map-top-badge{background:#ffffffea;border-color:#fff;color:var(--absorbed-header,#0b7a45)}
+.top-left{min-width:0}
+.top-stats{margin-left:auto;flex:none}
+.top-stats button{cursor:pointer}
+.top-stats .top-chip{font:900 .81rem 'DM Sans',Arial,sans-serif}
+.top-stats button.top-chip:hover{border-color:#a837f2;background:#fbf3ff}
+.top-message{display:grid;place-items:center;width:39px;height:39px;padding:7px;border:1px solid #dce9df;border-radius:50%;background:#fff;color:#0e734f}
+.top-message svg{width:22px;height:22px;fill:currentColor}
+.top-message:hover{background:#e7f8eb}
+.top-stats .notice-wrap{order:0}
+.top-stats .tour-help{order:0}
+.tip-control{position:relative}
+.tip-control:hover:after,.tip-control:focus-visible:after{content:attr(data-tooltip);position:absolute;z-index:2000;top:calc(100% + 10px);right:0;width:max-content;max-width:min(250px,80vw);padding:8px 10px;border:1px solid #692ba1;border-radius:7px;background:#fff;color:#342240;box-shadow:3px 3px 0 #c8a7e1;font-size:.72rem;font-weight:700;line-height:1.35;white-space:normal;text-align:left;pointer-events:none}
+.map-top-level{display:flex;align-items:center;gap:10px;min-width:0;max-width:520px}
+.map-top-level[hidden]{display:none}
+.map-top-badge{flex:none;padding:6px 8px;background:var(--top-accent,#0b7a45);border:2px solid #ffffff8c;color:#fff;font:900 .61rem monospace;white-space:nowrap}
+.map-top-copy{display:grid;min-width:0;gap:1px}
+.map-top-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#063d2e;font-size:.85rem;line-height:1.1}
+.map-top-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#687e70;font-size:.64rem;font-weight:800}
+#view-map .chapter-head{display:flex}
+#view-map .chapter-date{min-width:170px}
+#view-map .chapter-date small{font-size:.57rem;line-height:1.15}
+#view-map .map-chapter{scroll-margin-top:93px}
+#view-map .map-hud,#view-map .map-hud-reopen{top:74px}
+#view-map .map-chapter.locked .map-stop{pointer-events:none}
+#view-map .map-chapter.locked .map-companion{pointer-events:none;cursor:default}
+#view-map .map-chapter.locked .world-brief,#view-map .map-chapter.locked .stop-copy{display:none!important}
+#view-map .map-chapter.locked .map-stop:hover,#view-map .map-chapter.locked .map-stop:focus-visible{transform:translate(-50%,-50%);filter:none;z-index:4}
+#view-map .map-chapter.locked .map-companion:hover{filter:none}
+#view-map .map-coming-soon{display:grid;place-items:center;gap:6px;padding:28px 20px;border:3px solid #9a6dce;background:#f3e7ff;text-align:center;color:#42166d}
+#view-map .map-coming-soon strong{font:900 1.12rem 'Space Grotesk',Arial,sans-serif}
+#view-map .map-coming-soon span{font-size:.79rem;font-weight:700}
+#view-map .marker-art.tutorial-icon{background-position:center;background-size:contain}
+#view-map .marker-art.tutorial-icon.lesson{background-image:url('uaulingo-tutorial-icone.png')}
+#view-map .marker-art.tutorial-icon.quiz{background-image:url('uaulingo-grupo-icone.png')}
+#view-map .marker-art.tutorial-icon.challenge{background-image:url('uaulingo-onboarding-icone.png')}
+#view-map .world-forest .map-welcome-guide{left:auto;right:4%;top:56%;width:237px;height:237px}
+#view-map .world-forest .welcome-brief{left:auto;right:calc(4% + 215px);top:58%;width:min(300px,48%)}
+#view-map .world-forest .welcome-brief:after{left:auto;right:-11px;border-left:0;border-bottom:0;border-right:3px solid var(--header);border-top:3px solid var(--header)}
+#view-map .map-return-to-continue{position:fixed;z-index:950;right:24px;bottom:24px;display:grid;place-items:center;width:74px;height:74px;padding:5px;border:3px solid #8637b9;border-radius:16px;background:#fff8ff;box-shadow:0 0 0 6px #dcb3ff66,0 0 26px #a837f299,5px 6px 0 #381354;cursor:pointer;animation:continue-attention 1.8s ease-in-out infinite}
+#view-map .map-return-to-continue[hidden]{display:none!important}
+#view-map .map-return-to-continue img{display:block;width:54px;height:54px;object-fit:contain;image-rendering:pixelated}
+#view-map .map-return-to-continue:hover{background:#f3ddff;transform:translateY(-3px) scale(1.08);animation-play-state:paused}
+#view-schedule .schedule-implementation{--schedule-color:#0b7a45;--schedule-soft:#e8f8ed;border-left:5px solid var(--schedule-color)}
+#view-schedule .schedule-implementation.schedule-ai{--schedule-color:#7430a6;--schedule-soft:#f2e7fc}
+#view-schedule .schedule-implementation.schedule-both{--schedule-color:#0b7a45;--schedule-soft:#f1ebfa}
+#view-schedule .schedule-implementation .accordion-toggle{min-height:112px;gap:14px}
+#view-schedule .schedule-implementation .accordion-index{background:var(--schedule-soft);color:var(--schedule-color);border:1px solid var(--schedule-color)}
+#view-schedule .schedule-category{display:inline-block;color:var(--schedule-color);font:900 .65rem monospace;letter-spacing:.1em;margin-bottom:4px}
+#view-schedule .schedule-implementation .accordion-title small{display:block;margin-top:5px;line-height:1.4}
+#view-schedule .schedule-implementation .accordion-date{flex:none;width:min(250px,28%);padding:10px 12px;background:var(--schedule-soft);border:1px solid var(--schedule-color);border-radius:8px;text-align:left}
+#view-schedule .schedule-implementation .accordion-date strong{display:block;color:var(--schedule-color);font-size:.88rem;line-height:1.35}
+#view-schedule .schedule-implementation .schedule-description{max-width:850px;margin:2px 0 18px;color:#344840;line-height:1.65}
+#view-schedule .schedule-days{display:flex;flex-wrap:wrap;gap:7px 15px;align-items:center;padding:10px 13px;margin-bottom:12px;background:var(--schedule-soft);border-left:4px solid var(--schedule-color);color:var(--schedule-color)}
+#view-schedule .schedule-days span{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+#view-schedule .schedule-locked .accordion-toggle{filter:none;opacity:1}
+#view-ranking .league-rules .league-card{display:grid;justify-items:center;gap:5px;text-align:center}
+#view-ranking .league-rules .league-symbol{display:block;width:78px;height:78px;background-image:url('uaulingo-divisoes.png');background-repeat:no-repeat;background-size:300% 100%;image-rendering:pixelated}
+#view-ranking .league-rules .league-gold{background-position:0% 50%}
+#view-ranking .league-rules .league-silver{background-size:380% 100%;background-position:52% 50%}
+#view-ranking .league-rules .league-bronze{background-position:100% 50%}
+#view-ranking .league-rules .league-card strong{font-size:1.12rem}
+#view-ranking .ranking-wait{padding:24px;text-align:center;background:#f3f0fb;color:#513573;font-weight:800;border-radius:8px}
+#view-ranking .ranking-prizes{margin-top:20px;text-align:center;padding:24px}
+#view-ranking .ranking-prizes strong{display:block;margin-top:8px;font:800 1.5rem 'Space Grotesk',sans-serif;color:#7130a5}
+#view-ranking #lastMovement p{margin:12px 0 0;font-weight:800;color:#7130a5}
+#view-achievements .achievement-grid{display:block}
+#view-achievements .achievement-coming{display:grid;justify-items:center;gap:14px;padding:35px 20px;text-align:center;background:linear-gradient(110deg,#e7f7e9,#f3e8ff);border:2px solid #d8c9e8;border-radius:10px}
+#view-achievements .achievement-coming>strong{font:900 clamp(1.8rem,4vw,2.8rem) 'Space Grotesk',sans-serif;color:#612b97}
+#view-achievements .achievement-mascots{display:flex;gap:15px;justify-content:center;align-items:center}
+#view-achievements .achievement-mascot{display:block;width:180px;height:180px;background-image:url('uaulingo-excelo-poses-implementacoes.png');background-repeat:no-repeat;background-size:300% 200%;background-position:0 0;image-rendering:pixelated}
+#view-achievements .achievement-mascot.gptina{background-image:url('uaulingo-gptina-poses-implementacoes.png')}
+.coming-dots{display:inline-flex;gap:5px;align-items:center;margin-left:6px}
+.coming-dots i{width:7px;height:7px;background:#a837f2;animation:coming-dot 1.2s ease-in-out infinite;border-radius:2px}
+.coming-dots i:nth-child(2){animation-delay:.2s}.coming-dots i:nth-child(3){animation-delay:.4s}
+@keyframes coming-dot{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-5px)}}
+@media(max-width:650px){#view-ranking .league-rules .league-symbol{width:54px;height:54px}#view-achievements .achievement-mascot{width:135px;height:135px}}
+#view-schedule .schedule-illustration{position:relative;display:flex;justify-content:center;align-items:center;min-height:205px;margin:-8px 0 25px;background:linear-gradient(110deg,#e7f8eb 0 48%,#f2e8ff 52% 100%);border:2px solid #d9e5db;border-radius:8px;overflow:hidden}
+#view-schedule .schedule-illustration img{display:block;width:min(680px,88%);height:205px;object-fit:contain;object-position:center bottom;image-rendering:pixelated}
+#view-schedule .page-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,42%);align-items:center;gap:18px;max-width:none;margin-bottom:20px}
+#view-schedule .page-head p{margin-bottom:0}
+#view-schedule .schedule-head-art{display:block;width:100%;height:142px;object-fit:contain;object-position:center;image-rendering:pixelated}
+#view-schedule .accordion-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+#view-schedule .schedule-implementation{display:flex;flex-direction:column;aspect-ratio:auto;min-width:0;padding:22px;border:2px solid var(--schedule-color);border-top:8px solid var(--schedule-color);border-radius:8px;background:#fff;box-shadow:5px 6px 0 color-mix(in srgb,var(--schedule-color) 22%,transparent)}
+#view-schedule .schedule-card-heading{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+#view-schedule .schedule-card-heading .accordion-index{border-radius:3px}
+#view-schedule .schedule-category{margin:0}
+#view-schedule .schedule-implementation h2{font-size:clamp(1.15rem,1.65vw,1.55rem);margin:0 0 15px;color:var(--schedule-color)}
+#view-schedule .schedule-days{display:grid;gap:2px;margin-bottom:15px;border-radius:4px}
+#view-schedule .schedule-days strong{font-size:.88rem;line-height:1.3}
+#view-schedule .schedule-implementation .schedule-description{font-size:.82rem;line-height:1.48;margin:0 0 16px;color:#344840}
+#view-schedule .schedule-card-items{display:grid;gap:8px;margin-top:0}
+#view-schedule .schedule-card-items .schedule-step{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border:1px solid color-mix(in srgb,var(--schedule-color) 35%,white);border-radius:5px;background:var(--schedule-soft)}
+#view-schedule .schedule-card-items .mini-square{color:var(--schedule-color)}
+#view-schedule .schedule-card-items .schedule-step strong{display:block;color:var(--schedule-color);font-size:.78rem}
+#view-schedule .schedule-card-items .schedule-step small{display:block;font-size:.68rem;line-height:1.25}
+#view-schedule .schedule-card-items .schedule-step button{font-size:.68rem;padding:5px 8px;margin:0}
+@media(max-width:1100px){#view-schedule .schedule-implementation{min-height:0}}
+@media(max-width:790px){#view-schedule .accordion-list{grid-template-columns:1fr}#view-schedule .schedule-implementation{min-height:0}#view-schedule .page-head{grid-template-columns:1fr}#view-schedule .schedule-head-art{height:125px;justify-self:center}}
+@media(max-width:650px){#view-schedule .schedule-implementation .accordion-toggle{align-items:flex-start;flex-wrap:wrap}#view-schedule .schedule-implementation .accordion-date{width:calc(100% - 56px);margin-left:47px}#view-schedule .schedule-implementation .chevron{margin-left:auto}}
+@keyframes continue-attention{0%,100%{box-shadow:0 0 0 5px #dcb3ff55,0 0 16px #a837f277,5px 6px 0 #381354}50%{box-shadow:0 0 0 11px #dcb3ff88,0 0 32px #a837f2bb,5px 6px 0 #381354;transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){#view-map .map-return-to-continue{animation:none}}
+@media(max-width:850px){.topbar{height:auto;min-height:94px;display:flex;flex-wrap:wrap;align-content:center;padding:5px 12px;gap:2px}.top-stats{order:0;width:100%;justify-content:flex-end;gap:5px}.top-left{order:1;width:100%}.top-stats .top-chip{padding:6px 8px;font-size:.68rem}.top-message{width:33px;height:33px;padding:6px}.top-message svg{width:19px;height:19px}.top-stats .notice-bell{width:33px;height:33px}.top-stats .tour-help{width:30px;height:30px}.top-stats .avatar{width:32px;height:32px}.mobile-brand img{width:76px}.map-top-level{max-width:calc(100vw - 112px)}.map-top-badge{font-size:.53rem;padding:4px 5px}.map-top-copy strong{font-size:.74rem}.map-top-copy small{font-size:.56rem}#view-map .map-hud,#view-map .map-hud-reopen{top:94px}#view-map .map-chapter{scroll-margin-top:105px}}
+@media(max-width:390px){.top-stats{gap:3px}.top-stats .top-chip{padding:5px 6px}.map-top-copy small{display:none}}
+@media(max-width:750px){#view-map .chapter-date{min-width:130px}#view-map .world-forest .map-welcome-guide{left:auto;right:2%;top:57%;width:min(145px,38vw);height:min(145px,38vw)}#view-map .world-forest .welcome-brief{left:auto;right:calc(2% + min(140px,36vw));top:54%;width:min(180px,50%);padding:9px 10px}#view-map .world-forest .welcome-brief strong{font-size:.78rem}#view-map .world-forest .welcome-brief p{font-size:.65rem;line-height:1.3}#view-map .map-return-to-continue{right:15px;bottom:85px;width:62px;height:62px}#view-map .map-return-to-continue img{width:46px;height:46px}}

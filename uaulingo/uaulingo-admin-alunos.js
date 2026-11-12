@@ -68,6 +68,7 @@
   async function enterAdmin() {
     if (!await requireStaff()) throw new Error('Este e-mail não tem acesso à área da equipe.');
     $('#importPoints').hidden=staffRole!=='admin';
+    $('#syncHotmart').hidden=staffRole!=='admin';
     await loadUsers();
     await window.UauLoading.complete();
     $('#adminGate').hidden = true;
@@ -81,6 +82,27 @@
     el.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => el.classList.remove('show'), 3600);
+  }
+  async function syncHotmart(button) {
+    if(staffRole!=='admin')return;
+    button.disabled=true;
+    const original=button.textContent;
+    let pageToken='',pages=0,active=0,skipped=0,errors=0;
+    try{
+      do{
+        button.textContent='↻ Consultando a Hotmart · página '+(pages+1);
+        const result=await api.invokeFunction('uaulingo-hotmart-sync',{page_token:pageToken});
+        active+=Number(result.active)||0;
+        skipped+=Number(result.skipped)||0;
+        errors+=Number(result.errors)||0;
+        pageToken=result.next_page_token||'';
+        pages++;
+        if(pages>=200&&pageToken)throw new Error('A consulta chegou ao limite de páginas. Continue mais tarde.');
+      }while(pageToken);
+      await loadUsers();
+      toast('Hotmart: '+active+' compra(s) ativa(s) registrada(s) · '+skipped+' já conferida(s)'+(errors?' · '+errors+' erro(s)':'')+'.');
+    }catch(error){toast(friendlyError(error))}
+    finally{button.disabled=false;button.textContent=original}
   }
   function render() {
     const q = $('#search').value.trim().toLocaleLowerCase('pt-BR');
@@ -134,12 +156,14 @@
   async function showDetails(id) {
     const u = users.find(item => item.id === id); if (!u) return;
     try {
-      const [released,definitions,ledger,implementations]=await Promise.all([
+      const [released,definitions,ledger,implementations,termAcceptances]=await Promise.all([
         api.table('uaulingo_student_achievements',`?select=achievement_id,released_at&student_id=eq.${u.id}`),
         api.table('uaulingo_achievements','?select=id,title,certificate_enabled,certificate_image_path'),
         api.table('uaulingo_xp_ledger',`?select=id,implementation_id,source,xp,reason,created_at&student_id=eq.${u.id}&order=created_at.desc`),
-        api.table('uaulingo_implementations','?select=id,title,challenge&order=implementation_number.asc')
+        api.table('uaulingo_implementations','?select=id,title,challenge&order=implementation_number.asc'),
+        api.table('uaulingo_term_acceptances',`?select=accepted_at,document_version&student_id=eq.${u.id}&document_version=eq.2026-11-10&limit=1`)
       ]);
+      u.termAcceptedAt=termAcceptances[0]?.accepted_at||null;
       u.achievementDefinitions=definitions;u.implementations=implementations;
       u.ledger=ledger;u.xp=ledger.reduce((sum,row)=>sum+(Number(row.xp)||0),0);
       u.completed=ledger.filter(row=>row.source==='challenge').map(row=>({title:'Desafio · '+(implementations.find(item=>item.id===row.implementation_id)?.title||'Implementação'),date:displayDate(row.created_at)}));
@@ -150,7 +174,7 @@
         certificateReady:!!(byId.get(item.achievement_id)?.certificate_enabled&&byId.get(item.achievement_id)?.certificate_image_path),
         certificateEnabled:!!byId.get(item.achievement_id)?.certificate_enabled
       }));
-    } catch(error) {u.achievements=[];u.achievementDefinitions=[];u.implementations=[];u.ledger=[];toast('Não foi possível carregar os detalhes: '+friendlyError(error))}
+    } catch(error) {u.achievements=[];u.achievementDefinitions=[];u.implementations=[];u.ledger=[];u.termAcceptedAt=null;toast('Não foi possível carregar os detalhes: '+friendlyError(error))}
     const activity = {
       accesses: Array.isArray(u.accessHistory) ? u.accessHistory : (demoDetails[u.id]?.accesses || []),
       completed: Array.isArray(u.completed) ? u.completed : (demoDetails[u.id]?.completed || []),
@@ -159,7 +183,7 @@
     };
     const list = (rows, renderRow, empty) => rows.length ? `<ul class="activity-list">${rows.map(renderRow).join('')}</ul>` : `<p class="empty-detail">${empty}</p>`;
     modal(u.name, 'Cadastro e acesso do aluno', `
-      <div class="detail-grid"><div><small>STATUS</small><strong>${u.status === 'active' ? 'Ativo' : 'Bloqueado'}</strong></div><div><small>XP TOTAL</small><strong>${esc(u.xp || 0)}</strong></div><div><small>ITENS CONCLUÍDOS</small><strong>${activity.completed.length}</strong></div><div><small>DÚVIDAS</small><strong>${activity.doubts.length}</strong></div></div>
+      <div class="detail-grid"><div><small>STATUS</small><strong>${u.status === 'active' ? 'Ativo' : 'Bloqueado'}</strong></div><div><small>XP TOTAL</small><strong>${esc(u.xp || 0)}</strong></div><div><small>ITENS CONCLUÍDOS</small><strong>${activity.completed.length}</strong></div><div><small>DÚVIDAS</small><strong>${activity.doubts.length}</strong></div><div><small>TERMOS DE ACESSO</small><strong>${u.termAcceptedAt?'Aceito':'Pendente'}</strong>${u.termAcceptedAt?`<small>${esc(new Date(u.termAcceptedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))}</small>`:''}</div></div>
       <div class="detail-columns"><section class="detail-section"><h3>Histórico de acessos</h3>${list(activity.accesses, date => `<li><span class="activity-dot green-dot"></span><span>${esc(date)}</span></li>`, 'Nenhum acesso registrado.')}</section>
       <section class="detail-section"><h3>Itens concluídos</h3>${list(activity.completed, item => `<li><span class="activity-dot green-dot"></span><span><strong>${esc(item.title)}</strong><small>Concluído em ${esc(item.date)}</small></span></li>`, 'Nenhum item concluído.')}</section></div>
       <section class="detail-section"><h3>Dúvidas</h3>${list(activity.doubts, item => `<li><span class="activity-dot purple-dot"></span><span><strong>${esc(item.title)}</strong><small>${esc(item.date)} · ${esc(item.status)}</small></span></li>`, 'Nenhuma dúvida registrada.')}</section>
@@ -247,6 +271,7 @@
     if(e.target.id==='logoutButton'){api.signOut().finally(()=>{$('#adminShell').hidden=true;$('#adminGate').hidden=false;updateGate('login')});return}
     if(e.target.id==='addUser'){showAdd();return}
     if(e.target.id==='importUsers'){showImport();return}
+    if(e.target.id==='syncHotmart'){syncHotmart(e.target);return}
     if(e.target.id==='importPoints'){showPointsImport();return}
     if(e.target.id==='exportUsers'){downloadUsers();return}
     const detail=e.target.closest('[data-detail]');if(detail){showDetails(detail.dataset.detail).catch(error=>toast(friendlyError(error)));return}

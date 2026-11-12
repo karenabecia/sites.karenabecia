@@ -7,5 +7,6 @@
 #view-support .support-list-head{flex-wrap:wrap}
 #view-support .support-list-head .support-sort{width:100%}
 #view-support .support-attachment{display:block;border:0;background:#ffffffa8;color:inherit;text-align:left;border-radius:7px;padding:6px 8px;margin-top:7px;font-weight:800}
-#view-support .support-image{max-width:260px;max-height:240px;display:block;border-radius:9px;margin-top:8px}
+#view-support .support-image{max-width:260px;max-height:240px;display:block;border-radius:9px;margin-top:8px;cursor:zoom-in}
+.support-image-zoom{max-width:94vw;max-height:94vh;padding:16px;border:0;border-radius:12px;background:#101820}.support-image-zoom::backdrop{background:#06110dea}.support-image-zoom img{display:block;max-width:calc(94vw - 32px);max-height:calc(94vh - 32px);object-fit:contain}.support-image-zoom button{position:absolute;right:18px;top:18px;z-index:1;width:34px;height:34px;border:0;border-radius:50%;background:white;color:#173d2d;font-size:1.4rem;cursor:pointer}
 #view-support .support-message{font-size:.8rem;color:#79619f}

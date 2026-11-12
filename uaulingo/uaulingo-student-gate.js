@@ -1,10 +1,12 @@
 (()=>{
   'use strict';
   const local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  if(!local)document.documentElement.classList.add('uau-student-checking');
+  const realTest=local&&(new URLSearchParams(location.search).get('teste-real')==='1'||sessionStorage.getItem('uaulingo-real-test')==='1');
+  if(realTest)sessionStorage.setItem('uaulingo-real-test','1');
+  if(!local||realTest)document.documentElement.classList.add('uau-student-checking');
   let pending;
   async function ready(){
-    if(local)return {preview:true};
+    if(local&&!realTest)return {preview:true};
     if(pending)return pending;
     pending=(async()=>{
       try{
@@ -20,7 +22,8 @@
         ]);
         const student=students?.[0];
         if(!student||student.status!=='active')throw new Error('Acesso temporariamente indisponível.');
-        const context={student,studentId,implementations,ranking,ledger,xp:ledger.reduce((sum,row)=>sum+Number(row.xp||0),0)};
+        const termAcceptances=await api.table('uaulingo_term_acceptances',`?select=accepted_at&student_id=eq.${studentId}&document_version=eq.2026-11-10&limit=1`).catch(()=>[]);
+        const context={student,studentId,implementations,ranking,ledger,termAccepted:!!termAcceptances?.length,termAcceptedAt:termAcceptances?.[0]?.accepted_at||null,xp:ledger.reduce((sum,row)=>sum+Number(row.xp||0),0)};
         window.UauStudentContext=context;
         document.documentElement.classList.remove('uau-student-checking');
         return context;

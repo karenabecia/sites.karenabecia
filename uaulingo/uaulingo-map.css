@@ -102,8 +102,8 @@
 .marker-art.quiz{background-position:50% 50%}
 .marker-art.challenge{background-position:100% 50%}
 .stop-lock{position:absolute;right:24px;top:0;width:30px;height:30px;display:grid;place-items:center;background:#66736a;border:3px solid white;color:white;font-size:1rem;box-shadow:3px 3px 0 #3b4d43}
-#view-map .map-chapter.locked .chapter-head{background:#78837e}
-#view-map .map-chapter.locked .map-stage{filter:grayscale(1);opacity:.83}
+#view-map .map-chapter.locked .chapter-head{background:var(--header)}
+#view-map .map-chapter.locked .map-stage{filter:saturate(.2) brightness(.9)}
 #view-map .map-chapter.locked .map-stop{cursor:not-allowed}
 #view-map .map-chapter.locked .chapter-date span{color:#6b756e}
 #view-map .terrain{position:absolute;z-index:0;width:18px;height:18px;image-rendering:pixelated;pointer-events:none}
@@ -143,21 +143,21 @@
 @media(min-width:751px){#view-map .map-chapter .world-brief{left:calc(7% + 145px);right:auto;top:30%}#view-map .map-chapter.reverse .world-brief{left:auto;right:calc(7% + 145px)}}
 @media(max-width:750px){#view-map .map-chapter .world-brief{left:calc(4% + 90px);right:auto;top:30%;width:min(185px,calc(100% - 120px))}#view-map .map-chapter.reverse .world-brief{left:auto;right:calc(4% + 90px)}}
 #view-map .map-stage{overflow:visible}
-#view-map .world-forest .map-stage{background:#8cdd67 url('uaulingo-cenario-bosque-v2.png') center/100% 100% no-repeat;image-rendering:pixelated}
+#view-map .world-forest .map-stage{background:#8cdd67 url('uaulingo-cenario-bosque-v2.png') center/contain no-repeat;image-rendering:pixelated}
 #view-map .world-forest .map-route path{vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:round}
 #view-map .world-forest .map-route .route-edge{stroke:#6E9C4A;stroke-width:22}
 #view-map .world-forest .map-route .route-fill{stroke:#CFE79A;stroke-width:14}
-#view-map .world-prompt .map-stage{background:#8F6AC5 url('uaulingo-cenario-prompts.png') center/100% 100% no-repeat;image-rendering:pixelated}
+#view-map .world-prompt .map-stage{background:#8F6AC5 url('uaulingo-cenario-prompts.png') center/contain no-repeat;image-rendering:pixelated}
 #view-map .world-prompt .terrain,#view-map .world-prompt .scene-prop{display:none}
 #view-map .world-prompt .map-route path{vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:round}
 #view-map .world-prompt .map-route .route-edge{stroke:#68439A;stroke-width:22}
 #view-map .world-prompt .map-route .route-fill{stroke:#D2AEF5;stroke-width:14}
-#view-map .world-dashboard .map-stage{background:#36B36F url('uaulingo-cenario-graficos.png') center/100% 100% no-repeat;image-rendering:pixelated}
+#view-map .world-dashboard .map-stage{background:#36B36F url('uaulingo-cenario-graficos.png') center/contain no-repeat;image-rendering:pixelated}
 #view-map .world-dashboard .terrain,#view-map .world-dashboard .scene-prop{display:none}
 #view-map .world-dashboard .map-route path{vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:round}
 #view-map .world-dashboard .map-route .route-edge{stroke:#0E6B53;stroke-width:22}
 #view-map .world-dashboard .map-route .route-fill{stroke:#BAE9B1;stroke-width:14}
-#view-map .world-chatgpt .map-stage{background:#8A5ED2 url('uaulingo-cenario-oraculo.png') center/100% 100% no-repeat;image-rendering:pixelated}
+#view-map .world-chatgpt .map-stage{background:#8A5ED2 url('uaulingo-cenario-oraculo.png') center/contain no-repeat;image-rendering:pixelated}
 #view-map .world-chatgpt .terrain,#view-map .world-chatgpt .scene-prop{display:none}
 #view-map .world-chatgpt .map-route path{vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:round}
 #view-map .world-chatgpt .map-route .route-edge{stroke:#6B389F;stroke-width:22}
@@ -190,7 +190,7 @@
 #view-map .world-etl .chapter-head{background:#0B7A45}
 #view-map .world-etl .chapter-date{min-width:172px}
 #view-map .world-etl .chapter-date strong{font-size:.9rem}
-#view-map .world-etl .map-stage{background:#B8E48B url('uaulingo-cenario-vale-v2.png') center/100% 100% no-repeat;image-rendering:pixelated}
+#view-map .world-etl .map-stage{background:#B8E48B url('uaulingo-cenario-vale-v2.png') center/contain no-repeat;image-rendering:pixelated}
 .map-seam-bridge{position:absolute;z-index:2;left:50%;width:80px;height:22px;transform:translateX(-50%);background:repeating-linear-gradient(90deg,#A9B4A6 0 14px,#D9DFD1 14px 18px,#7D8B80 18px 20px);border:3px solid #687B70;pointer-events:none}
 .map-seam-bridge.seam-top{top:0}.map-seam-bridge.seam-bottom{bottom:0}
 #view-map .world-etl .terrain,#view-map .world-etl .scene-prop{display:none}
@@ -227,4 +227,43 @@
 #view-map .world-prompt .map-stop.challenge .stop-copy{top:50%;bottom:auto;left:calc(50% + 62px);right:auto;margin:0;transform:translateY(calc(-50% + 5px))}
 #view-map .world-prompt .map-stop.challenge:hover .stop-copy,#view-map .world-prompt .map-stop.challenge:focus-visible .stop-copy{transform:translateY(-50%)}
 @media(max-width:750px){#view-map .world-prompt .map-stop.challenge .stop-copy{left:calc(50% + 46px);width:150px;max-width:150px}}
+#view-map .world-forest .map-stop.terms{left:53%;top:590px;width:182px;z-index:5}
+#view-map .world-forest .map-stop.terms .route-coin{background:#f2e7ff;border-color:#834ab9;box-shadow:0 7px 0 #5a388575,inset 0 -7px 0 #dbc3f2}
+#view-map .world-forest .map-stop.terms .terms-icon{display:grid;place-items:center;width:86px;height:86px;color:#6d37a4;font:900 2.8rem monospace}
+#view-map .world-forest .map-stop.terms .stop-short{border-color:#834ab9;color:#653694}
+#view-map .world-forest .map-stop.terms .stop-copy{top:auto;bottom:100%;margin:0 0 9px;transform:translate(-50%,5px)}
+#view-map .world-forest .map-stop.terms:hover .stop-copy,#view-map .world-forest .map-stop.terms:focus-visible .stop-copy{transform:translate(-50%,0)}
+#view-map .world-forest .map-stop.terms .stop-lock{background:#fff;color:#653694}
+@media(max-width:1199px) and (min-width:751px){#view-map .world-forest .map-stop.terms{top:550px}}
+@media(max-width:750px){#view-map .world-forest .map-stage,#view-map .world-forest .map-route{height:610px}#view-map .world-forest .map-stop.terms{left:68%;top:530px;width:122px}#view-map .world-forest .map-stop.terms .terms-icon{width:66px;height:66px;font-size:2rem}}
+#view-map .world-forest .map-stop:nth-child(1){left:46.5%;top:15%}
+#view-map .world-forest .map-stop:nth-child(2){left:48%;top:37.5%}
+#view-map .world-forest .map-stop:nth-child(3){left:58%;top:65%}
+#view-map .world-forest .map-stop.terms:nth-child(4){left:42%;top:87%}
+.terms-consent{display:flex;align-items:flex-start;gap:10px;font-weight:800;line-height:1.45}.terms-consent input{width:20px;height:20px;flex:none;accent-color:#0b7a45}
+@media(min-width:751px){#view-map .world-forest .map-stage{height:auto;aspect-ratio:1/1}}
+#view-map .world-forest .map-stop .route-coin{width:83px;height:83px;border-width:6px}
+#view-map .world-forest .map-stop .marker-art{width:69px;height:69px}
+#view-map .world-forest .map-stop .terms-icon{width:69px;height:69px;font-size:2.25rem}
+#view-map .world-forest .map-stop.terms .terms-icon{width:100%;height:100%;display:grid;place-items:center}
+#view-map .world-forest .map-stop.terms .terms-icon svg{display:block;width:38px;height:38px}
+@media(min-width:751px){#view-map .world-etl .map-stage,#view-map .world-prompt .map-stage,#view-map .world-dashboard .map-stage,#view-map .world-chatgpt .map-stage{height:auto;aspect-ratio:1/1}}
+@media(max-width:750px){#view-map .world-forest .map-stop .route-coin{width:62px;height:62px;border-width:4px}#view-map .world-forest .map-stop .marker-art,#view-map .world-forest .map-stop .terms-icon{width:53px;height:53px}#view-map .world-forest .map-stop .terms-icon{font-size:1.6rem}}
+.modal-scrim:has(.terms-document){left:245px;z-index:1000}
+.modal:has(.terms-document){width:min(860px,100%);height:min(82vh,760px);max-height:92vh;display:flex;flex-direction:column;border:3px solid #7e35af;border-radius:12px;background:#fffdfd;box-shadow:8px 9px 0 #44245f,0 25px 70px #10261970}
+.modal:has(.terms-document) .modal-head{flex:none;border-bottom:2px solid #ead7f6;padding-bottom:10px;margin-bottom:12px}
+.modal:has(.terms-document) .modal-head h2{color:#67308e;font-size:1.5rem}
+.modal:has(.terms-document) #modalBody{display:flex;flex-direction:column;min-height:0;flex:1}
+.terms-document{min-height:180px;flex:1;border:2px solid #b985d2;background:#fff;overflow:hidden}
+.terms-document iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.terms-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:14px}
+.terms-actions .terms-consent{flex:1 1 270px;font-size:.85rem}
+.terms-actions .btn{white-space:nowrap}
+.terms-done{flex:1;color:#087746}
+@media(max-width:850px){.modal-scrim:has(.terms-document){left:0}}
+@media(max-width:650px){.modal:has(.terms-document){padding:14px;height:92vh;max-height:94vh}.terms-document{min-height:40vh}.terms-actions{gap:9px}.terms-actions .terms-consent{flex-basis:100%}.terms-actions .btn{font-size:.75rem;padding:9px}}
+#view-map .map-stop.completed .stop-copy{background:#e7f8eb;border-color:#13834d;box-shadow:0 4px 0 #9dd5ad}
+#view-map .map-stop.completed .stop-copy small,#view-map .map-stop.completed .stop-copy strong,#view-map .map-stop.completed .stop-copy span{color:#075c39}
+#view-map .map-stop.completed .stop-copy .stop-complete{display:block;width:max-content;max-width:100%;margin:7px auto 0;padding:4px 9px;border-radius:6px;background:#087a45;color:#fff;font-size:.7rem;font-weight:900;letter-spacing:.04em;text-align:center}
+.modal-scrim.show{z-index:1200}.onboarding-guide{display:flex;align-items:center;gap:10px;margin:18px 0}.onboarding-gptina{width:130px;height:130px;flex:none;background:url('uaulingo-gptina-poses-implementacoes.png') 0 0/300% 200% no-repeat;image-rendering:pixelated;animation:onboarding-hello 2.4s ease-in-out infinite}.onboarding-speech{position:relative;background:#f5ecff;border:2px solid #a85bdb;border-radius:16px;padding:16px;color:#35145c}.onboarding-speech:before{content:'';position:absolute;left:-13px;top:48%;border-top:12px solid transparent;border-bottom:12px solid transparent;border-right:12px solid #a85bdb}.onboarding-speech p{margin:7px 0 0}.onboarding-actions{display:flex;flex-wrap:wrap;gap:10px}.onboarding-attendance-note{margin:17px 0 0;padding:12px 14px;border-radius:10px;background:#e5f9eb;color:#0c6744;font-weight:800}@keyframes onboarding-hello{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}@media(max-width:520px){.onboarding-guide{align-items:flex-start}.onboarding-gptina{width:92px;height:92px}.onboarding-speech{font-size:.85rem;padding:12px}}
 

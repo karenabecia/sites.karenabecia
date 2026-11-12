@@ -53,13 +53,13 @@
     return data.user;
   }
   async function signUp(email, password) {
-    const redirectTo = location.origin + location.pathname;
+    const redirectTo = location.origin + location.pathname + location.search;
     return raw(`/auth/v1/signup?redirect_to=${encodeURIComponent(redirectTo)}`, {
       method: 'POST', body: JSON.stringify({ email, password })
     });
   }
   async function sendPasswordLink(email) {
-    const redirectTo = location.origin + location.pathname;
+    const redirectTo = location.origin + location.pathname + location.search;
     return raw(`/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`, {
       method:'POST', body:JSON.stringify({ email })
     });
@@ -109,6 +109,16 @@
     const request=token=>raw(`/rest/v1/rpc/${name}`,{method:'POST',headers:{Authorization:`Bearer ${token}`},body:JSON.stringify(payload)});
     try{return await request(current.access_token)}catch(error){if(error.status!==401)throw error;const renewed=await refresh();return request(renewed.access_token)}
   }
+  async function invokeFunction(name,payload={}) {
+    if(!/^uaulingo-[a-z0-9-]+$/.test(name))throw new Error('Função inválida.');
+    const current=await session();
+    if(!current)throw new Error('Sua sessão expirou. Entre novamente.');
+    const request=token=>raw(`/functions/v1/${name}`,{
+      method:'POST',headers:{Authorization:`Bearer ${token}`},body:JSON.stringify(payload)
+    });
+    try{return await request(current.access_token)}
+    catch(error){if(error.status!==401)throw error;const renewed=await refresh();return request(renewed.access_token)}
+  }
   async function storageRequest(path, options = {}) {
     if (!/^(panel|certificates)\/[a-z0-9-]{2,60}\.png$/.test(path)) throw new Error('Caminho de imagem inválido.');
     const current=await session();
@@ -141,5 +151,5 @@
   }
   const supportUpload=(path,file)=>supportFile(path,file,true);
   const supportDownload=path=>supportFile(path,null,false);
-  window.UauSupabase = { session, signIn, signUp, signOut, sendPasswordLink, acceptPasswordLink, updatePassword, table, rpc, storageUpload, storageDownload, supportUpload, supportDownload, clear };
+  window.UauSupabase = { session, signIn, signUp, signOut, sendPasswordLink, acceptPasswordLink, updatePassword, table, rpc, invokeFunction, storageUpload, storageDownload, supportUpload, supportDownload, clear };
 })();

@@ -25,6 +25,11 @@
   }
   if(!support){support=document.createElement('a');support.className='nav-item';support.href='uaulingo-admin-atendimentos.html';support.innerHTML='<span class="glyph">▤</span>Atendimentos';sidebar.insertBefore(support,link)}
   if(location.pathname.endsWith('/uaulingo-admin-atendimentos.html'))support.classList.add('active');
+  const termsLink=document.createElement('a');
+  termsLink.className='nav-item nav-anchor'+(location.pathname.endsWith('/uaulingo-admin-termos.html')?' active':'');
+  termsLink.href='uaulingo-admin-termos.html';
+  termsLink.innerHTML='<span class="glyph" aria-hidden="true">▤</span>Termos de acesso';
+  sidebar.insertBefore(termsLink,link);
   const challenges=[...sidebar.querySelectorAll('.nav-item')].find(item=>item.textContent.includes('Desafios'));
   for(const item of [challenges,support])if(item){item.classList.add('uau-menu-counter-link');item.insertAdjacentHTML('beforeend','<span class="uau-unread-count" hidden>0</span>')}
   const style=document.createElement('style');style.textContent=`

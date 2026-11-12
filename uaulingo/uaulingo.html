@@ -8,7 +8,9 @@
   <title>Uaulingo · Excel + IA</title>
   <link rel="icon" type="image/png" href="uaulingo-favicon.png">
   <link rel="stylesheet" href="uaulingo-student-support.css">
+  <link rel="stylesheet" href="uaulingo-msn-support.css">
   <link rel="stylesheet" href="uaulingo-tour-guide.css">
+  <style>.whatsapp-group-intro .group-join-link{display:flex;width:max-content;max-width:100%;margin:18px auto 0;text-align:center}.whatsapp-group-intro .group-return-note{margin:18px 0 16px}.whatsapp-group-intro #confirmWhatsappGroup{margin-top:2px}.whatsapp-question{margin:16px 0}.whatsapp-question legend{font-weight:800;color:#123f31;line-height:1.4;margin-bottom:12px}.whatsapp-options{display:grid;gap:9px}.whatsapp-option{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid #d8e5dc;border-radius:10px;cursor:pointer}.whatsapp-option:has(input:checked){border-color:#158b63;background:#e8f8ed}.whatsapp-option input{accent-color:#168b63}.whatsapp-answer-error{margin:12px 0;color:#a12828;font-weight:700}.whatsapp-question-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}</style>
   <style>.uau-student-checking body{visibility:hidden}.uau-access-error{max-width:600px;margin:12vh auto;padding:24px;font:16px/1.5 Arial,sans-serif;color:#063d2e}.uau-access-error a{color:#6e24aa;font-weight:800}</style>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
@@ -95,6 +97,8 @@
 </style>
   <link rel="stylesheet" href="uaulingo-map.css">
   <link rel="stylesheet" href="uaulingo-student-theme.css">
+  <link rel="stylesheet" href="uaulingo-student-shell.css">
+  <script src="uaulingo-student-shell.js"></script>
   <script>document.addEventListener("DOMContentLoaded", async () => {
   const studentContext=await window.UauStudentGate.ready();
   if(!studentContext)return;
@@ -160,22 +164,21 @@
   roadmap.forEach((entry,index)=>Object.assign(modules[index],{title:entry[0],ecosystem:entry[1],world:entry[2],theme:entry[3],summary:entry[4],guide:entry[5],pose:entry[6],subtitle:entry[4]}));
   modules.length=roadmap.length;
   const calendar=[
-    ['2026-12-07','2026-12-09','Karen'],['2027-01-18','2027-01-20','Jéssica'],
+    ['2026-12-07','2026-12-08','Karen'],['2027-01-18','2027-01-20','Jéssica'],
     ['2027-02-01','2027-02-03','Karen'],['2027-03-01','2027-03-03','Jéssica'],
     ['2027-03-15','2027-03-17','Karen e Jéssica'],['2027-04-05','2027-04-07','Jéssica'],
     ['2027-04-26','2027-04-28','Karen e Jéssica'],['2027-05-10','2027-05-12','Jéssica'],
     ['2027-06-07','2027-06-09','Karen e Jéssica'],['2027-06-21','2027-06-23','Jéssica']
   ];
   calendar.forEach(([first,second,instructors],index)=>{modules[index+1].lessons=[{title:'Aula 1',scheduled_date:first,instructors},{title:'Aula 2',scheduled_date:second,instructors}];});
-  Object.assign(modules[0],{title:'Primeiros passos',subtitle:'Conheça o jogo, entre na comunidade e participe da aula de onboarding.',summary:'Complete o tutorial, entre no grupo do evento quando o convite estiver disponível e participe da aula de onboarding.',lessons:[{title:'Aula de onboarding',scheduled_at:'2026-11-12T23:00:00Z',instructors:'Karen e Jéssica'}],join_url:''});
-  if(!studentContext.preview){for(const row of studentContext.implementations){const index=Number(row.implementation_number)-1;if(index<0||index>=modules.length)continue;Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}}
+  Object.assign(modules[0],{title:'Primeiros passos',subtitle:'Conheça o jogo, entre na comunidade, participe do onboarding e assine o termo vitalício.',summary:'Complete o tutorial, entre no grupo silencioso, participe da aula de onboarding e acompanhe a liberação do termo vitalício.',lessons:[{title:'Aula de onboarding',scheduled_at:'2026-11-12T23:00:00Z',instructors:'Karen e Jéssica'}],join_url:'https://teams.microsoft.com/meet/2414310477267391?p=5F8lgYWk47kuE0Orhn'});
+  if(!studentContext.preview){for(const row of studentContext.implementations){const index=Number(row.implementation_number)-1;if(index<0||index>=modules.length)continue;Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url||modules[index].join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}}
   Object.assign(modules[1],{topics:['Extração de dados de arquivos e planilhas','Tratamento de vazios, duplicatas e formatos','Modelagem para análises confiáveis'],task:'Prepare uma base de dados, documente três transformações e envie o link da sua solução.',deliverable:'Base tratada + descrição das transformações'});
   Object.assign(modules[2],{topics:['Estrutura de prompts com contexto e objetivo','Transformação de instruções em etapas repetíveis','Revisão e validação das respostas da IA'],task:'Transforme um prompt solto em um processo com etapas e critérios de conferência.',deliverable:'Prompt revisado + fluxo de validação'});
   modules[1].questions=[['Qual é o objetivo do ETL?',['Extrair, transformar e carregar dados','Escolher a cor da planilha','Criar uma senha'],0],['Ao encontrar valores duplicados, o primeiro passo é…',['Investigar a origem e a regra da base','Apagar tudo sem conferir','Ignorar sempre'],0],['Modelar dados ajuda a…',['Organizar relações para análise','Trocar apenas a fonte','Esconder os dados'],0]];
   modules[1].exercise={};modules[1].challenge={};modules[2].exercise={};modules[2].challenge={};
-  const MAP_UNLOCK_ALL_FOR_REVIEW=!!studentContext.preview;
-  const publishedLevels=new Set((studentContext.implementations||[]).map(row=>Number(row.implementation_number)-1));
-  function levelLocked(index){return !MAP_UNLOCK_ALL_FOR_REVIEW&&!publishedLevels.has(index)}
+  function levelComplete(index){return index===0?['lesson','quiz','challenge','terms'].every(kind=>stepComplete(index,kind)):['lesson','quiz','challenge'].every(kind=>stepComplete(index,kind))}
+  function levelLocked(index){if(index===0)return false;if(index>=5)return true;if(levelComplete(index-1))return false;const date=lessonDate(modules[index]?.lessons?.[0]);if(!date)return true;const day=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value).map(part=>[part.type,part.value]));return Date.UTC(Number(parts.year),Number(parts.month)-1,Number(parts.day))};return day(date)-day(new Date())>7*86400000}
   function moduleFor(index) {
     const base = modules[index % modules.length];
     const cycle = Math.floor(index / modules.length);
@@ -207,15 +210,17 @@
     return entries.find(item=>item.date.getTime()>=now-3600000)||entries.at(-1);
   }
   function activeMapLevel() { return nextClass()?.index??0; }
-  const stepNames={lesson:'aula',quiz:'exercício',challenge:'desafio'};
-  function stepComplete(index,kind){return kind==='lesson'?state.lessons.includes(index):kind==='quiz'?state.quizzes.includes(index):state.challenges.includes(index);}
-  function resumePoint(){for(let index=0;index<=activeMapLevel();index++)for(const kind of ['lesson','quiz','challenge'])if(!stepComplete(index,kind))return {index,kind};return null;}
+  const stepNames={lesson:'aula',quiz:'exercício',challenge:'desafio',terms:'termo vitalício'};
+  function stepComplete(index,kind){return kind==='terms'?!!(studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAccepted):kind==='lesson'?state.lessons.includes(index):kind==='quiz'?state.quizzes.includes(index):state.challenges.includes(index);}
+  function activityAvailable(index,kind){if(levelLocked(index))return false;const mod=moduleFor(index),classAt=lessonDate(mod.lessons?.[0]);if(!classAt)return false;const configured=mod[kind==='quiz'?'exercise':'challenge']?.opens_at;const configuredAt=configured?new Date(configured):classAt;return Date.now()>=Math.max(classAt.getTime(),configuredAt.getTime())}
+  function termAcceptanceDate(){const value=studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAcceptedAt;const date=new Date(value);return value&&value!=='1'&&!Number.isNaN(date.getTime())?date.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';}
+  function resumePoint(){for(let index=0;index<=activeMapLevel();index++)for(const kind of (index===0?['lesson','quiz','challenge','terms']:['lesson','quiz','challenge']))if(!stepComplete(index,kind))return {index,kind};return null;}
   function updateMapHud() {
-    const level=activeMapLevel(),next=nextClass(),done=[state.lessons.includes(level),state.quizzes.includes(level),state.challenges.includes(level)].filter(Boolean).length;
+    const level=activeMapLevel(),next=nextClass(),done=[state.lessons.includes(level),state.quizzes.includes(level),state.challenges.includes(level),...(level===0?[stepComplete(0,'terms')]:[])].filter(Boolean).length;
     const resume=resumePoint();
     $('#mapHudLevel').textContent=`Nível ${String(level+1).padStart(2,'0')} · ${moduleFor(level).title}`;
     $('#mapHudDate').textContent=next?`Próxima aula: ${dateFull(next.date)}${next.hasTime?' · '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):''}`:'Próxima aula a definir';
-    $('#mapHudProgress').style.width=`${done/3*100}%`;
+    $('#mapHudProgress').style.width=`${done/(level===0?4:3)*100}%`;
     $('#mapPrevious').hidden=level===0;
     $('#mapResume').hidden=!resume;
     if(resume)$('#mapResume').textContent='▶ Continuar de onde parou: nível '+String(resume.index+1).padStart(2,'0')+' · '+stepNames[resume.kind];
@@ -252,7 +257,7 @@
   try { state = Object.assign(defaults(), JSON.parse(localStorage.getItem(STORE) || '{}')); } catch { state = defaults(); }
   if(!studentContext.preview)state=defaults();
   if (!Array.isArray(state.players) || !state.players.some(p => p.id === 'you')) state.players = seedPlayers();
-  if(!studentContext.preview){state.xp=studentContext.xp;state.players=(studentContext.ranking||[]).map((row,i)=>({id:row.student_id===studentContext.studentId?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,seed:i}));if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:studentContext.xp,seed:0});if(studentContext.ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0)}
+  if(!studentContext.preview){state.xp=studentContext.xp;state.players=(studentContext.ranking||[]).map((row,i)=>({id:row.student_id===studentContext.studentId?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,seed:i}));if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:studentContext.xp,seed:0});if(studentContext.ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0);if(studentContext.ledger.some(item=>item.reason==='Entrada no grupo de WhatsApp'))state.quizzes.push(0);if(studentContext.ledger.some(item=>String(item.reason||'').startsWith('Presença na aula [')&&String(item.reason).includes('onboarding')))state.challenges.push(0)}
   if (!Array.isArray(state.threads)) state.threads = [];
   if(studentContext.preview)sampleSupportThreads().forEach(example => { if (!state.threads.some(t => t.id === example.id)) state.threads.unshift(example); });
   const save = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch { showToast('O navegador ficou sem espaço para salvar esta demonstração.'); } };
@@ -271,66 +276,103 @@
   function showToast(message) { const el=$('#toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),3800); }
   function award(points) { state.xp += points; user().points += points; save(); renderHeader(); renderMapSummary(); renderAchievements(); renderRanking(); }
   function view(name) {
-    if(name==='map'&&currentView!=='map')setMapHudClosed(true);
+    if(name==='map'&&currentView!=='map')setMapHudClosed(false);
     currentView=name;
     $$('.view').forEach(el => el.classList.toggle('active', el.id==='view-'+name));
     $$('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view===name));
     const labels={map:'Mapa da jornada',schedule:'Cronograma',lesson:'Implementação',quiz:'Exercício',challenge:'Próximo desafio',achievements:'Conquistas',support:'Suporte VIP',ranking:'Ranking'};
-    $('#breadcrumb').textContent=labels[name] || 'Uaulingo';
+    $('#breadcrumb').textContent=name==='map'?'':labels[name] || 'Uaulingo';
+    $('#breadcrumb').hidden=name==='map';$('#mapTopLevel').hidden=true;
+    if(name!=='map'){$('.topbar').classList.remove('chapter-absorbed');$('.topbar').style.removeProperty('--absorbed-header')}
     if (name==='schedule') renderSchedule();
     if (name==='map') setTimeout(showClassDayPopup,0);
     if (name==='achievements') renderAchievements();
     if (name==='support') window.UauSupport?.render();
     if (name==='ranking') renderRanking();
     if (name==='challenge') renderChallenge(currentModule);
+    if(name==='map')requestAnimationFrame(updateTopMapLevel);
     window.scrollTo({top:0,behavior:'smooth'});
   }
-  function renderHeader() { $('#topDivision').textContent=(user().division==='Quasar'?'◆ ':user().division==='Pulsar'?'✺ ':'✦ ')+user().division; $('#topXP').textContent=state.xp;renderStudentNotices(); }
+  function divisionName(value){return {Quasar:'Ouro',Pulsar:'Prata',Nebula:'Bronze'}[value]||value}
+  function renderHeader() { $('#topDivision').textContent=divisionName(user().division); $('#topXP').textContent=state.xp;$('#topXP').closest('.top-chip').dataset.tooltip='XP das etapas: 100% até o próximo nível, 50% nos 30 dias seguintes e 30% depois. No último nível: 50% após 30 dias e 30% após 60. Pontos recebidos não diminuem.';renderStudentNotices(); }
+  function updateTopMapLevel(){
+    if(currentView!=='map')return;
+    const chapters=Array.from(document.querySelectorAll('#journeyMap .map-chapter'));
+    if(!chapters.length){$('#mapTopLevel').hidden=true;$('.topbar').classList.remove('chapter-absorbed');return}
+    const threshold=$('.topbar').getBoundingClientRect().bottom+2;
+    let chapter=null;for(const item of chapters){if(item.querySelector('.chapter-head')?.getBoundingClientRect().bottom<=threshold)chapter=item;else break}
+    $('#mapTopLevel').hidden=!chapter;
+    $('.topbar').classList.toggle('chapter-absorbed',!!chapter);
+    if(!chapter){$('.topbar').style.removeProperty('--absorbed-header');return}
+    const index=Number(chapter.id.replace('chapter-',''))||0,mod=moduleFor(index);
+    $('#mapTopBadge').textContent='NÍVEL '+String(index+1).padStart(2,'0');
+    $('#mapTopTitle').textContent=mod.title;
+    const dateBox=chapter.querySelector('.chapter-date'),dateLabel=dateBox?.querySelector('small')?.textContent.trim().toLowerCase(),dateValue=dateBox?.querySelector('strong')?.textContent.trim();
+    $('#mapTopDate').textContent=(dateLabel&&dateValue?dateLabel.charAt(0).toUpperCase()+dateLabel.slice(1)+': '+dateValue+' · ':'')+(chapter.classList.contains('locked')?'Bloqueado':'Em andamento');
+    const headerColor=getComputedStyle(chapter).getPropertyValue('--header').trim()||'#0b7a45';
+    $('#mapTopLevel').style.setProperty('--top-accent',headerColor);
+    $('.topbar').style.setProperty('--absorbed-header',headerColor);
+  }
+  function updateContinueArrow(){
+    const point=resumePoint(),button=$('#mapReturnToContinue');
+    const marker=point&&point.index<5?document.querySelector(`#chapter-${point.index} .map-stop.${point.kind}`):null;
+    const markerBox=marker?.getBoundingClientRect(),top=$('.topbar').getBoundingClientRect().bottom;
+    button.hidden=currentView!=='map'||!markerBox||window.scrollY<window.innerHeight||markerBox.bottom>=top;
+  }
+  let mapHeaderFrame=0;window.addEventListener('scroll',()=>{if(currentView!=='map'||mapHeaderFrame)return;mapHeaderFrame=requestAnimationFrame(()=>{mapHeaderFrame=0;updateTopMapLevel();updateContinueArrow()})},{passive:true});
+  window.addEventListener('resize',()=>{updateTopMapLevel();updateContinueArrow()});
   function renderStudentNotices(){window.dispatchEvent(new Event('UauStudentNoticesChanged'))}
   function applyLocalReviews(){
     for(const row of submissions())if(row.status==='approved'&&!state.challenges.includes(row.module)){state.challenges.push(row.module);const xp=Number(row.xp_reward)||0;state.xp+=xp;user().points+=xp;}
     save();
   }
   function rankingPosition() { const group=state.players.filter(p=>p.division===user().division).sort((a,b)=>b.points-a.points); return group.findIndex(p=>p.id==='you')+1; }
-  function renderMapSummary() { const next=activeMapLevel(); $('#mapDivision').textContent=user().division; $('#mapCompleted').textContent=state.lessons.length+' concluída'+(state.lessons.length===1?'':'s'); $('#mapNextDate').textContent=dateShort(nextClass()?.date||implementationDate(next)); $('#mapPosition').textContent=rankingPosition()+'º em '+user().division; updateMapHud(); }
+  function renderMapSummary() { const next=activeMapLevel(); $('#mapDivision').textContent=divisionName(user().division); $('#mapCompleted').textContent=state.lessons.length+' concluída'+(state.lessons.length===1?'':'s'); $('#mapNextDate').textContent=dateShort(nextClass()?.date||implementationDate(next)); $('#mapPosition').textContent=rankingPosition()+'º em '+divisionName(user().division); updateMapHud(); }
   function stopMarkup(mod, kind) {
     const types={lesson:{short:'Aula',label:'01 · ASSISTIR A IMPLEMENTAÇÃO',title:'Assistir à implementação'},quiz:{short:'Exercício',label:'02 · EXERCÍCIO DA AULA',title:'Exercício de múltipla escolha'},challenge:{short:'Desafio',label:'03 · DESAFIO DA AULA',title:'Desafio para avaliação'}};
-    if(mod.index===0)Object.assign(types,{lesson:{short:'Tutorial',label:'01 · COMO JOGAR',title:'Concluir o tutorial · 10 XP'},quiz:{short:'Grupo',label:'02 · COMUNIDADE',title:'Entrar no grupo de WhatsApp · 20 XP'},challenge:{short:'Onboarding',label:'03 · ENCONTRO AO VIVO',title:'Participar do onboarding · 30 XP'}});
-    const item=types[kind],done=stepComplete(mod.index,kind),locked=levelLocked(mod.index);
+    if(mod.index===0)Object.assign(types,{lesson:{short:'Tutorial',label:'01 · COMO JOGAR',title:'Concluir o tutorial · ganhe XP'},quiz:{short:'Grupo',label:'02 · COMUNIDADE',title:'Entrar no grupo de WhatsApp'},challenge:{short:'Onboarding',label:'03 · ENCONTRO AO VIVO',title:'Participar do onboarding'}});
+    const item=types[kind],done=stepComplete(mod.index,kind),locked=levelLocked(mod.index)||(mod.index>0&&kind!=='lesson'&&!activityAvailable(mod.index,kind));
     const liveDone=kind==='lesson' && (mod.lessons||[]).some(lesson=>lesson.completed_at);
     const releaseRaw=kind==='lesson'?mod.lesson_release_at:mod[kind==='quiz'?'exercise':'challenge']?.opens_at;
     const releaseDate=releaseRaw?new Date(releaseRaw):null;
-    const dateLabel=mod.index===0?(kind==='lesson'?'Disponível agora':kind==='quiz'?'Convite em breve':'12 de nov · 20h'):kind==='lesson'?dateShort(implementationDate(mod.index)):releaseDate?dateShort(releaseDate):'Data a definir';
+    const dateLabel=mod.index===0?(kind==='lesson'?'Disponível agora':kind==='quiz'?'Grupo disponível agora':'12 de nov · 20h'):kind==='lesson'?dateShort(implementationDate(mod.index)):releaseDate?dateShort(releaseDate):'Data a definir';
     const fullRelease=releaseDate?new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric'}).format(releaseDate):'';
     const title=liveDone&&mod.index!==0?'Aula realizada · ver conteúdo':item.title;
     const isResume=resumePoint()?.index===mod.index&&resumePoint()?.kind===kind;
     const detail=locked?'bloqueado':done?'concluído':liveDone?'página da aula disponível':'abrir etapa';
-    return `<button class="map-stop ${kind}${done?' completed':''}${liveDone?' live-done':''}${isResume?' resume-target':''}" data-action="${kind}" data-module="${mod.index}" aria-label="${esc(title)} · ${dateLabel}${locked?' · bloqueado':isResume?' · continue aqui':''}" aria-describedby="tip-${mod.index}-${kind}">
-      <span class="route-coin"><span class="coin-face"><span class="marker-art ${mod.guide} ${kind}" aria-hidden="true"></span></span></span>
+    return `<button class="map-stop ${kind}${done?' completed':''}${liveDone?' live-done':''}${isResume?' resume-target':''}" data-action="${kind}" data-module="${mod.index}" aria-label="${locked?item.short+' bloqueado':esc(title)+' · '+dateLabel+(isResume?' · continue aqui':'')}" ${locked?'disabled':`aria-describedby="tip-${mod.index}-${kind}"`}>
+      <span class="route-coin"><span class="coin-face"><span class="marker-art ${mod.index===0?'tutorial-icon ':''}${mod.guide} ${kind}" aria-hidden="true"></span></span></span>
       <span class="stop-short">${item.short}</span>
-      <span class="stop-copy" id="tip-${mod.index}-${kind}" role="tooltip"><small>${liveDone?'01 · AULA REALIZADA':item.label}</small><strong>${title}</strong><span>${dateLabel} · ${detail}</span></span>
-      ${releaseDate?`<span class="release-sign">${releaseDate>new Date()?'Libera em':'Liberado em'}: ${fullRelease}</span>`:''}
+      ${locked?'':`<span class="stop-copy" id="tip-${mod.index}-${kind}" role="tooltip"><small>${liveDone?'01 · AULA REALIZADA':item.label}</small><strong>${title}</strong><span>${dateLabel}${done?'':` · ${detail}`}</span>${done?'<span class="stop-complete">✓ CONCLUÍDO</span>':''}</span>`}
+      ${!locked&&releaseDate?`<span class="release-sign">${releaseDate>new Date()?'Libera em':'Liberado em'}: ${fullRelease}</span>`:''}
       ${locked?'<span class="stop-lock" aria-hidden="true">▣</span>':done?'<span class="stop-state">✓</span>':''}
       ${isResume?'<span class="resume-flag">▶ CONTINUE AQUI</span>':''}
     </button>`;
   }
+  function termsStopMarkup(){
+    const done=stepComplete(0,'terms'),resume=resumePoint()?.index===0&&resumePoint()?.kind==='terms';
+    return `<button class="map-stop terms${done?' completed':''}${resume?' resume-target':''}" type="button" data-action="terms" data-module="0" aria-label="Assinatura do termo vitalício · ${done?'aceito':'pendente'}" aria-describedby="tip-0-terms"><span class="route-coin"><span class="terms-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="9" y="7" width="30" height="34" rx="2" stroke="currentColor" stroke-width="4"/><path d="M15 16h18M15 23h18M15 30h18" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg></span></span><span class="stop-short">Termo vitalício</span><span class="stop-copy" id="tip-0-terms" role="tooltip"><small>04 · TERMO VITALÍCIO</small><strong>Assinatura do termo vitalício</strong><span>${done?'Aceite registrado · consultar documento':'Leia o documento e registre seu aceite'}</span>${done?'<span class="stop-complete">✓ CONCLUÍDO</span>':''}</span>${done?'<span class="stop-state">✓</span>':''}${resume?'<span class="resume-flag">▶ CONTINUE AQUI</span>':''}</button>`;
+  }
   function chapterMarkup(index) {
     const mod=moduleFor(index),guide=mod.guide||'excelo',locked=levelLocked(index),etl=index===1,etlComplete=etl&&state.challenges.includes(index);
-    const completed=[state.lessons.includes(index),state.quizzes.includes(index),state.challenges.includes(index)].filter(Boolean).length;
+    const completed=[state.lessons.includes(index),state.quizzes.includes(index),state.challenges.includes(index),...(index===0?[stepComplete(0,'terms')]:[])].filter(Boolean).length;
     const scheduled=(mod.lessons||[]).map(lessonDate).filter(Boolean);
-    const nextDate=scheduled.find(date=>date>=new Date())||scheduled.at(-1)||((mod.lessons||[]).find(item=>item.completed_at)?.completed_at?new Date((mod.lessons||[]).find(item=>item.completed_at).completed_at):null);
+    const releaseDate=scheduled[0]||null;
+    const releaseText=releaseDate?new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric'}).format(releaseDate):'A definir';
+    const releasePending=locked;
     const pose=etlComplete?5:mod.pose||0,poseX=(pose%3)*50,poseY=pose>=3?100:0;
     return `<section class="map-chapter world-${mod.world||'future'} ${index%2?'reverse':''} ${index===activeMapLevel()?'current-level':''} ${locked?'locked':''} ${etlComplete?'world-complete':''}" id="chapter-${index}" aria-label="Nível ${index+1}: ${esc(mod.title)}${locked?' bloqueado':''}">
-      <div class="chapter-head"><span class="chapter-number">NÍVEL ${String(index+1).padStart(2,'0')}</span><div><small class="world-name">${esc(mod.ecosystem||'Novo ecossistema')}</small><h3>${esc(mod.title)}</h3><p>${esc(mod.subtitle)}</p></div><div class="chapter-date"><small>${(mod.lessons||[]).some(item=>item.completed_at)?'AULA REALIZADA':nextDate?'PRÓXIMA AULA':'DATA DA AULA'}</small><strong>${etl?'07/12 e 09/12/2026':nextDate?dateShort(nextDate):'A definir'}</strong><span>${locked?'▣ Bloqueado':completed+'/3 etapas ✓'}</span></div></div>
+      <div class="chapter-head"><span class="chapter-number">NÍVEL ${String(index+1).padStart(2,'0')}</span><div><small class="world-name">${esc(mod.ecosystem||'Novo ecossistema')}</small><h3>${esc(mod.title)}</h3><p>${esc(mod.subtitle)}</p></div><div class="chapter-date">${releasePending?`<small>LIBERAÇÃO DO MÓDULO</small><strong>${releaseText}</strong>`:''}<span>${locked?'▣ Bloqueado':completed+'/'+(index===0?4:3)+' etapas ✓'}</span></div></div>
       <div class="map-stage"><div class="terrain terrain-one" aria-hidden="true"></div><div class="terrain terrain-two" aria-hidden="true"></div><div class="terrain terrain-three" aria-hidden="true"></div><div class="scene-prop prop-one" aria-hidden="true"></div><div class="scene-prop prop-two" aria-hidden="true"></div>
-      ${etl?`<svg class="map-route" viewBox="0 0 1000 690" preserveAspectRatio="none" aria-hidden="true"><path class="route-edge" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/><path class="route-fill" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/><path class="route-done" pathLength="100" style="stroke-dasharray:${etlComplete?100:state.quizzes.includes(index)?50:state.lessons.includes(index)?20:0} 100" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/></svg><span class="etl-clearing clearing-lesson" aria-hidden="true"></span><span class="etl-clearing clearing-quiz" aria-hidden="true"></span><span class="etl-clearing clearing-challenge" aria-hidden="true"></span>`:'<svg class="map-route" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true"><path class="route-edge" d="M500 0 C500 100 350 75 350 175 S650 235 650 338 S390 410 390 510 S500 575 500 640"/><path class="route-fill" d="M500 0 C500 100 350 75 350 175 S650 235 650 338 S390 410 390 510 S500 575 500 640"/></svg>'}
+      ${index===0?'<svg class="map-route" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true"><path class="route-edge" d="M500 0 C500 45 465 55 465 95 S480 185 480 240 S580 350 580 415 S420 490 420 555 S500 605 500 640"/><path class="route-fill" d="M500 0 C500 45 465 55 465 95 S480 185 480 240 S580 350 580 415 S420 490 420 555 S500 605 500 640"/></svg>':etl?`<svg class="map-route" viewBox="0 0 1000 690" preserveAspectRatio="none" aria-hidden="true"><path class="route-edge" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/><path class="route-fill" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/><path class="route-done" pathLength="100" style="stroke-dasharray:${etlComplete?100:state.quizzes.includes(index)?50:state.lessons.includes(index)?20:0} 100" d="M500 0 C500 55 440 68 440 138 C440 225 560 250 560 345 C560 455 460 474 460 552 C460 625 500 638 500 690"/></svg><span class="etl-clearing clearing-lesson" aria-hidden="true"></span><span class="etl-clearing clearing-quiz" aria-hidden="true"></span><span class="etl-clearing clearing-challenge" aria-hidden="true"></span>`:'<svg class="map-route" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true"><path class="route-edge" d="M500 0 C500 100 350 75 350 175 S650 235 650 338 S390 410 390 510 S500 575 500 640"/><path class="route-fill" d="M500 0 C500 100 350 75 350 175 S650 235 650 338 S390 410 390 510 S500 575 500 640"/></svg>'}
       ${index===0?'<span class="map-seam-bridge seam-bottom" aria-hidden="true"></span>':index===2?'<span class="map-seam-bridge seam-top" aria-hidden="true"></span>':''}
       ${index===4?[[9,12],[87,18],[18,35],[79,37],[8,61],[91,57],[23,79],[77,82]].map(([x,y],flake)=>`<span class="oracle-flake" aria-hidden="true" style="--fx:${x}%;--fy:${y}%;--delay:-${flake*.7}s;--size:${flake%3===0?48:38}px"></span>`).join(''):''}
-      <button class="map-companion ${guide}" type="button" aria-label="Ver missão do nível com ${guide==='gptina'?'GPTina':'Excelo'}" aria-describedby="world-tip-${index}" style="--pose-x:${poseX}%;--pose-y:${poseY}%"><span class="companion-dots" aria-hidden="true"><i></i><i></i><i></i></span>${etl?'<span class="etl-funnel" aria-hidden="true"></span>':''}</button><aside class="world-brief" id="world-tip-${index}" role="tooltip"><small>✦ MISSÃO DO NÍVEL</small><strong>${esc(mod.title)}</strong><p>${esc(mod.summary)}</p><span>${locked?'Disponível após a liberação desta implementação.':index===0?'Conclua o tutorial, entre no grupo e participe da aula de onboarding.':'Assista à aula, resolva o exercício e envie o desafio.'}</span></aside>
-      <div class="map-stops">${stopMarkup(mod,'lesson')}${stopMarkup(mod,'quiz')}${stopMarkup(mod,'challenge')}</div></div></section>`;
+      <button class="map-companion ${guide}" type="button" aria-label="${locked?'Personagem do nível bloqueado':`Ver missão do nível com ${guide==='gptina'?'GPTina':'Excelo'}`}" ${locked?'disabled':`aria-describedby="world-tip-${index}"`} style="--pose-x:${poseX}%;--pose-y:${poseY}%"><span class="companion-dots" aria-hidden="true"><i></i><i></i><i></i></span>${etl?'<span class="etl-funnel" aria-hidden="true"></span>':''}</button>${locked?'':`<aside class="world-brief" id="world-tip-${index}" role="tooltip"><small>✦ MISSÃO DO NÍVEL</small><strong>${esc(mod.title)}</strong><p>${esc(mod.summary)}</p><span>${index===0?'Conclua o tutorial, entre no grupo, participe do onboarding e acompanhe o termo vitalício.':'Assista à aula, resolva o exercício e envie o desafio.'}</span></aside>`}
+      ${index===0?`<button class="map-companion gptina map-welcome-guide" type="button" aria-label="Ouvir a GPTina: como funciona o Uau Língo" aria-describedby="welcome-gptina-tip" style="--pose-x:0%;--pose-y:0%"><span class="companion-dots" aria-hidden="true"><i></i><i></i><i></i></span></button><aside class="world-brief welcome-brief" id="welcome-gptina-tip" role="tooltip"><small>✦ GPTINA FALA</small><strong>Bem-vinda ao Uau Língo!</strong><p>É aqui no Uau Língo que você vai receber todas as informações sobre seus estudos, materiais e datas. Você também pode ganhar prêmios!</p></aside>`:''}
+      <div class="map-stops">${stopMarkup(mod,'lesson')}${stopMarkup(mod,'quiz')}${stopMarkup(mod,'challenge')}${index===0?termsStopMarkup():''}</div></div></section>`;
   }
-  function appendMap(count) { const end=Math.min(modules.length,mapLoaded+count);for(let i=mapLoaded;i<end;i++) $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));mapLoaded=end;if(mapLoaded===modules.length){$('#mapLoader').hidden=true;mapObserver?.disconnect();} }
-  function setupMap() { $('#introIllustration').innerHTML=pixel('sheet',270)+pixel('bot',100); appendMap(3); updateMapHud(); if('IntersectionObserver' in window){mapObserver=new IntersectionObserver(entries=>{if(currentView==='map'&&entries.some(e=>e.isIntersecting)) appendMap(2);},{rootMargin:'350px'});mapObserver.observe($('#mapLoader'));} setTimeout(()=>{if(currentView==='map'){$('#chapter-'+activeMapLevel())?.scrollIntoView({block:'start'});showClassDayPopup()}},140); }
+  function appendMap(count) { const end=Math.min(5,modules.length,mapLoaded+count);for(let i=mapLoaded;i<end;i++) $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));mapLoaded=end;updateTopMapLevel();updateContinueArrow(); }
+  function setupMap() { $('#introIllustration').innerHTML=pixel('sheet',270)+pixel('bot',100); appendMap(5); updateMapHud(); setTimeout(()=>{if(currentView==='map'){$('#chapter-'+Math.min(4,activeMapLevel()))?.scrollIntoView({block:'start'});updateTopMapLevel();showClassDayPopup()}},140); }
   function showClassDayPopup() {
     const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const dayOf=date=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
@@ -342,18 +384,70 @@
     localStorage.setItem(noticeKey,'1');
     openModal('Hoje tem aula!','<p>A próxima aula da implementação <strong>'+esc(moduleFor(next.index).title)+'</strong> acontece hoje, '+dateFull(next.date)+(next.hasTime?' às '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):'')+'.</p><button class="btn btn-primary" data-action="lesson" data-module="'+next.index+'">Ver implementação →</button>');
   }
-  function refreshMap() { $('#journeyMap').innerHTML=''; const count=Math.max(3,mapLoaded); mapLoaded=0; appendMap(count); updateMapHud(); }
+  function refreshMap() { $('#journeyMap').innerHTML=''; mapLoaded=0; appendMap(5); updateMapHud(); }
   function openIntroStep(kind){
+    if(kind==='terms'){const done=stepComplete(0,'terms');const acceptedAt=termAcceptanceDate();const acceptanceMessage=`✓ Seu aceite já foi registrado${acceptedAt?' em '+acceptedAt:''}.`;openModal('Termo vitalício',`<div class="terms-document"><iframe id="termsReader" title="Termos de Uso de 10/11/2026" src="uaulingo-termo-vitalicio-2026-11-10.html"></iframe></div><div class="terms-actions">${done?`<strong class="terms-done">${acceptanceMessage}</strong>`:'<label class="terms-consent"><input type="checkbox" id="termsConfirm" disabled> Li e concordo com os Termos de acesso</label>'}<a class="btn btn-ghost" href="uaulingo-termo-vitalicio-2026-11-10.pdf" download>↓ Baixar termo em PDF</a>${done?'':'<button class="btn btn-primary" id="termsAccept" type="button" disabled>Registrar meu aceite</button>'}</div>`);$('#termsReader').addEventListener('load',()=>{const check=$('#termsConfirm');if(check)check.disabled=false},{once:true});return}
     if(kind==='lesson'){window.UauTour?.open();return}
-    if(kind==='quiz'){openModal('Grupo do evento','<p>O convite do grupo de WhatsApp será colocado aqui pela equipe em breve. Ao entrar no grupo, esta etapa valerá <strong>20 XP</strong>.</p>');return}
+    if(kind==='quiz'){openModal('Grupo de atualizações','<div class="whatsapp-group-intro"><p>Este é um grupo silencioso de WhatsApp para você receber todas as atualizações do Uau Língo em primeira mão.</p><a class="btn btn-primary group-join-link" href="https://sndflw.com/i/jtZkkNCTElgm031AcyNI" target="_blank" rel="noopener noreferrer">Entre no grupo ↗</a><p class="group-return-note">Depois de entrar, volte aqui e confirme sua participação.</p><button class="btn btn-ghost" id="confirmWhatsappGroup" '+(state.quizzes.includes(0)?'disabled':'')+'>'+(state.quizzes.includes(0)?'✓ Entrada confirmada':'Já entrei no grupo, liberar XP')+'</button></div>');return}
     const link=moduleFor(0).join_url;
-    openModal('Aula de onboarding','<p>Nosso encontro será em <strong>12/11/2026, às 20h</strong> (horário de Brasília). A participação valerá <strong>30 XP</strong> após a confirmação da equipe.</p>'+(link?'<a class="btn btn-primary" href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Participar pelo Microsoft Teams ↗</a>':'<p>Entre com sua conta de aluno para abrir o link da aula.</p>'));
+    openModal('Aula de onboarding','<div class="onboarding-guide"><div class="onboarding-gptina" role="img" aria-label="GPTina animada"></div><div class="onboarding-speech"><strong>Oi! Eu sou a GPTina.</strong><p>Na nossa aula de <strong>12/11/2026, às 20h</strong>, vou mostrar como usar o mapa, encontrar aulas e materiais, ganhar XP e acompanhar suas conquistas. Também vamos conhecer o Suporte VIP e tirar suas dúvidas ao vivo!</p></div></div><div class="onboarding-actions">'+(link?'<a class="btn btn-primary" href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">✦ Entrar na aula ao vivo ↗</a>':'<p>O link da aula aparecerá aqui quando estiver disponível.</p>')+'<a class="btn btn-purple" id="onboardingAttendanceLink" href="uaulingo-presenca.html?onboarding=1" style="display:none">✓ Lista de presença</a></div><p class="onboarding-attendance-note">Preencha a lista de presença que será liberada na aula para receber seu XP.</p>');
+    if(!studentContext.preview)window.UauSupabase.rpc('uaulingo_onboarding_attendance_list').then(id=>id?window.UauSupabase.rpc('uaulingo_attendance_status',{p_list_id:id}):null).then(result=>{const button=$('#onboardingAttendanceLink');if(result?.open&&button&&$('#modalScrim').classList.contains('show')&&$('#modalTitle').textContent==='Aula de onboarding')button.style.display=''}).catch(()=>{});
   }
+  function showWhatsappQuestion(){
+    if(state.quizzes.includes(0))return;
+    $('#modalTitle').textContent='Confirme sua entrada no grupo';
+    $('#modalBody').innerHTML='<fieldset class="whatsapp-question"><legend>Qual dessas palavras é a palavra-chave que colocamos na descrição do grupo exclusivo?</legend><div class="whatsapp-options"><label class="whatsapp-option"><input type="radio" name="whatsappKeyword" value="uaulingo"> UAULINGO</label><label class="whatsapp-option"><input type="radio" name="whatsappKeyword" value="chama"> Chama 🔥</label><label class="whatsapp-option"><input type="radio" name="whatsappKeyword" value="efeito"> Efeito UAU</label><label class="whatsapp-option"><input type="radio" name="whatsappKeyword" value="fazer"> Fazer você fazer</label></div></fieldset><p class="whatsapp-answer-error" id="whatsappAnswerError" role="alert" hidden></p><div class="whatsapp-question-actions"><button class="btn btn-ghost" id="backToWhatsappGroup" type="button">Voltar</button><button class="btn btn-primary" id="submitWhatsappAnswer" type="button">Confirmar resposta</button></div>';
+  }
+  async function confirmWhatsappGroup(button){
+    if(state.quizzes.includes(0))return;
+    button.disabled=true;button.textContent='Registrando entrada…';
+    try{
+      let points=20;
+      if(!studentContext.preview){points=Number(await window.UauSupabase.rpc('uaulingo_confirm_whatsapp_group'))||0;studentContext.xp+=points;studentContext.ledger.push({reason:'Entrada no grupo de WhatsApp',xp:points});state.xp=studentContext.xp;user().points=studentContext.xp;}
+      state.quizzes.push(0);if(studentContext.preview)award(points);else{save();renderHeader();renderMapSummary();renderAchievements();renderRanking()}
+      refreshMap();closeModal();showToast(points?'Entrada confirmada! +'+points+' XP':'Entrada no grupo confirmada.');
+    }catch(error){button.disabled=false;button.textContent='Tentar confirmar novamente';showToast('Não foi possível registrar a entrada. Tente novamente.');console.error('Falha ao confirmar grupo:',error)}
+  }
+  const implementationDescriptions=[
+    'Sabe aquela planilha que chega por e-mail com o nome do cliente escrito de três jeitos, data que não é data, célula mesclada e linha em branco no meio? Você passa a manhã arrumando. No mês seguinte, chega outra igualzinha e começa tudo de novo. Nesta implementação, a gente pega uma base bagunçada, igual às que você recebe no trabalho, e transforma em uma base limpa, organizada e pronta para qualquer análise. Do jeito certo, para você não precisar refazer tudo na próxima vez.',
+    'Você abre a I.A., faz um pedido e a resposta vem genérica. Reescreve, tenta de novo e, no fim, faz na mão. Conhece? O problema não é a ferramenta, é o jeito de pedir. Aqui você aprende a transformar um pedido solto em um passo a passo que funciona toda vez: para o relatório da semana, o e-mail para o cliente, o resumo da reunião. É o que separa quem brinca com I.A. de quem trabalha com ela.',
+    'O chefe pede os números do mês. Você manda aquela planilha cheia de abas, que só você entende. Ele rola a tela e pergunta: "Mas e aí, estamos bem ou mal?" Nesta implementação, você pega os seus dados e transforma em um Dashboard claro, que qualquer gestor lê em 10 segundos e usa para decidir. Vendas, despesas, metas, estoque: a mesma informação, agora com Efeito UAU.',
+    'Você provavelmente usa o ChatGPT para fazer perguntas. E só. Enquanto isso, ele lê planilhas, analisa PDFs, monta tabelas, gera gráficos e guarda as suas instruções para você não precisar repetir tudo toda vez. Nesta implementação, a gente abre esses recursos que quase ninguém usa e aplica na sua rotina: o relatório que você monta toda segunda, a análise daquele arquivo enorme, a fórmula que você nunca lembra. Você sai usando, não só conhecendo.',
+    'Ter os dados não é o problema. O problema é saber o que eles estão dizendo. Qual produto está dando prejuízo? Qual mês fugiu do padrão? Onde está aquele gasto que ninguém viu? Nesta implementação, você aprende a fazer as perguntas certas para os seus dados, usando planilha e Inteligência Artificial juntas, e chega na reunião com a resposta pronta. Não uma planilha bonita. Uma conclusão.',
+    'Muita gente já ouviu falar do Claude, mas não sabe por onde começar. Aqui você vê o Claude trabalhando de verdade: lendo um contrato longo e apontando o que importa, analisando uma planilha inteira, organizando projetos com os seus arquivos para você não precisar explicar tudo de novo a cada conversa. Você traz um problema real do seu trabalho e sai com ele resolvido, sabendo quando o Claude é a melhor ferramenta para a tarefa.',
+    'Todo mês é a mesma coisa: copiar daqui, colar ali, ajustar a fórmula, formatar, salvar, enviar. São horas fazendo uma tarefa repetida que não precisa de você para acontecer. Nesta implementação, a gente escolhe uma dessas tarefas e automatiza, com a ajuda da I.A., até o fim do encontro. Fechamento do mês, relatório semanal, atualização de base: você aprende a lógica e repete nas próximas, sozinho.',
+    'Sabe aquele controle que você sempre quis ter, de pedidos, de clientes, de despesas da equipe ou de casa? Você até imagina como seria, mas nunca saiu do papel porque parecia coisa de programador. Nesta implementação, você chega com uma necessidade real e constrói o sistema junto com a gente, usando a Inteligência Artificial como parceira. Sem saber programar. E sai com ele funcionando, não só planejado.',
+    'Recebe o arquivo por e-mail, baixa, abre, copia para a planilha, atualiza o relatório, envia para o chefe. Cada etapa depende de você. Nesta implementação, você escolhe um processo repetitivo seu e conecta as peças: planilha, arquivo e I.A. trabalhando juntos, sem você no meio de cada passo. O que hoje toma uma tarde inteira pode virar poucos minutos.',
+    'E se você tivesse um assistente que já conhece o seu trabalho? Que sabe como você monta o relatório, o padrão dos seus e-mails, as regras da sua planilha? Nesta implementação, você constrói o seu próprio Agente ou Skill de I.A., especializado em uma tarefa da sua rotina. Nada de prompt genérico: uma ferramenta feita por você, para você, pronta para usar na segunda-feira.'
+  ];
+  const implementationTeasers=[
+    'Transforme bases bagunçadas em dados limpos, prontos para análise.',
+    'Transforme pedidos soltos em processos que funcionam toda vez.',
+    'Crie um Dashboard claro para apoiar decisões em segundos.',
+    'Use recursos do ChatGPT que vão além das perguntas.',
+    'Faça Excel e I.A. responderem às perguntas dos seus dados.',
+    'Resolva um problema real com os recursos do Claude.',
+    'Automatize uma tarefa repetitiva do Excel com I.A.',
+    'Construa um sistema funcional sem precisar programar.',
+    'Conecte arquivos, planilhas e I.A. em um fluxo automático.',
+    'Crie um Agente ou Skill de I.A. para a sua rotina.'
+  ];
   function renderSchedule() {
     let html='';
-    for(let i=0;i<modules.length;i++){const m=moduleFor(i),d=implementationDate(i),open=openSchedule.has(i),locked=levelLocked(i),known=i===0||!!m.lessons?.[0]?.scheduled_date,lessonDates=(m.lessons||[]).map(lessonDate).filter(Boolean);if(i===0){html+='<article class="accordion '+(open?'open':'')+'"><button class="accordion-toggle" data-toggle-schedule="0" aria-expanded="'+open+'"><span class="accordion-index">01</span><span class="accordion-title"><strong>Primeiros passos</strong><small>Tutorial, comunidade e onboarding</small></span><span class="accordion-date"><small>ONBOARDING</small><strong>12/11 · 20h</strong></span><span class="chevron">⌄</span></button><div class="accordion-body">'+scheduleStep('★','Tutorial do aplicativo','Disponível agora · 10 XP','lesson',0,false)+scheduleStep('▦','Grupo de WhatsApp','Convite em breve · 20 XP','quiz',0,false)+scheduleStep('◆','Aula de onboarding','12/11/2026 às 20h · 30 XP','challenge',0,false)+'</div></article>';continue}html+='<article class="accordion '+(open?'open':'')+(locked?' schedule-locked':'')+'"><button class="accordion-toggle" data-toggle-schedule="'+i+'" aria-expanded="'+open+'"><span class="accordion-index">'+String(i+1).padStart(2,'0')+'</span><span class="accordion-title"><strong>'+esc(m.title)+'</strong><small>'+esc(m.subtitle)+'</small></span><span class="accordion-date"><small>IMPLEMENTAÇÃO</small><strong>'+(known?dateShort(d):'A definir')+'</strong></span><span class="chevron">⌄</span></button><div class="accordion-body">'+scheduleStep('▣','Implementação ao vivo',lessonDates.length?lessonDates.map(dateFull).join(' e '):known?dateFull(d):'Data a definir','lesson',i,locked)+scheduleStep('✎','Exercício de múltipla escolha',m.exercise?.opens_at?dateFull(new Date(m.exercise.opens_at)):'Liberação a definir','quiz',i,locked)+scheduleStep('◆','Desafio para enviar à equipe',m.challenge?.opens_at?dateFull(new Date(m.challenge.opens_at)):'Liberação a definir','challenge',i,locked)+'</div></article>';}
+    for(let i=1;i<=10;i++){
+      const m=moduleFor(i),locked=levelLocked(i),lessonDates=(m.lessons||[]).map(lessonDate).filter(Boolean),theme=m.theme==='excel'?'excel':m.theme==='ai'?'ai':'both';
+      const dates=lessonDates.length?lessonDates.map(date=>new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'short',day:'2-digit',month:'2-digit',year:'numeric'}).format(date)).join('  •  '):'Datas a definir';
+      const category=theme==='excel'?'EXCEL':theme==='ai'?'I.A.':'EXCEL + I.A.';
+      const title=i===5?'Dados que respondem, não só mostram':m.title;
+      const release=lessonDates.length?dateFull(lessonDates[0]):'Data a definir';
+      html+='<article class="schedule-implementation schedule-'+theme+(locked?' schedule-locked':'')+'">'+
+        '<div class="schedule-card-heading"><span class="accordion-index">'+String(i).padStart(2,'0')+'</span><span class="schedule-category">'+category+'</span></div><h2>'+esc(title)+'</h2>'+
+        '<div class="schedule-days"><span>DIAS DA IMPLEMENTAÇÃO</span><strong>'+esc(dates)+'</strong></div>'+
+        '<p class="schedule-description">'+esc(implementationDescriptions[i-1])+'</p><div class="schedule-card-items">'+
+        scheduleStep('✎','Exercício','Liberação em '+release,'quiz',i,locked)+
+        scheduleStep('◆','Desafio prático','Liberação em '+release,'challenge',i,locked)+'</div></article>';
+    }
     $('#scheduleList').innerHTML=html;
-    $('#expandSchedule').textContent=openSchedule.size===modules.length?'Recolher tudo':'Expandir tudo';
   }
   function scheduleStep(icon,title,date,action,index,locked){return '<div class="schedule-step"><span class="mini-square">'+icon+'</span><div><strong>'+title+'</strong><small>'+date+'</small></div><button data-action="'+action+'" data-module="'+index+'"'+(locked?' disabled':'')+'>'+(locked?'Bloqueado':'Abrir →')+'</button></div>';}
   function openLesson(index) {
@@ -361,6 +455,7 @@
     $('#lessonContent').dataset.theme=m.theme;
     $('#lessonContent').innerHTML='<button class="back-button" data-view="map">← Voltar ao mapa</button><div class="detail-hero">'+pixel(m.icon,105)+'<div><span class="kicker">IMPLEMENTAÇÃO '+String(index+1).padStart(2,'0')+' · '+dateShort(d)+'</span><h1>'+esc(m.title)+'</h1><p>'+esc(m.subtitle)+'</p></div></div><div class="detail-layout"><div class="panel content-copy"><div class="pixel-title">▶ ASSISTIR À IMPLEMENTAÇÃO</div><div class="video-preview"><button id="playVideo" aria-label="Abrir prévia do vídeo">▶</button><span>LINK DO VÍDEO · PRÉVIA ILUSTRATIVA</span></div><button class="text-button" id="videoLink">Abrir link do vídeo de demonstração ↗</button><h2>Resumo da aula</h2><p>'+esc(m.summary)+'</p><h2>O que você vai aprender</h2><ul>'+m.topics.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul><button class="btn btn-primary" id="markLesson">'+(state.lessons.includes(index)?'✓ Implementação assistida':'Marcar como assistida · +20 XP')+'</button></div><aside class="detail-aside"><div class="panel"><div class="pixel-title">▤ PRÓXIMAS DATAS</div><div class="detail-date"><span>Implementação</span><strong>'+dateShort(d)+'</strong></div><div class="detail-date"><span>Exercício</span><strong>'+dateShort(offsetDate(d,1))+'</strong></div><div class="detail-date"><span>Desafio</span><strong>'+dateShort(offsetDate(d,2))+'</strong></div></div><div class="panel"><div class="pixel-title">▧ MATERIAIS DE APOIO</div><p style="font-size:.82rem">Arquivos de exemplo para explorar esta aula.</p><div class="material-row"><span>▤</span><strong>Guia da implementação</strong><button data-material="guide">Baixar</button></div><div class="material-row"><span>▦</span><strong>Planilha de prática</strong><button data-material="sheet">Baixar</button></div></div><button class="btn btn-purple full" data-action="quiz" data-module="'+index+'">Fazer exercício →</button><button class="btn btn-ghost full" data-action="challenge" data-module="'+index+'">Ver desafio →</button></aside></div>';
     $('#lessonContent .detail-hero .kicker').insertAdjacentHTML('afterend','<span class="lesson-theme-badge">'+(m.theme==='ai'?'✦ IA · GPTina':'▦ Excel · Excelo')+'</span>');
+    if(!studentContext.preview){const mark=$('#markLesson');if(mark)mark.outerHTML='<p class="onboarding-attendance-note">Para receber o XP da aula ao vivo, use a lista de presença compartilhada durante o encontro.</p>'}
     const lessons=Array.isArray(m.lessons)&&m.lessons.length?m.lessons:[{title:m.title}];
     const rows=lessons.map((lesson,at)=>'<div class="lesson-live-row'+(lesson.completed_at?' done':'')+'"><strong>'+esc(lesson.title===`Aula ${at+1}`?lesson.title:`Aula ${at+1} · ${lesson.title}`)+'</strong><span>'+(lesson.completed_at?'✓ Aula realizada':dateFull(lessonDate(lesson)||d)+(lesson.scheduled_at?' · '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(new Date(lesson.scheduled_at)):'')+' · ao vivo')+'</span>'+(lesson.instructors?'<span>Com '+esc(lesson.instructors)+'</span>':'')+(lesson.completed_at&&lesson.recording_url?'<a href="'+esc(lesson.recording_url)+'" target="_blank" rel="noopener noreferrer">Gravação na Hotmart ↗</a>':'')+(lesson.completed_at&&(lesson.materials_url||lesson.lesson_page_url)?'<a href="'+esc(lesson.materials_url||lesson.lesson_page_url)+'" target="_blank" rel="noopener noreferrer">Material completo ↗</a>':'')+'</div>').join('');
     $('#lessonContent .content-copy').insertAdjacentHTML('afterbegin','<div class="lesson-live-list">'+rows+'</div>');
@@ -379,7 +474,7 @@
     const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='uaulingo-'+String(currentModule+1).padStart(2,'0')+(kind==='sheet'?'-planilha.csv':'-guia.txt');document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
     showToast('Material de exemplo baixado.');
   }
-  function openQuiz(index) { currentModule=index; quiz={index,at:0,selected:null,checked:false,correct:0,correctIndices:[]};renderQuiz();view('quiz'); }
+  function openQuiz(index) { if(index>0&&!activityAvailable(index,'quiz')){showToast('O exercício será liberado após a aula.');return}currentModule=index; quiz={index,at:0,selected:null,checked:false,correct:0,correctIndices:[]};renderQuiz();view('quiz'); }
   function renderQuiz() {
     const m=moduleFor(quiz.index),q=m.questions[quiz.at];
     if(!q){ finishQuiz(); return; }
@@ -417,9 +512,9 @@
     localStorage.setItem(SUBMISSIONS_STORE,JSON.stringify(rows));renderChallenge(currentModule);renderStudentNotices();
     openModal('Desafio enviado','<p>O desafio será validado e a pontuação aparecerá após a aprovação da equipe.</p><p class="muted">Nesta etapa de teste, a entrega fica neste navegador.</p><button class="btn btn-primary" id="modalOk">Entendi</button>');
   }
-  function openChallenge(index) {renderChallenge(index);view('challenge');}
+  function openChallenge(index) {if(index>0&&!activityAvailable(index,'challenge')){showToast('O desafio será liberado após a aula.');return}renderChallenge(index);view('challenge');}
   function renderAchievements() {
-    $('#achievementGrid').innerHTML=achievements.map(a=>{const unlocked=a.test();return '<article class="achievement-card '+(unlocked?'':'locked')+'"><div class="badge-sprite">'+pixel(unlocked?a.icon:'star',53)+'</div><span class="kicker">'+(unlocked?'CONQUISTADA':'BLOQUEADA')+'</span><h3>'+esc(a.title)+'</h3><p>'+esc(a.desc)+'</p>'+(unlocked?'<small class="muted">Conquista desbloqueada.</small>':'<small class="muted">Continue a jornada para desbloquear.</small>')+'</article>';}).join('');
+    $('#achievementGrid').innerHTML='<div class="achievement-coming"><div class="achievement-mascots"><span class="achievement-mascot excelo" role="img" aria-label="Excelo"></span><span class="achievement-mascot gptina" role="img" aria-label="GPTina"></span></div><strong>Em breve</strong><span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></div>';
   }
   function renderSupport() {
     if (!activeTicket && state.threads.length) activeTicket=state.threads[0].id;
@@ -459,15 +554,12 @@
     const groups=rankGroups(),mine=user();
     if (!rankFilter) rankFilter=mine.division;
     const myGroup=groups.find(g=>g.division===mine.division),myPosition=myGroup.players.findIndex(p=>p.id==='you')+1;
-    $('#yourDivisionName').textContent=mine.division;
-    $('#yourDivisionPosition').textContent=myPosition+'º de '+myGroup.players.length+' · '+mine.points+' XP';
-    $('#rankingTitle').textContent=rankFilter==='all'?'Classificação geral':'Divisão '+rankFilter;
+    $('#yourDivisionName').textContent=divisionName(mine.division);
+    $('#yourDivisionPosition').textContent=mine.points>0?myPosition+'º de '+myGroup.players.length+' · '+mine.points+' XP':'Aguardando seus primeiros pontos';
+    $('#rankingTitle').textContent=rankFilter==='all'?'Classificação geral':'Divisão '+divisionName(rankFilter);
     $$('.league-card').forEach(card=>{const division=card.dataset.rankView;card.classList.toggle('selected',rankFilter===division);card.classList.toggle('mine',mine.division===division);card.querySelector('.league-mine').textContent=mine.division===division?'SUA DIVISÃO':'';card.setAttribute('aria-pressed',String(rankFilter===division));});
-    $('.rank-all').classList.toggle('active',rankFilter==='all');
-    $('.rank-all').setAttribute('aria-pressed',String(rankFilter==='all'));
-    $('#rankingTable').innerHTML=groups.filter(g=>rankFilter==='all'||g.division===rankFilter).map(group=>'<section class="rank-group '+group.division.toLowerCase()+'"><h3>'+group.division+' · '+group.players.length+' participantes</h3>'+group.players.map((p,i)=>{let label='',movement='hold';if(!studentContext.preview&&group.players.length<4){label='em andamento';}else if(group.division==='Quasar'&&i===0){label='🏆 encontro individual';movement='winner';}else if(i<3&&group.division!=='Quasar'){label='↑ para '+(group.division==='Nebula'?'Pulsar':'Quasar');movement='up';}else if(i>=group.players.length-3&&group.division!=='Nebula'){label='↓ para '+(group.division==='Quasar'?'Pulsar':'Nebula');movement='down';}else{label='permanece';}return '<div class="rank-row '+(p.id==='you'?'you':'')+'"><span class="pos">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(p.name)+(p.id==='you'?' · você':'')+'</span><span class="score">'+p.points+' XP</span><span class="flag '+movement+'">'+label+'</span></div>';}).join('')+'</section>').join('');
-    if(studentContext.preview)$('#roundInfo').textContent='Rodada de demonstração '+state.round;
-    $('#lastMovement').innerHTML=state.lastMovement?'<div class="pixel-title">ÚLTIMO FECHAMENTO</div>'+state.lastMovement.map(line=>'<div class="movement-line">'+esc(line)+'</div>').join(''):'<div class="pixel-title">REGRAS DA LIGA</div><p>3 sobem da Nebula para Pulsar e 3 da Pulsar para Quasar. As 3 últimas da Quasar e da Pulsar descem. A Quasar permanece com 20 vagas.</p>';
+    $('#rankingTable').innerHTML=mine.points>0?groups.filter(g=>rankFilter==='all'||g.division===rankFilter).map(group=>'<section class="rank-group '+group.division.toLowerCase()+'"><h3>'+divisionName(group.division)+' · '+group.players.length+' participantes</h3>'+group.players.map((p,i)=>'<div class="rank-row '+(p.id==='you'?'you':'')+'"><span class="pos">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(p.name)+(p.id==='you'?' · você':'')+'</span><span class="score">'+p.points+' XP</span><span class="flag">'+(p.id==='you'?'SUA POSIÇÃO':'')+'</span></div>').join('')+'</section>').join(''):'<div class="ranking-wait">Assim que você pontuar, verá sua classificação aqui.</div>';
+    $('#lastMovement').innerHTML='<div class="pixel-title">REGRAS DA LIGA</div><p>Em breve<span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></p>';
     renderMapSummary();
   }
   function closeRound() {
@@ -480,17 +572,26 @@
     rankFilter=user().division;save();renderHeader();renderRanking();renderAchievements();showToast('Implementação encerrada: divisões atualizadas.');
     openModal('Divisões atualizadas','<p>Os três melhores avançaram e os três últimos das divisões superiores foram rebaixados. A Quasar continua com 20 vagas.</p><p><strong>Você está na divisão '+esc(user().division)+'.</strong></p><p>Vencedor da rodada: <strong>'+esc(champion.name)+'</strong> · encontro individual liberado.</p><button class="btn btn-primary" id="modalOk">Ver ranking</button>');
   }
-  function openModal(title,body) {$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;$('#modalScrim').classList.add('show');$('#closeModal').focus();}
+  function openModal(title,body) {const scrim=$('#modalScrim');if(scrim.parentElement!==document.body)document.body.appendChild(scrim);$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;scrim.classList.add('show');$('#closeModal').focus();}
   function closeModal() {$('#modalScrim').classList.remove('show');}
-  function startNext() { if(!state.lessons.includes(0)){openIntroStep('lesson');return}if(!state.quizzes.includes(0)){openIntroStep('quiz');return}if(!state.challenges.includes(0)){openIntroStep('challenge');return}const next=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>i>0&&!state.lessons.includes(i)&&!moduleFor(i).lessons?.every(lesson=>lesson.completed_at))||1;openLesson(next); }
+  function startNext() { if(!state.lessons.includes(0)){openIntroStep('lesson');return}if(!state.quizzes.includes(0)){openIntroStep('quiz');return}if(!state.challenges.includes(0)){openIntroStep('challenge');return}if(!stepComplete(0,'terms')){openIntroStep('terms');return}const next=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>i>0&&!state.lessons.includes(i)&&!moduleFor(i).lessons?.every(lesson=>lesson.completed_at))||1;openLesson(next); }
+  async function acceptTerms(button){
+    if(stepComplete(0,'terms'))return;
+    button.disabled=true;button.textContent='Registrando…';
+    try{
+      if(studentContext.preview)localStorage.setItem('uaulingo-demo-terms-2026-11-10',new Date().toISOString());
+      else{await window.UauSupabase.table('uaulingo_term_acceptances','?on_conflict=student_id,document_version',{method:'POST',headers:{Prefer:'resolution=ignore-duplicates'},body:JSON.stringify({student_id:studentContext.studentId,document_version:'2026-11-10'})});const saved=await window.UauSupabase.table('uaulingo_term_acceptances',`?select=accepted_at&student_id=eq.${studentContext.studentId}&document_version=eq.2026-11-10&limit=1`);if(!saved[0]?.accepted_at)throw new Error('O aceite ainda não aparece no seu cadastro. Tente novamente.');studentContext.termAccepted=true;studentContext.termAcceptedAt=saved[0].accepted_at;}
+      refreshMap();renderStudentNotices();closeModal();showToast('Aceite do termo registrado.');
+    }catch(error){button.disabled=false;button.textContent='Tentar registrar novamente';showToast('Não foi possível registrar o aceite. Tente novamente.');console.error('Falha no aceite do termo:',error)}
+  }
   document.addEventListener('click',event=>{
     const target=event.target;
-    const companion=target.closest('.map-companion');if(companion){const open=!companion.classList.contains('tooltip-open');$$('.map-companion.tooltip-open').forEach(item=>item.classList.remove('tooltip-open'));companion.classList.toggle('tooltip-open',open);return;}
+    const companion=target.closest('.map-companion');if(companion){if(companion.closest('.map-chapter.locked'))return;const open=!companion.classList.contains('tooltip-open');$$('.map-companion.tooltip-open').forEach(item=>item.classList.remove('tooltip-open'));companion.classList.toggle('tooltip-open',open);return;}
     $$('.map-companion.tooltip-open').forEach(item=>item.classList.remove('tooltip-open'));
     const rank=target.closest('[data-rank-view]');if(rank){rankFilter=rank.dataset.rankView;renderRanking();return;}
     const bell=target.closest('#studentBell');if(bell){const panel=$('#studentNotices');panel.hidden=!panel.hidden;bell.setAttribute('aria-expanded',String(!panel.hidden));return;}
     const nav=target.closest('[data-view]');if(nav){if(nav.dataset.view==='challenge'&&!studentContext.preview){openIntroStep('challenge');return}if(nav.dataset.view==='challenge')currentModule=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>!state.challenges.includes(i))||0;view(nav.dataset.view);return;}
-    const step=target.closest('[data-action]');if(step){const i=Number(step.dataset.module);if(step.closest('.map-chapter.locked')){openModal('Implementação bloqueada','<p><strong>'+esc(moduleFor(i).title)+'</strong> ainda não foi liberada. A data e os conteúdos aparecerão aqui quando a equipe publicar a implementação.</p>');return;}if(i===0){openIntroStep(step.dataset.action);return}if(step.dataset.action==='lesson')openLesson(i);if(step.dataset.action==='quiz')openQuiz(i);if(step.dataset.action==='challenge')openChallenge(i);return;}
+    const step=target.closest('[data-action]');if(step){const i=Number(step.dataset.module);if(step.closest('.map-chapter.locked'))return;if(i===0){openIntroStep(step.dataset.action);return}if(step.dataset.action==='lesson')openLesson(i);if(step.dataset.action==='quiz')openQuiz(i);if(step.dataset.action==='challenge')openChallenge(i);return;}
     const toggle=target.closest('[data-toggle-schedule]');if(toggle){const i=Number(toggle.dataset.toggleSchedule);openSchedule.has(i)?openSchedule.delete(i):openSchedule.add(i);renderSchedule();return;}
     const option=target.closest('[data-option]');if(option&&quiz&&!quiz.checked){quiz.selected=Number(option.dataset.option);$$('.quiz-option').forEach(x=>x.classList.toggle('selected',x===option));$('#quizNext').disabled=false;return;}
     const ticket=target.closest('[data-ticket]');if(ticket){window.UauSupport?.open(ticket.dataset.ticket);return;}
@@ -500,41 +601,92 @@
   document.addEventListener('change',event=>{if(event.target.id==='ticketFile')$('#ticketFileName').textContent=event.target.files?.[0]?.name||'Nenhum arquivo selecionado';if(event.target.id==='replyFile')$('#replyFileName').textContent=event.target.files?.[0]?.name||'';});
   window.addEventListener('storage',event=>{if(event.key!==SUBMISSIONS_STORE)return;applyLocalReviews();renderHeader();refreshMap();renderAchievements();renderRanking();if(currentView==='challenge')renderChallenge(currentModule);});
   $('#continueJourney').onclick=startNext;
-  $('#loadMore').onclick=()=>appendMap(2);
   $('#mapPrevious').onclick=()=>$('#chapter-'+Math.max(0,activeMapLevel()-1))?.scrollIntoView({behavior:'smooth',block:'start'});
-  $('#mapResume').onclick=()=>{const point=resumePoint();if(!point)return;while(mapLoaded<=point.index)appendMap(2);$('#chapter-'+point.index+' .map-stop.'+point.kind)?.scrollIntoView({behavior:'smooth',block:'center'});};
+  function scrollToContinue(){const point=resumePoint();if(!point||point.index>=5)return;$('#chapter-'+point.index+' .map-stop.'+point.kind)?.scrollIntoView({behavior:'smooth',block:'center'});}
+  $('#mapResume').onclick=scrollToContinue;
+  $('#mapReturnToContinue').onclick=scrollToContinue;
   $('#mapHudClose').onclick=()=>setMapHudClosed(true);
   $('#mapHudReopen').onclick=()=>setMapHudClosed(false);
-  $('#expandSchedule').onclick=()=>{openSchedule=openSchedule.size===modules.length?new Set():new Set(modules.map((_,i)=>i));renderSchedule();};
   document.addEventListener('click',event=>{
     const id=event.target.id;
+    if(id==='termsAccept')acceptTerms(event.target);
     if(id==='playVideo'||id==='videoLink')openVideo();
     if(id==='markLesson'){
+      if(!studentContext.preview){showToast('A presença e o XP são registrados pela lista liberada durante a aula.');return}
       if(!state.lessons.includes(currentModule)){state.lessons.push(currentModule);award(20);refreshMap();showToast('Implementação assistida! +20 XP');}
       openLesson(currentModule);
     }
     if(id==='quizNext'){if(!quiz)return;if(quiz.checked){quiz.at++;quiz.selected=null;quiz.checked=false;renderQuiz();}else checkQuiz();}
     if(id==='quizResult'){if(quiz.correct>=2)openChallenge(quiz.index);else openQuiz(quiz.index);}
     if(id==='submitChallenge')submitChallenge();
+    if(id==='confirmWhatsappGroup')showWhatsappQuestion();
+    if(id==='backToWhatsappGroup')openIntroStep('quiz');
+    if(id==='submitWhatsappAnswer'){
+      const answer=document.querySelector('input[name="whatsappKeyword"]:checked')?.value;
+      const error=$('#whatsappAnswerError');
+      if(answer!=='chama'){error.textContent=answer?'Essa não é a palavra-chave. Confira a descrição do grupo e tente novamente.':'Selecione uma alternativa para continuar.';error.hidden=false;return}
+      confirmWhatsappGroup(event.target);
+    }
     if(id==='newTicket'||id==='startTicket'){window.UauSupport?.newTicket();}
     if(id==='closeRound')closeRound();
     if(id==='resetDemo')openModal('Reiniciar demonstração?','<p>Isso apaga o progresso e as dúvidas salvas neste navegador.</p><button class="btn btn-primary" id="confirmReset">Sim, reiniciar</button>');
-    if(id==='confirmReset'){state=defaults();localStorage.removeItem(SUBMISSIONS_STORE);activeTicket=null;rankFilter=null;save();renderHeader();renderMapSummary();refreshMap();renderAchievements();renderRanking();renderSupport();closeModal();view('map');showToast('Demonstração reiniciada.');}
+    if(id==='confirmReset'){state=defaults();localStorage.removeItem(SUBMISSIONS_STORE);localStorage.removeItem('uaulingo-demo-terms-2026-11-10');activeTicket=null;rankFilter=null;save();renderHeader();renderMapSummary();refreshMap();renderAchievements();renderRanking();renderSupport();closeModal();view('map');showToast('Demonstração reiniciada.');}
     if(id==='modalOk')closeModal();
   });
+  document.addEventListener('change',event=>{if(event.target.id==='termsConfirm')$('#termsAccept').disabled=!event.target.checked;});
   $('#closeModal').onclick=closeModal;
   $('#modalScrim').onclick=event=>{if(event.target.id==='modalScrim')closeModal();};
   document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal();});
   window.addEventListener('uaulingo:tour-reward',event=>{if(!state.lessons.includes(0))state.lessons.push(0);const points=Number(event.detail?.points)||0;if(studentContext.preview){award(points)}else{state.xp=studentContext.xp;user().points=studentContext.xp;save();renderHeader();renderMapSummary();renderAchievements();renderRanking()}refreshMap();showToast(points>0?'Tutorial concluído! +'+points+' XP':'Tutorial concluído!');});
-  if(!studentContext.preview){$('.avatar').setAttribute('aria-label','Perfil de '+studentContext.student.full_name);$('.avatar').textContent=studentContext.student.full_name.trim().charAt(0).toUpperCase();$('#closeRound').closest('.panel').hidden=true;$('#resetDemo').hidden=true;$('#rankingTable').closest('.panel').querySelector('.rank-head p').textContent='Classificação atual das pessoas participantes.';$('#view-support .private-note').remove();$('#view-map .section-title p').textContent='Siga o caminho e acompanhe a liberação de cada implementação.';$('#view-schedule .schedule-toolbar span').textContent='Datas das implementações';}
-  if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(localStorage.getItem('uaulingo-map-hud-seen-v1')==='1');localStorage.setItem('uaulingo-map-hud-seen-v1','1');renderAchievements();renderRanking();
+  let liveSyncRunning=false;
+  async function syncStudentUpdates(){
+    if(studentContext.preview||liveSyncRunning)return;
+    liveSyncRunning=true;
+    try{
+      const api=window.UauSupabase,id=studentContext.studentId;
+      const [ledger,ranking,terms,implementations]=await Promise.all([
+        api.table('uaulingo_xp_ledger',`?select=xp,reason&student_id=eq.${encodeURIComponent(id)}`),
+        api.rpc('uaulingo_ranking'),
+        api.table('uaulingo_term_acceptances',`?select=accepted_at&student_id=eq.${encodeURIComponent(id)}&document_version=eq.2026-11-10&limit=1`),
+        api.table('uaulingo_implementations','?select=*&status=eq.published&order=implementation_number.asc')
+      ]);
+      const previousXP=state.xp,nextXP=ledger.reduce((sum,row)=>sum+Number(row.xp||0),0);
+      const previousProgress=['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(','),previousModules=JSON.stringify(studentContext.implementations);
+      studentContext.ledger=ledger;studentContext.xp=nextXP;studentContext.ranking=ranking;studentContext.implementations=implementations;
+      studentContext.termAccepted=!!terms?.length;studentContext.termAcceptedAt=terms?.[0]?.accepted_at||null;
+      state.xp=nextXP;
+      state.lessons=state.lessons.filter(index=>index!==0);state.quizzes=state.quizzes.filter(index=>index!==0);state.challenges=state.challenges.filter(index=>index!==0);
+      if(ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0);
+      if(ledger.some(item=>item.reason==='Entrada no grupo de WhatsApp'))state.quizzes.push(0);
+      if(ledger.some(item=>String(item.reason||'').startsWith('Presença na aula [')&&String(item.reason).includes('onboarding')))state.challenges.push(0);
+      state.players=(ranking||[]).map((row,i)=>({id:row.student_id===id?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,seed:i}));
+      if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:nextXP,seed:0});
+      if(previousModules!==JSON.stringify(implementations))for(const row of implementations){const index=Number(row.implementation_number)-1;if(index>0&&index<modules.length)Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url||modules[index].join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}
+      renderHeader();renderMapSummary();renderRanking();
+      if(previousProgress!==['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(',')||previousModules!==JSON.stringify(implementations)){refreshMap();if(currentView==='schedule')renderSchedule()}
+      if(nextXP!==previousXP)showToast(nextXP>previousXP?`Você recebeu ${nextXP-previousXP} XP!`:`Seu saldo de XP foi atualizado para ${nextXP}.`);
+      await window.UauSupport?.poll?.();
+    }catch(error){console.warn('Atualização automática indisponível:',error?.message||error)}
+    finally{liveSyncRunning=false}
+  }
+  if(!studentContext.preview){setInterval(syncStudentUpdates,60000);window.addEventListener('focus',syncStudentUpdates)}
+  if(!studentContext.preview){$('.avatar').setAttribute('aria-label','Perfil de '+studentContext.student.full_name);$('.avatar').textContent=studentContext.student.full_name.trim().charAt(0).toUpperCase();$('#view-support .private-note').remove();$('#view-map .section-title p').textContent='Siga o caminho e acompanhe a liberação de cada implementação.';}
+  if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(false);renderAchievements();renderRanking();window.UauMapLoading?.finish();
+  const entry=new URLSearchParams(location.search),entryView=entry.get('view');
+  if(['map','schedule','ranking','achievements','support'].includes(entryView)){
+    view(entryView);
+    if(entryView==='support'&&entry.get('ticket'))window.UauSupport.open(entry.get('ticket')).catch(()=>{});
+    if(entryView==='support'&&entry.get('notice'))setTimeout(async()=>{if(currentView!=='support')return;try{const box=await window.UauStudentInbox.load();await window.UauStudentInbox.markRead(box,entry.get('notice'));renderStudentNotices()}catch{}},10000);
+  }
   if(new URLSearchParams(location.search).get('implementacao')==='1')openIntroStep('challenge');
+  if(new URLSearchParams(location.search).get('termo')==='1')openIntroStep('terms');
 })();
 
 });</script>
-<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour-guide.js"></script>
+<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour-guide-v4.js"></script>
 </head>
 <body>
+  <div class="uau-map-loading-screen" role="status" aria-label="Carregando mapa"><div class="uau-map-loading-box"><div class="uau-map-loading-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="uau-map-loading-label">CARREGANDO SUA JORNADA</span></div></div>
   <div class="app-shell">
     <aside class="sidebar">
       <button class="brand" data-view="map" aria-label="Uau Língo, ir para o mapa"><img src="uaulingo-logo.png" alt="Uau Língo"></button>
@@ -542,31 +694,30 @@
       <nav class="side-nav" aria-label="Menu principal">
         <button class="nav-item active" data-view="map"><span>▧</span> Mapa da jornada</button>
         <button class="nav-item" data-view="schedule"><span>▤</span> Cronograma</button>
-        <button class="nav-item" data-view="challenge"><span>◆</span> Próximo desafio</button>
         <button class="nav-item" data-view="ranking"><span>▥</span> Ranking</button>
         <button class="nav-item" data-view="achievements"><span>✦</span> Conquistas</button>
         <button class="nav-item" data-view="support"><span>▦</span> Suporte VIP <span class="support-shortcut" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></span></button>
       </nav>
-      <button class="tour-replay" type="button" data-open-tour>◇ Como jogar</button>
     </aside>
     <div class="content-wrap">
-      <header class="topbar"><div class="top-left"><button class="mobile-brand" data-view="map" aria-label="Uau Língo, ir para o mapa"><img src="uaulingo-logo.png" alt="Uau Língo"></button><span class="breadcrumb" id="breadcrumb">Mapa da jornada</span></div><div class="top-stats"><span class="top-chip" id="topDivision">✦ Nebula</span><span class="top-chip">⚡ <b id="topXP">0</b> XP</span><button class="tour-help" type="button" data-open-tour aria-label="Como jogar" title="Como jogar">?</button><span class="notice-wrap"><button class="notice-bell" id="studentBell" aria-label="Notificações do aluno" aria-expanded="false">🔔<span id="studentNoticeCount" hidden>0</span></button><span class="notice-panel" id="studentNotices" hidden></span></span><span class="avatar" aria-label="Perfil de demonstração">J</span></div></header>
+      <header class="topbar"><div class="top-left"><button class="mobile-brand" data-view="map" aria-label="Uau Língo, ir para o mapa"><img src="uaulingo-logo.png" alt="Uau Língo"></button><span class="breadcrumb" id="breadcrumb" hidden></span><div class="map-top-level" id="mapTopLevel" hidden><span class="map-top-badge" id="mapTopBadge">NÍVEL 01</span><span class="map-top-copy"><strong id="mapTopTitle">Primeiros passos</strong><small id="mapTopDate">Liberação do módulo: 12/11/2026</small></span></div></div><div class="top-stats"><button class="top-chip tip-control" id="topDivision" data-view="ranking" data-tooltip="Sua divisão. Clique para ver sua posição no ranking." title="Abrir ranking">Bronze</button><span class="top-chip tip-control" tabindex="0" data-tooltip="XP das etapas: 100% até o próximo nível, 50% nos 30 dias seguintes e 30% depois. Pontos recebidos não diminuem." title="Seus pontos">⚡ <b id="topXP">0</b> XP</span><button class="top-message tip-control" type="button" data-view="support" aria-label="Mensagens: abrir Suporte VIP" data-tooltip="Converse em particular com a equipe pelo Suporte VIP." title="Abrir Suporte VIP"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></button><span class="notice-wrap"><button class="notice-bell tip-control" id="studentBell" aria-label="Notificações do aluno" aria-expanded="false" data-tooltip="Avisos sobre aulas, pontos e respostas da equipe." title="Suas notificações">🔔<span id="studentNoticeCount" hidden>0</span></button><span class="notice-panel" id="studentNotices" hidden></span></span><button class="tour-help tip-control" type="button" data-open-tour aria-label="Como jogar" data-tooltip="Reveja a visita guiada com Excelo e GPTina." title="Como jogar">?</button><span class="avatar tip-control" tabindex="0" aria-label="Perfil de demonstração" data-tooltip="Sua identificação de aluno." title="Seu perfil">J</span></div></header>
       <main id="main">
         <section class="view active" id="view-map">
-          <div class="map-intro"><div><span class="kicker">SEU CAMINHO PELO UNIVERSO DE DADOS</span><h1>Aprenda Excel.<br><em>Potencialize com IA.</em></h1><p>Cada implementação abre três passos: assistir à aula, praticar e enviar um desafio para avaliação. Role o mapa para descobrir o que vem depois.</p><div class="intro-actions"><button class="btn btn-primary" id="continueJourney">Continuar jornada <span>→</span></button><button class="btn btn-ghost" data-view="schedule">Ver datas previstas</button><button class="btn btn-ghost" type="button" data-open-tour>◇ Como jogar</button></div></div><div class="intro-illustration" id="introIllustration" aria-hidden="true"></div></div>
+          <div class="map-intro"><div><span class="kicker">SEU CAMINHO PELO UNIVERSO DE DADOS</span><h1>Aprenda Excel.<br><em>Potencialize com IA.</em></h1><p>Cada implementação abre três passos: assistir à aula, praticar e enviar um desafio para avaliação. Role o mapa para descobrir o que vem depois.</p><div class="intro-actions"><button class="btn btn-primary" id="continueJourney">Continuar jornada <span>→</span></button><button class="btn btn-ghost" data-view="schedule">Ver datas previstas</button></div></div><div class="intro-illustration" id="introIllustration" aria-hidden="true"></div></div>
           <div class="map-summary"><div><small>DIVISÃO ATUAL</small><strong id="mapDivision">Nebula</strong></div><div><small>IMPLEMENTAÇÕES</small><strong id="mapCompleted">0 concluídas</strong></div><div><small>PRÓXIMA LIVE</small><strong id="mapNextDate">—</strong></div><div><small>POSIÇÃO</small><strong id="mapPosition">—</strong></div></div>
           <div class="section-title"><div><span class="kicker">MAPA DE IMPLEMENTAÇÕES</span><h2>Uma etapa de cada vez</h2><p>Três marcadores por implementação. As datas abaixo são ilustrativas para esta demonstração.</p></div><span class="scroll-hint">ROLE PARA EXPLORAR ↓</span></div>
           <div class="map-hud" id="mapHud"><button class="map-hud-close" id="mapHudClose" type="button" aria-label="Fechar resumo da próxima implementação">×</button><div class="map-hud-copy"><small>✦ SUA PRÓXIMA IMPLEMENTAÇÃO</small><strong id="mapHudLevel">Nível 01</strong><span id="mapHudDate">Confira a próxima aula</span><div class="map-hud-progress"><span id="mapHudProgress"></span></div><button class="map-resume" id="mapResume" type="button" hidden>▶ Continuar de onde parou</button><button class="map-previous" id="mapPrevious" type="button" hidden>↑ Ver etapas anteriores</button></div></div><button class="map-hud-reopen" id="mapHudReopen" type="button" hidden>✦ Ver próxima implementação</button>
           <div class="journey-map" id="journeyMap"></div>
-          <div class="map-loader" id="mapLoader"><span class="pixel-loader" aria-hidden="true"></span><span>Descobrindo novas implementações…</span><button class="text-button" id="loadMore">Carregar mais</button></div>
+          <div class="map-coming-soon" id="mapLoader"><strong>✦ Em breve: novas regiões</strong><span>Os próximos níveis aparecerão aqui quando estiverem prontos para a jornada.</span></div>
+          <button class="map-return-to-continue" id="mapReturnToContinue" type="button" aria-label="Voltar ao ponto em que você parou" title="Voltar ao ponto em que você parou" hidden><img src="uaulingo-seta-continuar.png" alt=""></button>
         </section>
-        <section class="view" id="view-schedule"><div class="page-head"><span class="kicker">CALENDÁRIO DE MISSÕES</span><h1>Cronograma</h1><p>Abra cada implementação para ver a data principal e, logo abaixo, o exercício e o desafio correspondentes.</p></div><div class="schedule-toolbar"><span>📅 Datas previstas para demonstração</span><button class="btn btn-small btn-ghost" id="expandSchedule">Expandir tudo</button></div><div class="accordion-list" id="scheduleList"></div></section>
+        <section class="view" id="view-schedule"><div class="page-head"><div class="schedule-head-copy"><span class="kicker">CALENDÁRIO DE MISSÕES</span><h1>Cronograma</h1><p>Conheça o conteúdo das 10 implementações e acompanhe as datas de cada encontro.</p></div><img class="schedule-head-art" src="uaulingo-cronograma-personagens.png" alt="Excelo e GPTina no escritório usando o computador, com um calendário sobre a mesa"></div><div class="accordion-list" id="scheduleList"></div></section>
         <section class="view" id="view-lesson"><div id="lessonContent"></div></section>
         <section class="view" id="view-quiz"><div id="quizContent"></div></section>
         <section class="view" id="view-challenge"><div id="challengeContent"></div></section>
-        <section class="view" id="view-achievements"><div class="page-head"><span class="kicker">COLEÇÃO DE HABILIDADES</span><h1>Conquistas</h1><p>Medalhas de Excel e IA para marcar cada avanço da sua jornada.</p></div><div class="achievement-grid" id="achievementGrid"></div></section>
+        <section class="view" id="view-achievements"><div class="page-head"><h1>Conquistas</h1></div><div class="achievement-grid" id="achievementGrid"></div></section>
         <section class="view" id="view-support"><div class="page-head"><span class="kicker">CANAL PRIVADO</span><h1>Suporte VIP</h1><p>Envie sua dúvida em texto, anexe um arquivo e acompanhe cada resposta em uma conversa privada.</p></div><div class="private-note">🔒 No produto final, apenas você e a equipe verão este atendimento. Nesta demonstração, tudo fica somente neste navegador.</div><div class="support-layout"><aside class="panel support-list"><div class="support-list-head"><strong>Minhas dúvidas</strong><button class="btn btn-small btn-primary" id="newTicket">+ Nova</button></div><div id="ticketList"></div></aside><div class="panel support-chat" id="supportChat"></div></div></section>
-        <section class="view" id="view-ranking"><div class="page-head"><span class="kicker">LIGA UAULINGO</span><h1>Ranking das divisões</h1><p>Acompanhe a posição de todos. Ao fim de cada implementação, os três melhores sobem e os três últimos descem.</p></div><div class="my-league"><span class="my-icon">✦</span><div><small>SUA DIVISÃO ATUAL</small><strong id="yourDivisionName">Nebula</strong></div><span id="yourDivisionPosition">—</span></div><div class="league-rules" id="leagueRules"><button class="league-card" data-rank-view="Nebula"><span class="league-symbol">✦</span><strong>Nebula</strong><small>Início da jornada</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Pulsar"><span class="league-symbol">✺</span><strong>Pulsar</strong><small>Próxima conquista</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Quasar"><span class="league-symbol">◆</span><strong>Quasar</strong><small>20 vagas · prêmio final</small><span class="league-mine"></span></button></div><div class="ranking-layout"><div class="panel"><div class="rank-head"><div><h2 id="rankingTitle">Classificação da sua divisão</h2><p>Participantes fictícios · promoção e rebaixamento previstos</p></div><button class="rank-all" data-rank-view="all">Ver todas</button></div><div id="rankingTable"></div></div><aside class="ranking-aside"><div class="panel prize-card"><div class="pixel-title">◆ DIVISÃO QUASAR</div><h3>O topo tem recompensa.</h3><p>São apenas 20 vagas. Quem terminar a jornada na Quasar ganha um prêmio.</p><div class="prize-line">🏆 O vencedor de cada fechamento ganha um encontro individual.</div></div><div class="panel"><div class="pixel-title">SIMULAÇÃO DA LIGA</div><p>Veja como promoção e rebaixamento funcionam quando uma implementação termina.</p><button class="btn btn-primary full" id="closeRound">Simular fechamento →</button><small class="muted" id="roundInfo">Rodada de demonstração 1</small><button class="text-button" id="resetDemo">Reiniciar demonstração</button></div><div class="panel" id="lastMovement"></div></aside></div></section>
+        <section class="view" id="view-ranking"><div class="page-head"><span class="kicker">LIGA UAULINGO</span><h1>Ranking das divisões</h1></div><div class="my-league"><span class="my-icon">✦</span><div><small>SUA DIVISÃO ATUAL</small><strong id="yourDivisionName">Bronze</strong></div><span id="yourDivisionPosition">—</span></div><div class="league-rules" id="leagueRules"><button class="league-card" data-rank-view="Quasar"><span class="league-symbol league-gold" aria-hidden="true"></span><strong>Ouro</strong><small>A melhor divisão</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Pulsar"><span class="league-symbol league-silver" aria-hidden="true"></span><strong>Prata</strong><small>Divisão intermediária</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Nebula"><span class="league-symbol league-bronze" aria-hidden="true"></span><strong>Bronze</strong><small>A divisão inicial</small><span class="league-mine"></span></button></div><div class="ranking-layout"><div class="panel"><div class="rank-head"><div><h2 id="rankingTitle">Classificação da sua divisão</h2><p>Assim que você pontuar, verá sua classificação.</p></div></div><div id="rankingTable"></div></div><aside class="ranking-aside"><div class="panel" id="lastMovement"></div></aside></div><div class="panel ranking-prizes"><div class="pixel-title">VEJA SEUS PRÊMIOS</div><strong>Em breve<span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></strong></div><div hidden><button id="closeRound"></button><button id="resetDemo"></button><small id="roundInfo"></small></div></section>
       </main>
     </div>
   </div>

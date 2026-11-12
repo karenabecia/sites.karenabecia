@@ -1,0 +1,73 @@
+/* Suporte VIP inspirado na composição das janelas de conversa do MSN. */
+#view-support .support-layout{grid-template-columns:minmax(240px,310px) minmax(0,1fr);gap:15px;align-items:start}
+#view-support .support-list,#view-support .support-chat,#page .chat-panel{border:2px solid #aa9acf;border-radius:11px;box-shadow:0 0 0 3px #e9e3f9,5px 7px 0 #d6d1e6;overflow:hidden;background:#f3f5ff}
+#view-support .support-list{padding:12px}
+#view-support .support-list-head{padding:4px 3px 12px}
+#view-support .support-list-head strong{font-size:.92rem}
+#view-support .support-list .ticket-item,#page #ticketList .ticket{display:flex;align-items:center;gap:9px;border:1px solid #aebfd7;border-radius:6px;background:linear-gradient(#fff,#f2f5ff);box-shadow:inset 0 1px #fff,0 2px 0 #d9e2e9;padding:9px;margin:0 0 7px;text-align:left}
+#view-support .support-list .ticket-item.active,#page #ticketList .ticket.selected{border-color:#8d4cce;background:linear-gradient(#fdf9ff,#ece4ff);box-shadow:inset 0 1px white,0 0 0 2px #d9b9fa}
+#view-support .support-list .ticket-item>span:last-child,#page #ticketList .ticket>span:last-child{min-width:0;flex:1}
+#view-support .support-list .ticket-item strong,#page #ticketList .ticket strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msn-avatar-ring{--portrait-color:#0b9d62;display:inline-grid;place-items:center;position:relative;isolation:isolate;flex:none;width:max-content;height:max-content;padding:3px;border-radius:8px;overflow:hidden;background:#edf7f2;box-shadow:0 0 0 1px var(--portrait-color)}
+.msn-avatar-ring.team{--portrait-color:#8734c2;background:#f3eafd}
+.msn-portraits .msn-avatar-ring::before{content:"";position:absolute;z-index:0;inset:-100%;opacity:.72;background:conic-gradient(from 0deg,var(--portrait-color) 0 58%,color-mix(in srgb,var(--portrait-color) 30%,transparent) 68%,transparent 76% 100%);animation:msnBorderRun 9s linear infinite}
+@keyframes msnBorderRun{to{transform:rotate(360deg)}}
+.msn-avatar{display:block;position:relative;z-index:1;flex:none;width:42px;height:42px;border:1px solid #fff;border-radius:5px;background:#def3e3;object-fit:cover;image-rendering:pixelated}
+.msn-avatar.mascot{background-image:url('excelo-gptina-acesso.png');background-repeat:no-repeat;background-size:auto 145%;background-position:13% 50%}
+.msn-avatar.mascot.gptina{background-color:#e9d9ff;background-position:87% 50%}
+@media(prefers-reduced-motion:reduce){.msn-portraits .msn-avatar-ring::before{animation:none}}
+#view-support .support-chat{padding:0!important;min-height:520px}
+.msn-titlebar{height:36px;display:flex;align-items:center;gap:9px;padding:0 10px;color:white;background:linear-gradient(100deg,#27134d 0%,#6f2ea4 58%,#087753 100%);border-bottom:2px solid #6f4ba5;font-size:.81rem;font-weight:900;letter-spacing:.02em;text-shadow:0 1px #160a39}
+.msn-presence{color:#a9f75b;text-shadow:0 0 7px #9eff70}
+.msn-window-controls{margin-left:auto;letter-spacing:.48em;color:#f7eaff}
+.msn-toolbar{display:flex;align-items:stretch;gap:2px;min-height:62px;padding:5px 8px;background:linear-gradient(#fff,#dfe8fb 58%,#e9e2f7);border-top:1px solid #fff;border-bottom:2px solid #a8b8d7}
+.msn-toolbar button{border:1px solid transparent;border-radius:5px;background:transparent;color:#293e59;min-width:70px;padding:4px 8px;display:grid;place-items:center;align-content:center;gap:2px;font-size:1.22rem;font-weight:900;line-height:1}
+.msn-toolbar button span{font-size:.65rem;line-height:1.15;font-weight:800}
+.msn-toolbar button:hover,.msn-toolbar button[aria-pressed="true"]{border-color:#9e84c8;background:linear-gradient(#fff,#e5d7fa);box-shadow:inset 0 1px white}
+.msn-stage{display:grid;grid-template-columns:minmax(0,1fr) 132px;min-height:470px;background:#f4f5ff}
+.msn-main{min-width:0;display:flex;flex-direction:column;background:#fff}
+#view-support .chat-head,#ticketDetail .chat-header{border-bottom:1px solid #aebbd1;background:linear-gradient(#faffff,#e9f0fc);padding:10px 13px;min-height:53px}
+#view-support .chat-timeline,#ticketDetail .chat-body{flex:1;min-height:280px;max-height:49vh;overflow:auto;margin:0;padding:15px;background:#fff;background-image:none;border-radius:0;border-bottom:2px solid #a8b8d7}
+#view-support .chat-bubble,#ticketDetail .bubble{width:fit-content;max-width:85%;box-shadow:none;border:0;border-bottom:1px dotted #b9c9d7;border-radius:0;background:transparent!important;padding:9px 4px;margin:0 0 4px;white-space:pre-wrap;overflow-wrap:anywhere}
+#view-support .chat-bubble.team,#ticketDetail .bubble.staff{align-self:flex-end;margin-left:auto;text-align:right;color:#6c218f;border-bottom-color:#a875ce}
+#view-support .chat-bubble.student,#ticketDetail .bubble.student{align-self:flex-start;margin-right:auto;text-align:left;color:#0a7650;border-bottom-color:#69b99b}
+#view-support .chat-bubble.team *,#ticketDetail .bubble.staff *{color:#6c218f}
+#view-support .chat-bubble.student *,#ticketDetail .bubble.student *{color:#0a7650}
+#view-support .chat-bubble.team .support-attachment,#ticketDetail .bubble.staff .attachment{background:#f2e6fb;border:1px solid #bd91db}
+#view-support .chat-bubble.student .support-attachment,#ticketDetail .bubble.student .attachment{background:#e8f8ef;border:1px solid #82c8a4}
+#view-support .chat-bubble.team img,#ticketDetail .bubble.staff img{outline:2px solid #8734c2}
+#view-support .chat-bubble.student img,#ticketDetail .bubble.student img{outline:2px solid #0b9d62}
+#view-support .chat-bubble strong,#ticketDetail .bubble strong{color:inherit;font-size:.78rem}
+#view-support .chat-bubble small,#ticketDetail .bubble small{font-size:.65rem;color:#75849b}
+.msn-day{display:flex;align-items:center;gap:12px;margin:14px 0 10px;color:#65758d;font-size:.7rem;font-weight:800;text-align:center}
+.msn-day::before,.msn-day::after{content:"";height:1px;flex:1;background:#c9d2e4}
+#view-support .chat-bubble.msn-followup,#ticketDetail .bubble.msn-followup{margin-top:-4px;padding-top:1px}
+#view-support .chat-bubble.msn-followup>div:first-child,#ticketDetail .bubble.msn-followup>div:first-child{margin-top:0}
+#view-support #newTicket{display:none}
+#view-support .chat-form,#ticketDetail .reply{margin:0;padding:11px;background:linear-gradient(#f1f6ff,#e8ebf9);border-top:1px solid white}
+#view-support .chat-form textarea,#ticketDetail .reply textarea{width:100%;min-height:88px;max-height:190px;resize:vertical;border:1px solid #9daec6;border-radius:5px;background:#fff;box-shadow:inset 1px 2px 3px #b5c4d455;padding:10px}
+#view-support .chat-form-line,#ticketDetail .reply-row{display:flex;align-items:center;gap:9px}
+#view-support .chat-form-line{margin-top:6px}
+#view-support .chat-form button[type="submit"],#ticketDetail .reply button[type="submit"]{background:linear-gradient(#fbfffa,#b3eab9);border:1px solid #42835d;border-radius:5px;color:#08442e;box-shadow:inset 0 1px #fff,0 2px #83b18b}
+#ticketDetail .reply label,#ticketDetail .reply .file-label,#ticketDetail .reply .file-name{color:#6c218f}
+#ticketDetail .reply button[type="submit"]{background:linear-gradient(#fff,#e0bbf8);border-color:#8a42b9;color:#5b2185;box-shadow:inset 0 1px #fff,0 2px #b58acd}
+.msn-portraits{display:flex;flex-direction:column;justify-content:space-between;gap:12px;border-left:2px solid #a8b8d7;background:linear-gradient(150deg,#f9faff,#e6def8 65%,#eff6e9);padding:11px}
+.msn-portrait{display:grid;justify-items:center;gap:5px;padding:6px;border:1px solid #aab6d2;border-radius:8px;background:linear-gradient(#fff,#e9f1ff);box-shadow:inset 0 1px white,0 2px #c1cae3;text-align:center}
+.msn-portrait small{font-size:.62rem;font-weight:900;line-height:1.2}
+.msn-portrait.team{background:linear-gradient(#fff,#f1e5fb);border-color:#c59bdf}
+.msn-portrait.student{background:linear-gradient(#fff,#e6f8ed);border-color:#9ccfaf}
+.msn-portrait.team small{color:#6c218f}
+.msn-portrait.student small{color:#0a7650}
+.msn-portrait .msn-avatar{width:88px;height:88px;border-radius:7px}
+#page .chat-panel{padding:0!important}
+#ticketDetail{padding:0!important}
+#ticketDetail .chat-header{margin:0}
+#ticketDetail .chat-avatar{background:#e9f8df url('uaulingo-avatar-aluno.png') center/cover no-repeat;color:transparent;border:1px solid #89a8a0;image-rendering:pixelated}
+#page #ticketList .ticket .msn-avatar{width:40px;height:40px}
+#ticketDetail .chat-avatar{border-color:#0b9d62;box-shadow:0 0 0 2px #bdebd1}
+#ticketDetail .msn-toolbar [data-msn="history"]{min-width:112px}
+#page .filters{background:linear-gradient(#fff,#e6ebfb);border:1px solid #aebbd1;border-radius:8px;padding:9px;box-shadow:inset 0 1px white}
+.msn-unread-dot{color:#a837f2;font-size:.75rem;vertical-align:middle}
+@media(max-width:1080px){.msn-stage{grid-template-columns:minmax(0,1fr) 105px}.msn-portrait .msn-avatar{width:68px;height:68px}}
+@media(max-width:800px){#view-support .support-layout{grid-template-columns:1fr}.msn-stage{grid-template-columns:minmax(0,1fr) 100px}.msn-toolbar{overflow-x:auto}.msn-toolbar button{min-width:65px}}
+@media(max-width:560px){.msn-stage{grid-template-columns:1fr}.msn-portraits{flex-direction:row;order:-1;justify-content:flex-start;border-left:0;border-bottom:2px solid #a8b8d7;padding:7px;gap:8px}.msn-portrait{display:flex;align-items:center;text-align:left;padding:4px 7px}.msn-portrait .msn-avatar{width:38px;height:38px}.msn-avatar-ring{padding:2px}.msn-portrait small{max-width:90px}#view-support .chat-timeline,#ticketDetail .chat-body{max-height:48vh}.msn-toolbar button{min-width:58px;padding:3px}.msn-toolbar button span{font-size:.57rem}}

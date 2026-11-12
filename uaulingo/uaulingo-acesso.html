@@ -14,7 +14,7 @@
     .story:before{content:"";position:absolute;inset:0;opacity:.17;background-image:linear-gradient(#76f58a 1px,transparent 1px),linear-gradient(90deg,#76f58a 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(90deg,#000,transparent 80%)}
     .story:after{content:"✦";position:absolute;right:9%;top:15%;font:65px monospace;color:#ffe07c;opacity:.8}.story>*:not(.pixel-field){position:relative;z-index:1}
     .brand{display:inline-flex;align-items:center;color:inherit;text-decoration:none}.brand-logo{display:block;width:clamp(190px,20vw,270px);height:auto;image-rendering:pixelated;filter:drop-shadow(0 5px 3px #04172688)}
-    .story-main{max-width:660px;margin:22px auto 0}.story h1{font-size:clamp(2.5rem,4.3vw,4.7rem);letter-spacing:-.065em;line-height:1.01;margin:15px 0 14px}.story h1 span{color:#b7ff8e}.story p{color:#d5e9df;font-size:1.04rem;line-height:1.5;max-width:520px;margin:0}
+    .story-main{max-width:660px;margin:22px auto 0}.story h1{font-size:clamp(2.5rem,4.3vw,4.7rem);letter-spacing:-.065em;line-height:1.01;margin:15px 0 14px}.story h1 .line-green{color:#b7ff8e}.story h1 .line-purple{color:#d69aff}.story p{color:#d5e9df;font-size:1.04rem;line-height:1.5;max-width:520px;margin:0}
     .hero-art{display:block;width:min(100%,510px);max-height:390px;object-fit:contain;margin:4px auto -8px;image-rendering:pixelated;filter:drop-shadow(0 18px 18px #010d1b44)}
     .main{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:35px clamp(24px,5vw,88px);background:radial-gradient(circle at 95% 5%,#eedcff 0,transparent 30%),var(--cream)}.access{position:relative;z-index:1;width:min(100%,480px)}.card{border:1px solid var(--line);background:#fff;border-radius:24px;padding:clamp(27px,4vw,45px);box-shadow:0 20px 55px #0a453317,7px 7px 0 #e8f2e8}.pixel-icon{width:48px;height:48px;display:grid;place-items:center;background:#e3f9e4;border:2px solid #6cb983;box-shadow:4px 4px 0 #c9e6cd;font:900 26px monospace;margin-bottom:24px}.pixel-icon.purple{background:var(--lavender);border-color:#bd86ec;box-shadow:4px 4px 0 #e0c9f4;color:var(--neon)}.card h2{font-size:clamp(1.7rem,3vw,2.2rem);letter-spacing:-.045em;margin:0 0 8px}.sub{color:#5b7266;line-height:1.5;margin:0 0 27px;font-size:.95rem}.field{display:block;margin:18px 0 0}.field>span{display:block;font-weight:800;font-size:.82rem;margin-bottom:8px}.field input{width:100%;height:51px;border:1.5px solid #c7d8ca;background:#fcfefb;border-radius:10px;padding:0 14px;color:var(--ink);font-size:.96rem}.field input::placeholder{color:#98a99e}.field input:focus{border-color:var(--green);outline:3px solid #c8f4d7;outline-offset:0}.input-wrap{position:relative}.input-wrap input{padding-right:65px}.reveal{position:absolute;right:7px;top:7px;border:0;background:#edf7ed;color:#176042;border-radius:7px;font-size:.72rem;font-weight:800;padding:9px}
     .primary{width:100%;border:0;border-radius:10px;background:var(--green);color:#053524;font-weight:900;font-size:.95rem;min-height:52px;margin-top:23px;box-shadow:0 5px 0 #087c47;transition:transform .15s,box-shadow .15s}.primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #087c47}.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #087c47}.secondary{border:0;background:transparent;color:#6d2bb1;font-weight:800;padding:8px 3px;font-size:.84rem}.secondary:hover{text-decoration:underline}.links{display:flex;justify-content:space-between;gap:10px;margin-top:20px;border-top:1px solid #e8eee8;padding-top:14px}.message{min-height:20px;margin:12px 0 0;color:#a43345;font-size:.81rem;font-weight:700}.message.ok{color:#14764d}.note{display:flex;gap:9px;padding:11px 12px;border:1px solid #dde7d9;background:#f4f9f1;border-radius:9px;color:#476453;font-size:.77rem;line-height:1.4;margin-top:19px}.note strong{color:var(--ink)}.success-art{font-size:2.4rem;margin:10px 0}.whatsapp{display:block;text-align:center;text-decoration:none;border:1px solid #5daa81;background:#e9f9ee;color:#145a3a;font-weight:900;padding:13px;border-radius:10px;margin-top:16px}.hidden{display:none!important}.footer-copy{text-align:center;color:#81918a;font-size:.72rem;margin-top:21px}
@@ -33,7 +33,7 @@
     <aside class="story">
       <div class="pixel-field" aria-hidden="true"><i style="--x:8%;--y:18%;--c:#16c76a;--d:.2s"></i><i style="--x:85%;--y:32%;--c:#a837f2;--d:1.4s"></i><i style="--x:68%;--y:73%;--c:#ffc94b;--d:2.3s"></i><i style="--x:24%;--y:80%;--c:#baffb7;--d:3.7s"></i><i style="--x:76%;--y:12%;--c:#ef9cff;--d:4.1s"></i><i style="--x:48%;--y:46%;--c:#16c76a;--d:2.8s"></i></div>
       <div class="brand"><img class="brand-logo" src="uaulingo-logo.png" alt="Uau Língo"></div>
-      <div class="story-main"><h1>Aprenda.<br><span>Conquiste.</span><br>Evolua.</h1><img class="hero-art" src="excelo-gptina-acesso.png" alt="Excelo e GPTina, os personagens pixel art do Uau Língo"></div>
+      <div class="story-main"><h1>Aprenda.<br><span class="line-green">Conquiste.</span><br>Evolua.<br><span class="line-purple">UAU</span></h1><img class="hero-art" src="excelo-gptina-acesso.png" alt="Excelo e GPTina, os personagens pixel art do Uau Língo"></div>
     </aside>
     <main class="main"><div class="pixel-field" aria-hidden="true"><i style="--x:8%;--y:14%;--c:#a837f2;--d:.8s"></i><i style="--x:91%;--y:23%;--c:#16c76a;--d:2s"></i><i style="--x:80%;--y:78%;--c:#a837f2;--d:3s"></i><i style="--x:11%;--y:82%;--c:#16c76a;--d:4.2s"></i><i style="--x:63%;--y:7%;--c:#ffc94b;--d:1.9s"></i><i style="--x:34%;--y:92%;--c:#e29bff;--d:3.5s"></i></div><div class="access">
       <section class="card" id="card" aria-live="polite"></section>
@@ -42,34 +42,38 @@
   <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite" hidden><div class="loading-box"><p id="loadingLabel">CARREGANDO SUA JORNADA</p><div class="loading-track" id="loadingTrack" aria-hidden="true"></div><span class="loading-percent" id="loadingPercent">0%</span></div></div>
   <script>
     (()=>{
+      if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && new URLSearchParams(location.search).get('teste-real') === '1') {
+        sessionStorage.setItem('uaulingo-real-test', '1');
+      }
       const card=document.getElementById('card');
       const api=window.UauSupabase;
+      if(new URLSearchParams(location.search).get('teste-real')==='1')sessionStorage.setItem('uaulingo-real-test','1');
       let view='login',pendingEmail='',linkPurpose='first';
       const loadingScreen=document.getElementById('loadingScreen'),loadingTrack=document.getElementById('loadingTrack'),loadingLabel=document.getElementById('loadingLabel'),loadingPercent=document.getElementById('loadingPercent');
       loadingTrack.innerHTML=Array.from({length:12},(_,i)=>'<span style="--fill:'+(i<7?'#16c76a':'#a837f2')+'"></span>').join('');
       const loadingCells=Array.from(loadingTrack.children);
-      function showLoading(label,done,duration=760){
+      function showLoading(label,done,duration=760,persistent=false){
         loadingLabel.textContent=label;loadingScreen.hidden=false;loadingCells.forEach(cell=>cell.classList.remove('filled'));loadingPercent.textContent='0%';
         const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-        function frame(now){const progress=Math.min(1,(now-start)/(reduced?150:duration));const filled=Math.floor(progress*12);loadingCells.forEach((cell,i)=>cell.classList.toggle('filled',i<filled));loadingPercent.textContent=Math.round(progress*100)+'%';if(progress<1)requestAnimationFrame(frame);else setTimeout(()=>{loadingScreen.hidden=true;if(done)done()},reduced?0:150)}
+        function frame(now){const progress=Math.min(1,(now-start)/(reduced?150:duration));const filled=Math.floor(progress*12);loadingCells.forEach((cell,i)=>cell.classList.toggle('filled',i<filled));loadingPercent.textContent=Math.round(progress*100)+'%';if(progress<1)requestAnimationFrame(frame);else setTimeout(()=>{if(!persistent)loadingScreen.hidden=true;if(done)done()},reduced?0:150)}
         requestAnimationFrame(frame);
       }
       const safe=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
       const field=(id,label,type='text',placeholder='')=>`<label class="field"><span>${label}</span><input id="${id}" type="${type}" placeholder="${placeholder}" ${type==='email'?'autocomplete="email"':'autocomplete="current-password"'} required></label>`;
+      const passwordField=(id,label,placeholder)=>`<label class="field"><span>${label}</span><span class="input-wrap"><input id="${id}" type="password" placeholder="${placeholder}" autocomplete="new-password" required><button type="button" class="reveal" data-reveal="${id}" aria-label="Mostrar ${label.toLowerCase()}" aria-pressed="false">Mostrar</button></span></label>`;
       const notice='<div class="note"><span>🔒</span><span><strong>Acesso protegido:</strong> as instruções são enviadas somente ao e-mail de compra cadastrado.</span></div>';
       function render(next){view=next;let html='';
         if(view==='login')html=`<div class="pixel-icon">▦</div><h2>ENTRAR</h2><form id="loginForm">${field('email','Seu e-mail','email','voce@exemplo.com')}<label class="field"><span>Senha</span><span class="input-wrap"><input id="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required><button type="button" class="reveal" data-reveal="password">Mostrar</button></span></label><button class="primary">Entrar na jornada →</button><p class="message" id="msg"></p></form><div class="links"><button class="secondary" data-go="first">Meu primeiro acesso</button><button class="secondary" data-go="recover">Esqueci minha senha</button></div>`;
-        if(view==='first')html=`<div class="pixel-icon purple">✦</div><h2>Seu primeiro acesso</h2><p class="sub">Informe o e-mail de compra da Hotmart e crie sua senha. Enviaremos um link para confirmar o endereço.</p><form id="emailForm" data-purpose="first">${field('email','E-mail de compra','email','voce@exemplo.com')}${field('newPassword','Crie sua senha','password','Mínimo de 8 caracteres')}${field('confirmPassword','Confirme sua senha','password','Repita a senha')}<button class="primary">Confirmar meu e-mail →</button><p class="message" id="msg"></p></form>${notice}<div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
+        if(view==='first')html=`<div class="pixel-icon purple">✦</div><h2>Seu primeiro acesso</h2><p class="sub">Informe o e-mail de compra da Hotmart e crie sua senha. Enviaremos um link para confirmar o endereço.</p><form id="emailForm" data-purpose="first">${field('email','E-mail de compra','email','voce@exemplo.com')}${passwordField('newPassword','Crie sua senha','Mínimo de 8 caracteres')}${passwordField('confirmPassword','Confirme sua senha','Repita a senha')}<button class="primary">Confirmar meu e-mail →</button><p class="message" id="msg"></p></form>${notice}<div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
         if(view==='recover')html=`<div class="pixel-icon purple">↗</div><h2>Recuperar senha</h2><p class="sub">Enviaremos um link para você definir uma nova senha sem depender da equipe.</p><form id="emailForm" data-purpose="recover">${field('email','E-mail cadastrado','email','voce@exemplo.com')}<button class="primary">Enviar link de recuperação →</button><p class="message" id="msg"></p></form>${notice}<div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
         if(view==='sent')html=`<div class="pixel-icon purple">✓</div><h2>Confira seu e-mail</h2><p class="sub">Enviamos instruções ${linkPurpose==='first'?'para confirmar o primeiro acesso':'para recuperar a senha'} para <strong>${safe(pendingEmail)}</strong>. Abra o link recebido antes de continuar.</p><div class="links"><button class="secondary" data-go="login">Voltar para entrar</button></div>`;
-        if(view==='set')html=`<div class="pixel-icon purple">✦</div><h2>${linkPurpose==='first'?'Crie sua senha':'Defina uma nova senha'}</h2><p class="sub">Seu acesso está vinculado a <strong>${safe(pendingEmail)}</strong>.</p><form id="setForm">${field('newPassword','Nova senha','password','Mínimo de 8 caracteres')}${field('confirmPassword','Confirmar senha','password','Repita a senha')}<button class="primary">Salvar senha e continuar →</button><p class="message" id="msg"></p></form><div class="note"><span>▣</span><span>Sua senha é pessoal e não deve ser compartilhada com a equipe.</span></div>`;
+        if(view==='set')html=`<div class="pixel-icon purple">✦</div><h2>${linkPurpose==='first'?'Crie sua senha':'Defina uma nova senha'}</h2><p class="sub">Seu acesso está vinculado a <strong>${safe(pendingEmail)}</strong>.</p><form id="setForm">${passwordField('newPassword','Nova senha','Mínimo de 8 caracteres')}${passwordField('confirmPassword','Confirmar senha','Repita a senha')}<button class="primary">Salvar senha e continuar →</button><p class="message" id="msg"></p></form><div class="note"><span>▣</span><span>Sua senha é pessoal e não deve ser compartilhada com a equipe.</span></div>`;
         if(view==='ready')html=`<div class="pixel-icon">✓</div><h2>Senha definida!</h2><p class="sub">Você já pode entrar na sua jornada.</p><button class="primary" data-go="login">Ir para o login →</button>`;
         if(view==='blocked')html=`<div class="pixel-icon purple">⊘</div><h2>Acesso temporariamente indisponível</h2><p class="sub">Entre em contato com a equipe de suporte para podermos ajudar você.</p><a class="whatsapp" href="https://wa.me/5511958152954?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20meu%20acesso%20ao%20Uau%20L%C3%ADngo." target="_blank" rel="noopener noreferrer">Conversar com o suporte no WhatsApp ↗</a><div class="links"><button class="secondary" data-go="login">← Voltar para entrar</button></div>`;
-        if(view==='inside')html=`<div class="pixel-icon">★</div><h2>Você entrou!</h2><p class="sub">Sua jornada está pronta para continuar.</p><a class="primary map-link" href="uaulingo.html">Abrir mapa da jornada →</a><div class="links"><button class="secondary" data-go="login">Sair</button></div>`;
         card.innerHTML=html;
         const email=card.querySelector('#email');if(email&&pendingEmail)email.value=pendingEmail;
       }
-      document.addEventListener('click',e=>{const map=e.target.closest('.map-link');if(map){e.preventDefault();showLoading('ABRINDO O MAPA',()=>{window.location.href=map.href},850);return}const go=e.target.closest('[data-go]');if(go){render(go.dataset.go);return}const reveal=e.target.closest('[data-reveal]');if(reveal){const input=document.getElementById(reveal.dataset.reveal);input.type=input.type==='password'?'text':'password';reveal.textContent=input.type==='password'?'Mostrar':'Ocultar'}});
+      document.addEventListener('click',e=>{const go=e.target.closest('[data-go]');if(go){render(go.dataset.go);return}const reveal=e.target.closest('[data-reveal]');if(reveal){const input=document.getElementById(reveal.dataset.reveal);if(!input)return;input.type=input.type==='password'?'text':'password';const visible=input.type==='text';reveal.textContent=visible?'Ocultar':'Mostrar';reveal.setAttribute('aria-label',`${visible?'Ocultar':'Mostrar'} ${input.closest('.field').querySelector('span').textContent.toLowerCase()}`);reveal.setAttribute('aria-pressed',String(visible))}});
       document.addEventListener('submit',async e=>{
         e.preventDefault();const form=e.target,msg=document.getElementById('msg');if(!msg)return;
         const submit=form.querySelector('button[type="submit"],button.primary');if(submit)submit.disabled=true;
@@ -94,19 +98,20 @@
             pendingEmail=document.getElementById('email').value.trim().toLowerCase();
             await api.signIn(pendingEmail,document.getElementById('password').value);
             try{await api.rpc('uaulingo_claim_student')}catch(error){await api.signOut();render('blocked');return}
-            showLoading('ENTRANDO NA JORNADA',()=>render('inside'),850);
+            showLoading('ENTRANDO NA JORNADA',null,760,true);window.location.replace('uaulingo.html');
           }
         }catch(error){msg.textContent=error.message||'Não foi possível continuar. Tente novamente.';if(submit)submit.disabled=false}
       });
       (async()=>{
-        render('login');showLoading('CARREGANDO SUA JORNADA');
+        render('login');showLoading('CARREGANDO SUA JORNADA',null,760,true);let redirecting=false;
         try{
           const type=new URLSearchParams(location.hash.slice(1)).get('type');
           const accepted=await api.acceptPasswordLink();
           if(accepted&&type==='recovery'){pendingEmail=(await api.session())?.user?.email||'';render('set');return}
-          if(accepted){await api.rpc('uaulingo_claim_student');render('inside');return}
-          if(await api.session()){await api.rpc('uaulingo_claim_student');render('inside')}
+          if(accepted){await api.rpc('uaulingo_claim_student');redirecting=true;window.location.replace('uaulingo.html');return}
+          if(await api.session()){await api.rpc('uaulingo_claim_student');redirecting=true;window.location.replace('uaulingo.html')}
         }catch{await api.signOut().catch(()=>{});render('login')}
+        finally{if(!redirecting)loadingScreen.hidden=true}
       })();
     })();
   </script>
