@@ -42,6 +42,6 @@
     const staff=await api.table('uaulingo_staff',`?select=role&user_id=eq.${currentUser}`);
     if(!staff.length){location.replace('uaulingo-admin-alunos.html');return}
     if(staff[0].role!=='admin')$('#sendTab').hidden=true;
-    $('#page').hidden=false;await load();await window.UauLoading.complete();setInterval(()=>load().catch(error=>{$('#receivedStatus').textContent=error.message||'Não foi possível atualizar as notificações.'}),60000);
+    $('#page').hidden=false;await load();await window.UauLoading.complete();setInterval(()=>load().catch(error=>{$('#receivedStatus').textContent=error.message||'Não foi possível atualizar as notificações.'}),30000);
   })().catch(async error=>{$('#page').hidden=false;$('#receivedStatus').textContent=error.message||'Não foi possível carregar as notificações.';await window.UauLoading.complete()});
 })();

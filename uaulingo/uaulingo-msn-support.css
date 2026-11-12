@@ -28,9 +28,11 @@
 .msn-main{min-width:0;display:flex;flex-direction:column;background:#fff}
 #view-support .chat-head,#ticketDetail .chat-header{border-bottom:1px solid #aebbd1;background:linear-gradient(#faffff,#e9f0fc);padding:10px 13px;min-height:53px}
 #view-support .chat-timeline,#ticketDetail .chat-body{flex:1;min-height:280px;max-height:49vh;overflow:auto;margin:0;padding:15px;background:#fff;background-image:none;border-radius:0;border-bottom:2px solid #a8b8d7}
-#view-support .chat-bubble,#ticketDetail .bubble{width:fit-content;max-width:85%;box-shadow:none;border:0;border-bottom:1px dotted #b9c9d7;border-radius:0;background:transparent!important;padding:9px 4px;margin:0 0 4px;white-space:pre-wrap;overflow-wrap:anywhere}
-#view-support .chat-bubble.team,#ticketDetail .bubble.staff{align-self:flex-end;margin-left:auto;text-align:right;color:#6c218f;border-bottom-color:#a875ce}
-#view-support .chat-bubble.student,#ticketDetail .bubble.student{align-self:flex-start;margin-right:auto;text-align:left;color:#0a7650;border-bottom-color:#69b99b}
+#view-support .chat-bubble,#ticketDetail .bubble{width:fit-content;max-width:85%;box-shadow:none;border:0;border-radius:0;background:transparent!important;padding:9px 4px;margin:0 0 4px;white-space:pre-wrap;overflow-wrap:anywhere}
+#view-support .chat-bubble.student,#ticketDetail .bubble.staff{align-self:flex-end;margin-left:auto;margin-right:0;text-align:right}
+#view-support .chat-bubble.team,#ticketDetail .bubble.student{align-self:flex-start;margin-left:0;margin-right:auto;text-align:left}
+#view-support .chat-bubble.team,#ticketDetail .bubble.staff{color:#6c218f}
+#view-support .chat-bubble.student,#ticketDetail .bubble.student{color:#0a7650}
 #view-support .chat-bubble.team *,#ticketDetail .bubble.staff *{color:#6c218f}
 #view-support .chat-bubble.student *,#ticketDetail .bubble.student *{color:#0a7650}
 #view-support .chat-bubble.team .support-attachment,#ticketDetail .bubble.staff .attachment{background:#f2e6fb;border:1px solid #bd91db}

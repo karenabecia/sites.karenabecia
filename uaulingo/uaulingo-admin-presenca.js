@@ -83,7 +83,6 @@ $('#scheduleForm').addEventListener('submit',event=>{event.preventDefault();save
 $('#openNow').addEventListener('click',()=>{$('#opensAt').value=toInput(new Date(Date.now()-60000));$('#closesAt').value=toInput(new Date(Date.now()+90*60000));save()});
 $('#lessonSelect').addEventListener('change',()=>{const [id,index]=$('#lessonSelect').value.split(':');const row=implementations.find(item=>item.id===id),at=row?.lessons?.[Number(index)]?.scheduled_at;if(at){$('#opensAt').value=toInput(at);$('#closesAt').value=toInput(new Date(new Date(at).getTime()+90*60000))}$('#xpReward').value=row?.implementation_number===1?'30':''});
 $('#attendanceList').addEventListener('click',actOnList);
-$('#linksToggle').addEventListener('click',()=>{$('#importantLinks').hidden=!$('#importantLinks').hidden});
 $('#logoutButton').addEventListener('click',async()=>{await api.signOut();location.replace('uaulingo-admin-alunos.html')});
 (async()=>{try{const session=await api.session();if(!session?.user){location.replace('uaulingo-admin-alunos.html');return}user=session.user;const staff=await api.table('uaulingo_staff',`?select=user_id&user_id=eq.${user.id}&limit=1`);if(!staff?.length){location.replace('uaulingo-admin-alunos.html');return}$('#page').hidden=false;await load()}catch(error){$('#page').hidden=false;$('#formStatus').textContent=error.message||'Não foi possível carregar a lista de presença.'}})();
 })();

@@ -7,6 +7,13 @@
     const link=document.createElement('a');link.className='nav-item';link.href='uaulingo-admin-presenca.html';link.innerHTML='<span class="glyph">✓</span>Lista de presença';
     if(contentLink)contentLink.after(link);else sidebar.querySelector('.nav-label')?.after(link);
   }
+  function addRankingLink(){
+    const sidebar=document.querySelector('.sidebar');
+    if(!sidebar||sidebar.querySelector('a[href="uaulingo-admin-ranking.html"],.nav-item[data-admin-ranking]'))return;
+    const after=[...sidebar.querySelectorAll('.nav-item')].find(item=>item.textContent?.includes('Lista de presença'));
+    const link=document.createElement('a');link.className='nav-item';link.href='uaulingo-admin-ranking.html';link.innerHTML='<span class="glyph">▥</span>Ranking';
+    if(after)after.after(link);else sidebar.querySelector('.nav-label')?.after(link);
+  }
   async function showName(){
     try{
       const session=await window.UauSupabase?.session();if(!session?.user)return;
@@ -20,6 +27,6 @@
       window.dispatchEvent(new CustomEvent('UauAdminProfileReady',{detail:{name}}));
     }catch{}
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{addAttendanceLink();showName()});else{addAttendanceLink();showName()}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{addAttendanceLink();addRankingLink();showName()});else{addAttendanceLink();addRankingLink();showName()}
   window.addEventListener('UauAdminAuthenticated',showName);
 })();

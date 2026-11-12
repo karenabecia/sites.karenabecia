@@ -18,6 +18,6 @@
   }
   document.addEventListener('DOMContentLoaded',()=>{
     const style=document.createElement('style');style.textContent='.student-notice-preview{display:flex;gap:9px;color:#253d30;text-decoration:none;border-bottom:1px solid #ece5f3;padding:10px 4px}.student-notice-preview.read{opacity:.65}.student-notice-preview b,.student-notice-preview small{display:block}.student-notice-preview small{font-size:.68rem;color:#718078}.student-notice-all{display:block;text-align:center;background:#efe4fb;color:#7432a0;text-decoration:none;border-radius:7px;padding:9px;font-weight:900;margin-top:8px}';document.head.appendChild(style);
-    window.addEventListener('UauStudentNoticesChanged',refresh);refresh();setInterval(refresh,60000);
+    window.addEventListener('UauStudentNoticesChanged',refresh);refresh();setInterval(refresh,30000);
   });
 })();

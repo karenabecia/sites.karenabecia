@@ -89,6 +89,27 @@
 .rank-row .flag.down{color:#8d4e29;background:#fff0df}
 .rank-row .flag.winner{color:#805719;background:#fff3c4}
 .rank-row .flag.hold{color:#62736a;background:#eff3ee}
+#lastMovement .league-rule-list{margin:13px 0 0;padding-left:19px;display:grid;gap:10px;color:#315846;font-size:.9rem;line-height:1.45}
+#lastMovement .league-rule-list li::marker{color:#8b32d9}
+.ranking-prizes{margin-top:24px;background:linear-gradient(135deg,#fff 55%,#f8efff);border:2px solid #d6b9ee}
+.ranking-close-card{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 18px;padding:18px 22px;border:2px solid #a7d9a7;border-radius:15px;background:linear-gradient(110deg,#e5f8e8,#fff8df);box-shadow:0 5px 0 #d8ead7}
+.ranking-close-card small{display:block;color:#0b7851;font:900 .7rem monospace;letter-spacing:.1em}
+.ranking-close-card strong{display:block;margin:5px 0;color:#063d2e;font:800 clamp(1.25rem,2.4vw,1.85rem) 'Space Grotesk',Arial,sans-serif}
+.ranking-close-card span{color:#587a67;font-size:.8rem;font-weight:800}
+.ranking-close-card .close-pixel{flex:none;display:grid;place-items:center;width:54px;height:54px;border:3px solid #8752b9;background:#e8d0ff;box-shadow:5px 5px 0 #cbb0e6;color:#542088;font:900 1.65rem monospace}
+.ranking-prizes h2{margin:5px 0 18px;font-size:clamp(1.5rem,2.7vw,2.2rem)}
+.league-prize-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.league-prize-card{position:relative;min-height:196px;display:flex;flex-direction:column;padding:20px;border:2px solid #e1c1f7;border-radius:16px;background:#f7edff;box-shadow:0 6px 0 #e4d0f2;overflow:hidden}
+.league-prize-card:before{content:'✦';position:absolute;right:15px;top:9px;font-size:2.5rem;color:#b48cdc;opacity:.45}
+.league-prize-card.group{background:#ecfaed;border-color:#99d7a2;box-shadow:0 6px 0 #d2ead4}
+.league-prize-card.group:before{color:#5fbf70}
+.league-prize-card.top3{background:#f1e6ff;border-color:#ae78e4;box-shadow:0 6px 0 #dec7f2}
+.league-prize-card .prize-icon{font-size:2rem;line-height:1;margin-bottom:12px}
+.league-prize-card small{color:#7335a4;letter-spacing:.09em;font-size:.68rem;font-weight:900;text-transform:uppercase}
+.league-prize-card.group small{color:#167344}
+.league-prize-card strong{display:block;margin:8px 0 0;color:#1d0a3b;font:700 clamp(1.08rem,1.7vw,1.4rem)/1.25 'Space Grotesk',Arial,sans-serif}
+.league-prize-card p{margin:auto 0 0;padding-top:13px;color:#5e6870;font-size:.78rem;font-weight:800}
+@media(max-width:950px){.league-prize-grid{grid-template-columns:1fr}.league-prize-card{min-height:150px}}
 @media(max-width:850px){.mobile-nav{overflow-x:visible;gap:0}.mobile-nav button{min-width:0;flex:1;padding:5px 1px;font-size:.55rem}.mobile-nav button span{font-size:1.05rem}}
 @media(max-width:850px){.journey-map{padding:0 8px}.chapter-head{gap:12px;padding:17px}.chapter-head h3{font-size:1.17rem}.map-stop:nth-child(1){left:32%}.map-stop:nth-child(2){left:68%}.map-stop:nth-child(3){left:39%}.map-chapter.reverse .map-stop:nth-child(1){left:68%}.map-chapter.reverse .map-stop:nth-child(2){left:32%}}
 @media(max-width:650px){.journey-map{padding:0;background:none}.chapter-head{min-height:0;flex-wrap:wrap;border-radius:14px;padding:14px;gap:9px}.chapter-number{padding:6px 8px;font-size:.64rem}.chapter-head h3{font-size:1rem}.chapter-head p{font-size:.69rem}.chapter-date{margin-left:0;padding:6px 8px}.chapter-date small{font-size:.5rem}.chapter-date strong{font-size:.86rem}.map-stage{height:510px}.map-route path{stroke-width:8;stroke-dasharray:12 11}.map-stop,.map-stop:nth-child(2),.map-stop:nth-child(3){width:132px}.map-stop:nth-child(1){left:31%;top:135px}.map-stop:nth-child(2){left:69%;top:275px}.map-stop:nth-child(3){left:39%;top:412px}.map-chapter.reverse .map-stop:nth-child(1){left:69%}.map-chapter.reverse .map-stop:nth-child(2){left:31%}.map-chapter.reverse .map-stop:nth-child(3){left:61%}.route-coin{width:82px;height:82px;border-width:5px;box-shadow:0 6px 0 #145a45,inset 0 -6px 0 #71c56b,0 0 0 4px #f2fae9}.route-coin svg{width:46px;height:46px}.map-stop .stop-copy{min-width:0;width:132px;max-width:132px;padding:6px 5px;margin-top:12px}.map-stop .stop-copy small{font-size:.47rem}.map-stop .stop-copy strong{font-size:.7rem}.map-stop .stop-copy span{font-size:.57rem}.stop-state{right:20px}.my-league{padding:12px;gap:9px}.my-league strong{font-size:1.05rem}.my-league span:last-child{font-size:.65rem}.league-rules{grid-template-columns:repeat(3,1fr);gap:6px}.league-rules .league-card{padding:9px 7px;min-width:0}.league-rules .league-card strong{font-size:.83rem}.league-rules .league-card small{font-size:.59rem;line-height:1.2}.league-card .league-symbol{font-size:1.2rem}.league-card .league-mine{font-size:.5rem}.rank-row{grid-template-columns:25px minmax(0,1fr) 51px minmax(78px,105px);gap:3px;padding:7px 3px;font-size:.68rem}.rank-row .flag{font-size:.52rem;padding:4px 3px}.rank-row .score{font-size:.61rem}}
@@ -209,7 +230,7 @@
     const entries=Array.from({length:modules.length},(_,index)=>levelLocked(index)?[]:(modules[index].lessons||[]).map(lesson=>lessonDate(lesson)?{index,date:lessonDate(lesson),hasTime:!!lesson.scheduled_at}:null).filter(Boolean)).flat().sort((a,b)=>a.date-b.date);
     return entries.find(item=>item.date.getTime()>=now-3600000)||entries.at(-1);
   }
-  function activeMapLevel() { return nextClass()?.index??0; }
+  function activeMapLevel() { for(let index=1;index<Math.min(5,modules.length);index++)if(levelComplete(index-1)&&!levelLocked(index)&&!levelComplete(index))return index;return nextClass()?.index??0; }
   const stepNames={lesson:'aula',quiz:'exercício',challenge:'desafio',terms:'termo vitalício'};
   function stepComplete(index,kind){return kind==='terms'?!!(studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAccepted):kind==='lesson'?state.lessons.includes(index):kind==='quiz'?state.quizzes.includes(index):state.challenges.includes(index);}
   function activityAvailable(index,kind){if(levelLocked(index))return false;const mod=moduleFor(index),classAt=lessonDate(mod.lessons?.[0]);if(!classAt)return false;const configured=mod[kind==='quiz'?'exercise':'challenge']?.opens_at;const configuredAt=configured?new Date(configured):classAt;return Date.now()>=Math.max(classAt.getTime(),configuredAt.getTime())}
@@ -252,17 +273,18 @@
       {from:'student',text:'Funcionou! Pedi também para listar as fórmulas usadas, e consegui validar os desvios na planilha.',date:'Exemplo · ontem, 17:02'}
     ]}
   ]; }
-  const defaults = () => ({xp:0,lessons:[],quizzes:[],quizCredited:{},challenges:[],threads:sampleSupportThreads(),players:seedPlayers(),round:1,lastMovement:null,encounterWins:0});
+  const defaults = () => ({xp:0,lessons:[],quizzes:[],quizCredited:{},challenges:[],threads:sampleSupportThreads(),players:seedPlayers()});
   let state;
   try { state = Object.assign(defaults(), JSON.parse(localStorage.getItem(STORE) || '{}')); } catch { state = defaults(); }
   if(!studentContext.preview)state=defaults();
   if (!Array.isArray(state.players) || !state.players.some(p => p.id === 'you')) state.players = seedPlayers();
-  if(!studentContext.preview){state.xp=studentContext.xp;state.players=(studentContext.ranking||[]).map((row,i)=>({id:row.student_id===studentContext.studentId?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,seed:i}));if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:studentContext.xp,seed:0});if(studentContext.ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0);if(studentContext.ledger.some(item=>item.reason==='Entrada no grupo de WhatsApp'))state.quizzes.push(0);if(studentContext.ledger.some(item=>String(item.reason||'').startsWith('Presença na aula [')&&String(item.reason).includes('onboarding')))state.challenges.push(0)}
+  if(!studentContext.preview){state.xp=studentContext.xp;state.players=(studentContext.ranking||[]).map((row,i)=>({id:row.student_id===studentContext.studentId?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,position:Number(row.position)||i+1,seed:i}));if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:studentContext.xp,position:0,internalTest:!!studentContext.student.is_test,seed:0});if(studentContext.ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0);if(studentContext.ledger.some(item=>item.reason==='Entrada no grupo de WhatsApp'))state.quizzes.push(0);if(studentContext.ledger.some(item=>String(item.reason||'').startsWith('Presença na aula [')&&String(item.reason).includes('onboarding')))state.challenges.push(0)}
   if (!Array.isArray(state.threads)) state.threads = [];
   if(studentContext.preview)sampleSupportThreads().forEach(example => { if (!state.threads.some(t => t.id === example.id)) state.threads.unshift(example); });
   const save = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch { showToast('O navegador ficou sem espaço para salvar esta demonstração.'); } };
   const user = () => state.players.find(p => p.id === 'you');
-  let currentView = 'map', currentModule = 0, mapLoaded = 0, openSchedule = new Set([0]), quiz = null, activeTicket = null, rankFilter = null, toastTimer, mapObserver;
+  if(studentContext.preview)state.players.forEach(player=>{player.division='Nebula'});
+  let currentView = 'map', currentModule = 0, mapLoaded = 0, renderedLevelCompletion = [], openSchedule = new Set([0]), quiz = null, activeTicket = null, rankFilter = null, toastTimer, mapObserver, pendingUnlockedLevel = null;
   const achievements = [
     {id:'first-lesson',icon:'video',title:'Primeira implementação',desc:'Assista à sua primeira implementação.',test:()=>state.lessons.some(index=>index>0)},
     {id:'formula',icon:'sheet',title:'Mestre das fórmulas',desc:'Conclua o exercício de fórmulas.',test:()=>state.quizzes.includes(1)},
@@ -270,8 +292,7 @@
     {id:'challenge',icon:'challenge',title:'Desafio entregue',desc:'Envie a resposta de um desafio para validação.',test:()=>state.challenges.length>=1},
     {id:'analyst',icon:'chart',title:'Analista em ascensão',desc:'Conquiste 200 XP.',test:()=>state.xp>=200},
     {id:'pulsar',icon:'star',title:'Rumo à Pulsar',desc:'Suba para a divisão Pulsar.',test:()=>['Pulsar','Quasar'].includes(user().division)},
-    {id:'quasar',icon:'trophy',title:'Estrela Quasar',desc:'Entre nas 20 vagas da Quasar.',test:()=>user().division==='Quasar'},
-    {id:'champion',icon:'trophy',title:'Encontro individual',desc:'Vença uma rodada na Quasar.',test:()=>state.encounterWins>0}
+    {id:'quasar',icon:'trophy',title:'Estrela Ouro',desc:'Chegue à divisão Ouro.',test:()=>user().division==='Quasar'}
   ];
   function showToast(message) { const el=$('#toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),3800); }
   function award(points) { state.xp += points; user().points += points; save(); renderHeader(); renderMapSummary(); renderAchievements(); renderRanking(); }
@@ -280,7 +301,7 @@
     currentView=name;
     $$('.view').forEach(el => el.classList.toggle('active', el.id==='view-'+name));
     $$('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view===name));
-    const labels={map:'Mapa da jornada',schedule:'Cronograma',lesson:'Implementação',quiz:'Exercício',challenge:'Próximo desafio',achievements:'Conquistas',support:'Suporte VIP',ranking:'Ranking'};
+    const labels={map:'Mapa da jornada',schedule:'Cronograma',study:'Trilha de estudos',lesson:'Implementação',quiz:'Exercício',challenge:'Próximo desafio',achievements:'Conquistas',support:'Suporte VIP',ranking:'Ranking'};
     $('#breadcrumb').textContent=name==='map'?'':labels[name] || 'Uaulingo';
     $('#breadcrumb').hidden=name==='map';$('#mapTopLevel').hidden=true;
     if(name!=='map'){$('.topbar').classList.remove('chapter-absorbed');$('.topbar').style.removeProperty('--absorbed-header')}
@@ -292,9 +313,10 @@
     if (name==='challenge') renderChallenge(currentModule);
     if(name==='map')requestAnimationFrame(updateTopMapLevel);
     window.scrollTo({top:0,behavior:'smooth'});
+    if(name==='map'&&pendingUnlockedLevel!==null){const index=pendingUnlockedLevel;pendingUnlockedLevel=null;setTimeout(()=>$('#chapter-'+index)?.scrollIntoView({behavior:'smooth',block:'start'}),180)}
   }
-  function divisionName(value){return {Quasar:'Ouro',Pulsar:'Prata',Nebula:'Bronze'}[value]||value}
-  function renderHeader() { $('#topDivision').textContent=divisionName(user().division); $('#topXP').textContent=state.xp;$('#topXP').closest('.top-chip').dataset.tooltip='XP das etapas: 100% até o próximo nível, 50% nos 30 dias seguintes e 30% depois. No último nível: 50% após 30 dias e 30% após 60. Pontos recebidos não diminuem.';renderStudentNotices(); }
+  function divisionName(value){return {Quasar:'Ouro',Pulsar:'Prata',Nebula:'Bronze'}[value]||'A definir'}
+  function renderHeader() { $('#topDivision').textContent=divisionName(user().division); $('#topXP').textContent=state.xp;renderStudentNotices(); }
   function updateTopMapLevel(){
     if(currentView!=='map')return;
     const chapters=Array.from(document.querySelectorAll('#journeyMap .map-chapter'));
@@ -326,8 +348,8 @@
     for(const row of submissions())if(row.status==='approved'&&!state.challenges.includes(row.module)){state.challenges.push(row.module);const xp=Number(row.xp_reward)||0;state.xp+=xp;user().points+=xp;}
     save();
   }
-  function rankingPosition() { const group=state.players.filter(p=>p.division===user().division).sort((a,b)=>b.points-a.points); return group.findIndex(p=>p.id==='you')+1; }
-  function renderMapSummary() { const next=activeMapLevel(); $('#mapDivision').textContent=divisionName(user().division); $('#mapCompleted').textContent=state.lessons.length+' concluída'+(state.lessons.length===1?'':'s'); $('#mapNextDate').textContent=dateShort(nextClass()?.date||implementationDate(next)); $('#mapPosition').textContent=rankingPosition()+'º em '+divisionName(user().division); updateMapHud(); }
+  function rankingPosition() { if(user().internalTest)return 0;const group=state.players.filter(p=>p.division===user().division&&p.points>0&&!p.internalTest).sort((a,b)=>(a.position||9999)-(b.position||9999)||b.points-a.points); return group.findIndex(p=>p.id==='you')+1; }
+  function renderMapSummary() { const next=activeMapLevel(); $('#mapDivision').textContent=divisionName(user().division); $('#mapCompleted').textContent=state.lessons.length+' concluída'+(state.lessons.length===1?'':'s'); $('#mapNextDate').textContent=dateShort(nextClass()?.date||implementationDate(next)); $('#mapPosition').textContent=user().internalTest?'Conta de teste':user().points>0&&rankingPosition()>0?rankingPosition()+'º em '+divisionName(user().division):'Aguardando seus pontos'; updateMapHud(); }
   function stopMarkup(mod, kind) {
     const types={lesson:{short:'Aula',label:'01 · ASSISTIR A IMPLEMENTAÇÃO',title:'Assistir à implementação'},quiz:{short:'Exercício',label:'02 · EXERCÍCIO DA AULA',title:'Exercício de múltipla escolha'},challenge:{short:'Desafio',label:'03 · DESAFIO DA AULA',title:'Desafio para avaliação'}};
     if(mod.index===0)Object.assign(types,{lesson:{short:'Tutorial',label:'01 · COMO JOGAR',title:'Concluir o tutorial · ganhe XP'},quiz:{short:'Grupo',label:'02 · COMUNIDADE',title:'Entrar no grupo de WhatsApp'},challenge:{short:'Onboarding',label:'03 · ENCONTRO AO VIVO',title:'Participar do onboarding'}});
@@ -371,7 +393,7 @@
       ${index===0?`<button class="map-companion gptina map-welcome-guide" type="button" aria-label="Ouvir a GPTina: como funciona o Uau Língo" aria-describedby="welcome-gptina-tip" style="--pose-x:0%;--pose-y:0%"><span class="companion-dots" aria-hidden="true"><i></i><i></i><i></i></span></button><aside class="world-brief welcome-brief" id="welcome-gptina-tip" role="tooltip"><small>✦ GPTINA FALA</small><strong>Bem-vinda ao Uau Língo!</strong><p>É aqui no Uau Língo que você vai receber todas as informações sobre seus estudos, materiais e datas. Você também pode ganhar prêmios!</p></aside>`:''}
       <div class="map-stops">${stopMarkup(mod,'lesson')}${stopMarkup(mod,'quiz')}${stopMarkup(mod,'challenge')}${index===0?termsStopMarkup():''}</div></div></section>`;
   }
-  function appendMap(count) { const end=Math.min(5,modules.length,mapLoaded+count);for(let i=mapLoaded;i<end;i++) $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));mapLoaded=end;updateTopMapLevel();updateContinueArrow(); }
+  function appendMap(count) { const end=Math.min(5,modules.length,mapLoaded+count);for(let i=mapLoaded;i<end;i++){ $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));renderedLevelCompletion[i]=levelComplete(i) }mapLoaded=end;updateTopMapLevel();updateContinueArrow(); }
   function setupMap() { $('#introIllustration').innerHTML=pixel('sheet',270)+pixel('bot',100); appendMap(5); updateMapHud(); setTimeout(()=>{if(currentView==='map'){$('#chapter-'+Math.min(4,activeMapLevel()))?.scrollIntoView({block:'start'});updateTopMapLevel();showClassDayPopup()}},140); }
   function showClassDayPopup() {
     const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -382,9 +404,15 @@
     const noticeKey=`uaulingo-class-notice-${today}-${next.index}`;
     if(localStorage.getItem(noticeKey))return;
     localStorage.setItem(noticeKey,'1');
-    openModal('Hoje tem aula!','<p>A próxima aula da implementação <strong>'+esc(moduleFor(next.index).title)+'</strong> acontece hoje, '+dateFull(next.date)+(next.hasTime?' às '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):'')+'.</p><button class="btn btn-primary" data-action="lesson" data-module="'+next.index+'">Ver implementação →</button>');
+    openModal('Hoje tem aula!','<p>A próxima aula da implementação <strong>'+esc(moduleFor(next.index).title)+'</strong> acontece hoje, '+dateFull(next.date)+(next.hasTime?' às '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):'')+'.</p><button class="btn btn-primary" data-class-lesson="'+next.index+'">Ver implementação →</button>');
   }
-  function refreshMap() { $('#journeyMap').innerHTML=''; mapLoaded=0; appendMap(5); updateMapHud(); }
+  function refreshMap() {
+    const newlyCompleted=renderedLevelCompletion.findIndex((done,index)=>!done&&levelComplete(index)&&index<4&&!levelLocked(index+1));
+    const newlyUnlocked=Array.from($('#journeyMap').querySelectorAll('.map-chapter.locked')).map(chapter=>Number(chapter.id.replace('chapter-',''))).find(index=>index<5&&!levelLocked(index));
+    $('#journeyMap').innerHTML='';mapLoaded=0;appendMap(5);updateMapHud();renderMapSummary();
+    const nextLevel=newlyCompleted>=0?newlyCompleted+1:newlyUnlocked;
+    if(nextLevel!==undefined){pendingUnlockedLevel=nextLevel;if(currentView==='map'){const index=pendingUnlockedLevel;pendingUnlockedLevel=null;setTimeout(()=>$('#chapter-'+index)?.scrollIntoView({behavior:'smooth',block:'start'}),150)}}
+  }
   function openIntroStep(kind){
     if(kind==='terms'){const done=stepComplete(0,'terms');const acceptedAt=termAcceptanceDate();const acceptanceMessage=`✓ Seu aceite já foi registrado${acceptedAt?' em '+acceptedAt:''}.`;openModal('Termo vitalício',`<div class="terms-document"><iframe id="termsReader" title="Termos de Uso de 10/11/2026" src="uaulingo-termo-vitalicio-2026-11-10.html"></iframe></div><div class="terms-actions">${done?`<strong class="terms-done">${acceptanceMessage}</strong>`:'<label class="terms-consent"><input type="checkbox" id="termsConfirm" disabled> Li e concordo com os Termos de acesso</label>'}<a class="btn btn-ghost" href="uaulingo-termo-vitalicio-2026-11-10.pdf" download>↓ Baixar termo em PDF</a>${done?'':'<button class="btn btn-primary" id="termsAccept" type="button" disabled>Registrar meu aceite</button>'}</div>`);$('#termsReader').addEventListener('load',()=>{const check=$('#termsConfirm');if(check)check.disabled=false},{once:true});return}
     if(kind==='lesson'){window.UauTour?.open();return}
@@ -548,29 +576,27 @@
     const t=state.threads.find(x=>x.id===activeTicket);if(!t)return;t.messages.push({from:'student',text:message||'Arquivo anexado',file,date:timeText(new Date())});t.status='Aberta';save();renderSupport();simulatedTeamReply(t.id);
   }
   function rankGroups() {
-    return ['Quasar','Pulsar','Nebula'].map(division=>({division,players:state.players.filter(p=>p.division===division).sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name))}));
+    return ['Quasar','Pulsar','Nebula'].map(division=>({division,size:studentContext.league?.division_sizes?.[division]||state.players.filter(p=>p.division===division&&!p.internalTest).length,players:state.players.filter(p=>p.division===division&&p.points>0&&!p.internalTest).sort((a,b)=>(a.position||9999)-(b.position||9999)||b.points-a.points||a.name.localeCompare(b.name))}));
   }
   function renderRanking() {
-    const groups=rankGroups(),mine=user();
-    if (!rankFilter) rankFilter=mine.division;
-    const myGroup=groups.find(g=>g.division===mine.division),myPosition=myGroup.players.findIndex(p=>p.id==='you')+1;
+    const groups=rankGroups(),mine=user(),assigned=true;
+    if(!rankFilter||rankFilter==='all')rankFilter=mine.division||'Nebula';
+    const myGroup=assigned?groups.find(g=>g.division===mine.division):null,myPosition=rankingPosition();
     $('#yourDivisionName').textContent=divisionName(mine.division);
-    $('#yourDivisionPosition').textContent=mine.points>0?myPosition+'º de '+myGroup.players.length+' · '+mine.points+' XP':'Aguardando seus primeiros pontos';
-    $('#rankingTitle').textContent=rankFilter==='all'?'Classificação geral':'Divisão '+divisionName(rankFilter);
-    $$('.league-card').forEach(card=>{const division=card.dataset.rankView;card.classList.toggle('selected',rankFilter===division);card.classList.toggle('mine',mine.division===division);card.querySelector('.league-mine').textContent=mine.division===division?'SUA DIVISÃO':'';card.setAttribute('aria-pressed',String(rankFilter===division));});
-    $('#rankingTable').innerHTML=mine.points>0?groups.filter(g=>rankFilter==='all'||g.division===rankFilter).map(group=>'<section class="rank-group '+group.division.toLowerCase()+'"><h3>'+divisionName(group.division)+' · '+group.players.length+' participantes</h3>'+group.players.map((p,i)=>'<div class="rank-row '+(p.id==='you'?'you':'')+'"><span class="pos">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(p.name)+(p.id==='you'?' · você':'')+'</span><span class="score">'+p.points+' XP</span><span class="flag">'+(p.id==='you'?'SUA POSIÇÃO':'')+'</span></div>').join('')+'</section>').join(''):'<div class="ranking-wait">Assim que você pontuar, verá sua classificação aqui.</div>';
-    $('#lastMovement').innerHTML='<div class="pixel-title">REGRAS DA LIGA</div><p>Em breve<span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></p>';
+    $('#yourDivisionPosition').textContent=mine.internalTest?'Conta de teste fora do ranking':mine.points>0&&myPosition>0?myPosition+'º '+(assigned?'de '+(myGroup?.size||1):'na classificação geral')+' · '+mine.points+' XP':'Assim que você pontuar, verá sua classificação';
+    $('#rankingTitle').textContent='Divisão '+divisionName(rankFilter);
+    const nextLevel=Number(studentContext.league?.next_number)||2,closeAt=studentContext.league?.next_eligible_at;
+    $('#rankingCloseLevel').textContent=nextLevel>11?'JORNADA CONCLUÍDA':'FECHAMENTO DO NÍVEL '+String(nextLevel).padStart(2,'0');
+    $('#rankingCloseDate').textContent=nextLevel>11?'Todos os níveis encerrados':closeAt?new Intl.DateTimeFormat('pt-BR',{dateStyle:'long',timeStyle:'short',timeZone:'America/Sao_Paulo'}).format(new Date(closeAt)):'Data a confirmar';
+    $('#rankingCloseHelp').textContent=nextLevel>11?'Confira sua posição final no Ouro, Prata ou Bronze.':'A equipe fechará a rodada após esta data.';
+    $$('.league-card').forEach(card=>{const division=card.dataset.rankView;card.disabled=!assigned;card.classList.toggle('selected',assigned&&rankFilter===division);card.classList.toggle('mine',assigned&&mine.division===division);card.querySelector('.league-mine').textContent=assigned&&mine.division===division?'SUA DIVISÃO':'';card.setAttribute('aria-pressed',String(assigned&&rankFilter===division));});
+    const flag=(division,position,size)=>{if(!studentContext.league?.first_closed){const third=Math.floor((studentContext.league?.active_total||size)/3);return position<=third?'PRÉVIA OURO':position<=2*third?'PRÉVIA PRATA':'PRÉVIA BRONZE'}if(division==='Quasar')return position<=3?'🏆 PRÊMIO':position>size-3?'↓ PRATA':'';if(division==='Pulsar')return position<=3?'↑ OURO':position>size-Math.min(3,Math.max(0,size-3))?'↓ BRONZE':'';return position<=3?'↑ PRATA':''};
+    if(!assigned){const players=state.players.filter(p=>p.points>0&&!p.internalTest).sort((a,b)=>(a.position||9999)-(b.position||9999)||b.points-a.points);$('#rankingTable').innerHTML=players.length?'<section class="rank-group"><h3>Classificação geral · '+players.length+' pontuaram</h3>'+players.map((p,i)=>'<div class="rank-row '+(p.id==='you'?'you':'')+'"><span class="pos">'+String(p.position||i+1).padStart(2,'0')+'</span><span>'+esc(p.name)+(p.id==='you'?' · você':'')+'</span><span class="score">'+p.points+' XP</span><span class="flag"></span></div>').join('')+'</section>':'<div class="ranking-wait">Assim que você pontuar, verá sua classificação aqui.</div>'}
+    else $('#rankingTable').innerHTML=groups.filter(g=>g.division===rankFilter).map(group=>'<section class="rank-group '+group.division.toLowerCase()+'"><h3>'+divisionName(group.division)+' · '+group.size+' pessoas nesta divisão</h3>'+(group.players.length?group.players.map((p,i)=>'<div class="rank-row '+(p.id==='you'?'you':'')+'"><span class="pos">'+String(p.position||i+1).padStart(2,'0')+'</span><span>'+esc(p.name)+(p.id==='you'?' · você':'')+'</span><span class="score">'+p.points+' XP</span><span class="flag">'+flag(group.division,p.position||i+1,group.size)+'</span></div>').join(''):'<div class="ranking-wait">Esta divisão será preenchida no primeiro fechamento da jornada.</div>')+'</section>').join('');
+    $('#lastMovement').innerHTML='<div class="pixel-title">REGRAS DA JORNADA</div><ul class="league-rule-list"><li>Todos os alunos que pontuaram são classificados para participar da jornada.</li><li>Em cada nível da jornada você pode subir de divisão ou ser rebaixado.</li><li>Nosso critério de desempate: quem fez mais rápido leva.</li><li>Todos os exercícios geram pontos e os desafios dão pontos extras.</li></ul>';
+    const rewards=studentContext.league?.rewards||[],next=studentContext.league?.next_number||2,roundRewards=rewards.filter(r=>r.implementation_number===next&&r.reward_key.startsWith('round_gold_')&&r.description),nextDescriptions=[...new Set(roundRewards.map(r=>r.description))],nextPrize=nextDescriptions.length?nextDescriptions.join(' · '):next===2?'Uma caneca exclusiva UauLingo.':'Prêmio a anunciar.',finalGold=rewards.find(r=>r.reward_key==='final_gold')?.description||'Duas sessões de mentoria em grupo para todos os alunos que terminarem na divisão Ouro.',finalTop3=rewards.find(r=>r.reward_key==='final_top3')?.description||'Um mês de mentoria completa no grupo DashEagles para os três primeiros da divisão Ouro.',finalFirst=rewards.find(r=>r.reward_key==='final_first')?.description;
+    $('#leaguePrizes').innerHTML='<div class="pixel-title">VEJA SEUS PRÊMIOS</div><h2>Sua jornada vale mais</h2><div class="league-prize-grid"><div class="league-prize-card next"><span class="prize-icon" aria-hidden="true">✦</span><small>PRÓXIMA RODADA</small><strong>'+esc(nextPrize)+'</strong><p>Para os 3 primeiros colocados da divisão Ouro.</p></div><div class="league-prize-card group"><span class="prize-icon" aria-hidden="true">✦</span><small>FINAL DA JORNADA · OURO</small><strong>'+esc(finalGold)+'</strong><p>Para todos que terminarem na divisão Ouro.</p></div><div class="league-prize-card top3"><span class="prize-icon" aria-hidden="true">✦</span><small>FINAL DA JORNADA · TOP 3</small><strong>'+esc(finalTop3)+'</strong><p>Para os 3 primeiros colocados do Ouro.</p></div>'+(finalFirst?'<div class="league-prize-card top3"><span class="prize-icon" aria-hidden="true">✦</span><small>PRIMEIRO LUGAR</small><strong>'+esc(finalFirst)+'</strong></div>':'')+'</div>';
     renderMapSummary();
-  }
-  function closeRound() {
-    const groups=rankGroups(),q=groups[0].players,p=groups[1].players,n=groups[2].players;
-    const upN=n.slice(0,3),upP=p.slice(0,3),downP=p.slice(-3),downQ=q.slice(-3),champion=q[0];
-    upN.forEach(x=>x.division='Pulsar');upP.forEach(x=>x.division='Quasar');downP.forEach(x=>x.division='Nebula');downQ.forEach(x=>x.division='Pulsar');
-    if(champion.id==='you')state.encounterWins++;
-    state.lastMovement=['🏆 '+champion.name+' venceu a Quasar e ganhou um encontro individual.','↑ Nebula → Pulsar: '+upN.map(x=>x.name).join(', '),'↑ Pulsar → Quasar: '+upP.map(x=>x.name).join(', '),'↓ Quasar → Pulsar: '+downQ.map(x=>x.name).join(', '),'↓ Pulsar → Nebula: '+downP.map(x=>x.name).join(', ')];
-    state.round++;
-    rankFilter=user().division;save();renderHeader();renderRanking();renderAchievements();showToast('Implementação encerrada: divisões atualizadas.');
-    openModal('Divisões atualizadas','<p>Os três melhores avançaram e os três últimos das divisões superiores foram rebaixados. A Quasar continua com 20 vagas.</p><p><strong>Você está na divisão '+esc(user().division)+'.</strong></p><p>Vencedor da rodada: <strong>'+esc(champion.name)+'</strong> · encontro individual liberado.</p><button class="btn btn-primary" id="modalOk">Ver ranking</button>');
   }
   function openModal(title,body) {const scrim=$('#modalScrim');if(scrim.parentElement!==document.body)document.body.appendChild(scrim);$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;scrim.classList.add('show');$('#closeModal').focus();}
   function closeModal() {$('#modalScrim').classList.remove('show');}
@@ -591,6 +617,7 @@
     const rank=target.closest('[data-rank-view]');if(rank){rankFilter=rank.dataset.rankView;renderRanking();return;}
     const bell=target.closest('#studentBell');if(bell){const panel=$('#studentNotices');panel.hidden=!panel.hidden;bell.setAttribute('aria-expanded',String(!panel.hidden));return;}
     const nav=target.closest('[data-view]');if(nav){if(nav.dataset.view==='challenge'&&!studentContext.preview){openIntroStep('challenge');return}if(nav.dataset.view==='challenge')currentModule=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>!state.challenges.includes(i))||0;view(nav.dataset.view);return;}
+    const classLesson=target.closest('[data-class-lesson]');if(classLesson){const i=Number(classLesson.dataset.classLesson);if(i===0)openIntroStep('challenge');else{closeModal();openLesson(i)}return;}
     const step=target.closest('[data-action]');if(step){const i=Number(step.dataset.module);if(step.closest('.map-chapter.locked'))return;if(i===0){openIntroStep(step.dataset.action);return}if(step.dataset.action==='lesson')openLesson(i);if(step.dataset.action==='quiz')openQuiz(i);if(step.dataset.action==='challenge')openChallenge(i);return;}
     const toggle=target.closest('[data-toggle-schedule]');if(toggle){const i=Number(toggle.dataset.toggleSchedule);openSchedule.has(i)?openSchedule.delete(i):openSchedule.add(i);renderSchedule();return;}
     const option=target.closest('[data-option]');if(option&&quiz&&!quiz.checked){quiz.selected=Number(option.dataset.option);$$('.quiz-option').forEach(x=>x.classList.toggle('selected',x===option));$('#quizNext').disabled=false;return;}
@@ -628,7 +655,6 @@
       confirmWhatsappGroup(event.target);
     }
     if(id==='newTicket'||id==='startTicket'){window.UauSupport?.newTicket();}
-    if(id==='closeRound')closeRound();
     if(id==='resetDemo')openModal('Reiniciar demonstração?','<p>Isso apaga o progresso e as dúvidas salvas neste navegador.</p><button class="btn btn-primary" id="confirmReset">Sim, reiniciar</button>');
     if(id==='confirmReset'){state=defaults();localStorage.removeItem(SUBMISSIONS_STORE);localStorage.removeItem('uaulingo-demo-terms-2026-11-10');activeTicket=null;rankFilter=null;save();renderHeader();renderMapSummary();refreshMap();renderAchievements();renderRanking();renderSupport();closeModal();view('map');showToast('Demonstração reiniciada.');}
     if(id==='modalOk')closeModal();
@@ -644,23 +670,26 @@
     liveSyncRunning=true;
     try{
       const api=window.UauSupabase,id=studentContext.studentId;
-      const [ledger,ranking,terms,implementations]=await Promise.all([
+      const [ledger,league,terms,implementations,students]=await Promise.all([
         api.table('uaulingo_xp_ledger',`?select=xp,reason&student_id=eq.${encodeURIComponent(id)}`),
-        api.rpc('uaulingo_ranking'),
+        api.rpc('uaulingo_league_board'),
         api.table('uaulingo_term_acceptances',`?select=accepted_at&student_id=eq.${encodeURIComponent(id)}&document_version=eq.2026-11-10&limit=1`),
-        api.table('uaulingo_implementations','?select=*&status=eq.published&order=implementation_number.asc')
+        api.table('uaulingo_implementations','?select=*&status=eq.published&order=implementation_number.asc'),
+        api.table('uaulingo_students',`?select=division,status&id=eq.${encodeURIComponent(id)}&limit=1`).catch(()=>[])
       ]);
       const previousXP=state.xp,nextXP=ledger.reduce((sum,row)=>sum+Number(row.xp||0),0);
-      const previousProgress=['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(','),previousModules=JSON.stringify(studentContext.implementations);
-      studentContext.ledger=ledger;studentContext.xp=nextXP;studentContext.ranking=ranking;studentContext.implementations=implementations;
+      const previousProgress=['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(','),previousModules=JSON.stringify(studentContext.implementations),previousLeague=JSON.stringify(studentContext.league);
+      studentContext.ledger=ledger;studentContext.xp=nextXP;studentContext.league=league;studentContext.ranking=league.rows||[];studentContext.implementations=implementations;
+      if(students[0]?.division)studentContext.student.division=students[0].division;
       studentContext.termAccepted=!!terms?.length;studentContext.termAcceptedAt=terms?.[0]?.accepted_at||null;
       state.xp=nextXP;
       state.lessons=state.lessons.filter(index=>index!==0);state.quizzes=state.quizzes.filter(index=>index!==0);state.challenges=state.challenges.filter(index=>index!==0);
       if(ledger.some(item=>item.reason==='Tutorial concluído'))state.lessons.push(0);
       if(ledger.some(item=>item.reason==='Entrada no grupo de WhatsApp'))state.quizzes.push(0);
       if(ledger.some(item=>String(item.reason||'').startsWith('Presença na aula [')&&String(item.reason).includes('onboarding')))state.challenges.push(0);
-      state.players=(ranking||[]).map((row,i)=>({id:row.student_id===id?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,seed:i}));
-      if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:nextXP,seed:0});
+      state.players=(league.rows||[]).map((row,i)=>({id:row.student_id===id?'you':row.student_id,name:row.full_name,division:row.division,points:Number(row.points)||0,position:Number(row.position)||0,seed:i}));
+      if(!state.players.some(row=>row.id==='you'))state.players.push({id:'you',name:studentContext.student.full_name,division:studentContext.student.division,points:nextXP,position:0,internalTest:!!studentContext.student.is_test,seed:0});
+      if(previousLeague!==JSON.stringify(league))rankFilter=null;
       if(previousModules!==JSON.stringify(implementations))for(const row of implementations){const index=Number(row.implementation_number)-1;if(index>0&&index<modules.length)Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url||modules[index].join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}
       renderHeader();renderMapSummary();renderRanking();
       if(previousProgress!==['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(',')||previousModules!==JSON.stringify(implementations)){refreshMap();if(currentView==='schedule')renderSchedule()}
@@ -669,11 +698,11 @@
     }catch(error){console.warn('Atualização automática indisponível:',error?.message||error)}
     finally{liveSyncRunning=false}
   }
-  if(!studentContext.preview){setInterval(syncStudentUpdates,60000);window.addEventListener('focus',syncStudentUpdates)}
+  if(!studentContext.preview){setInterval(syncStudentUpdates,30000);window.addEventListener('focus',syncStudentUpdates)}
   if(!studentContext.preview){$('.avatar').setAttribute('aria-label','Perfil de '+studentContext.student.full_name);$('.avatar').textContent=studentContext.student.full_name.trim().charAt(0).toUpperCase();$('#view-support .private-note').remove();$('#view-map .section-title p').textContent='Siga o caminho e acompanhe a liberação de cada implementação.';}
   if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(false);renderAchievements();renderRanking();window.UauMapLoading?.finish();
   const entry=new URLSearchParams(location.search),entryView=entry.get('view');
-  if(['map','schedule','ranking','achievements','support'].includes(entryView)){
+  if(['map','schedule','study','ranking','achievements','support'].includes(entryView)){
     view(entryView);
     if(entryView==='support'&&entry.get('ticket'))window.UauSupport.open(entry.get('ticket')).catch(()=>{});
     if(entryView==='support'&&entry.get('notice'))setTimeout(async()=>{if(currentView!=='support')return;try{const box=await window.UauStudentInbox.load();await window.UauStudentInbox.markRead(box,entry.get('notice'));renderStudentNotices()}catch{}},10000);
@@ -694,13 +723,14 @@
       <nav class="side-nav" aria-label="Menu principal">
         <button class="nav-item active" data-view="map"><span>▧</span> Mapa da jornada</button>
         <button class="nav-item" data-view="schedule"><span>▤</span> Cronograma</button>
+        <button class="nav-item" data-view="study"><span>▦</span> Trilha de estudos</button>
         <button class="nav-item" data-view="ranking"><span>▥</span> Ranking</button>
         <button class="nav-item" data-view="achievements"><span>✦</span> Conquistas</button>
         <button class="nav-item" data-view="support"><span>▦</span> Suporte VIP <span class="support-shortcut" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></span></button>
       </nav>
     </aside>
     <div class="content-wrap">
-      <header class="topbar"><div class="top-left"><button class="mobile-brand" data-view="map" aria-label="Uau Língo, ir para o mapa"><img src="uaulingo-logo.png" alt="Uau Língo"></button><span class="breadcrumb" id="breadcrumb" hidden></span><div class="map-top-level" id="mapTopLevel" hidden><span class="map-top-badge" id="mapTopBadge">NÍVEL 01</span><span class="map-top-copy"><strong id="mapTopTitle">Primeiros passos</strong><small id="mapTopDate">Liberação do módulo: 12/11/2026</small></span></div></div><div class="top-stats"><button class="top-chip tip-control" id="topDivision" data-view="ranking" data-tooltip="Sua divisão. Clique para ver sua posição no ranking." title="Abrir ranking">Bronze</button><span class="top-chip tip-control" tabindex="0" data-tooltip="XP das etapas: 100% até o próximo nível, 50% nos 30 dias seguintes e 30% depois. Pontos recebidos não diminuem." title="Seus pontos">⚡ <b id="topXP">0</b> XP</span><button class="top-message tip-control" type="button" data-view="support" aria-label="Mensagens: abrir Suporte VIP" data-tooltip="Converse em particular com a equipe pelo Suporte VIP." title="Abrir Suporte VIP"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></button><span class="notice-wrap"><button class="notice-bell tip-control" id="studentBell" aria-label="Notificações do aluno" aria-expanded="false" data-tooltip="Avisos sobre aulas, pontos e respostas da equipe." title="Suas notificações">🔔<span id="studentNoticeCount" hidden>0</span></button><span class="notice-panel" id="studentNotices" hidden></span></span><button class="tour-help tip-control" type="button" data-open-tour aria-label="Como jogar" data-tooltip="Reveja a visita guiada com Excelo e GPTina." title="Como jogar">?</button><span class="avatar tip-control" tabindex="0" aria-label="Perfil de demonstração" data-tooltip="Sua identificação de aluno." title="Seu perfil">J</span></div></header>
+      <header class="topbar"><div class="top-left"><button class="mobile-brand" data-view="map" aria-label="Uau Língo, ir para o mapa"><img src="uaulingo-logo.png" alt="Uau Língo"></button><span class="breadcrumb" id="breadcrumb" hidden></span><div class="map-top-level" id="mapTopLevel" hidden><span class="map-top-badge" id="mapTopBadge">NÍVEL 01</span><span class="map-top-copy"><strong id="mapTopTitle">Primeiros passos</strong><small id="mapTopDate">Liberação do módulo: 12/11/2026</small></span></div></div><div class="top-stats"><button class="top-chip tip-control" id="topDivision" data-view="ranking" data-tooltip="Sua divisão. Clique para ver sua posição no ranking." title="Abrir ranking">Bronze</button><span class="top-chip">⚡ <b id="topXP">0</b> XP</span><button class="top-message tip-control" type="button" data-view="support" aria-label="Mensagens: abrir Suporte VIP" data-tooltip="Converse em particular com a equipe pelo Suporte VIP." title="Abrir Suporte VIP"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></button><span class="notice-wrap"><button class="notice-bell tip-control" id="studentBell" aria-label="Notificações do aluno" aria-expanded="false" data-tooltip="Avisos sobre aulas, pontos e respostas da equipe." title="Suas notificações">🔔<span id="studentNoticeCount" hidden>0</span></button><span class="notice-panel" id="studentNotices" hidden></span></span><button class="tour-help tip-control" type="button" data-open-tour aria-label="Como jogar" data-tooltip="Reveja a visita guiada com Excelo e GPTina." title="Como jogar">?</button><span class="avatar tip-control" tabindex="0" aria-label="Perfil de demonstração" data-tooltip="Sua identificação de aluno." title="Seu perfil">J</span></div></header>
       <main id="main">
         <section class="view active" id="view-map">
           <div class="map-intro"><div><span class="kicker">SEU CAMINHO PELO UNIVERSO DE DADOS</span><h1>Aprenda Excel.<br><em>Potencialize com IA.</em></h1><p>Cada implementação abre três passos: assistir à aula, praticar e enviar um desafio para avaliação. Role o mapa para descobrir o que vem depois.</p><div class="intro-actions"><button class="btn btn-primary" id="continueJourney">Continuar jornada <span>→</span></button><button class="btn btn-ghost" data-view="schedule">Ver datas previstas</button></div></div><div class="intro-illustration" id="introIllustration" aria-hidden="true"></div></div>
@@ -712,16 +742,17 @@
           <button class="map-return-to-continue" id="mapReturnToContinue" type="button" aria-label="Voltar ao ponto em que você parou" title="Voltar ao ponto em que você parou" hidden><img src="uaulingo-seta-continuar.png" alt=""></button>
         </section>
         <section class="view" id="view-schedule"><div class="page-head"><div class="schedule-head-copy"><span class="kicker">CALENDÁRIO DE MISSÕES</span><h1>Cronograma</h1><p>Conheça o conteúdo das 10 implementações e acompanhe as datas de cada encontro.</p></div><img class="schedule-head-art" src="uaulingo-cronograma-personagens.png" alt="Excelo e GPTina no escritório usando o computador, com um calendário sobre a mesa"></div><div class="accordion-list" id="scheduleList"></div></section>
+        <section class="view" id="view-study"><div class="page-head"><span class="kicker">TREINAMENTOS GRAVADOS</span><h1>Trilha de estudos</h1></div><div class="study-coming"><img src="uaulingo-trilha-estudos-personagens.png" alt="Excelo e GPTina estudando e escrevendo entre livros e papéis"><div class="study-coming-copy"><strong>Em breve</strong><span class="coming-dots" aria-label="Novos conteúdos a caminho"><i></i><i></i><i></i></span></div></div></section>
         <section class="view" id="view-lesson"><div id="lessonContent"></div></section>
         <section class="view" id="view-quiz"><div id="quizContent"></div></section>
         <section class="view" id="view-challenge"><div id="challengeContent"></div></section>
         <section class="view" id="view-achievements"><div class="page-head"><h1>Conquistas</h1></div><div class="achievement-grid" id="achievementGrid"></div></section>
         <section class="view" id="view-support"><div class="page-head"><span class="kicker">CANAL PRIVADO</span><h1>Suporte VIP</h1><p>Envie sua dúvida em texto, anexe um arquivo e acompanhe cada resposta em uma conversa privada.</p></div><div class="private-note">🔒 No produto final, apenas você e a equipe verão este atendimento. Nesta demonstração, tudo fica somente neste navegador.</div><div class="support-layout"><aside class="panel support-list"><div class="support-list-head"><strong>Minhas dúvidas</strong><button class="btn btn-small btn-primary" id="newTicket">+ Nova</button></div><div id="ticketList"></div></aside><div class="panel support-chat" id="supportChat"></div></div></section>
-        <section class="view" id="view-ranking"><div class="page-head"><span class="kicker">LIGA UAULINGO</span><h1>Ranking das divisões</h1></div><div class="my-league"><span class="my-icon">✦</span><div><small>SUA DIVISÃO ATUAL</small><strong id="yourDivisionName">Bronze</strong></div><span id="yourDivisionPosition">—</span></div><div class="league-rules" id="leagueRules"><button class="league-card" data-rank-view="Quasar"><span class="league-symbol league-gold" aria-hidden="true"></span><strong>Ouro</strong><small>A melhor divisão</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Pulsar"><span class="league-symbol league-silver" aria-hidden="true"></span><strong>Prata</strong><small>Divisão intermediária</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Nebula"><span class="league-symbol league-bronze" aria-hidden="true"></span><strong>Bronze</strong><small>A divisão inicial</small><span class="league-mine"></span></button></div><div class="ranking-layout"><div class="panel"><div class="rank-head"><div><h2 id="rankingTitle">Classificação da sua divisão</h2><p>Assim que você pontuar, verá sua classificação.</p></div></div><div id="rankingTable"></div></div><aside class="ranking-aside"><div class="panel" id="lastMovement"></div></aside></div><div class="panel ranking-prizes"><div class="pixel-title">VEJA SEUS PRÊMIOS</div><strong>Em breve<span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></strong></div><div hidden><button id="closeRound"></button><button id="resetDemo"></button><small id="roundInfo"></small></div></section>
+        <section class="view" id="view-ranking"><div class="page-head"><span class="kicker">JORNADA UAULINGO</span><h1>Ranking das divisões</h1></div><div class="ranking-close-card"><div><small id="rankingCloseLevel">FECHAMENTO DO NÍVEL 02</small><strong id="rankingCloseDate">Data a confirmar</strong><span id="rankingCloseHelp">A equipe fechará a rodada após esta data.</span></div><span class="close-pixel" aria-hidden="true">⌛</span></div><div class="my-league"><span class="my-icon">✦</span><div><small>SUA DIVISÃO ATUAL</small><strong id="yourDivisionName">A definir</strong></div><span id="yourDivisionPosition">—</span></div><div class="league-rules" id="leagueRules"><button class="league-card" data-rank-view="Quasar"><span class="league-symbol league-gold" aria-hidden="true"></span><strong>Ouro</strong><small>A melhor divisão</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Pulsar"><span class="league-symbol league-silver" aria-hidden="true"></span><strong>Prata</strong><small>Divisão intermediária</small><span class="league-mine"></span></button><button class="league-card" data-rank-view="Nebula"><span class="league-symbol league-bronze" aria-hidden="true"></span><strong>Bronze</strong><small>A divisão inicial</small><span class="league-mine"></span></button></div><div class="ranking-layout"><div class="panel"><div class="rank-head"><div><h2 id="rankingTitle">Divisão Bronze</h2><p>Assim que você pontuar, verá sua classificação.</p></div></div><div id="rankingTable"></div></div><aside class="ranking-aside"><div class="panel" id="lastMovement"></div></aside></div><div class="panel ranking-prizes" id="leaguePrizes"></div><div hidden><button id="resetDemo"></button><small id="roundInfo"></small></div></section>
       </main>
     </div>
   </div>
-  <nav class="mobile-nav" aria-label="Menu móvel"><button data-view="map" class="active"><span>▧</span>Mapa</button><button data-view="schedule"><span>▤</span>Agenda</button><button data-view="challenge"><span>◆</span>Desafio</button><button data-view="ranking"><span>▥</span>Ranking</button><button data-view="achievements"><span>✦</span>Medalhas</button><button data-view="support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg>VIP</button></nav>
+  <nav class="mobile-nav" aria-label="Menu móvel"><button data-view="map" class="active"><span>▧</span>Mapa</button><button data-view="schedule"><span>▤</span>Agenda</button><button data-view="study"><span>▦</span>Trilha</button><button data-view="challenge"><span>◆</span>Desafio</button><button data-view="ranking"><span>▥</span>Ranking</button><button data-view="achievements"><span>✦</span>Medalhas</button><button data-view="support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg>VIP</button></nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="modal-scrim" id="modalScrim" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle"></h2><button class="icon-btn" id="closeModal" aria-label="Fechar">×</button></div><div id="modalBody"></div></div></div>
 </body>

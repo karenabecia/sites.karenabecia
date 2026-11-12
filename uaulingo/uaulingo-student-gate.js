@@ -14,16 +14,16 @@
         const session=await api.session();
         if(!session){location.replace('uaulingo-acesso.html');return null}
         const studentId=await api.rpc('uaulingo_claim_student');
-        const [students,ledger,implementations,ranking]=await Promise.all([
+        const [students,ledger,implementations,league]=await Promise.all([
           api.table('uaulingo_students',`?select=id,full_name,purchase_email,status,division,is_test&auth_user_id=eq.${session.user.id}&limit=1`),
           api.table('uaulingo_xp_ledger',`?select=xp,reason&student_id=eq.${studentId}`),
           api.table('uaulingo_implementations','?select=*&status=eq.published&order=implementation_number.asc'),
-          api.rpc('uaulingo_ranking')
+          api.rpc('uaulingo_league_board')
         ]);
         const student=students?.[0];
         if(!student||student.status!=='active')throw new Error('Acesso temporariamente indisponível.');
         const termAcceptances=await api.table('uaulingo_term_acceptances',`?select=accepted_at&student_id=eq.${studentId}&document_version=eq.2026-11-10&limit=1`).catch(()=>[]);
-        const context={student,studentId,implementations,ranking,ledger,termAccepted:!!termAcceptances?.length,termAcceptedAt:termAcceptances?.[0]?.accepted_at||null,xp:ledger.reduce((sum,row)=>sum+Number(row.xp||0),0)};
+        const context={student,studentId,implementations,league,ranking:league.rows||[],ledger,termAccepted:!!termAcceptances?.length,termAcceptedAt:termAcceptances?.[0]?.accepted_at||null,xp:ledger.reduce((sum,row)=>sum+Number(row.xp||0),0)};
         window.UauStudentContext=context;
         document.documentElement.classList.remove('uau-student-checking');
         return context;
