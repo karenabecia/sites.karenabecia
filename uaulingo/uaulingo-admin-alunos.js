@@ -156,14 +156,17 @@
   async function showDetails(id) {
     const u = users.find(item => item.id === id); if (!u) return;
     try {
-      const [released,definitions,ledger,implementations,termAcceptances]=await Promise.all([
+      const [released,definitions,ledger,implementations,termAcceptances,studyDiagnoses,studyProgress]=await Promise.all([
         api.table('uaulingo_student_achievements',`?select=achievement_id,released_at&student_id=eq.${u.id}`),
         api.table('uaulingo_achievements','?select=id,title,certificate_enabled,certificate_image_path'),
         api.table('uaulingo_xp_ledger',`?select=id,implementation_id,source,xp,reason,created_at&student_id=eq.${u.id}&order=created_at.desc`),
         api.table('uaulingo_implementations','?select=id,title,challenge&order=implementation_number.asc'),
-        api.table('uaulingo_term_acceptances',`?select=accepted_at,document_version&student_id=eq.${u.id}&document_version=eq.2026-11-10&limit=1`)
+        api.table('uaulingo_term_acceptances',`?select=accepted_at,document_version&student_id=eq.${u.id}&document_version=eq.2026-11-10&limit=1`),
+        api.table('uaulingo_study_diagnoses',`?select=result_key,completed_at&student_id=eq.${u.id}&order=completed_at.desc&limit=5`),
+        api.table('uaulingo_study_course_progress',`?select=result_key,course_name&student_id=eq.${u.id}`)
       ]);
       u.termAcceptedAt=termAcceptances[0]?.accepted_at||null;
+      u.studyDiagnoses=studyDiagnoses;u.studyProgress=studyProgress;
       u.achievementDefinitions=definitions;u.implementations=implementations;
       u.ledger=ledger;u.xp=ledger.reduce((sum,row)=>sum+(Number(row.xp)||0),0);
       u.completed=ledger.filter(row=>row.source==='challenge').map(row=>({title:'Desafio · '+(implementations.find(item=>item.id===row.implementation_id)?.title||'Implementação'),date:displayDate(row.created_at)}));
@@ -174,7 +177,7 @@
         certificateReady:!!(byId.get(item.achievement_id)?.certificate_enabled&&byId.get(item.achievement_id)?.certificate_image_path),
         certificateEnabled:!!byId.get(item.achievement_id)?.certificate_enabled
       }));
-    } catch(error) {u.achievements=[];u.achievementDefinitions=[];u.implementations=[];u.ledger=[];u.termAcceptedAt=null;toast('Não foi possível carregar os detalhes: '+friendlyError(error))}
+    } catch(error) {u.achievements=[];u.achievementDefinitions=[];u.implementations=[];u.ledger=[];u.termAcceptedAt=null;u.studyDiagnoses=[];u.studyProgress=[];toast('Não foi possível carregar os detalhes: '+friendlyError(error))}
     const activity = {
       accesses: Array.isArray(u.accessHistory) ? u.accessHistory : (demoDetails[u.id]?.accesses || []),
       completed: Array.isArray(u.completed) ? u.completed : (demoDetails[u.id]?.completed || []),
@@ -183,10 +186,11 @@
     };
     const list = (rows, renderRow, empty) => rows.length ? `<ul class="activity-list">${rows.map(renderRow).join('')}</ul>` : `<p class="empty-detail">${empty}</p>`;
     modal(u.name, 'Cadastro e acesso do aluno', `
-      <div class="detail-grid"><div><small>STATUS</small><strong>${u.status === 'active' ? 'Ativo' : 'Bloqueado'}</strong></div><div><small>XP TOTAL</small><strong>${esc(u.xp || 0)}</strong></div><div><small>ITENS CONCLUÍDOS</small><strong>${activity.completed.length}</strong></div><div><small>DÚVIDAS</small><strong>${activity.doubts.length}</strong></div><div><small>TERMOS DE ACESSO</small><strong>${u.termAcceptedAt?'Aceito':'Pendente'}</strong>${u.termAcceptedAt?`<small>${esc(new Date(u.termAcceptedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))}</small>`:''}</div></div>
+      <div class="detail-grid"><div><small>STATUS</small><strong>${u.status === 'active' ? 'Ativo' : 'Bloqueado'}</strong></div><div><small>XP TOTAL</small><strong>${esc(u.xp || 0)}</strong></div><div><small>ITENS CONCLUÍDOS</small><strong>${activity.completed.length}</strong></div><div><small>DÚVIDAS</small><strong>${activity.doubts.length}</strong></div><div><small>TRILHA DE ESTUDOS</small><strong>${u.studyDiagnoses?.length?'Concluída':'Não realizada'}</strong></div><div><small>TERMOS DE ACESSO</small><strong>${u.termAcceptedAt?'Aceito':'Pendente'}</strong>${u.termAcceptedAt?`<small>${esc(new Date(u.termAcceptedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))}</small>`:''}</div></div>
       <div class="detail-columns"><section class="detail-section"><h3>Histórico de acessos</h3>${list(activity.accesses, date => `<li><span class="activity-dot green-dot"></span><span>${esc(date)}</span></li>`, 'Nenhum acesso registrado.')}</section>
       <section class="detail-section"><h3>Itens concluídos</h3>${list(activity.completed, item => `<li><span class="activity-dot green-dot"></span><span><strong>${esc(item.title)}</strong><small>Concluído em ${esc(item.date)}</small></span></li>`, 'Nenhum item concluído.')}</section></div>
       <section class="detail-section"><h3>Dúvidas</h3>${list(activity.doubts, item => `<li><span class="activity-dot purple-dot"></span><span><strong>${esc(item.title)}</strong><small>${esc(item.date)} · ${esc(item.status)}</small></span></li>`, 'Nenhuma dúvida registrada.')}</section>
+      <section class="detail-section"><h3>Trilha de estudos</h3>${list(u.studyDiagnoses||[],item=>`<li><span class="activity-dot green-dot"></span><span><strong>${esc(({produtividade:'Produtividade nota 11',dashboards:'Dashboards Pro',automacao:'Mestre das Automações',profissional_uau:'Profissional UAU'})[item.result_key]||item.result_key)}</strong><small>Concluída em ${esc(new Date(item.completed_at).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))} · ${(u.studyProgress||[]).filter(progress=>progress.result_key===item.result_key).length} treinamentos marcados pelo aluno</small></span></li>`,'O aluno ainda não concluiu o diagnóstico da trilha.')}</section>
       <section class="detail-section"><h3>Conquistas e certificados</h3>${activity.achievements.length ? `<div class="achievement-list">${activity.achievements.map(a => `<article class="achievement-item ${a.released ? 'released' : 'waiting'}"><span class="achievement-icon">${a.released ? '★' : '◇'}</span><div><strong>${esc(a.title)}</strong><small>${a.released ? 'Liberada em '+esc(a.date) : 'Aguardando liberação'}</small></div>${a.certificateReady ? `<button class="btn small purple" data-certificate="${esc(a.id)}" data-user="${esc(u.id)}" aria-label="Emitir certificado PDF de ${esc(a.title)}">↓ Certificado PDF</button>` : `<span class="waiting-tag">${a.certificateEnabled?'Certificado pendente':'Sem certificado'}</span>`}</article>`).join('')}</div>` : '<p class="empty-detail">Nenhuma conquista liberada.</p>'}</section>
       <section class="detail-section"><h3>Histórico de pontos</h3>${list(u.ledger||[],row=>`<li><span class="activity-dot purple-dot"></span><span><strong>+${esc(row.xp)} XP · ${esc(row.reason||row.source)}</strong><small>${esc(displayDate(row.created_at))}</small></span></li>`,'Nenhum ponto lançado.')}</section>
       ${staffRole==='admin'?`<section class="detail-section manual-awards"><h3>Lançamentos da equipe</h3>

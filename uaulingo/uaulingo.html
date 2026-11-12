@@ -306,6 +306,7 @@
     $('#breadcrumb').hidden=name==='map';$('#mapTopLevel').hidden=true;
     if(name!=='map'){$('.topbar').classList.remove('chapter-absorbed');$('.topbar').style.removeProperty('--absorbed-header')}
     if (name==='schedule') renderSchedule();
+    if (name==='study') window.UauStudy?.render();
     if (name==='map') setTimeout(showClassDayPopup,0);
     if (name==='achievements') renderAchievements();
     if (name==='support') window.UauSupport?.render();
@@ -712,7 +713,7 @@
 })();
 
 });</script>
-<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour-guide-v4.js"></script>
+<script src="uaulingo-supabase.js"></script><script src="uaulingo-student-gate.js"></script><script src="uaulingo-student-study.js"></script><script src="uaulingo-student-inbox.js"></script><script src="uaulingo-student-notifications.js"></script><script src="uaulingo-student-support.js"></script><script src="uaulingo-tour-guide-v4.js"></script>
 </head>
 <body>
   <div class="uau-map-loading-screen" role="status" aria-label="Carregando mapa"><div class="uau-map-loading-box"><div class="uau-map-loading-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="uau-map-loading-label">CARREGANDO SUA JORNADA</span></div></div>
@@ -742,7 +743,7 @@
           <button class="map-return-to-continue" id="mapReturnToContinue" type="button" aria-label="Voltar ao ponto em que você parou" title="Voltar ao ponto em que você parou" hidden><img src="uaulingo-seta-continuar.png" alt=""></button>
         </section>
         <section class="view" id="view-schedule"><div class="page-head"><div class="schedule-head-copy"><span class="kicker">CALENDÁRIO DE MISSÕES</span><h1>Cronograma</h1><p>Conheça o conteúdo das 10 implementações e acompanhe as datas de cada encontro.</p></div><img class="schedule-head-art" src="uaulingo-cronograma-personagens.png" alt="Excelo e GPTina no escritório usando o computador, com um calendário sobre a mesa"></div><div class="accordion-list" id="scheduleList"></div></section>
-        <section class="view" id="view-study"><div class="page-head"><span class="kicker">TREINAMENTOS GRAVADOS</span><h1>Trilha de estudos</h1></div><div class="study-coming"><img src="uaulingo-trilha-estudos-personagens.png" alt="Excelo e GPTina estudando e escrevendo entre livros e papéis"><div class="study-coming-copy"><strong>Em breve</strong><span class="coming-dots" aria-label="Novos conteúdos a caminho"><i></i><i></i><i></i></span></div></div></section>
+        <section class="view" id="view-study"><div class="page-head"><div class="schedule-head-copy"><span class="kicker">TREINAMENTOS GRAVADOS</span><h1>Trilha de estudos</h1><p>Responda a 12 perguntas para descobrir por onde começar e receba uma sequência de estudos para o seu momento.</p></div><img class="study-head-art" src="uaulingo-trilha-estudos-personagens.png" alt="Excelo e GPTina estudando e escrevendo entre livros e papéis"></div><div id="studyContent" aria-live="polite"></div></section>
         <section class="view" id="view-lesson"><div id="lessonContent"></div></section>
         <section class="view" id="view-quiz"><div id="quizContent"></div></section>
         <section class="view" id="view-challenge"><div id="challengeContent"></div></section>
