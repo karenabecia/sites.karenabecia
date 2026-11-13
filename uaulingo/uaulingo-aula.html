@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#063d2e">
+  <title>Aula · Uaulingo</title>
+  <link rel="icon" type="image/png" href="uaulingo-favicon.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+    :root{--ink:#202d29;--green:#168b63;--green-dark:#0d694b;--green-light:#e5f5eb;--purple:#7457d8;--bg:#f6f8f3;--line:#e2e9e3;--muted:#71817b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:500 15px/1.5 'DM Sans',Arial,sans-serif}a,button{font:inherit}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:3px solid #7457d8;outline-offset:3px}button{cursor:pointer}[hidden]{display:none!important}
+    .layout{min-height:100vh;display:grid;grid-template-columns:245px minmax(0,1fr)}.sidebar{background:#fff;border-right:1px solid var(--line);padding:26px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;z-index:4}.brand{display:block;padding:0 12px;margin-bottom:42px}.brand img{display:block;width:190px;max-width:100%;image-rendering:pixelated}.side-label{padding-left:14px;color:#9aa8a1;font-size:.7rem;font-weight:800;letter-spacing:.15em;margin:0 0 10px}.side-nav{display:grid;gap:5px}.nav-item{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:11px;color:#677a70;font-weight:800}.nav-item span:first-child{font-size:1.23rem;width:23px;text-align:center;font-family:monospace}.nav-item:hover{background:#f0f7f1}.nav-item.active{color:var(--green-dark);background:var(--green-light)}.content{min-width:0}.topbar{height:74px;padding:0 clamp(22px,4vw,68px);display:flex;justify-content:space-between;align-items:center;gap:16px;background:#ffffffdb;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3;backdrop-filter:blur(12px)}.top-left,.top-stats{display:flex;align-items:center;gap:10px}.top-left strong{font-size:.83rem;color:#7c8a81}.mobile-brand{display:none}.top-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:white;border-radius:999px;padding:8px 12px;font-size:.81rem;font-weight:900;white-space:nowrap}.top-chip.division{color:var(--purple)}.top-message,.notice-bell,.tour-help{display:grid;place-items:center;width:40px;height:40px;border:1px solid #ded5ed;border-radius:10px;background:white;color:var(--purple);position:relative}.top-message svg{width:19px;height:19px;fill:currentColor}.notice-bell{font-size:1.2rem}.notice-bell span{position:absolute;right:-5px;top:-5px;background:#9135bf;color:white;border-radius:50%;min-width:18px;height:18px;font:900 .65rem Arial;display:grid;place-items:center}.tour-help{border-radius:50%;font-weight:900}.avatar{display:inline-grid;place-items:center;width:37px;height:37px;border-radius:50%;background:#d3edbb;border:2px solid white;color:#2b704f;font-weight:900;box-shadow:0 0 0 1px #d5e6d8}.mobile-nav{display:none}
+    main{max-width:1500px;padding:32px clamp(22px,4vw,68px) 85px;margin:auto}.eyebrow{font:900 .72rem monospace;letter-spacing:.15em;color:var(--green)}h1,h2{font-family:'Space Grotesk','DM Sans',sans-serif;letter-spacing:-.045em}h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin:10px 0 8px}h2{font-size:1.35rem;margin:0 0 14px}.lede{color:var(--muted);margin:0 0 30px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,32px);margin-top:19px;box-shadow:0 17px 40px #1f4a300c}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#140c28;display:block}.summary{white-space:pre-line;line-height:1.7;margin:0}.resource-list{display:grid;gap:10px}.resource{display:flex;align-items:center;justify-content:space-between;gap:15px;border:1px solid #d5e7d7;border-radius:10px;padding:14px 16px;font-weight:800;color:var(--green-dark)}.resource:hover{background:#e9f8ed}.pill{display:inline-block;color:var(--purple);background:#eee9ff;border:1px solid #d9bafb;border-radius:999px;padding:5px 10px;font-size:.76rem;font-weight:900}.status{padding:22px;border-radius:12px;background:#f2e8ff;color:#452075;font-weight:800}.hidden{display:none!important}
+    @media(max-width:850px){.layout{display:block}.sidebar{display:none}.topbar{height:60px;padding:0 18px}.mobile-brand{display:block}.mobile-brand img{display:block;width:95px;image-rendering:pixelated}.top-left strong{display:none}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:10;background:white;border-top:1px solid var(--line);justify-content:space-between;padding:7px 5px max(7px,env(safe-area-inset-bottom))}.mobile-nav a{display:grid;justify-items:center;gap:2px;min-width:0;flex:1;padding:5px 1px;color:#738278;font-size:.55rem;font-weight:800}.mobile-nav a span{font-size:1.05rem;font-family:monospace}.mobile-nav a.active{color:var(--green)}main{padding:22px 18px 100px}}
+    @media(max-width:650px){.top-chip.division{display:none}.top-stats{gap:6px}.top-message,.notice-bell,.tour-help{width:34px;height:34px}.avatar{width:33px;height:33px}.top-chip{padding:6px 8px;font-size:.68rem}}
+  </style>
+  <script src="uaulingo-supabase.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar"><a class="brand" href="uaulingo.html" aria-label="Uaulingo, voltar ao mapa"><img src="uaulingo-logo.png" alt="Uaulingo"></a><p class="side-label">SUA JORNADA</p><nav class="side-nav" aria-label="Menu principal"><a class="nav-item active" href="uaulingo.html?view=map"><span>▧</span> Mapa da jornada</a><a class="nav-item" href="uaulingo.html?view=schedule"><span>▤</span> Cronograma</a><a class="nav-item" href="uaulingo.html?view=study"><span>▦</span> Trilha de estudos</a><a class="nav-item" href="uaulingo.html?view=ranking"><span>▥</span> Ranking</a><a class="nav-item" href="uaulingo.html?view=achievements"><span>✦</span> Conquistas</a><a class="nav-item" href="uaulingo.html?view=support"><span>▦</span> Suporte VIP</a></nav></aside>
+    <div class="content"><header class="topbar"><div class="top-left"><a class="mobile-brand" href="uaulingo.html" aria-label="Uaulingo, voltar ao mapa"><img src="uaulingo-logo.png" alt="Uaulingo"></a><strong id="theme">Aula</strong></div><div class="top-stats"><a class="top-chip division" id="topDivision" href="uaulingo.html?view=ranking" title="Sua divisão no ranking">Bronze</a><span class="top-chip" title="Seu XP">⚡ <b id="topXP">0</b> XP</span><a class="top-message" href="uaulingo.html?view=support" aria-label="Abrir Suporte VIP" title="Mensagens"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm3 6v2h2V9H7Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Zm4 0v2h2V9h-2Z"/></svg></a><a class="notice-bell" href="uaulingo-notificacoes.html" aria-label="Abrir notificações" title="Notificações">🔔<span id="studentNoticeCount" hidden>0</span></a><a class="tour-help" href="uaulingo.html?tutorial=1" aria-label="Como jogar" title="Como jogar">?</a><span class="avatar" id="studentAvatar" title="Seu perfil">A</span></div></header>
+      <main><div class="eyebrow" id="chapter">CARREGANDO AULA</div><h1 id="title">Aguarde um instante…</h1><p class="lede" id="meta"></p><div class="status" id="status" role="status">Preparando o conteúdo da aula.</div><div id="lessonContent" class="hidden"><section class="card"><h2>Assista à aula</h2><iframe class="video" id="video" title="Gravação da aula" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe></section><section class="card"><h2>Resumo da aula</h2><p class="summary" id="summary"></p></section><section class="card" id="linksCard"><h2>Links importantes</h2><div class="resource-list" id="resources"></div></section><section class="card" id="attendanceCard" hidden><h2>Lista de presença aberta</h2><p>Confirme sua presença para receber o XP da aula.</p><a class="resource" id="attendanceLink" href="uaulingo-presenca.html">✓ Confirmar presença →</a></section></div></main>
+    </div>
+  </div>
+  <nav class="mobile-nav" aria-label="Menu móvel"><a class="active" href="uaulingo.html?view=map"><span>▧</span>Mapa</a><a href="uaulingo.html?view=schedule"><span>▤</span>Agenda</a><a href="uaulingo.html?view=study"><span>▦</span>Trilha</a><a href="uaulingo.html?view=challenge"><span>◆</span>Desafio</a><a href="uaulingo.html?view=ranking"><span>▥</span>Ranking</a><a href="uaulingo.html?view=achievements"><span>✦</span>Medalhas</a><a href="uaulingo.html?view=support"><span>▦</span>VIP</a></nav>
+  <script>
+    (async()=>{
+      const api=window.UauSupabase,$=id=>document.getElementById(id);
+      const params=new URLSearchParams(location.search),number=Number(params.get('implementacao')),lessonNumber=Number(params.get('aula'));
+      const https=url=>{try{return new URL(url).protocol==='https:'}catch{return false}};
+      const videoUrl=value=>{try{const url=new URL(value);return url.protocol==='https:'&&url.hostname==='scripts.converteai.net'&&/^\/[a-z0-9-]+\/players\/[a-z0-9-]+\/v4\/embed\.html$/i.test(url.pathname)?url:null}catch{return null}};
+      const showError=message=>{$('title').textContent='Aula indisponível';$('status').textContent=message};
+      if(!Number.isInteger(number)||number<1||!Number.isInteger(lessonNumber)||lessonNumber<1||lessonNumber>3){showError('O endereço da aula não está completo. Volte ao mapa e abra a aula novamente.');return}
+      try{
+        const session=await api.session();if(!session){location.replace('uaulingo-acesso.html');return}
+        await api.rpc('uaulingo_claim_student').catch(()=>{});
+        const [students,staff,rows]=await Promise.all([
+          api.table('uaulingo_students',`?select=id,full_name,status,division&auth_user_id=eq.${encodeURIComponent(session.user.id)}&limit=1`),
+          api.table('uaulingo_staff',`?select=role&user_id=eq.${encodeURIComponent(session.user.id)}&limit=1`),
+          api.table('uaulingo_implementations',`?select=implementation_number,title,theme,status,lessons&implementation_number=eq.${number}&status=eq.published&limit=1`)
+        ]);
+        if(students?.[0]?.status!=='active'&&!staff?.length)throw Error('Seu acesso está indisponível. Fale com a equipe de suporte.');
+        const student=students?.[0]?.status==='active'?students[0]:null;
+        $('studentAvatar').textContent=(student?.full_name||session.user.email||'A').trim().charAt(0).toUpperCase();
+        if(student){
+          $('topDivision').textContent=({Nebula:'Bronze',Pulsar:'Prata',Quasar:'Ouro'})[student.division]||student.division||'Bronze';
+          Promise.all([
+            api.table('uaulingo_xp_ledger',`?select=xp&student_id=eq.${encodeURIComponent(student.id)}`),
+            api.table('uaulingo_student_notifications',`?select=id&student_id=eq.${encodeURIComponent(student.id)}&read_at=is.null`)
+          ]).then(([ledger,notices])=>{$('topXP').textContent=ledger.reduce((sum,item)=>sum+Number(item.xp||0),0);$('studentNoticeCount').textContent=notices.length;$('studentNoticeCount').hidden=!notices.length}).catch(()=>{});
+        }
+        const implementation=rows?.[0],lesson=implementation?.lessons?.[lessonNumber-1];
+        if(!lesson?.content_released_at)throw Error('O conteúdo desta aula ainda não foi liberado. Acompanhe as atualizações no mapa.');
+        const url=videoUrl(lesson.video_embed_url);if(!url)throw Error('O vídeo desta aula está em preparação. Tente novamente em alguns instantes.');
+        url.searchParams.set('vl',location.href);
+        $('chapter').textContent=`NÍVEL ${String(number).padStart(2,'0')} · AULA ${lessonNumber}`;
+        $('title').textContent=lesson.title||implementation.title;
+        $('meta').textContent=`${implementation.title}${lesson.instructors?' · Com '+lesson.instructors:''}`;
+        $('theme').textContent=implementation.theme==='ai'?'✦ IA · GPTina':implementation.theme==='both'?'▦✦ Excel + IA':'▦ Excel · Excelo';
+        $('video').src=url.href;
+        $('summary').textContent=lesson.lesson_summary||'';
+        const resources=Array.isArray(lesson.resources)?[...lesson.resources]:[];
+        if(https(lesson.materials_url))resources.push({title:'Material completo da aula',url:lesson.materials_url});
+        if(https(lesson.recording_url))resources.push({title:'Gravação na Hotmart',url:lesson.recording_url});
+        for(const item of resources){if(!item?.title||!https(item.url))continue;const link=document.createElement('a');link.className='resource';link.href=item.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=item.title+' ↗';$('resources').appendChild(link)}
+        $('linksCard').hidden=!$('resources').children.length;
+        $('status').classList.add('hidden');$('lessonContent').classList.remove('hidden');
+        if(student){
+          const updateAttendance=async()=>{
+            try{
+              const listId=await api.rpc('uaulingo_lesson_attendance_list',{p_implementation_number:number,p_lesson_index:lessonNumber-1});
+              if(!listId){$('attendanceCard').hidden=true;return}
+              const attendance=await api.rpc('uaulingo_attendance_status',{p_list_id:listId});
+              $('attendanceCard').hidden=!attendance?.open;
+              if(attendance?.open){$('attendanceLink').href=`uaulingo-presenca.html?lista=${encodeURIComponent(listId)}`;$('attendanceLink').textContent=attendance.attended?'✓ Presença confirmada':'✓ Confirmar presença →'}
+            }catch{$('attendanceCard').hidden=true}
+          };
+          updateAttendance();setInterval(updateAttendance,30000);
+        }
+        const notice=params.get('notice');if(notice&&/^[0-9a-f-]{36}$/i.test(notice))api.table('uaulingo_student_notifications',`?id=eq.${encodeURIComponent(notice)}&lesson_implementation_number=eq.${number}&lesson_number=eq.${lessonNumber}`,{method:'PATCH',body:JSON.stringify({read_at:new Date().toISOString()})}).catch(()=>{});
+      }catch(error){showError(error.message||'Não foi possível carregar esta aula. Tente novamente.')}
+    })();
+  </script>
+</body>
+</html>

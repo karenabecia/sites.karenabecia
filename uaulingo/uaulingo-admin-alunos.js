@@ -198,7 +198,7 @@
         <form id="grantAchievementForm" data-user="${esc(u.id)}" class="award-form"><label class="field"><span>Conquista manual</span><select name="achievement" required><option value="">Selecione</option>${u.achievementDefinitions.filter(a=>!u.achievements.some(g=>g.id===a.id)).map(a=>`<option value="${esc(a.id)}">${esc(a.title)}</option>`).join('')}</select></label><button class="btn purple">Liberar conquista</button></form>
         <form id="manualChallengeForm" data-user="${esc(u.id)}" class="award-form"><label class="field"><span>Desafio concluído manualmente</span><select name="implementation" required><option value="">Selecione</option>${u.implementations.filter(i=>i.challenge&&!u.ledger.some(l=>l.implementation_id===i.id&&l.source==='challenge')).map(i=>`<option value="${esc(i.id)}">${esc(i.title)} · ${esc(i.challenge.xp_reward||0)} XP</option>`).join('')}</select></label><button class="btn purple">Concluir desafio</button></form><p class="form-error" id="awardError"></p></section>`:''}
       <form id="emailEditForm" data-user="${esc(u.id)}"><label class="field"><span>E-mail de compra</span><input id="editEmail" type="email" maxlength="254" required value="${esc(u.email)}"></label><p class="form-error" id="formError"></p><button class="btn green" type="submit">Salvar e-mail</button></form>
-      <div class="detail-actions"><button class="btn soft" data-account="reset" data-user="${esc(u.id)}">Redefinir senha</button><button class="btn purple" data-account="resend" data-user="${esc(u.id)}">Reenviar acesso</button></div>
+      <div class="detail-actions">${staffRole==='admin'?`<button class="btn green" data-account="code" data-user="${esc(u.id)}">Gerar código de acesso</button>`:''}<button class="btn soft" data-account="reset" data-user="${esc(u.id)}">Redefinir senha</button><button class="btn purple" data-account="resend" data-user="${esc(u.id)}">Reenviar acesso</button></div>
       <div class="modal-actions"><button class="btn soft" data-close>Fechar</button></div>`);
     $('#scrim .modal').classList.add('detail-modal');
   }
@@ -209,6 +209,11 @@
   }
   function showAccountAction(id, action) {
     const u = users.find(item => item.id === id); if (!u) return;
+    if(action==='code'){
+      if(staffRole!=='admin')return;
+      modal('Código de acesso sem e-mail',u.name,`<p class="confirm-text">Gere um código para <strong>${esc(u.email)}</strong> e envie a mensagem pronta ao aluno. O código vence em 24 horas, funciona uma vez e um novo código cancela o anterior.</p><p class="form-error" id="accessCodeError" role="alert"></p><div class="modal-actions"><button class="btn soft" data-close>Cancelar</button><button class="btn green" data-issue-code="${esc(u.id)}">Gerar código</button></div>`);
+      return;
+    }
     const title = action === 'reset' ? 'Redefinir senha' : 'Reenviar acesso';
     modal(title, u.name, `<p class="confirm-text">O envio para <strong>${esc(u.email)}</strong> ficará disponível quando ativarmos os convites dos alunos e o serviço de e-mail. Nenhuma mensagem foi enviada.</p><div class="modal-actions"><button class="btn soft" data-close>Fechar</button></div>`);
   }
@@ -282,6 +287,29 @@
     const toggle=e.target.closest('[data-toggle]');if(toggle){confirmStatus(toggle.dataset.toggle);return}
     const confirmed=e.target.closest('[data-confirm-status]');if(confirmed){const u=users.find(item=>item.id===confirmed.dataset.confirmStatus);if(!u)return;const status=u.status==='active'?'blocked':'active';confirmed.disabled=true;api.table('uaulingo_students',`?id=eq.${u.id}`,{method:'PATCH',headers:{Prefer:'return=representation'},body:JSON.stringify({status})}).then(loadUsers).then(()=>{closeModal();toast(`${u.name}: acesso ${status==='active'?'desbloqueado':'bloqueado'}.`)}).catch(error=>{$('#modalSubtitle').textContent=friendlyError(error);confirmed.disabled=false});return}
     const account=e.target.closest('[data-account]');if(account){showAccountAction(account.dataset.user,account.dataset.account);return}
+    const issue=e.target.closest('[data-issue-code]');if(issue){
+      const u=users.find(item=>item.id===issue.dataset.issueCode);if(!u||staffRole!=='admin')return;
+      issue.disabled=true;
+      api.invokeFunction('uaulingo-access-code',{action:'issue',student_id:u.id}).then(result=>{
+        const expiry=new Date(result.expires_at).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'});
+        const firstName=(u.name||'').trim().split(/\s+/)[0]||'aluno(a)';
+        const accessMessage=[
+          `Olá, ${firstName}! Seu acesso ao Uaulingo está pronto.`,
+          '',
+          '1. Acesse: https://sites.karenabecia.com.br/uaulingo/uaulingo-acesso.html',
+          '2. Clique em “Tenho um código”.',
+          `3. Informe seu e-mail cadastrado: ${result.email}`,
+          `4. Digite este código: ${result.code}`,
+          '5. Crie e confirme sua senha (mínimo de 8 caracteres) e clique em “Criar senha e entrar”.',
+          '',
+          `O código pode ser usado uma vez e vale até ${expiry} (horário de Brasília). Não compartilhe sua senha com ninguém.`
+        ].join('\n');
+        modal('Código gerado',u.name,`<p class="confirm-text">Confira e copie a mensagem abaixo para enviar ao aluno por um canal privado. O código aparece apenas agora.</p><div class="access-code-value" id="issuedAccessCode">${esc(result.code)}</div><label class="access-message-label" for="accessCodeMessage">Mensagem para o aluno</label><textarea class="access-message" id="accessCodeMessage" rows="10" spellcheck="false"></textarea><div class="modal-actions"><button class="btn soft" data-close>Fechar</button><button class="btn green" data-copy-access-message>Copiar mensagem</button></div><p class="form-error" id="accessCodeError" role="status"></p>`);
+        $('#accessCodeMessage').value=accessMessage;
+      }).catch(error=>{$('#accessCodeError').textContent=friendlyError(error);issue.disabled=false});
+      return;
+    }
+    if(e.target.closest('[data-copy-access-message]')){const value=$('#accessCodeMessage')?.value||'';navigator.clipboard.writeText(value).then(()=>toast('Mensagem copiada.')).catch(()=>{$('#accessCodeMessage').focus();$('#accessCodeMessage').select();$('#accessCodeError').textContent='Mensagem selecionada. Pressione Ctrl+C para copiar.'});return}
     const certificate=e.target.closest('[data-certificate]');if(certificate){issueCertificate(certificate.dataset.user,certificate.dataset.certificate).catch(()=>toast('Não foi possível emitir o certificado.'));return}
     if(e.target.id==='confirmImport'&&importRows.length){const rows=[...importRows];e.target.disabled=true;api.table('uaulingo_students','',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify(rows.map(r=>({full_name:r.name,purchase_email:r.email})))}).then(loadUsers).then(()=>{closeModal();toast(rows.length+' aluno(s) importado(s).')}).catch(error=>{$('#formError').textContent=friendlyError(error);$('#confirmImport').disabled=false});return}
     if(e.target.id==='confirmPointsImport'&&pointsImportRows.length){const button=e.target,rows=[...pointsImportRows];button.disabled=true;api.rpc('uaulingo_import_bonus_xp',{p_rows:rows,p_batch_id:pointBatchId}).then(loadUsers).then(()=>{closeModal();toast(rows.length+' aluno(s) receberam pontos e notificações.')}).catch(error=>{$('#formError').textContent=friendlyError(error);button.disabled=false});return}

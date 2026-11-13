@@ -23,6 +23,22 @@
     row.innerHTML=`<label class="field"><span>Nome do conteúdo</span><input class="pre-title" maxlength="120" placeholder="Ex.: Leitura inicial" value="${esc(item.title)}"></label><label class="field"><span>Link</span><input class="pre-url" type="url" placeholder="https://..." value="${esc(item.url)}"></label><button class="remove" type="button" aria-label="Remover conteúdo pré-aula" title="Remover conteúdo pré-aula">×</button>`;
     container.appendChild(row);
   }
+  function addLessonResource(container,item={}) {
+    const row=document.createElement('div'); row.className='material-row lesson-resource';
+    row.innerHTML=`<label class="field"><span>Nome do link</span><input class="resource-title" maxlength="120" placeholder="Ex.: Plataforma de estudos" value="${esc(item.title)}"></label><label class="field"><span>Endereço</span><input class="resource-url" type="url" placeholder="https://..." value="${esc(item.url)}"></label><button class="remove" type="button" aria-label="Remover link">×</button>`;
+    row.querySelectorAll('input').forEach(input=>input.disabled=role!=='admin');
+    row.querySelector('button').hidden=role!=='admin';
+    container.appendChild(row);
+  }
+  function videoEmbedUrl(value) {
+    const input=String(value||'').trim();if(!input)return '';
+    const matches=[...input.matchAll(/https:\/\/scripts\.converteai\.net\/([a-z0-9-]+)\/players\/([a-z0-9-]+)\/v4\/(?:player\.js|embed\.html)/gi)];
+    if(matches.length!==1)throw Error('Cole um único código de incorporação VTurb da aula.');
+    const [,account,player]=matches[0];
+    const tagId=input.match(/<vturb-smartplayer\b[^>]*\bid=["']vid-([a-z0-9-]+)["']/i)?.[1];
+    if(tagId&&tagId.toLowerCase()!==player.toLowerCase())throw Error('O identificador do vídeo não coincide com o código VTurb.');
+    return `https://scripts.converteai.net/${account}/players/${player}/v4/embed.html`;
+  }
   function addQuestion(item={}) {
     const card=document.createElement('div');card.className='question-card';
     const options=Array.isArray(item.options)?item.options:[];
@@ -40,12 +56,14 @@
   }
   function addLesson(data={}) {
     if ($('#lessons').children.length>=3) return;
-    const card=document.createElement('section'); card.className='lesson-card'; card.dataset.completedAt=data.completed_at || '';
+    const card=document.createElement('section'); card.className='lesson-card'; card.dataset.completedAt=data.completed_at || '';card.dataset.releasedAt=data.content_released_at||'';
     card.innerHTML=`<div class="lesson-card-header"><strong>Aula</strong><button class="btn soft remove-lesson" type="button">Remover aula</button></div><label class="field"><span>Nome da aula</span><input class="lesson-title" maxlength="160" placeholder="Ex.: Primeiros passos no Excel" value="${esc(data.title)}" required></label><div class="field-grid"><label class="field"><span>Data</span><input class="lesson-day" type="date" value="${esc(lessonDate(data))}"></label><label class="field"><span>Horário</span><input class="lesson-time" type="time" value="${esc(lessonTime(data))}"></label></div><div class="field-grid"><label class="field"><span>Quem apresenta</span><input class="lesson-instructors" maxlength="120" placeholder="Karen, Jéssica..." value="${esc(data.instructors)}"></label><label class="field"><span>Duração (min)</span><input class="lesson-duration" type="number" min="15" max="600" value="${Number(data.duration_minutes)||60}" required></label></div><label class="field"><span>O que você vai aprender</span><textarea class="lesson-outcomes" maxlength="10000" placeholder="Descreva o que esta aula ensina.">${esc(data.learning_outcomes)}</textarea></label><div class="section-title">CONTEÚDO PRÉ-AULA</div><p class="section-note">Opcional. Se ficar vazio, não aparecerá para o aluno.</p><div class="pre-class-list"></div><button class="btn soft add-pre-class" type="button">+ Adicionar conteúdo pré-aula</button><div class="section-title">APÓS A AULA AO VIVO</div><label class="completed-check"><input class="lesson-completed" type="checkbox" ${data.completed_at?'checked':''}> Aula realizada</label><div class="lesson-page-field" ${data.completed_at?'':'hidden'}><label class="field"><span>Gravação da aula na Hotmart</span><input class="lesson-recording" type="url" inputmode="url" placeholder="https://..." value="${esc(data.recording_url)}"></label><label class="field"><span>Material completo da aula</span><input class="lesson-materials" type="url" inputmode="url" placeholder="https://..." value="${esc(data.materials_url||data.lesson_page_url)}"></label></div>`;
+    card.querySelector('.lesson-page-field').insertAdjacentHTML('beforeend',`<div class="section-title">PÁGINA DA AULA</div><p class="section-note">Prepare o vídeo, o resumo e os links. A página só aparece para o aluno quando você marcar “Liberar conteúdo” e salvar.</p><label class="field"><span>Código de incorporação VTurb</span><textarea class="lesson-embed" maxlength="5000" placeholder="Cole o código de incorporação do vídeo">${esc(data.video_embed_code||data.video_embed_url||'')}</textarea></label><label class="field"><span>Resumo da aula</span><textarea class="lesson-summary" maxlength="12000" placeholder="O que aconteceu no encontro e por onde começar">${esc(data.lesson_summary||'')}</textarea></label><div class="section-title">LINKS IMPORTANTES</div><div class="lesson-resource-list"></div><button class="btn soft add-lesson-resource" type="button">+ Adicionar link</button><label class="completed-check"><input class="lesson-released" type="checkbox" ${data.content_released_at?'checked':''}> Liberar conteúdo para os alunos ao salvar</label>`);
     $('#lessons').appendChild(card);
     (Array.isArray(data.pre_class_content)?data.pre_class_content:[]).forEach(item=>addPreClass(card.querySelector('.pre-class-list'),item));
+    (Array.isArray(data.resources)?data.resources:[]).forEach(item=>addLessonResource(card.querySelector('.lesson-resource-list'),item));
     card.querySelectorAll('input,textarea').forEach(input=>input.disabled=role!=='admin');
-    card.querySelector('.add-pre-class').hidden=role!=='admin'; updateLessonControls();
+    card.querySelector('.add-pre-class').hidden=role!=='admin';card.querySelector('.add-lesson-resource').hidden=role!=='admin'; updateLessonControls();
   }
   function render() {
     const query=$('#search').value.trim().toLocaleLowerCase('pt-BR');
@@ -65,6 +83,7 @@
         article.querySelector('.theme-tag').textContent='▦✦ Excel + IA · Excelo e GPTina';
       }
       article.querySelectorAll('.mini-lesson time').forEach((element,lessonIndex)=>{const lesson=row.lessons?.[lessonIndex];element.textContent=dateLabel(lesson?.scheduled_at,lesson?.scheduled_date)});
+      article.querySelectorAll('.mini-lesson').forEach((element,lessonIndex)=>{if(row.lessons?.[lessonIndex]?.content_released_at){const link=document.createElement('a');link.className='lesson-page-link';link.href=`uaulingo-aula.html?implementacao=${row.implementation_number}&aula=${lessonIndex+1}`;link.textContent='✓ Conteúdo liberado · Abrir página ↗';element.appendChild(link)}});
     });
   }
   async function load() {
@@ -111,22 +130,32 @@
       const title=card.querySelector('.lesson-title').value.trim(),date=card.querySelector('.lesson-day').value,time=card.querySelector('.lesson-time').value,instructors=card.querySelector('.lesson-instructors').value.trim();
       const duration=Number(card.querySelector('.lesson-duration').value),pre=[];
       const completed=card.querySelector('.lesson-completed').checked,recording=card.querySelector('.lesson-recording').value.trim(),materials=card.querySelector('.lesson-materials').value.trim();
+      const embedInput=card.querySelector('.lesson-embed').value.trim(),summary=card.querySelector('.lesson-summary').value.trim(),released=card.querySelector('.lesson-released').checked;
+      const videoUrl=videoEmbedUrl(embedInput),resources=[];
       if(title.length<2)throw Error(`Informe o nome da aula ${index+1}.`);
       if(date&&Number.isNaN(new Date(`${date}T12:00:00`).getTime()))throw Error(`Informe uma data válida para a aula ${index+1}.`);
       if(time&&!date)throw Error(`Informe a data da aula ${index+1} para definir o horário.`);
       if($('#implementationStatus').value==='published'&&(!date||!time))throw Error(`Informe data e hora da aula ${index+1} antes de publicar.`);
       if(!Number.isInteger(duration)||duration<15||duration>600)throw Error(`A duração da aula ${index+1} deve ficar entre 15 e 600 minutos.`);
-      if(completed&&(!isHttps(recording)||!isHttps(materials)))throw Error(`Informe os links da gravação e do material completo da aula ${index+1}.`);
+      if(released&&!completed)throw Error(`Marque a aula ${index+1} como realizada antes de liberar o conteúdo.`);
+      if(released&&(!videoUrl||summary.length<20))throw Error(`Para liberar a aula ${index+1}, informe o vídeo VTurb e um resumo com pelo menos 20 caracteres.`);
       if(recording&&!isHttps(recording)||materials&&!isHttps(materials))throw Error(`Os links da aula ${index+1} devem começar com https://.`);
-      for(const row of card.querySelectorAll('.material-row')){
+      for(const row of card.querySelectorAll('.pre-class-list .material-row')){
         const name=row.querySelector('.pre-title').value.trim(),url=row.querySelector('.pre-url').value.trim();
         if(!name&&!url)continue;
         if(!name||!isHttps(url))throw Error(`Preencha o nome e um link https:// em cada conteúdo pré-aula da aula ${index+1}.`);
         pre.push({title:name,url});
       }
-      return {title,scheduled_date:date||null,scheduled_at:date&&time?new Date(`${date}T${time}:00`).toISOString():null,instructors,duration_minutes:duration,learning_outcomes:card.querySelector('.lesson-outcomes').value.trim(),pre_class_content:pre,completed_at:completed?(card.dataset.completedAt||new Date().toISOString()):null,recording_url:completed?recording:'',materials_url:completed?materials:''};
+      for(const row of card.querySelectorAll('.lesson-resource')){
+        const name=row.querySelector('.resource-title').value.trim(),url=row.querySelector('.resource-url').value.trim();
+        if(!name&&!url)continue;
+        if(!name||!isHttps(url))throw Error(`Preencha o nome e um link https:// em cada link importante da aula ${index+1}.`);
+        resources.push({title:name,url});
+      }
+      return {title,scheduled_date:date||null,scheduled_at:date&&time?new Date(`${date}T${time}:00`).toISOString():null,instructors,duration_minutes:duration,learning_outcomes:card.querySelector('.lesson-outcomes').value.trim(),pre_class_content:pre,completed_at:completed?(card.dataset.completedAt||new Date().toISOString()):null,recording_url:recording,materials_url:materials,video_embed_url:videoUrl,lesson_summary:summary,resources,content_released_at:released?(dataReleasedAt(card)||new Date().toISOString()):null};
     });
   }
+  function dataReleasedAt(card){return card.dataset.releasedAt||null}
   function activityDates(prefix,label) {
     const start=$(`#${prefix}Opens`).value,end=$(`#${prefix}Due`).value;
     if($('#implementationStatus').value==='published'&&!start)throw Error(`Informe quando o ${label} ficará disponível.`);
@@ -167,11 +196,13 @@
     if(remove){if($('#lessons').children.length>1){remove.closest('.lesson-card').remove();updateLessonControls()}return}
     const add=event.target.closest('.add-pre-class');
     if(add){addPreClass(add.closest('.lesson-card').querySelector('.pre-class-list'));return}
+    const addResource=event.target.closest('.add-lesson-resource');
+    if(addResource){addLessonResource(addResource.closest('.lesson-card').querySelector('.lesson-resource-list'));return}
     const removePre=event.target.closest('.material-row .remove');
     if(removePre)removePre.closest('.material-row').remove();
   });
   $('#lessons').addEventListener('change',event=>{
-    if(event.target.matches('.lesson-completed'))event.target.closest('.lesson-card').querySelector('.lesson-page-field').hidden=!event.target.checked;
+    if(event.target.matches('.lesson-completed')){const card=event.target.closest('.lesson-card');card.querySelector('.lesson-page-field').hidden=!event.target.checked;if(!event.target.checked)card.querySelector('.lesson-released').checked=false}
   });
   $('#exerciseEnabled').addEventListener('change',event=>{
     $('#exerciseFields').hidden=!event.target.checked;

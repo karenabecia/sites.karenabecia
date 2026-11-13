@@ -119,6 +119,11 @@
     try{return await request(current.access_token)}
     catch(error){if(error.status!==401)throw error;const renewed=await refresh();return request(renewed.access_token)}
   }
+  async function redeemAccessCode(email,code,password) {
+    return raw('/functions/v1/uaulingo-access-code',{
+      method:'POST',body:JSON.stringify({action:'redeem',email,code,password})
+    });
+  }
   async function storageRequest(path, options = {}) {
     if (!/^(panel|certificates)\/[a-z0-9-]{2,60}\.png$/.test(path)) throw new Error('Caminho de imagem inválido.');
     const current=await session();
@@ -151,5 +156,5 @@
   }
   const supportUpload=(path,file)=>supportFile(path,file,true);
   const supportDownload=path=>supportFile(path,null,false);
-  window.UauSupabase = { session, signIn, signUp, signOut, sendPasswordLink, acceptPasswordLink, updatePassword, table, rpc, invokeFunction, storageUpload, storageDownload, supportUpload, supportDownload, clear };
+  window.UauSupabase = { session, signIn, signUp, signOut, sendPasswordLink, acceptPasswordLink, updatePassword, table, rpc, invokeFunction, redeemAccessCode, storageUpload, storageDownload, supportUpload, supportDownload, clear };
 })();

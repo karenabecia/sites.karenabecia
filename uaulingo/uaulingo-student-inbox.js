@@ -31,7 +31,7 @@
     return {mode:'demo',studentId:'',studentName:'',rows};
   }
   function notifications(studentId){
-    return api.table('uaulingo_student_notifications',`?select=id,category,emoji,title,details,reason,points,created_at,read_at,support_ticket_id&student_id=eq.${encodeURIComponent(studentId)}&order=created_at.desc`);
+    return api.table('uaulingo_student_notifications',`?select=id,category,emoji,title,details,reason,points,created_at,read_at,popup_seen_at,support_ticket_id,lesson_implementation_number,lesson_number&student_id=eq.${encodeURIComponent(studentId)}&order=created_at.desc`);
   }
   async function markRead(box,id){
     const when=new Date().toISOString();
