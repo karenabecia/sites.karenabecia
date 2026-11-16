@@ -120,7 +120,7 @@
         try{
           const type=new URLSearchParams(location.hash.slice(1)).get('type');
           const accepted=await api.acceptPasswordLink();
-          if(accepted&&type==='recovery'){pendingEmail=(await api.session())?.user?.email||'';render('set');return}
+          if(accepted&&(type==='recovery'||type==='invite')){pendingEmail=(await api.session())?.user?.email||'';linkPurpose=type==='invite'?'first':'recover';render('set');return}
           if(accepted){await api.rpc('uaulingo_claim_student');redirecting=true;window.location.replace('uaulingo.html');return}
           if(await api.session()){await api.rpc('uaulingo_claim_student');redirecting=true;window.location.replace('uaulingo.html')}
         }catch{await api.signOut().catch(()=>{});render('login')}

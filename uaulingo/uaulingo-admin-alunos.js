@@ -1,45 +1,7 @@
 (() => {
   const $ = selector => document.querySelector(selector);
   const api = window.UauSupabase;
-  const seed = [
-    {id:'a1',name:'Ana Beatriz',email:'ana.beatriz@exemplo.com',status:'active',created:'18/10/2026',lastAccess:'27/10/2026',xp:142,tickets:2},
-    {id:'a2',name:'Camila Torres',email:'camila.torres@exemplo.com',status:'active',created:'18/10/2026',lastAccess:'28/10/2026',xp:165,tickets:1},
-    {id:'a3',name:'Bruno Rocha',email:'bruno.rocha@exemplo.com',status:'active',created:'19/10/2026',lastAccess:'26/10/2026',xp:157,tickets:0},
-    {id:'a4',name:'Lara Monteiro',email:'lara.monteiro@exemplo.com',status:'blocked',created:'20/10/2026',lastAccess:'22/10/2026',xp:78,tickets:3},
-    {id:'a5',name:'Felipe Cunha',email:'felipe.cunha@exemplo.com',status:'active',created:'21/10/2026',lastAccess:'—',xp:82,tickets:1}
-  ];
-  const demoDetails = {
-    a1: {
-      accesses:['27/10/2026 às 20:14','26/10/2026 às 18:02','23/10/2026 às 09:37','20/10/2026 às 19:21'],
-      completed:[{title:'Implementação 01 · Fundamentos de Excel',date:'22/10/2026'},{title:'Exercício 01 · Fórmulas essenciais',date:'23/10/2026'},{title:'Desafio 01 · Minha primeira planilha',date:'25/10/2026'}],
-      doubts:[{title:'Como usar PROCV em outra aba?',date:'25/10/2026',status:'Respondida'},{title:'Posso enviar o desafio em PDF?',date:'23/10/2026',status:'Respondida'}],
-      achievements:[{id:'primeiros-passos',title:'Primeiros passos no Excel',date:'23/10/2026',released:true},{id:'formula-mestre',title:'Mestre das fórmulas',date:'26/10/2026',released:true},{id:'ia-estrategica',title:'IA estratégica',date:'',released:false}]
-    },
-    a2: {
-      accesses:['28/10/2026 às 21:07','27/10/2026 às 19:42','24/10/2026 às 08:51','21/10/2026 às 20:03'],
-      completed:[{title:'Implementação 01 · Fundamentos de Excel',date:'22/10/2026'},{title:'Exercício 01 · Fórmulas essenciais',date:'23/10/2026'},{title:'Desafio 01 · Minha primeira planilha',date:'25/10/2026'},{title:'Implementação 02 · Excel com IA',date:'28/10/2026'}],
-      doubts:[{title:'Como organizar os dados para a IA?',date:'28/10/2026',status:'Em atendimento'}],
-      achievements:[{id:'primeiros-passos',title:'Primeiros passos no Excel',date:'23/10/2026',released:true},{id:'formula-mestre',title:'Mestre das fórmulas',date:'27/10/2026',released:true},{id:'ia-estrategica',title:'IA estratégica',date:'',released:false}]
-    },
-    a3: {
-      accesses:['26/10/2026 às 20:32','24/10/2026 às 19:10','21/10/2026 às 07:55'],
-      completed:[{title:'Implementação 01 · Fundamentos de Excel',date:'22/10/2026'},{title:'Exercício 01 · Fórmulas essenciais',date:'24/10/2026'},{title:'Desafio 01 · Minha primeira planilha',date:'26/10/2026'}],
-      doubts:[],
-      achievements:[{id:'primeiros-passos',title:'Primeiros passos no Excel',date:'24/10/2026',released:true},{id:'formula-mestre',title:'Mestre das fórmulas',date:'',released:false}]
-    },
-    a4: {
-      accesses:['22/10/2026 às 18:44','21/10/2026 às 10:26'],
-      completed:[{title:'Implementação 01 · Fundamentos de Excel',date:'21/10/2026'}],
-      doubts:[{title:'Não consigo abrir o material de apoio',date:'22/10/2026',status:'Respondida'},{title:'Onde encontro o vídeo?',date:'21/10/2026',status:'Respondida'},{title:'Preciso de ajuda com meu acesso',date:'22/10/2026',status:'Em atendimento'}],
-      achievements:[{id:'primeiros-passos',title:'Primeiros passos no Excel',date:'',released:false}]
-    },
-    a5: {
-      accesses:[],
-      completed:[{title:'Implementação 01 · Fundamentos de Excel',date:'22/10/2026'}],
-      doubts:[{title:'Como entrar na gravação da aula?',date:'22/10/2026',status:'Respondida'}],
-      achievements:[{id:'primeiros-passos',title:'Primeiros passos no Excel',date:'',released:false}]
-    }
-  };
+  const demoDetails = {};
   let users = [], staffRole = '';
   let importRows = [], pointsImportRows = [], pointBatchId = '', toastTimer;
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -198,7 +160,7 @@
         <form id="grantAchievementForm" data-user="${esc(u.id)}" class="award-form"><label class="field"><span>Conquista manual</span><select name="achievement" required><option value="">Selecione</option>${u.achievementDefinitions.filter(a=>!u.achievements.some(g=>g.id===a.id)).map(a=>`<option value="${esc(a.id)}">${esc(a.title)}</option>`).join('')}</select></label><button class="btn purple">Liberar conquista</button></form>
         <form id="manualChallengeForm" data-user="${esc(u.id)}" class="award-form"><label class="field"><span>Desafio concluído manualmente</span><select name="implementation" required><option value="">Selecione</option>${u.implementations.filter(i=>i.challenge&&!u.ledger.some(l=>l.implementation_id===i.id&&l.source==='challenge')).map(i=>`<option value="${esc(i.id)}">${esc(i.title)} · ${esc(i.challenge.xp_reward||0)} XP</option>`).join('')}</select></label><button class="btn purple">Concluir desafio</button></form><p class="form-error" id="awardError"></p></section>`:''}
       <form id="emailEditForm" data-user="${esc(u.id)}"><label class="field"><span>E-mail de compra</span><input id="editEmail" type="email" maxlength="254" required value="${esc(u.email)}"></label><p class="form-error" id="formError"></p><button class="btn green" type="submit">Salvar e-mail</button></form>
-      <div class="detail-actions">${staffRole==='admin'?`<button class="btn green" data-account="code" data-user="${esc(u.id)}">Gerar código de acesso</button>`:''}<button class="btn soft" data-account="reset" data-user="${esc(u.id)}">Redefinir senha</button><button class="btn purple" data-account="resend" data-user="${esc(u.id)}">Reenviar acesso</button></div>
+      ${staffRole==='admin'?`<div class="detail-actions"><button class="btn green" data-account="code" data-user="${esc(u.id)}">Gerar código de acesso</button><button class="btn soft" data-account="reset" data-user="${esc(u.id)}">Redefinir senha</button><button class="btn purple" data-account="resend" data-user="${esc(u.id)}">Reenviar acesso</button></div>`:''}
       <div class="modal-actions"><button class="btn soft" data-close>Fechar</button></div>`);
     $('#scrim .modal').classList.add('detail-modal');
   }
@@ -209,13 +171,17 @@
   }
   function showAccountAction(id, action) {
     const u = users.find(item => item.id === id); if (!u) return;
+    if(staffRole!=='admin')return;
     if(action==='code'){
       if(staffRole!=='admin')return;
       modal('Código de acesso sem e-mail',u.name,`<p class="confirm-text">Gere um código para <strong>${esc(u.email)}</strong> e envie a mensagem pronta ao aluno. O código vence em 24 horas, funciona uma vez e um novo código cancela o anterior.</p><p class="form-error" id="accessCodeError" role="alert"></p><div class="modal-actions"><button class="btn soft" data-close>Cancelar</button><button class="btn green" data-issue-code="${esc(u.id)}">Gerar código</button></div>`);
       return;
     }
     const title = action === 'reset' ? 'Redefinir senha' : 'Reenviar acesso';
-    modal(title, u.name, `<p class="confirm-text">O envio para <strong>${esc(u.email)}</strong> ficará disponível quando ativarmos os convites dos alunos e o serviço de e-mail. Nenhuma mensagem foi enviada.</p><div class="modal-actions"><button class="btn soft" data-close>Fechar</button></div>`);
+    const description = action === 'reset'
+      ? 'Enviaremos um link para o aluno definir uma nova senha. Se ele ainda não criou a conta, use “Reenviar acesso”.'
+      : 'Enviaremos um link para confirmar o primeiro acesso. Se o aluno já tiver uma conta confirmada, enviaremos um link para redefinir a senha.';
+    modal(title, u.name, `<p class="confirm-text">${description}<br><br>Destino: <strong>${esc(u.email)}</strong></p><p class="form-error" id="accountEmailError" role="alert"></p><div class="modal-actions"><button class="btn soft" data-close>Cancelar</button><button class="btn green" data-send-account="${esc(action)}" data-user="${esc(u.id)}">Enviar e-mail</button></div>`);
   }
   function parseCSV(text) {
     const rows=[]; let row=[],cell='',quoted=false;
@@ -287,6 +253,17 @@
     const toggle=e.target.closest('[data-toggle]');if(toggle){confirmStatus(toggle.dataset.toggle);return}
     const confirmed=e.target.closest('[data-confirm-status]');if(confirmed){const u=users.find(item=>item.id===confirmed.dataset.confirmStatus);if(!u)return;const status=u.status==='active'?'blocked':'active';confirmed.disabled=true;api.table('uaulingo_students',`?id=eq.${u.id}`,{method:'PATCH',headers:{Prefer:'return=representation'},body:JSON.stringify({status})}).then(loadUsers).then(()=>{closeModal();toast(`${u.name}: acesso ${status==='active'?'desbloqueado':'bloqueado'}.`)}).catch(error=>{$('#modalSubtitle').textContent=friendlyError(error);confirmed.disabled=false});return}
     const account=e.target.closest('[data-account]');if(account){showAccountAction(account.dataset.user,account.dataset.account);return}
+    const sendAccount=e.target.closest('[data-send-account]');if(sendAccount){
+      const u=users.find(item=>item.id===sendAccount.dataset.user);if(!u||staffRole!=='admin')return;
+      const action=sendAccount.dataset.sendAccount;
+      sendAccount.disabled=true;$('#accountEmailError').textContent='';
+      api.invokeFunction('uaulingo-student-access-email',{action,student_id:u.id}).then(result=>{
+        const description=result.kind==='invite'?'Convite de primeiro acesso enviado.':result.kind==='confirmation'?'Confirmação de primeiro acesso reenviada.':'Link para redefinir a senha enviado.';
+        modal('E-mail enviado',u.name,`<p class="confirm-text">${description}<br><br>Destinatário: <strong>${esc(u.email)}</strong>.</p><div class="modal-actions"><button class="btn green" data-close>Fechar</button></div>`);
+        toast(description);
+      }).catch(error=>{$('#accountEmailError').textContent=friendlyError(error);sendAccount.disabled=false});
+      return;
+    }
     const issue=e.target.closest('[data-issue-code]');if(issue){
       const u=users.find(item=>item.id===issue.dataset.issueCode);if(!u||staffRole!=='admin')return;
       issue.disabled=true;

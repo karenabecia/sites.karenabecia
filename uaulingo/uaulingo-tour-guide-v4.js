@@ -1,9 +1,9 @@
 (()=>{
   'use strict';
   const steps=[
-    {speaker:'excelo',pose:0,title:'Oi! Eu sou o Excelo.',text:'Vou ajudar você a criar o Efeito UAU com suas planilhas. No mapa estão as implementações, aulas, exercícios e materiais.'},
+    {speaker:'excelo',pose:0,title:'Oi! Eu sou o Excelo.',text:'Vou ajudar você a criar o Efeito UAU com suas planilhas. No mapa estão as implementações, aulas, quizzes e materiais.'},
     {speaker:'excelo',pose:5,view:'map',title:'Complete os primeiros passos.',text:'Conclua o nível 1 para começar sua jornada e receber todos os avisos.'},
-    {speaker:'gptina',pose:0,title:'Eu sou a GPTina!',text:'Vamos usar IA para analisar dados. Cada nível tem três etapas: aulas e materiais, exercício para ganhar XP e desafio prático.'},
+    {speaker:'gptina',pose:0,title:'Eu sou a GPTina!',text:'Vamos usar IA para analisar dados. Cada nível tem três etapas: aulas e materiais, quiz para ganhar XP e desafio prático.'},
     {speaker:'excelo',pose:0,view:'map',targetView:'map',title:'Mapa da Jornada',text:'Role pelo mapa para descobrir novos cenários e desafios. Ao concluir um nível, você desbloqueia uma conquista.'},
     {speaker:'gptina',pose:5,view:'achievements',targetView:'achievements',title:'Conquistas',text:'Cada implementação concluída poderá render um certificado. Compartilhe sua conquista no LinkedIn e mostre seu Efeito UAU.'},
     {speaker:'gptina',pose:2,view:'schedule',targetView:'schedule',title:'Cronograma',text:'Consulte as datas, horários e detalhes das aulas. Adicione os encontros à sua agenda para não perder nada.'},
