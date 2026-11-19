@@ -3,11 +3,18 @@ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 const localDate=value=>{const d=new Date(value);return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(d)};
 const toInput=value=>{const d=new Date(value);if(Number.isNaN(d.getTime()))return '';const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
 const link=id=>new URL('uaulingo-presenca.html?lista='+encodeURIComponent(id),location.href).href;
+const defaultAttendanceXp=30;
+function fillAttendanceXp(implementationId,lessonIndex){
+  const row=implementations.find(item=>item.id===implementationId);
+  const saved=lists.find(item=>item.implementation_id===implementationId&&item.lesson_index===Number(lessonIndex));
+  $('#xpReward').value=saved?.xp_reward??(row&&Number(row.implementation_number)>1?defaultAttendanceXp:row?$('#xpReward').defaultValue:'');
+}
 async function load(){
   implementations=await api.table('uaulingo_implementations','?select=id,implementation_number,title,lessons&order=implementation_number.asc');
   $('#lessonSelect').innerHTML='<option value="">Selecione a aula</option>'+implementations.flatMap(row=>(row.lessons||[]).map((lesson,index)=>`<option value="${escape(row.id)}:${index}">${String(row.implementation_number).padStart(2,'0')} · ${escape(row.title)} · Aula ${index+1}: ${escape(lesson.title||'Aula')}</option>`)).join('');
   const first=implementations.find(row=>row.implementation_number===1);if(first){$('#lessonSelect').value=first.id+':0';$('#opensAt').value=toInput(first.lessons?.[0]?.scheduled_at||'');$('#closesAt').value=toInput(new Date(new Date(first.lessons?.[0]?.scheduled_at).getTime()+90*60000));}
   await loadLists();
+  fillAttendanceXp(...$('#lessonSelect').value.split(':'));
 }
 async function loadLists(){
   lists=await api.table('uaulingo_attendance_lists','?select=*&order=opens_at.desc');
@@ -81,7 +88,7 @@ async function actOnList(event){
 }
 $('#scheduleForm').addEventListener('submit',event=>{event.preventDefault();save()});
 $('#openNow').addEventListener('click',()=>{$('#opensAt').value=toInput(new Date(Date.now()-60000));$('#closesAt').value=toInput(new Date(Date.now()+90*60000));save()});
-$('#lessonSelect').addEventListener('change',()=>{const [id,index]=$('#lessonSelect').value.split(':');const row=implementations.find(item=>item.id===id),at=row?.lessons?.[Number(index)]?.scheduled_at;if(at){$('#opensAt').value=toInput(at);$('#closesAt').value=toInput(new Date(new Date(at).getTime()+90*60000))}$('#xpReward').value=row?.implementation_number===1?'30':''});
+$('#lessonSelect').addEventListener('change',()=>{const [id,index]=$('#lessonSelect').value.split(':');const row=implementations.find(item=>item.id===id),at=row?.lessons?.[Number(index)]?.scheduled_at;if(at){$('#opensAt').value=toInput(at);$('#closesAt').value=toInput(new Date(new Date(at).getTime()+90*60000))}fillAttendanceXp(id,index)});
 $('#attendanceList').addEventListener('click',actOnList);
 $('#logoutButton').addEventListener('click',async()=>{await api.signOut();location.replace('uaulingo-admin-alunos.html')});
 (async()=>{try{const session=await api.session();if(!session?.user){location.replace('uaulingo-admin-alunos.html');return}user=session.user;const staff=await api.table('uaulingo_staff',`?select=user_id&user_id=eq.${user.id}&limit=1`);if(!staff?.length){location.replace('uaulingo-admin-alunos.html');return}$('#page').hidden=false;await load()}catch(error){$('#page').hidden=false;$('#formStatus').textContent=error.message||'Não foi possível carregar a lista de presença.'}})();
