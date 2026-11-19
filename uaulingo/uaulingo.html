@@ -115,6 +115,69 @@
 @media(max-width:650px){.journey-map{padding:0;background:none}.chapter-head{min-height:0;flex-wrap:wrap;border-radius:14px;padding:14px;gap:9px}.chapter-number{padding:6px 8px;font-size:.64rem}.chapter-head h3{font-size:1rem}.chapter-head p{font-size:.69rem}.chapter-date{margin-left:0;padding:6px 8px}.chapter-date small{font-size:.5rem}.chapter-date strong{font-size:.86rem}.map-stage{height:510px}.map-route path{stroke-width:8;stroke-dasharray:12 11}.map-stop,.map-stop:nth-child(2),.map-stop:nth-child(3){width:132px}.map-stop:nth-child(1){left:31%;top:135px}.map-stop:nth-child(2){left:69%;top:275px}.map-stop:nth-child(3){left:39%;top:412px}.map-chapter.reverse .map-stop:nth-child(1){left:69%}.map-chapter.reverse .map-stop:nth-child(2){left:31%}.map-chapter.reverse .map-stop:nth-child(3){left:61%}.route-coin{width:82px;height:82px;border-width:5px;box-shadow:0 6px 0 #145a45,inset 0 -6px 0 #71c56b,0 0 0 4px #f2fae9}.route-coin svg{width:46px;height:46px}.map-stop .stop-copy{min-width:0;width:132px;max-width:132px;padding:6px 5px;margin-top:12px}.map-stop .stop-copy small{font-size:.47rem}.map-stop .stop-copy strong{font-size:.7rem}.map-stop .stop-copy span{font-size:.57rem}.stop-state{right:20px}.my-league{padding:12px;gap:9px}.my-league strong{font-size:1.05rem}.my-league span:last-child{font-size:.65rem}.league-rules{grid-template-columns:repeat(3,1fr);gap:6px}.league-rules .league-card{padding:9px 7px;min-width:0}.league-rules .league-card strong{font-size:.83rem}.league-rules .league-card small{font-size:.59rem;line-height:1.2}.league-card .league-symbol{font-size:1.2rem}.league-card .league-mine{font-size:.5rem}.rank-row{grid-template-columns:25px minmax(0,1fr) 51px minmax(78px,105px);gap:3px;padding:7px 3px;font-size:.68rem}.rank-row .flag{font-size:.52rem;padding:4px 3px}.rank-row .score{font-size:.61rem}}
 
 .lesson-theme-badge{display:inline-block;margin:8px 0 0;padding:5px 9px;border-radius:7px;background:#dff9e7;color:#087c48;font:900 .72rem monospace;letter-spacing:.03em}#lessonContent[data-theme="excel"] .detail-hero{background:#e5f8e9;border-color:#b3dfbe}#lessonContent[data-theme="ai"] .detail-hero{background:#f3e9ff;border-color:#d6b6f1}#lessonContent[data-theme="ai"] .lesson-theme-badge{background:#e7ceff;color:#722aaf}#lessonContent[data-theme="ai"] .detail-hero .kicker,#lessonContent[data-theme="ai"] .content-copy .pixel-title{color:#8d32bd}#lessonContent[data-theme="ai"] .content-copy{border-color:#ddc2f2}#lessonContent[data-theme="ai"] .content-copy>.btn-primary{background:#a837f2;box-shadow:0 4px 0 #65268e}
+.lesson-live-row .student-lesson-status{display:inline-block;width:fit-content;margin:6px 0 2px;padding:3px 7px;border-radius:6px;background:#f0e8fb;color:#563083;font-weight:800}
+.lesson-live-row.student-lesson-done .student-lesson-status{background:#dff5e6;color:#0e633c}
+.lesson-live-row .lesson-overview{margin:8px 0 0;white-space:pre-wrap}
+.lesson-live-row .lesson-preclass{margin:8px 0 0;padding-left:18px}
+.achievement-steps{list-style:none;padding:0;margin:8px 0 16px;display:grid;gap:6px}
+.achievement-steps li{display:flex;gap:6px 10px;flex-wrap:wrap;justify-content:space-between;font-size:.82rem;border-bottom:1px solid var(--line);padding:5px 0}
+.achievement-steps .step-done{color:#0e633c;font-weight:800}
+.achievement-card progress{width:100%;accent-color:#0d894e}
+.implementation-page{--lesson-accent:#00613b;--lesson-hero:#00683e;--lesson-soft:#c9f2d7;--lesson-line:#72bf90;--lesson-dark:#053927}
+.implementation-page[data-theme="ai"]{--lesson-accent:#632298;--lesson-hero:#68249e;--lesson-soft:#ead9fa;--lesson-line:#b994db;--lesson-dark:#321953}
+.schedule-activity-controls{--lesson-accent:#00613b;--lesson-soft:#c9f2d7;--lesson-dark:#053927;display:grid;grid-template-columns:repeat(2,minmax(0,150px));gap:8px;margin-top:7px}
+.schedule-ai .schedule-activity-controls{--lesson-accent:#632298;--lesson-soft:#ead9fa;--lesson-dark:#321953}
+.schedule-activity-controls .implementation-activity{min-height:50px;padding:6px 8px;gap:6px}
+.schedule-activity-controls .implementation-activity strong{font-size:.84rem}
+.schedule-activity-controls .implementation-activity span{font-size:.71rem}
+.schedule-activity-controls .implementation-activity .marker-art{width:28px;height:28px}
+.implementation-page .implementation-banner{display:flex;align-items:center;gap:18px;border:1px solid var(--lesson-accent);background:var(--lesson-hero);border-radius:16px;padding:clamp(16px,3vw,28px);margin-bottom:18px;color:white}
+.implementation-banner h1{margin:4px 0 7px;font-size:clamp(1.65rem,3.6vw,3rem);color:white}
+.implementation-banner p,.implementation-banner .kicker{margin:0;color:#f0fff5}
+.implementation-icon{display:grid;place-items:center;flex:none;width:clamp(54px,8vw,84px);aspect-ratio:1;background:white;border:2px solid var(--lesson-accent);border-radius:12px;box-shadow:4px 4px 0 var(--lesson-line)}
+.implementation-icon svg{width:78%;height:auto}
+.implementation-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(240px,1fr);gap:18px;align-items:start}
+.implementation-grid h2{font-size:1.38rem;color:var(--lesson-dark)}
+.implementation-grid .panel{border-color:var(--lesson-line)}
+.implementation-grid .lesson-live-list{margin:10px 0 0}
+.implementation-grid .lesson-live-row{background:#c9f2d7;border:1px solid #72bf90;border-left:5px solid #087044}
+.implementation-grid .lesson-live-row:nth-child(3n+2){background:#c8f0ed;border-color:#6cbdb9;border-left-color:#08746e}
+.implementation-grid .lesson-live-row:nth-child(3n+3){background:#e4f4bb;border-color:#a7bf6d;border-left-color:#577b14}
+.implementation-page[data-theme="ai"] .lesson-live-row{background:#ead9fa;border-color:#bc92dc;border-left-color:#6b2ba1}
+.implementation-page[data-theme="ai"] .lesson-live-row:nth-child(3n+2){background:#efdaff;border-color:#c291e0;border-left-color:#8a2da9}
+.implementation-page[data-theme="ai"] .lesson-live-row:nth-child(3n+3){background:#dce4ff;border-color:#96a7e6;border-left-color:#4956a5}
+.implementation-grid .student-lesson-status[hidden]{display:none}
+.implementation-grid .lesson-live-row a{color:var(--lesson-accent)}
+.implementation-grid .lesson-options{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px;margin-top:11px}
+.implementation-grid .lesson-options[hidden],.implementation-grid .lesson-recording[hidden],.implementation-grid .lesson-recording .btn[hidden]{display:none}
+.implementation-grid .lesson-recording{margin-top:11px}
+.implementation-grid .lesson-recording .btn{margin:0;background:var(--lesson-accent);color:white}
+.implementation-grid .lesson-recording .btn:disabled{background:#f6f9f6;color:#36564a;opacity:1;border:1px solid var(--lesson-line)}
+.implementation-grid .lesson-options .btn{margin:0;padding:8px 5px;font-size:.75rem;line-height:1.2;text-align:center;background:white;border:1px solid var(--lesson-accent);color:var(--lesson-accent);white-space:normal}
+.implementation-grid .lesson-options .lesson-presence{grid-column:1/-1;background:var(--lesson-accent);color:white}
+.implementation-grid .lesson-options .btn:disabled{background:#f6f9f6;color:#36564a;opacity:1;border-color:var(--lesson-line)}
+.implementation-live{display:flex;justify-content:center;margin-top:14px;background:var(--lesson-accent);color:white;text-align:center}
+.implementation-activities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:12px}
+.implementation-activity-wrap{position:relative;min-width:0}
+.implementation-activity{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;text-align:left;align-items:center;min-height:62px;width:100%;border:1px solid var(--lesson-accent);border-radius:11px;background:var(--lesson-accent);color:white;padding:8px 10px;transition:transform .18s ease,box-shadow .18s ease}
+.implementation-activity strong{font-size:1rem}.implementation-activity span{font-size:.78rem}
+.implementation-activity .marker-art{width:clamp(28px,7vw,38px);height:clamp(28px,7vw,38px)}
+.implementation-activity-copy{display:grid;gap:4px}
+.implementation-activity[aria-disabled="true"]{cursor:help;background:var(--lesson-soft);color:var(--lesson-dark)}
+.implementation-release-tooltip{position:absolute;z-index:3;bottom:calc(100% + 7px);left:0;max-width:100%;width:max-content;padding:7px 9px;border-radius:7px;background:var(--lesson-dark);color:white;font-size:.78rem;visibility:hidden}
+.implementation-activity-wrap:hover .implementation-release-tooltip,.implementation-activity-wrap:focus-within .implementation-release-tooltip{visibility:visible}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .implementation-activity-wrap:hover{z-index:2}
+  .implementation-activity-wrap:hover .implementation-activity{transform:scale(1.035);box-shadow:0 7px 12px #153c2b30}
+}
+.implementation-xp{display:grid;grid-template-columns:minmax(0,1fr) clamp(82px,15vw,144px);gap:12px;align-items:center;margin-top:19px}
+.implementation-xp .panel{position:relative;background:var(--lesson-soft);border-color:var(--lesson-line)}
+.implementation-xp .panel::after{content:'';position:absolute;right:-7px;top:50%;width:12px;height:12px;background:var(--lesson-soft);border:solid var(--lesson-line);border-width:1px 1px 0 0;transform:translateY(-50%) rotate(45deg)}
+.implementation-xp p{margin:5px 0;color:var(--lesson-dark)}
+.implementation-guide{aspect-ratio:1;background:url('uaulingo-excelo-poses-implementacoes.png') var(--pose-x) var(--pose-y)/300% 200% no-repeat;image-rendering:pixelated}
+.implementation-guide.gptina{background-image:url('uaulingo-gptina-poses-implementacoes.png')}
+@media(max-width:740px){.implementation-grid{grid-template-columns:1fr}.implementation-xp{grid-template-columns:minmax(0,1fr) 78px}}
+@media(max-width:390px){.implementation-activities{gap:8px}.implementation-activity{padding:7px 8px}.implementation-xp .panel{padding:12px}}
 </style>
   <link rel="stylesheet" href="uaulingo-map.css">
   <link rel="stylesheet" href="uaulingo-student-theme.css">
@@ -128,8 +191,10 @@
   const $ = selector => document.querySelector(selector);
   const $$ = selector => Array.from(document.querySelectorAll(selector));
   const STORE = 'uaulingo-excel-ia-demo-v2';
+  let resumingMapFromLink=new URLSearchParams(location.search).get('retomar')==='1';
   const colors = {G:'#168b63',D:'#0b6c4c',L:'#b9e665',P:'#7457d8',V:'#5d40c0',Y:'#f4d76d',W:'#ffffff',K:'#26362d',S:'#c6d8bd'};
   const pixelRows = {
+    etl:['............','.DDDDDDDDDD.','.DGGGGGGGGD.','..DLGGGGLD..','...DGGGGD...','....DGGD....','.....DD.....','.....GG.....','...DDDDDD...','...DLGLGD...','...DDDDDD...','............'],
     sheet:['............','..GGGGGGGG..','..GWWWWWWG..','..GWGWGWGG..','..GWWWWWWG..','..GGGGGGGG..','..GWWWWWWG..','..GWGWGWGG..','..GWWWWWWG..','..GGGGGGGG..','............','............'],
     bot:['............','...PPPPPP...','..PWWWWWWP..','..PWKWWKWP..','..PWWYYWWP..','..PWWWWWWP..','...PPPPPP...','....P..P....','..PPPPPPPP..','..P......P..','............','............'],
     video:['............','..PPPPPPPP..','..PWWWWWWP..','..PWWKWWWP..','..PWWKKWWP..','..PWWKKKWP..','..PWWKKWWP..','..PWWKWWWP..','..PWWWWWWP..','..PPPPPPPP..','....P..P....','............'],
@@ -189,10 +254,59 @@
   if(!studentContext.preview){for(const row of studentContext.implementations){const index=Number(row.implementation_number)-1;if(index<0||index>=modules.length)continue;Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url||modules[index].join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}}
   Object.assign(modules[1],{topics:['Extração de dados de arquivos e planilhas','Tratamento de vazios, duplicatas e formatos','Modelagem para análises confiáveis'],task:'Prepare uma base de dados, documente três transformações e envie o link da sua solução.',deliverable:'Base tratada + descrição das transformações'});
   Object.assign(modules[2],{topics:['Estrutura de prompts com contexto e objetivo','Transformação de instruções em etapas repetíveis','Revisão e validação das respostas da IA'],task:'Transforme um prompt solto em um processo com etapas e critérios de conferência.',deliverable:'Prompt revisado + fluxo de validação'});
-  modules[1].questions=[['Qual é o objetivo do ETL?',['Extrair, transformar e carregar dados','Escolher a cor da planilha','Criar uma senha'],0],['Ao encontrar valores duplicados, o primeiro passo é…',['Investigar a origem e a regra da base','Apagar tudo sem conferir','Ignorar sempre'],0],['Modelar dados ajuda a…',['Organizar relações para análise','Trocar apenas a fonte','Esconder os dados'],0]];
-  modules[1].exercise={};modules[1].challenge={};modules[2].exercise={};modules[2].challenge={};
+  if(studentContext.preview){
+    modules[1].questions=[
+      ['Você recebeu um CSV mensal. Qual é a primeira etapa do ETL?',['Extrair os dados do arquivo','Criar um gráfico','Apagar as linhas repetidas','Salvar um PDF'],0],
+      ['Como tratar possíveis registros duplicados?',['Excluir linhas ao acaso','Definir a chave e verificar as repetições','Manter apenas a primeira coluna','Mesclar as células'],1],
+      ['Qual ação deixa uma coluna de datas pronta para análise?',['Pintar as células','Mover a coluna para o fim','Converter valores para o tipo data e conferir erros','Esconder os valores vazios'],2]
+    ];
+    modules[1].task='Simulação: organize uma base de pedidos. Padronize datas e nomes, confira duplicatas e documente três transformações.';
+    modules[1].deliverable='Link da base de pedidos tratada e descrição das três transformações';
+    modules[1].exercise={};modules[1].challenge={};modules[2].exercise={};modules[2].challenge={};
+  }
+  let etlProgress=null;
+  let etlProgressRequest=null;
+  function refreshEtlProgress(){
+    if(studentContext.preview||etlProgressRequest)return etlProgressRequest;
+    const previousProgress=etlProgress;
+    etlProgressRequest=(async()=>{
+      try{
+        const progress=await window.UauSupabase.rpc('uaulingo_journey_progress');
+        if(etlProgress!==previousProgress)return;
+        const changed=JSON.stringify(progress)!==JSON.stringify(etlProgress);
+        etlProgress=progress;
+        if(changed){refreshMap();renderMapSummary();if(currentView==='achievements')renderAchievements();}
+      }catch{
+        if(!etlProgress&&currentView==='achievements')$('#achievementGrid').textContent='Não foi possível carregar suas conquistas. Tente novamente.';
+      }finally{etlProgressRequest=null;}
+    })();
+    return etlProgressRequest;
+  }
   function levelComplete(index){return index===0?['lesson','quiz','challenge','terms'].every(kind=>stepComplete(index,kind)):['lesson','quiz','challenge'].every(kind=>stepComplete(index,kind))}
-  function levelLocked(index){if(index===0)return false;if(index>=5)return true;if(levelComplete(index-1))return false;const date=lessonDate(modules[index]?.lessons?.[0]);if(!date)return true;const day=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(value).map(part=>[part.type,part.value]));return Date.UTC(Number(parts.year),Number(parts.month)-1,Number(parts.day))};return day(date)-day(new Date())>7*86400000}
+  function visibleMapLevels(){
+    const published=studentContext.preview?[]:studentContext.implementations.map(row=>Number(row.implementation_number)||0);
+    return Math.min(modules.length,Math.max(5,...published));
+  }
+  function classDay(date){
+    const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).map(part=>[part.type,part.value]));
+    return Date.UTC(Number(parts.year),Number(parts.month)-1,Number(parts.day));
+  }
+  function levelOpensOn(index){
+    const firstClass=(modules[index]?.lessons||[]).map(lessonDate).filter(date=>date&&!Number.isNaN(date.getTime())).sort((a,b)=>a-b)[0];
+    return firstClass?classDay(firstClass)-7*86400000:null;
+  }
+  function lessonLockedMessage(index){
+    const opens=levelOpensOn(index);
+    const date=opens===null?'':new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',timeZone:'UTC'}).format(new Date(opens));
+    return date?'Abre em '+date+' ou ao concluir o nível anterior.':'Disponível ao concluir o nível anterior ou quando houver aula agendada.';
+  }
+  function levelLocked(index){
+    if(index===0)return false;
+    if(index<0||index>=visibleMapLevels())return true;
+    const opens=levelOpensOn(index);
+    if(opens!==null&&classDay(new Date())>=opens)return false;
+    return !levelComplete(index-1);
+  }
   function moduleFor(index) {
     const base = modules[index % modules.length];
     const cycle = Math.floor(index / modules.length);
@@ -217,22 +331,63 @@
     const dates=lessons.map(lessonDate).filter(item=>item&&!Number.isNaN(item.getTime()));
     return dates.length?dates:[implementationDate(index)];
   }
-  function nextClass() {
+  function upcomingClasses(){
     const now=Date.now();
-    const entries=Array.from({length:modules.length},(_,index)=>(modules[index].lessons||[]).map(lesson=>lessonDate(lesson)?{index,date:lessonDate(lesson),hasTime:!!lesson.scheduled_at}:null).filter(Boolean)).flat().sort((a,b)=>a.date-b.date);
-    return entries.find(item=>item.date.getTime()>=now-3600000)||null;
+    return modules.flatMap((module,index)=>(module.lessons||[]).flatMap((lesson,lessonIndex)=>{
+      const date=lessonDate(lesson);
+      if(!date||Number.isNaN(date.getTime())||lesson.completed_at)return [];
+      const hasTime=Boolean(lesson.scheduled_at);
+      const ends=hasTime?date.getTime()+(Number(lesson.duration_minutes)||60)*60000:null;
+      if(hasTime?ends<=now:classDay(date)<classDay(new Date(now)))return [];
+      return [{index,lessonIndex,date,hasTime}];
+    })).sort((a,b)=>a.date-b.date);
   }
-  function activeMapLevel() { for(let index=1;index<Math.min(5,modules.length);index++)if(levelComplete(index-1)&&!levelLocked(index)&&!levelComplete(index))return index;const upcoming=nextClass()?.index;return upcoming!=null&&!levelLocked(upcoming)?upcoming:0; }
+  function nextClass(){return upcomingClasses()[0]||null;}
+  function activeMapLevel(){
+    const upcoming=upcomingClasses().find(item=>!levelLocked(item.index));
+    if(upcoming)return upcoming.index;
+    for(let index=1;index<visibleMapLevels();index++)if(levelComplete(index-1)&&!levelLocked(index)&&!levelComplete(index))return index;
+    for(let index=0;index<visibleMapLevels();index++)if(!levelLocked(index)&&!levelComplete(index))return index;
+    return 0;
+  }
   const stepNames={lesson:'aula',quiz:'quiz',challenge:'desafio',terms:'termo vitalício'};
-  function stepComplete(index,kind){return kind==='terms'?!!(studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAccepted):kind==='lesson'?state.lessons.includes(index):kind==='quiz'?state.quizzes.includes(index):state.challenges.includes(index);}
-  function activityAvailable(index,kind){if(levelLocked(index))return false;const mod=moduleFor(index),classAt=lessonDate(mod.lessons?.[0]);if(!classAt)return false;const configured=mod[kind==='quiz'?'exercise':'challenge']?.opens_at;const configuredAt=configured?new Date(configured):classAt;return Date.now()>=Math.max(classAt.getTime(),configuredAt.getTime())}
+  function stepComplete(index,kind){
+    if(!studentContext.preview&&index>0)return !!etlProgress?.modules?.[index+1]?.[kind];
+    if(!studentContext.preview&&index===0&&kind==='challenge'&&etlProgress?.onboarding_lesson)return true;
+    return kind==='terms'?!!(studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAccepted):kind==='lesson'?state.lessons.includes(index):kind==='quiz'?state.quizzes.includes(index):state.challenges.includes(index);
+  }
+  function activityAvailable(index,kind,allowReview=false){
+    if(index===1&&studentContext.preview)return true;
+    if(levelLocked(index))return false;
+    const mod=moduleFor(index),classAt=lessonDate(mod.lessons?.[0]);
+    if(index>0&&!studentContext.preview){
+      const activity=kind==='quiz'?mod.exercise:mod.challenge;
+      if(!(kind==='quiz'?activity?.revision:activity?.instructions)||!mod.lessons?.[0]?.scheduled_at)return false;
+      const classEnd=classAt.getTime()+(Number(mod.lessons[0].duration_minutes)||60)*60000;
+      const opens=activity.opens_at?Date.parse(activity.opens_at):classEnd;
+      const due=activity.due_at?Date.parse(activity.due_at):Infinity;
+      return Date.now()>=Math.max(classEnd,opens)&&(Date.now()<due||(kind==='challenge'&&allowReview));
+    }
+    if(!classAt)return false;
+    const configured=mod[kind==='quiz'?'exercise':'challenge']?.opens_at;
+    const configuredAt=configured?new Date(configured):classAt;
+    return Date.now()>=Math.max(classAt.getTime(),configuredAt.getTime());
+  }
   function termAcceptanceDate(){const value=studentContext.preview?localStorage.getItem('uaulingo-demo-terms-2026-11-10'):studentContext.termAcceptedAt;const date=new Date(value);return value&&value!=='1'&&!Number.isNaN(date.getTime())?date.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';}
-  function resumePoint(){for(let index=0;index<=activeMapLevel();index++)for(const kind of (index===0?['lesson','quiz','challenge','terms']:['lesson','quiz','challenge']))if(!stepComplete(index,kind))return {index,kind};return null;}
+  function resumePoint(){
+    for(let index=0;index<visibleMapLevels();index++){
+      if(levelLocked(index))continue;
+      for(const kind of (index===0?['lesson','quiz','challenge','terms']:['lesson','quiz','challenge'])){
+        if(!stepComplete(index,kind))return {index,kind};
+      }
+    }
+    return null;
+  }
   function updateMapHud() {
-    const level=activeMapLevel(),next=nextClass(),done=[state.lessons.includes(level),state.quizzes.includes(level),state.challenges.includes(level),...(level===0?[stepComplete(0,'terms')]:[])].filter(Boolean).length;
+    const level=activeMapLevel(),next=nextClass(),done=(level===0?['lesson','quiz','challenge','terms']:['lesson','quiz','challenge']).filter(kind=>stepComplete(level,kind)).length;
     const resume=resumePoint();
     $('#mapHudLevel').textContent=`Nível ${String(level+1).padStart(2,'0')} · ${moduleFor(level).title}`;
-    $('#mapHudDate').textContent=next?`Próxima aula: ${dateFull(next.date)}${next.hasTime?' · '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):''}`:'Próxima aula a definir';
+    $('#mapHudDate').textContent=next?`Próxima aula: ${moduleFor(next.index).title} · ${dateFull(next.date)}${next.hasTime?' · '+new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}).format(next.date)+' (Brasília)':''}`:'Próxima aula a definir';
     $('#mapHudProgress').style.width=`${done/(level===0?4:3)*100}%`;
     $('#mapPrevious').hidden=level===0;
     $('#mapResume').hidden=!resume;
@@ -289,7 +444,8 @@
   function showToast(message) { const el=$('#toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),3800); }
   function award(points) { state.xp += points; user().points += points; save(); renderHeader(); renderMapSummary(); renderAchievements(); renderRanking(); }
   function view(name) {
-    if(name==='map'&&currentView!=='map')setMapHudClosed(false);
+    const returningToMap=name==='map'&&currentView!=='map';
+    if(returningToMap)setMapHudClosed(false);
     currentView=name;
     $$('.view').forEach(el => el.classList.toggle('active', el.id==='view-'+name));
     $$('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view===name));
@@ -303,10 +459,11 @@
     if (name==='achievements') renderAchievements();
     if (name==='support') window.UauSupport?.render();
     if (name==='ranking') renderRanking();
-    if (name==='challenge') renderChallenge(currentModule);
-    if(name==='map')requestAnimationFrame(updateTopMapLevel);
-    window.scrollTo({top:0,behavior:'smooth'});
-    if(name==='map'&&pendingUnlockedLevel!==null){const index=pendingUnlockedLevel;pendingUnlockedLevel=null;setTimeout(()=>$('#chapter-'+index)?.scrollIntoView({behavior:'smooth',block:'start'}),180)}
+    if(returningToMap)requestAnimationFrame(centerMapOnResume);
+    else{
+      if(name==='map')requestAnimationFrame(updateTopMapLevel);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
   }
   function divisionName(value){return {Quasar:'Ouro',Pulsar:'Prata',Nebula:'Bronze'}[value]||'A definir'}
   function renderHeader() { $('#topDivision').textContent=divisionName(user().division); $('#topXP').textContent=state.xp;renderStudentNotices(); }
@@ -330,7 +487,7 @@
   }
   function updateContinueArrow(){
     const point=resumePoint(),button=$('#mapReturnToContinue');
-    const marker=point&&point.index<5?document.querySelector(`#chapter-${point.index} .map-stop.${point.kind}`):null;
+    const marker=point&&point.index<visibleMapLevels()?document.querySelector(`#chapter-${point.index} .map-stop.${point.kind}`):null;
     const markerBox=marker?.getBoundingClientRect(),top=$('.topbar').getBoundingClientRect().bottom;
     button.hidden=currentView!=='map'||!markerBox||window.scrollY<window.innerHeight||markerBox.bottom>=top;
   }
@@ -346,20 +503,21 @@
   function stopMarkup(mod, kind) {
     const types={lesson:{short:'Aula',label:'01 · ASSISTIR A IMPLEMENTAÇÃO',title:'Assistir à implementação'},quiz:{short:'Quiz',label:'02 · QUIZ DA AULA',title:'Quiz de múltipla escolha'},challenge:{short:'Desafio',label:'03 · DESAFIO DA AULA',title:'Desafio para avaliação'}};
     if(mod.index===0)Object.assign(types,{lesson:{short:'Tutorial',label:'01 · COMO JOGAR',title:'Concluir o tutorial · ganhe XP'},quiz:{short:'Grupo',label:'02 · COMUNIDADE',title:'Entrar no grupo de WhatsApp'},challenge:{short:'Onboarding',label:'03 · ENCONTRO AO VIVO',title:'Participar do onboarding'}});
-    const item=types[kind],done=stepComplete(mod.index,kind),locked=levelLocked(mod.index)||(mod.index>0&&kind!=='lesson'&&!activityAvailable(mod.index,kind));
+    const item=types[kind],done=stepComplete(mod.index,kind),detailsOnly=mod.index>0&&kind==='lesson';
+    const locked=levelLocked(mod.index)||(mod.index>0&&kind!=='lesson'&&!activityAvailable(mod.index,kind,true));
     const liveDone=kind==='lesson' && (mod.lessons||[]).some(lesson=>lesson.completed_at);
     const releaseRaw=kind==='lesson'?mod.lesson_release_at:mod[kind==='quiz'?'exercise':'challenge']?.opens_at;
     const releaseDate=releaseRaw?new Date(releaseRaw):mod.index>0?lessonDate(mod.lessons?.[0]):null;
     const dateLabel=mod.index===0?(kind==='lesson'?'Disponível agora':kind==='quiz'?'Grupo disponível agora':'12 de nov · 20h'):kind==='lesson'?dateShort(implementationDate(mod.index)):releaseDate?dateShort(releaseDate):'Data a definir';
     const fullRelease=releaseDate?new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric'}).format(releaseDate):'';
-    const title=liveDone&&mod.index!==0?'Aula realizada · ver conteúdo':item.title;
+    const title=liveDone&&mod.index!==0?'Aula realizada · ver conteúdo':detailsOnly?'Ver detalhes das aulas':item.title;
     const isResume=resumePoint()?.index===mod.index&&resumePoint()?.kind===kind;
     const detail=locked?'bloqueado':done?'concluído':liveDone?'página da aula disponível':'abrir etapa';
     return `<button class="map-stop ${kind}${done?' completed':''}${liveDone?' live-done':''}${isResume?' resume-target':''}" data-action="${kind}" data-module="${mod.index}" aria-label="${locked?item.short+' bloqueado':esc(title)+' · '+dateLabel+(isResume?' · continue aqui':'')}" ${locked?'disabled':`aria-describedby="tip-${mod.index}-${kind}"`}>
       <span class="route-coin"><span class="coin-face"><span class="marker-art ${mod.index===0?'tutorial-icon ':''}${mod.guide} ${kind}" aria-hidden="true"></span></span></span>
       <span class="stop-short">${item.short}</span>
       ${locked?'':`<span class="stop-copy" id="tip-${mod.index}-${kind}" role="tooltip"><small>${liveDone?'01 · AULA REALIZADA':item.label}</small><strong>${title}</strong><span>${dateLabel}${done?'':` · ${detail}`}</span>${done?'<span class="stop-complete">✓ CONCLUÍDO</span>':''}</span>`}
-      ${!locked&&releaseDate?`<span class="release-sign">${releaseDate>new Date()?'Libera em':'Liberado em'}: ${fullRelease}</span>`:''}
+      ${!locked&&releaseDate?`<span class="release-sign">${detailsOnly?'Data da aula':releaseDate>new Date()?'Libera em':'Liberado em'}: ${fullRelease}</span>`:''}
       ${locked?'<span class="stop-lock" aria-hidden="true">▣</span>':done?'<span class="stop-state">✓</span>':''}
       ${isResume?'<span class="resume-flag">▶ CONTINUE AQUI</span>':''}
     </button>`;
@@ -370,7 +528,7 @@
   }
   function chapterMarkup(index) {
     const mod=moduleFor(index),guide=mod.guide||'excelo',locked=levelLocked(index),etl=index===1,etlComplete=etl&&state.challenges.includes(index);
-    const completed=[state.lessons.includes(index),state.quizzes.includes(index),state.challenges.includes(index),...(index===0?[stepComplete(0,'terms')]:[])].filter(Boolean).length;
+    const completed=(index===0?['lesson','quiz','challenge','terms']:['lesson','quiz','challenge']).filter(kind=>stepComplete(index,kind)).length;
     const scheduled=(mod.lessons||[]).map(lessonDate).filter(Boolean);
     const releaseDate=scheduled[0]||null;
     const releaseText=releaseDate?new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric'}).format(releaseDate):'A definir';
@@ -386,25 +544,25 @@
       ${index===0?`<button class="map-companion gptina map-welcome-guide" type="button" aria-label="Ouvir a GPTina: como funciona o Uau Língo" aria-describedby="welcome-gptina-tip" style="--pose-x:0%;--pose-y:0%"><span class="companion-dots" aria-hidden="true"><i></i><i></i><i></i></span></button><aside class="world-brief welcome-brief" id="welcome-gptina-tip" role="tooltip"><small>✦ GPTINA FALA</small><strong>Bem-vinda ao Uau Língo!</strong><p>É aqui no Uau Língo que você vai receber todas as informações sobre seus estudos, materiais e datas. Você também pode ganhar prêmios!</p></aside>`:''}
       <div class="map-stops">${stopMarkup(mod,'lesson')}${stopMarkup(mod,'quiz')}${stopMarkup(mod,'challenge')}${index===0?termsStopMarkup():''}</div></div></section>`;
   }
-  function appendMap(count) { const end=Math.min(5,modules.length,mapLoaded+count);for(let i=mapLoaded;i<end;i++){ $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));renderedLevelCompletion[i]=levelComplete(i) }mapLoaded=end;updateTopMapLevel();updateContinueArrow(); }
-  function setupMap() { $('#introIllustration').innerHTML=pixel('sheet',270)+pixel('bot',100); appendMap(5); updateMapHud(); setTimeout(()=>{if(currentView==='map'){$('#chapter-'+Math.min(4,activeMapLevel()))?.scrollIntoView({block:'start'});updateTopMapLevel();showClassDayPopup()}},140); }
+  function appendMap(count) { const end=Math.min(visibleMapLevels(),mapLoaded+count);for(let i=mapLoaded;i<end;i++){ $('#journeyMap').insertAdjacentHTML('beforeend',chapterMarkup(i));renderedLevelCompletion[i]=levelComplete(i) }mapLoaded=end;updateTopMapLevel();updateContinueArrow(); }
+  function setupMap() { $('#introIllustration').innerHTML=pixel('sheet',270)+pixel('bot',100); appendMap(visibleMapLevels()); updateMapHud(); if(!resumingMapFromLink)setTimeout(()=>{if(currentView==='map'){$('#chapter-'+activeMapLevel())?.scrollIntoView({block:'start'});updateTopMapLevel();showClassDayPopup()}},140); }
   function showClassDayPopup() {
-    const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    const dayOf=date=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
-    const classes=Array.from({length:modules.length},(_,index)=>levelLocked(index)?[]:(modules[index].lessons||[]).map(lesson=>lessonDate(lesson)?{index,date:lessonDate(lesson),hasTime:!!lesson.scheduled_at}:null).filter(Boolean)).flat().filter(item=>dayOf(item.date)===today).sort((a,b)=>a.date-b.date);
-    const next=classes.find(item=>item.date>=new Date())||classes.at(-1);
+    if(document.querySelector('#modalScrim.show,.tour-overlay:not([hidden]),.lesson-release-overlay'))return;
+    const today=classDay(new Date());
+    const next=upcomingClasses().find(item=>classDay(item.date)===today&&!levelLocked(item.index)&&
+      (studentContext.preview||studentContext.implementations.some(row=>Number(row.implementation_number)===item.index+1)));
     if(!next)return;
-    const noticeKey=`uaulingo-class-notice-${today}-${next.index}`;
+    const noticeKey=`uaulingo-class-notice-${studentContext.studentId||'preview'}-${today}-${next.index}-${next.lessonIndex}`;
     if(localStorage.getItem(noticeKey))return;
     localStorage.setItem(noticeKey,'1');
-    openModal('Hoje tem aula!','<p>A próxima aula da implementação <strong>'+esc(moduleFor(next.index).title)+'</strong> acontece hoje, '+dateFull(next.date)+(next.hasTime?' às '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(next.date):'')+'.</p><button class="btn btn-primary" data-class-lesson="'+next.index+'">Ver implementação →</button>');
+    openModal('Hoje tem aula!','<p>A próxima aula da implementação <strong>'+esc(moduleFor(next.index).title)+'</strong> acontece hoje'+(next.hasTime?' às '+new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}).format(next.date)+' (Brasília)':'')+'.</p><button class="btn btn-primary" data-class-lesson="'+next.index+'">Ver detalhes da aula →</button>');
   }
   function refreshMap() {
-    const newlyCompleted=renderedLevelCompletion.findIndex((done,index)=>!done&&levelComplete(index)&&index<4&&!levelLocked(index+1));
-    const newlyUnlocked=Array.from($('#journeyMap').querySelectorAll('.map-chapter.locked')).map(chapter=>Number(chapter.id.replace('chapter-',''))).find(index=>index<5&&!levelLocked(index));
-    $('#journeyMap').innerHTML='';mapLoaded=0;appendMap(5);updateMapHud();renderMapSummary();
+    const newlyCompleted=renderedLevelCompletion.findIndex((done,index)=>!done&&levelComplete(index)&&index+1<visibleMapLevels()&&!levelLocked(index+1));
+    const newlyUnlocked=Array.from($('#journeyMap').querySelectorAll('.map-chapter.locked')).map(chapter=>Number(chapter.id.replace('chapter-',''))).find(index=>index<visibleMapLevels()&&!levelLocked(index));
+    $('#journeyMap').innerHTML='';mapLoaded=0;appendMap(visibleMapLevels());updateMapHud();renderMapSummary();
     const nextLevel=newlyCompleted>=0?newlyCompleted+1:newlyUnlocked;
-    if(nextLevel!==undefined){pendingUnlockedLevel=nextLevel;if(currentView==='map'){const index=pendingUnlockedLevel;pendingUnlockedLevel=null;setTimeout(()=>$('#chapter-'+index)?.scrollIntoView({behavior:'smooth',block:'start'}),150)}}
+    if(nextLevel!==undefined){pendingUnlockedLevel=nextLevel;if(currentView==='map'&&!resumingMapFromLink){const index=pendingUnlockedLevel;pendingUnlockedLevel=null;setTimeout(()=>{if(currentView==='map')$('#chapter-'+index)?.scrollIntoView({behavior:'smooth',block:'start'});},150)}}
   }
   function updateOnboardingAttendance(){
     if(studentContext.preview||!$('#onboardingAttendanceLink')||!$('#modalScrim').classList.contains('show'))return;
@@ -466,42 +624,221 @@
       const dates=lessonDates.length?lessonDates.map(date=>new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'short',day:'2-digit',month:'2-digit',year:'numeric'}).format(date)).join('  •  '):'Datas a definir';
       const category=theme==='excel'?'EXCEL':theme==='ai'?'I.A.':'EXCEL + I.A.';
       const title=m.title;
-      const release=lessonDates.length?dateFull(lessonDates[0]):'Data a definir';
       html+='<article class="schedule-implementation schedule-'+theme+(locked?' schedule-locked':'')+'">'+
         '<div class="schedule-card-heading"><span class="accordion-index">'+String(i).padStart(2,'0')+'</span><span class="schedule-category">'+category+'</span></div><h2>'+esc(title)+'</h2>'+
         '<div class="schedule-days"><span>DIAS DA IMPLEMENTAÇÃO</span><strong>'+esc(dates)+'</strong></div>'+
         '<p class="schedule-description">'+esc(implementationDescriptions[i-1])+'</p><div class="schedule-card-items">'+
-        scheduleStep('✎','Quiz','Liberação em '+release,'quiz',i,locked)+
-        scheduleStep('◆','Desafio prático','Liberação em '+release,'challenge',i,locked)+'</div></article>';
+        scheduleStep('▶','Detalhes das aulas',locked?lessonLockedMessage(i):'Datas, horários e conteúdo disponível','lesson',i,locked)+
+        '<div class="schedule-activity-controls">'+implementationActivity(i,'quiz',m.lessons?.[0],'cronograma')+
+        implementationActivity(i,'challenge',m.lessons?.[0],'cronograma')+'</div></div></article>';
     }
     $('#scheduleList').innerHTML=html;
   }
   function scheduleStep(icon,title,date,action,index,locked){return '<div class="schedule-step"><span class="mini-square">'+icon+'</span><div><strong>'+title+'</strong><small>'+date+'</small></div><button data-action="'+action+'" data-module="'+index+'"'+(locked?' disabled':'')+'>'+(locked?'Bloqueado':'Abrir →')+'</button></div>';}
-  function openLesson(index) {
-    currentModule=index; const m=moduleFor(index),d=implementationDate(index);
-    $('#lessonContent').dataset.theme=m.theme;
-    $('#lessonContent').innerHTML='<button class="back-button" data-view="map">← Voltar ao mapa</button><div class="detail-hero">'+pixel(m.icon,105)+'<div><span class="kicker">'+(index===0?'NÍVEL 01 · PRIMEIROS PASSOS':'NÍVEL '+String(index+1).padStart(2,'0')+' · IMPLEMENTAÇÃO '+String(index).padStart(2,'0'))+' · '+dateShort(d)+'</span><h1>'+esc(m.title)+'</h1><p>'+esc(m.subtitle)+'</p></div></div><div class="detail-layout"><div class="panel content-copy"><div class="pixel-title">▶ ASSISTIR À IMPLEMENTAÇÃO</div><div class="video-preview"><button id="playVideo" aria-label="Abrir prévia do vídeo">▶</button><span>LINK DO VÍDEO · PRÉVIA ILUSTRATIVA</span></div><button class="text-button" id="videoLink">Abrir link do vídeo de demonstração ↗</button><h2>Resumo da aula</h2><p>'+esc(m.summary)+'</p><h2>O que você vai aprender</h2><ul>'+m.topics.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul><button class="btn btn-primary" id="markLesson">'+(state.lessons.includes(index)?'✓ Implementação assistida':'Marcar como assistida · +20 XP')+'</button></div><aside class="detail-aside"><div class="panel"><div class="pixel-title">▤ PRÓXIMAS DATAS</div><div class="detail-date"><span>Implementação</span><strong>A definir</strong></div><div class="detail-date"><span>Quiz</span><strong>A definir</strong></div><div class="detail-date"><span>Desafio</span><strong>A definir</strong></div></div><div class="panel"><div class="pixel-title">▧ MATERIAIS DE APOIO</div><p style="font-size:.82rem">Arquivos de exemplo para explorar esta aula.</p><div class="material-row"><span>▤</span><strong>Guia da implementação</strong><button data-material="guide">Baixar</button></div><div class="material-row"><span>▦</span><strong>Planilha de prática</strong><button data-material="sheet">Baixar</button></div></div><button class="btn btn-purple full" data-action="quiz" data-module="'+index+'">Fazer quiz →</button><button class="btn btn-ghost full" data-action="challenge" data-module="'+index+'">Ver desafio →</button></aside></div>';
-    $('#lessonContent .detail-hero .kicker').insertAdjacentHTML('afterend','<span class="lesson-theme-badge">'+(m.theme==='ai'?'✦ IA · GPTina':'▦ Excel · Excelo')+'</span>');
-    if(!studentContext.preview){const mark=$('#markLesson');if(mark)mark.outerHTML='<p class="onboarding-attendance-note">Para receber o XP da aula ao vivo, use a lista de presença compartilhada durante o encontro.</p>'}
-    const lessons=Array.isArray(m.lessons)&&m.lessons.length?m.lessons:[{title:m.title}];
-    const rows=lessons.map((lesson,at)=>'<div class="lesson-live-row'+(lesson.completed_at?' done':'')+'"><strong>'+esc(lesson.title===`Aula ${at+1}`?lesson.title:`Aula ${at+1} · ${lesson.title}`)+'</strong><span>'+(lesson.completed_at?'✓ Aula realizada':dateFull(lessonDate(lesson)||d)+(lesson.scheduled_at?' · '+new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(new Date(lesson.scheduled_at)):'')+' · ao vivo')+'</span>'+(lesson.instructors?'<span>Com '+esc(lesson.instructors)+'</span>':'')+(lesson.content_released_at?'<a href="uaulingo-aula.html?implementacao='+(index+1)+'&aula='+(at+1)+'">▶ Assistir à gravação e ver materiais →</a>':'')+(lesson.completed_at&&lesson.recording_url?'<a href="'+esc(lesson.recording_url)+'" target="_blank" rel="noopener noreferrer">Gravação na Hotmart ↗</a>':'')+(lesson.completed_at&&(lesson.materials_url||lesson.lesson_page_url)?'<a href="'+esc(lesson.materials_url||lesson.lesson_page_url)+'" target="_blank" rel="noopener noreferrer">Material completo ↗</a>':'')+'</div>').join('');
-    $('#lessonContent .content-copy').insertAdjacentHTML('afterbegin','<div class="lesson-live-list">'+rows+'</div>');
-    $('#lessonContent .detail-aside .panel').insertAdjacentHTML('beforeend','<div class="calendar-student">'+(m.google_calendar_url?'<a class="btn btn-ghost full" href="'+esc(m.google_calendar_url)+'" target="_blank" rel="noopener noreferrer">Google Agenda ↗</a>':'')+(m.outlook_calendar_url?'<a class="btn btn-ghost full" href="'+esc(m.outlook_calendar_url)+'" target="_blank" rel="noopener noreferrer">Outlook ↗</a>':'')+'</div>');
-    const detailDates=$('#lessonContent .detail-date strong');
-    const plannedDates=classDates(index);
-    detailDates[0].textContent=plannedDates.map(dateFull).join(' · ');
-    if(index===0){detailDates[1].closest('.detail-date').remove();detailDates[2].closest('.detail-date').remove();$('#lessonContent .detail-aside button[data-action]').forEach(button=>button.remove());}
-    else {
-      const quizDate=m.exercise?.opens_at?new Date(m.exercise.opens_at):plannedDates[0];
-      const challengeDate=m.challenge?.opens_at?new Date(m.challenge.opens_at):plannedDates[0];
-      detailDates[1].textContent=quizDate?dateFull(quizDate):'A definir';
-      detailDates[2].textContent=challengeDate?dateFull(challengeDate):'A definir';
+  function studentLessonStatus(attendance,recording,recordingReleased,classHeld){
+    if(attendance?.attended||recording?.status==='live')return {text:'✓ Concluída ao vivo',done:true};
+    if(recording?.status==='recorded')return {text:'✓ Concluída pela gravação',done:true};
+    if(attendance?.open)return {text:'Lista de presença aberta',done:false};
+    if(recordingReleased)return {text:'Gravação disponível',done:false};
+    if(classHeld)return {text:'Aguardando liberação da gravação',done:false};
+    return {text:'',done:false};
+  }
+  function implementationLessonEnd(lesson){
+    const start=Date.parse(lesson.scheduled_at);
+    if(Number.isFinite(start))return start+(Number(lesson.duration_minutes)||60)*60000;
+    if(/^\d{4}-\d{2}-\d{2}$/.test(lesson.scheduled_date||'')){
+      const day=Date.parse(lesson.scheduled_date+'T00:00:00-03:00');
+      if(Number.isFinite(day))return day+86400000;
     }
-    if(index===1){const summary=$('#lessonContent .content-copy h2');summary.nextElementSibling?.remove();summary.remove();}
-    if(index>0&&!m.join_url){$('#lessonContent .video-preview').remove();$('#videoLink').remove();$('#lessonContent .content-copy .pixel-title').textContent='▣ AULAS DA IMPLEMENTAÇÃO';}
-    if(index>0&&!m.pre_class_content?.length)$$('#lessonContent .detail-aside .panel')[1]?.remove();
-    if(lessons.every(lesson=>lesson.completed_at)){$('#lessonContent .video-preview')?.remove();$('#videoLink')?.remove();$('#lessonContent .content-copy .pixel-title').textContent='✓ AULA REALIZADA';$('#lessonContent .content-copy h2').textContent='O que você aprendeu';}
+    return null;
+  }
+  function refreshImplementationLessonPhase(row){
+    const now=Date.now();
+    const held=row.dataset.held==='true'||(row.dataset.end!==''&&Number(row.dataset.end)<=now);
+    const released=row.dataset.released!==''&&Number(row.dataset.released)<=now;
+    row.querySelector('.lesson-options').hidden=held;
+    row.querySelector('.lesson-recording').hidden=!held;
+    row.querySelector('.lesson-recording-link').hidden=!released;
+    row.querySelector('.lesson-recording-pending').hidden=released;
+    return {held,released};
+  }
+  async function refreshEtlAttendance(){
+    if(currentView!=='lesson'||currentModule<1)return;
+    const api=window.UauSupabase;
+    await Promise.allSettled($$('#lessonContent .lesson-live-row').map(async row=>{
+      const {held,released}=refreshImplementationLessonPhase(row);
+      const link=row.querySelector('.etl-attendance');
+      if(!link||studentContext.preview){
+        const status=row.querySelector('.student-lesson-status');
+        status.textContent=studentLessonStatus(null,null,released,held).text;
+        status.hidden=!status.textContent;
+        return;
+      }
+      const lessonArgs={p_implementation_number:Number(link.dataset.implementationNumber),p_lesson_index:Number(link.dataset.lessonIndex)};
+      const list=await api.rpc('uaulingo_lesson_attendance_list',lessonArgs);
+      const attendance=list&&await api.rpc('uaulingo_attendance_status',{p_list_id:list});
+      const recording=released&&!attendance?.attended?await api.rpc('uaulingo_recording_status',lessonArgs).catch(()=>null):null;
+      if(!row.isConnected)return;
+      const phase=refreshImplementationLessonPhase(row);
+      const result=studentLessonStatus(phase.held&&attendance?{...attendance,open:false}:attendance,recording,phase.released,phase.held);
+      const status=row.querySelector('.student-lesson-status');
+      if(status.textContent!==result.text)status.textContent=result.text;
+      status.hidden=!result.text;
+      row.classList.toggle('student-lesson-done',result.done);
+      const canAttend=!phase.held&&attendance?.open&&!attendance?.attended;
+      link.disabled=!canAttend;
+      link.onclick=canAttend?()=>location.assign('uaulingo-presenca.html?lista='+encodeURIComponent(list)):null;
+    }));
+  }
+  function studentLessonSchedule(lesson){
+    if(lesson.scheduled_at){
+      const time=new Date(lesson.scheduled_at);
+      if(!Number.isNaN(time.getTime()))return new Intl.DateTimeFormat('pt-BR',{
+        timeZone:'America/Sao_Paulo',dateStyle:'long',timeStyle:'short'
+      }).format(time)+' (Brasília)';
+    }
+    if(/^\d{4}-\d{2}-\d{2}$/.test(lesson.scheduled_date||'')){
+      const day=new Date(lesson.scheduled_date+'T12:00:00-03:00');
+      if(!Number.isNaN(day.getTime()))return new Intl.DateTimeFormat('pt-BR',{
+        timeZone:'America/Sao_Paulo',dateStyle:'long'
+      }).format(day)+' · Horário a definir';
+    }
+    return 'Data a definir';
+  }
+  function lessonHttpsUrl(value){
+    try{const url=new URL(value);return url.protocol==='https:'?url.href:'';}catch{return '';}
+  }
+  function publishedLessonDetails(lesson){
+    const summary=lesson.lesson_summary?.trim()||lesson.learning_outcomes?.trim();
+    const resources=Array.isArray(lesson.pre_class_content)?lesson.pre_class_content:[],links=[];
+    for(const resource of resources){
+      const url=lessonHttpsUrl(resource?.url);
+      if(url&&resource?.title)links.push('<li><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(resource.title)+' ↗</a></li>');
+    }
+    return (summary?'<p class="lesson-overview">'+esc(summary)+'</p>':'')+
+      (links.length?'<ul class="lesson-preclass" aria-label="Materiais antes da aula">'+links.join('')+'</ul>':'');
+  }
+  const formatImplementationDay=day=>new Intl.DateTimeFormat('pt-BR',{dateStyle:'long',timeZone:'UTC'}).format(new Date(day));
+  function implementationXpDeadline(index){
+    const classDate=lesson=>lessonDate(lesson);
+    const next=classDate(modules[index+1]?.lessons?.[0]);
+    const first=classDate(modules[index]?.lessons?.[0]);
+    if(next&&!Number.isNaN(next.getTime()))return classDay(next)-86400000;
+    if(first&&!Number.isNaN(first.getTime()))return classDay(first)+29*86400000;
+    return null;
+  }
+  function implementationCalendars(lesson,module,index,isPublished){
+    const start=lesson.scheduled_at?new Date(lesson.scheduled_at):null;
+    const accessible=isPublished||studentContext.preview;
+    const meeting=accessible?lessonHttpsUrl(lesson.join_url||module.join_url):'';
+    const eventLocation=meeting?{location:meeting}:{};
+    const googleText=meeting?{...eventLocation,details:meeting}:{};
+    const outlookText=meeting?{...eventLocation,body:meeting}:{};
+    let google=accessible&&!meeting?lessonHttpsUrl(lesson.google_calendar_url):'',outlook=accessible&&!meeting?lessonHttpsUrl(lesson.outlook_calendar_url):'';
+    if(accessible&&start&&!Number.isNaN(start.getTime())){
+      const end=new Date(start.getTime()+(Number(lesson.duration_minutes)||60)*60000);
+      const title=module.title+' · Aula '+(index+1);
+      const compact=date=>date.toISOString().replace(/[-:]|\.\d{3}/g,'');
+      google=google||'https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:title,dates:compact(start)+'/'+compact(end),...googleText});
+      outlook=outlook||'https://outlook.office.com/calendar/0/deeplink/compose?'+new URLSearchParams({path:'/calendar/action/compose',rru:'addevent',subject:title,startdt:start.toISOString(),enddt:end.toISOString(),...outlookText});
+    }else{
+      if(accessible&&!meeting){
+        google=google||lessonHttpsUrl(module.google_calendar_url);
+        outlook=outlook||lessonHttpsUrl(module.outlook_calendar_url);
+      }
+      const day=/^\d{4}-\d{2}-\d{2}$/.test(lesson.scheduled_date||'')?new Date(lesson.scheduled_date+'T00:00:00Z'):null;
+      if(day&&!Number.isNaN(day.getTime())){
+        const end=new Date(day.getTime()+86400000);
+        const title=module.title+' · Aula '+(index+1);
+        const short=value=>value.toISOString().slice(0,10);
+        google=google||'https://calendar.google.com/calendar/render?'+new URLSearchParams({action:'TEMPLATE',text:title,dates:short(day).replaceAll('-','')+'/'+short(end).replaceAll('-',''),...googleText});
+        outlook=outlook||'https://outlook.office.com/calendar/0/deeplink/compose?'+new URLSearchParams({path:'/calendar/action/compose',rru:'addevent',subject:title,startdt:short(day),enddt:short(end),allday:'true',...outlookText});
+      }
+    }
+    const control=(url,label)=>url?'<a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+label+'</a>':
+      '<button class="btn" type="button" disabled>'+label+'</button>';
+    return control(outlook,'Agenda Outlook')+control(google,'Agenda Google');
+  }
+  function implementationActivity(index,kind,first,placement='aula'){
+    const mod=moduleFor(index),activity=kind==='quiz'?mod.exercise:mod.challenge;
+    const open=!levelLocked(index)&&activityAvailable(index,kind,true);
+    const completed=stepComplete(index,kind);
+    const natural=first?.scheduled_at?Date.parse(first.scheduled_at)+(Number(first.duration_minutes)||60)*60000:null;
+    const configured=Date.parse(activity?.opens_at);
+    const when=Number.isFinite(configured)?Math.max(configured,natural??configured):natural;
+    const firstDate=lessonDate(first);
+    const release=Number.isFinite(when)?formatImplementationDay(classDay(new Date(when))):
+      firstDate&&!Number.isNaN(firstDate.getTime())?formatImplementationDay(classDay(firstDate)):'';
+    const due=Date.parse(activity?.due_at),ended=Number.isFinite(due)&&Date.now()>=due;
+    const tooltipId='release-'+placement+'-'+kind+'-'+index;
+    const tooltip=ended?'Prazo de envio encerrado.':release?
+      (Number.isFinite(configured)?'Liberação em ':'Previsão de liberação: ')+release+'.':'Data de liberação a definir.';
+    const guide=mod.guide==='gptina'?'gptina':'excelo';
+    return '<div class="implementation-activity-wrap"><button class="implementation-activity" type="button" data-action="'+kind+'" data-module="'+index+'"'+
+      (open?'':' aria-disabled="true" aria-describedby="'+tooltipId+'"')+'>'+
+      '<span class="marker-art '+guide+' '+kind+'" aria-hidden="true"></span><span class="implementation-activity-copy"><strong>'+
+      (kind==='quiz'?'Quiz':'Desafio')+'</strong>'+
+      (completed?'<span>✓ Concluído</span>':open?'<span>Abrir atividade →</span>':ended?'<span>Prazo encerrado</span>':'')+'</span></button>'+
+      (open?'':'<span class="implementation-release-tooltip" id="'+tooltipId+'" role="tooltip">'+esc(tooltip)+'</span>')+'</div>';
+  }
+  function openLesson(index) {
+    if(!Number.isInteger(index)||index<0||index>=modules.length||levelLocked(index)){
+      showToast(Number.isInteger(index)&&index>0&&index<modules.length?lessonLockedMessage(index):'Aula indisponível.');return;
+    }
+    if(index===0){openIntroStep('challenge');return;}
+    currentModule=index;
+    const m=moduleFor(index);
+    const isPublished=!studentContext.preview&&studentContext.implementations.some(row=>Number(row.implementation_number)===index+1);
+    const lessons=m.lessons||[];
+    const topicCopy='<p class="lesson-overview">'+esc(implementationDescriptions[index-1]||m.summary||'')+'</p>';
+    const rows=lessons.map((lesson,at)=>{
+      const title=lesson.title&&lesson.title!=='Aula '+(at+1)?'Aula '+(at+1)+' · '+lesson.title:'Aula '+(at+1);
+      const end=implementationLessonEnd(lesson);
+      const held=Boolean(lesson.completed_at)||(end!==null&&end<=Date.now());
+      const releaseAt=(isPublished||studentContext.preview)&&(lesson.video_embed_url||lesson.recording_url)?Date.parse(lesson.content_released_at):NaN;
+      const released=Number.isFinite(releaseAt)&&releaseAt<=Date.now();
+      const initial=studentLessonStatus(null,null,released,held);
+      return '<article class="lesson-live-row" data-held="'+Boolean(lesson.completed_at)+'" data-end="'+(end??'')+'" data-released="'+(Number.isFinite(releaseAt)?releaseAt:'')+'"><strong>'+esc(title)+'</strong>'+
+        '<span>'+esc(studentLessonSchedule(lesson))+'</span>'+
+        '<span class="student-lesson-status" role="status"'+(initial.text?'':' hidden')+'>'+esc(initial.text)+'</span>'+
+        (isPublished?publishedLessonDetails(lesson):'')+
+        '<div class="lesson-options"'+(held?' hidden':'')+'>'+implementationCalendars(lesson,m,at,isPublished)+
+        '<button class="btn lesson-presence'+(isPublished?' etl-attendance':'')+'" type="button" data-implementation-number="'+(index+1)+'" data-lesson-index="'+at+'" disabled>Lista de presença</button></div>'+
+        '<div class="lesson-recording"'+(held?'':' hidden')+'><a class="btn full lesson-recording-link" href="uaulingo-aula.html?implementacao='+(index+1)+'&aula='+(at+1)+'"'+(released?'':' hidden')+'>Assistir à gravação →</a>'+
+        '<button class="btn full lesson-recording-pending" type="button" disabled'+(released?' hidden':'')+'>Gravação em breve</button></div>'+
+        '</article>';
+    }).join('');
+    const live=isPublished?lessons.find(lesson=>{
+      const start=Date.parse(lesson.scheduled_at);
+      return !lesson.completed_at&&(!Number.isFinite(start)||start+(Number(lesson.duration_minutes)||60)*60000>Date.now())&&
+        lessonHttpsUrl(lesson.join_url||m.join_url);
+    }):null;
+    const liveUrl=live?lessonHttpsUrl(live.join_url||m.join_url):'';
+    const deadline=implementationXpDeadline(index);
+    const nextClose=studentContext.league?.next_eligible_at;
+    const closeDate=Date.parse(nextClose);
+    const guide=m.theme==='ai'?'GPTina':'Excelo',pose=m.pose||0;
+    const title='Nível '+String(index+1).padStart(2,'0')+' · '+m.title;
+    const container=$('#lessonContent');
+    container.className='implementation-page';
+    container.dataset.theme=m.theme;
+    container.innerHTML='<button class="back-button" data-view="map">← Voltar ao mapa</button>'+
+      '<header class="implementation-banner"><div class="implementation-icon">'+pixel(m.world==='etl'?'etl':m.icon,84)+'</div><div>'+
+      '<span class="kicker">IMPLEMENTAÇÃO '+String(index).padStart(2,'0')+'</span><h1>'+esc(m.title)+'</h1><p>'+esc(m.subtitle)+'</p></div></header>'+
+      '<div class="implementation-grid"><div><section class="panel"><h2>O que você vai aprender</h2>'+topicCopy+'</section>'+
+      (liveUrl?'<a class="btn implementation-live" href="'+esc(liveUrl)+'" target="_blank" rel="noopener noreferrer">▶ Assista ao vivo ↗</a>':
+        '<button class="btn implementation-live full" type="button" disabled>Link da aula ao vivo ainda indisponível</button>')+
+      '<div class="implementation-activities">'+implementationActivity(index,'quiz',lessons[0])+implementationActivity(index,'challenge',lessons[0])+'</div>'+
+      (studentContext.preview?'<p><button class="btn btn-ghost" type="button" id="markLesson">'+(stepComplete(index,'lesson')?'✓ Aula concluída na prévia':'Simular aula concluída')+'</button></p>':'')+
+      '</div><aside class="panel"><h2>Aulas</h2><div class="lesson-live-list">'+(rows||'<p>Datas a definir.</p>')+'</div></aside></div>'+
+      '<div class="implementation-xp"><div class="panel">'+
+      (deadline===null?'<p>O prazo para XP integral ainda será confirmado.</p>':
+      '<p>Para receber o XP máximo da etapa, conclua até <strong>'+esc(formatImplementationDay(deadline))+'</strong>.</p>')+
+      '<p>Próximo fechamento do ranking: <strong>'+(Number.isFinite(closeDate)?esc(new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short',timeZone:'America/Sao_Paulo'}).format(new Date(closeDate))):'data a confirmar')+'</strong>.</p></div>'+
+      '<span class="implementation-guide '+(guide==='GPTina'?'gptina':'excelo')+'" role="img" aria-label="'+guide+'" style="--pose-x:'+((pose%3)*50)+'%;--pose-y:'+(pose>=3?100:0)+'%"></span></div>';
     view('lesson');
+    $('#breadcrumb').textContent=title;
+    refreshEtlAttendance();
   }
   function openVideo() { openModal('Vídeo da implementação','<div class="video-preview">'+pixel('video',110)+'<span>PRÉVIA ILUSTRATIVA</span></div><p>Este espaço recebe o vídeo da implementação <strong>'+esc(moduleFor(currentModule).title)+'</strong>. O endereço definitivo será conectado quando o conteúdo real estiver pronto.</p><p class="muted">A navegação da aula já funciona para a demonstração.</p>'); }
   function downloadMaterial(kind) {
@@ -511,7 +848,52 @@
     const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='uaulingo-'+String(currentModule+1).padStart(2,'0')+(kind==='sheet'?'-planilha.csv':'-guia.txt');document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
     showToast('Material de exemplo baixado.');
   }
-  function openQuiz(index) { if(index>0&&!activityAvailable(index,'quiz')){showToast('O quiz será liberado após a aula.');return}currentModule=index; quiz={index,at:0,selected:null,checked:false,correct:0,correctIndices:[]};renderQuiz();view('quiz'); }
+  function openQuiz(index) {
+    if(index>0&&!activityAvailable(index,'quiz')){showToast('O quiz está fora do período de envio ou ainda não foi liberado.');return;}
+    currentModule=index;
+    if(index>0&&!studentContext.preview){
+      const exercise=moduleFor(index).exercise;
+      quiz=null;
+      renderLiveEtlQuiz(exercise,index);
+    }else{
+      quiz={index,at:0,selected:null,checked:false,correct:0,correctIndices:[]};
+      renderQuiz();
+    }
+    view('quiz');
+  }
+  function renderLiveEtlQuiz(exercise,index){
+    const content=$('#quizContent');
+    content.innerHTML='<div class="quiz-shell"><button class="back-button" data-action="lesson" data-module="'+index+'">← Voltar à implementação</button><form class="quiz-card" id="liveEtlQuiz"><h1>'+esc(exercise.title||'Quiz da implementação')+'</h1>'+exercise.questions.map((question,index)=>
+      '<fieldset style="margin:16px 0;padding:12px;border:1px solid var(--line);border-radius:8px"><legend><strong>'+esc(question.prompt)+'</strong></legend>'+
+      question.options.map((option,answer)=>'<label style="display:block;padding:5px"><input type="radio" required name="question-'+index+'" value="'+answer+'"> '+esc(option)+'</label>').join('')+
+      '</fieldset>').join('')+'<p class="quiz-feedback" role="status"></p><button class="btn btn-primary" type="submit">Enviar respostas</button></form></div>';
+    const form=$('#liveEtlQuiz');
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();
+      const button=form.querySelector('[type=submit]');
+      if(button.disabled)return;
+      const fields=new FormData(form);
+      const selections=exercise.questions.map((_,index)=>fields.get('question-'+index));
+      if(selections.some(value=>value===null))return;
+      const answers=selections.map(Number);
+      button.disabled=true;
+      button.textContent='Enviando…';
+      try{
+        const result=await window.UauSupabase.rpc('uaulingo_submit_implementation_quiz',{p_implementation_number:index+1,p_revision:exercise.revision,p_answers:answers});
+        etlProgress=result.progress;
+        refreshMap();renderMapSummary();
+        if(currentView==='achievements')renderAchievements();
+        if(liveSyncRunning)setTimeout(syncStudentUpdates,1000);else await syncStudentUpdates();
+        if(!form.isConnected||currentView!=='quiz')return;
+        content.innerHTML='<div class="quiz-shell"><div class="quiz-card quiz-result"><h1>'+(result.passed?'Quiz concluído!':'Vamos tentar mais uma vez?')+'</h1><p>Você acertou '+Number(result.correct)+' de '+Number(result.total)+' perguntas.</p><p>'+(result.xp_earned>0?'Você ganhou '+Number(result.xp_earned)+' XP.':'Nenhum XP novo nesta tentativa.')+'</p><button class="btn btn-primary" type="button" id="liveEtlResult">'+(result.passed?'Ver conquistas':'Refazer quiz')+' →</button></div></div>';
+        $('#liveEtlResult').onclick=()=>result.passed?view('achievements'):openQuiz(index);
+      }catch(error){
+        form.querySelector('[role=status]').textContent=error.message||'Não foi possível enviar. Tente novamente.';
+        button.textContent='Enviar respostas';
+        button.disabled=false;
+      }
+    });
+  }
   function renderQuiz() {
     const m=moduleFor(quiz.index),q=m.questions[quiz.at];
     if(!q){ finishQuiz(); return; }
@@ -549,9 +931,125 @@
     localStorage.setItem(SUBMISSIONS_STORE,JSON.stringify(rows));renderChallenge(currentModule);renderStudentNotices();
     openModal('Desafio enviado','<p>O desafio será validado e a pontuação aparecerá após a aprovação da equipe.</p><p class="muted">Nesta etapa de teste, a entrega fica neste navegador.</p><button class="btn btn-primary" id="modalOk">Entendi</button>');
   }
-  function openChallenge(index) {if(index>0&&!activityAvailable(index,'challenge')){showToast('O desafio será liberado após a aula.');return}renderChallenge(index);view('challenge');}
+  function openChallenge(index) {
+    const liveEtl=index>0&&!studentContext.preview;
+    if(index>0&&!activityAvailable(index,'challenge',true)){showToast('O desafio será liberado após a aula.');return;}
+    currentModule=index;
+    if(liveEtl)renderLiveEtlChallenge(index);else renderChallenge(index);
+    view('challenge');
+  }
+  function renderLiveEtlChallenge(index){
+    const challenge=moduleFor(index).challenge;
+    const content=$('#challengeContent');
+    let resources='';
+    try{
+      const url=new URL(challenge.resources_url);
+      if(url.protocol==='https:')resources='<p><a href="'+esc(url.href)+'" target="_blank" rel="noopener noreferrer">Abrir materiais do desafio ↗</a></p>';
+    }catch{}
+    content.innerHTML='<button class="back-button" data-view="map">← Voltar ao mapa</button>'+
+      '<div class="challenge-main"><h1>'+esc(challenge.title||'Desafio da implementação')+'</h1><p style="white-space:pre-wrap">'+esc(challenge.instructions)+'</p>'+resources+'</div>'+
+      '<div class="panel"><p id="liveEtlChallengeStatus" role="status">Consultando sua entrega…</p>'+
+      '<p id="liveEtlChallengeReview" style="white-space:pre-wrap" hidden></p>'+
+      '<form class="challenge-submit" id="liveEtlChallengeForm" hidden style="display:none">'+
+      '<label for="liveEtlChallengeUrl">Link do desafio resolvido</label>'+
+      '<input id="liveEtlChallengeUrl" name="url" type="url" inputmode="url" placeholder="https://..." maxlength="2000" required>'+
+      '<button class="btn btn-purple" type="submit">Enviar para validação</button></form></div>';
+    const form=$('#liveEtlChallengeForm');
+    form.dataset.moduleIndex=String(index);
+    form.addEventListener('submit',submitLiveEtlChallenge);
+    refreshLiveEtlChallenge(form);
+  }
+  function showLiveEtlChallengeStatus(form,submission){
+    const status=$('#liveEtlChallengeStatus'),review=$('#liveEtlChallengeReview');
+    const canSend=activityAvailable(Number(form.dataset.moduleIndex),'challenge');
+    if(submission?.status==='approved')status.textContent='Desafio aprovado pela equipe.';
+    else if(submission?.status==='pending')status.textContent='Entrega enviada. Aguardando avaliação da equipe.';
+    else if(submission?.status==='rejected')status.textContent='A equipe solicitou uma revisão.'+(canSend?' Envie o link atualizado.':'');
+    else status.textContent=canSend?'Envie o link da sua solução.':'O desafio está fora do período de envio.';
+    review.textContent=submission?.review_note||'';
+    review.hidden=!review.textContent;
+    form.hidden=!canSend||['approved','pending'].includes(submission?.status);
+    form.style.display=form.hidden?'none':'';
+    if(submission?.status==='approved'&&form.dataset.reviewStatus!=='approved'){
+      refreshEtlProgress();
+      syncStudentUpdates();
+    }
+    form.dataset.reviewStatus=submission?.status||'none';
+  }
+  async function refreshLiveEtlChallenge(form=$('#liveEtlChallengeForm')){
+    if(studentContext.preview||!form||form.dataset.sending==='1')return;
+    const implementation=studentContext.implementations.find(row=>Number(row.implementation_number)===Number(form.dataset.moduleIndex)+1);
+    if(!implementation)return;
+    const previousVersion=form.dataset.submissionVersion;
+    try{
+      const rows=await window.UauSupabase.table('uaulingo_challenge_submissions',
+        '?select=status,review_note&implementation_id=eq.'+encodeURIComponent(implementation.id)+
+        '&student_id=eq.'+encodeURIComponent(studentContext.studentId)+'&order=submitted_at.desc&limit=1');
+      if(form.isConnected&&form.dataset.sending!=='1'&&form.dataset.submissionVersion===previousVersion){
+        showLiveEtlChallengeStatus(form,rows[0]);
+      }
+    }catch{
+      if(form.isConnected&&!form.dataset.reviewStatus&&form.dataset.submissionVersion===previousVersion){
+        $('#liveEtlChallengeStatus').textContent='Não foi possível consultar sua entrega. Tentaremos novamente.';
+      }
+    }
+  }
+  async function submitLiveEtlChallenge(event){
+    event.preventDefault();
+    const form=event.currentTarget,button=form.querySelector('[type=submit]');
+    if(button.disabled)return;
+    let url;
+    try{url=new URL(new FormData(form).get('url'));}catch{url=null;}
+    if(url?.protocol!=='https:'){$('#liveEtlChallengeStatus').textContent='Informe um link que comece com https://.';return;}
+    form.dataset.sending='1';
+    button.disabled=true;button.textContent='Enviando…';
+    try{
+      const submission=await window.UauSupabase.rpc('uaulingo_submit_implementation_challenge',{p_implementation_number:Number(form.dataset.moduleIndex)+1,p_url:url.href});
+      if(!form.isConnected)return;
+      form.dataset.submissionVersion=String(Number(form.dataset.submissionVersion||0)+1);
+      form.reset();
+      showLiveEtlChallengeStatus(form,submission);
+    }catch(error){
+      if(form.isConnected)$('#liveEtlChallengeStatus').textContent=error.message||'Não foi possível enviar. Tente novamente.';
+    }finally{
+      form.dataset.sending='0';
+      button.disabled=false;button.textContent='Enviar para validação';
+    }
+  }
+  function achievementSteps(index){
+    return [
+      {kind:'lesson',label:'Concluir todas as aulas',action:'Ver aulas'},
+      {kind:'quiz',label:'Passar no quiz',action:'Fazer quiz'},
+      {kind:'challenge',label:'Ter o desafio aprovado',action:'Ver desafio'}
+    ].map(step=>({...step,done:stepComplete(index,step.kind)}));
+  }
+  function achievementAction(index,steps){
+    if(levelLocked(index))return {view:'map',label:'Ver mapa da jornada'};
+    const next=steps.find(step=>!step.done);
+    if(next&&(next.kind==='lesson'||activityAvailable(index,next.kind,true)))return {kind:next.kind,label:next.action};
+    return {kind:'lesson',label:'Ver aulas e datas'};
+  }
   function renderAchievements() {
-    $('#achievementGrid').innerHTML='<div class="achievement-coming"><div class="achievement-mascots"><span class="achievement-mascot excelo" role="img" aria-label="Excelo"></span><span class="achievement-mascot gptina" role="img" aria-label="GPTina"></span></div><strong>Em breve</strong><span class="coming-dots" aria-label="Carregando"><i></i><i></i><i></i></span></div>';
+    const grid=$('#achievementGrid');
+    if(!studentContext.preview&&!etlProgress){
+      grid.textContent='Carregando conquistas…';
+      refreshEtlProgress();
+      return;
+    }
+    const awards=studentContext.preview?[{id:'etl-e-modelagem-de-dados',title:modules[1].title,implementation_number:2,released_at:null}]:etlProgress.awards;
+    if(!awards.length){grid.innerHTML='<div class="panel"><p>As conquistas aparecem aqui quando as implementações são publicadas.</p><button class="btn btn-ghost btn-small" data-view="schedule">Ver cronograma</button></div>';return;}
+    grid.innerHTML=awards.map(award=>{
+      const index=Number(award.implementation_number)-1,hasModule=index>0;
+      const steps=hasModule?achievementSteps(index):[];
+      const completed=steps.filter(step=>step.done).length;
+      const earned=!!award.released_at||(studentContext.preview&&hasModule&&completed===3);
+      const unlockedOn=award.released_at?new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',dateStyle:'short'}).format(new Date(award.released_at)):'';
+      const action=hasModule?achievementAction(index,steps):null;
+      return '<article class="achievement-card"><span class="badge-sprite" aria-hidden="true">'+(earned?'🏆':'◆')+'</span><span class="kicker">'+(earned?'✓ Conquistada':'Em progresso')+'</span><h3>'+esc(award.title)+'</h3>'+
+        (earned?(unlockedOn?'<p>Conquistada em '+esc(unlockedOn)+'.</p>':'<p>Etapas concluídas na simulação.</p>'):
+          hasModule?'<progress max="'+steps.length+'" value="'+completed+'" aria-label="Progresso da conquista"></progress><p>'+completed+' de '+steps.length+' etapas concluídas</p><ul class="achievement-steps">'+steps.map(step=>'<li><span>'+esc(step.label)+'</span><span'+(step.done?' class="step-done"':'')+'>'+(step.done?'✓ Concluída':'A concluir')+'</span></li>').join('')+'</ul>':'')+
+        (action?'<button class="btn btn-ghost btn-small" '+(action.view?'data-view="'+action.view+'"':'data-action="'+action.kind+'" data-module="'+index+'"')+'>'+esc(action.label)+'</button>':'')+'</article>';
+    }).join('');
   }
   function renderSupport() {
     if (!activeTicket && state.threads.length) activeTicket=state.threads[0].id;
@@ -609,7 +1107,14 @@
   }
   function openModal(title,body) {const scrim=$('#modalScrim');if(scrim.parentElement!==document.body)document.body.appendChild(scrim);$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;scrim.classList.add('show');$('#closeModal').focus();}
   function closeModal() {$('#modalScrim').classList.remove('show');}
-  function startNext() { if(!state.lessons.includes(0)){openIntroStep('lesson');return}if(!state.quizzes.includes(0)){openIntroStep('quiz');return}if(!state.challenges.includes(0)){openIntroStep('challenge');return}if(!stepComplete(0,'terms')){openIntroStep('terms');return}const next=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>i>0&&!state.lessons.includes(i)&&!moduleFor(i).lessons?.every(lesson=>lesson.completed_at))||1;openLesson(next); }
+  function startNext() {
+    const point=resumePoint();
+    if(!point){showToast('Você concluiu todas as etapas disponíveis.');return;}
+    if(point.index===0){openIntroStep(point.kind);return;}
+    if(point.kind==='quiz'&&activityAvailable(point.index,'quiz'))openQuiz(point.index);
+    else if(point.kind==='challenge'&&activityAvailable(point.index,'challenge',true))openChallenge(point.index);
+    else openLesson(point.index);
+  }
   async function acceptTerms(button){
     if(stepComplete(0,'terms'))return;
     button.disabled=true;button.textContent='Registrando…';
@@ -625,9 +1130,9 @@
     $$('.map-companion.tooltip-open').forEach(item=>item.classList.remove('tooltip-open'));
     const rank=target.closest('[data-rank-view]');if(rank){rankFilter=rank.dataset.rankView;renderRanking();return;}
     const bell=target.closest('#studentBell');if(bell){const panel=$('#studentNotices');panel.hidden=!panel.hidden;bell.setAttribute('aria-expanded',String(!panel.hidden));return;}
-    const nav=target.closest('[data-view]');if(nav){if(nav.dataset.view==='challenge'&&!studentContext.preview){openIntroStep('challenge');return}if(nav.dataset.view==='challenge')currentModule=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>!state.challenges.includes(i))||0;view(nav.dataset.view);return;}
+    const nav=target.closest('[data-view]');if(nav){if(nav.dataset.view==='challenge'&&!studentContext.preview){openIntroStep('challenge');return}if(nav.dataset.view==='challenge'){currentModule=Array.from({length:Math.max(12,mapLoaded)},(_,i)=>i).find(i=>!state.challenges.includes(i))||0;renderChallenge(currentModule)}view(nav.dataset.view);return;}
     const classLesson=target.closest('[data-class-lesson]');if(classLesson){const i=Number(classLesson.dataset.classLesson);if(i===0)openIntroStep('challenge');else{closeModal();openLesson(i)}return;}
-    const step=target.closest('[data-action]');if(step){const i=Number(step.dataset.module);if(step.closest('.map-chapter.locked'))return;if(i===0){openIntroStep(step.dataset.action);return}if(step.dataset.action==='lesson')openLesson(i);if(step.dataset.action==='quiz')openQuiz(i);if(step.dataset.action==='challenge')openChallenge(i);return;}
+    const step=target.closest('[data-action]');if(step){const i=Number(step.dataset.module);if(step.getAttribute('aria-disabled')==='true'){step.focus();return}if(step.closest('.map-chapter.locked'))return;if(i===0){openIntroStep(step.dataset.action);return}if(step.dataset.action==='lesson')openLesson(i);if(step.dataset.action==='quiz')openQuiz(i);if(step.dataset.action==='challenge')openChallenge(i);return;}
     const toggle=target.closest('[data-toggle-schedule]');if(toggle){const i=Number(toggle.dataset.toggleSchedule);openSchedule.has(i)?openSchedule.delete(i):openSchedule.add(i);renderSchedule();return;}
     const option=target.closest('[data-option]');if(option&&quiz&&!quiz.checked){quiz.selected=Number(option.dataset.option);$$('.quiz-option').forEach(x=>x.classList.toggle('selected',x===option));$('#quizNext').disabled=false;return;}
     const ticket=target.closest('[data-ticket]');if(ticket){window.UauSupport?.open(ticket.dataset.ticket);return;}
@@ -638,7 +1143,21 @@
   window.addEventListener('storage',event=>{if(event.key!==SUBMISSIONS_STORE)return;applyLocalReviews();renderHeader();refreshMap();renderAchievements();renderRanking();if(currentView==='challenge')renderChallenge(currentModule);});
   $('#continueJourney').onclick=startNext;
   $('#mapPrevious').onclick=()=>$('#chapter-'+Math.max(0,activeMapLevel()-1))?.scrollIntoView({behavior:'smooth',block:'start'});
-  function scrollToContinue(){const point=resumePoint();if(!point||point.index>=5)return;$('#chapter-'+point.index+' .map-stop.'+point.kind)?.scrollIntoView({behavior:'smooth',block:'center'});}
+  function scrollToContinue(){
+    const point=resumePoint();
+    if(!point||point.index>=visibleMapLevels())return false;
+    const marker=$('#chapter-'+point.index+' .map-stop.'+point.kind);
+    if(!marker)return false;
+    marker.scrollIntoView({behavior:'smooth',block:'center'});
+    return true;
+  }
+  function centerMapOnResume(){
+    if(currentView!=='map')return;
+    const fallback=pendingUnlockedLevel??activeMapLevel();
+    pendingUnlockedLevel=null;
+    if(!scrollToContinue())$('#chapter-'+fallback)?.scrollIntoView({behavior:'smooth',block:'center'});
+    updateTopMapLevel();
+  }
   $('#mapResume').onclick=scrollToContinue;
   $('#mapReturnToContinue').onclick=scrollToContinue;
   $('#mapHudClose').onclick=()=>setMapHudClosed(true);
@@ -688,6 +1207,9 @@
       ]);
       const previousXP=state.xp,nextXP=ledger.reduce((sum,row)=>sum+Number(row.xp||0),0);
       const previousProgress=['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(','),previousModules=JSON.stringify(studentContext.implementations),previousLeague=JSON.stringify(studentContext.league);
+      const activeImplementation=rows=>rows.find(row=>Number(row.implementation_number)===currentModule+1);
+      const lessonChanged=currentView==='lesson'&&currentModule>0&&
+        JSON.stringify(activeImplementation(studentContext.implementations))!==JSON.stringify(activeImplementation(implementations));
       studentContext.ledger=ledger;studentContext.xp=nextXP;studentContext.league=league;studentContext.ranking=league.rows||[];studentContext.implementations=implementations;
       if(students[0]?.division)studentContext.student.division=students[0].division;
       studentContext.termAccepted=!!terms?.length;studentContext.termAcceptedAt=terms?.[0]?.accepted_at||null;
@@ -701,20 +1223,70 @@
       if(previousLeague!==JSON.stringify(league))rankFilter=null;
       if(previousModules!==JSON.stringify(implementations))for(const row of implementations){const index=Number(row.implementation_number)-1;if(index>=0&&index<modules.length)Object.assign(modules[index],{title:row.title,theme:row.theme,lessons:row.lessons,join_url:row.join_url||modules[index].join_url,exercise:row.exercise,challenge:row.challenge,google_calendar_url:row.google_calendar_url,outlook_calendar_url:row.outlook_calendar_url})}
       renderHeader();renderMapSummary();renderRanking();
-      if(previousProgress!==['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(',')||previousModules!==JSON.stringify(implementations)){refreshMap();if(currentView==='schedule')renderSchedule()}
+      if(previousProgress!==['lesson','quiz','challenge','terms'].map(kind=>stepComplete(0,kind)).join(',')||previousModules!==JSON.stringify(implementations)){
+        refreshMap();
+        if(currentView==='schedule')renderSchedule();
+        if(lessonChanged)openLesson(currentModule);
+      }
       if(nextXP!==previousXP)showToast(nextXP>previousXP?`Você recebeu ${nextXP-previousXP} XP!`:`Seu saldo de XP foi atualizado para ${nextXP}.`);
       await window.UauSupport?.poll?.();
     }catch(error){console.warn('Atualização automática indisponível:',error?.message||error)}
     finally{liveSyncRunning=false}
   }
-  if(!studentContext.preview){setInterval(syncStudentUpdates,30000);setInterval(updateOnboardingAttendance,30000);window.addEventListener('focus',syncStudentUpdates)}
+  if(!studentContext.preview){
+    let lastCalendarDay=classDay(new Date());
+    function refreshCalendar(){
+      const day=classDay(new Date());
+      if(day!==lastCalendarDay){
+        lastCalendarDay=day;
+        refreshMap();
+        if(currentView==='schedule')renderSchedule();
+      }else updateMapHud();
+      if(currentView==='schedule'||currentView==='lesson'){
+        const viewId=currentView==='schedule'?'#scheduleList':'#lessonContent';
+        const stale=$$(viewId+' .implementation-activity').some(button=>{
+          const index=Number(button.dataset.module);
+          const blocked=levelLocked(index)||!activityAvailable(index,button.dataset.action,true);
+          return blocked!==(button.getAttribute('aria-disabled')==='true');
+        });
+        if(stale){
+          if(currentView==='schedule')renderSchedule();
+          else openLesson(currentModule);
+        }
+      }
+      if(currentView==='map')showClassDayPopup();
+    }
+    setInterval(syncStudentUpdates,30000);setInterval(updateOnboardingAttendance,30000);
+    setInterval(refreshEtlProgress,30000);setInterval(refreshEtlAttendance,30000);
+    setInterval(()=>{if(currentView==='challenge')refreshLiveEtlChallenge();refreshCalendar();},30000);
+    window.addEventListener('focus',()=>{syncStudentUpdates();refreshCalendar();});
+  }
   if(!studentContext.preview){$('.avatar').setAttribute('aria-label','Perfil de '+studentContext.student.full_name);$('.avatar').textContent=studentContext.student.full_name.trim().charAt(0).toUpperCase();$('#view-support .private-note').remove();$('#view-map .section-title p').textContent='Siga o caminho e acompanhe a liberação de cada implementação.';}
-  if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(false);renderAchievements();renderRanking();window.UauMapLoading?.finish();
+  if(studentContext.preview)applyLocalReviews();renderHeader();renderMapSummary();setupMap();setMapHudClosed(false);
+  const initialProgress=refreshEtlProgress();
+  if(resumingMapFromLink)Promise.resolve(initialProgress).then(()=>{
+    resumingMapFromLink=false;
+    requestAnimationFrame(()=>{if(currentView==='map'){centerMapOnResume();showClassDayPopup();}});
+  });
+  renderRanking();window.UauMapLoading?.finish();
   const entry=new URLSearchParams(location.search),entryView=entry.get('view');
   if(['map','schedule','study','ranking','achievements','support'].includes(entryView)){
     view(entryView);
     if(entryView==='support'&&entry.get('ticket'))window.UauSupport.open(entry.get('ticket')).catch(()=>{});
     if(entryView==='support'&&entry.get('notice'))setTimeout(async()=>{if(currentView!=='support')return;try{const box=await window.UauStudentInbox.load();await window.UauStudentInbox.markRead(box,entry.get('notice'));renderStudentNotices()}catch{}},10000);
+  }
+  const requestedLevel=Number(entry.get('nivel')),classNotice=entry.get('aviso-aula');
+  if(Number.isInteger(requestedLevel)&&requestedLevel>=1&&requestedLevel<=modules.length){
+    const index=requestedLevel-1;
+    if(levelLocked(index))showToast(lessonLockedMessage(index));
+    else{
+      if(index===0)openIntroStep('challenge');else openLesson(index);
+      if(!studentContext.preview&&/^[0-9a-f-]{36}$/i.test(classNotice||'')){
+        window.UauSupabase.table('uaulingo_student_notifications',
+          '?id=eq.'+encodeURIComponent(classNotice)+'&category=eq.announcement&lesson_implementation_number=eq.'+requestedLevel,
+          {method:'PATCH',body:JSON.stringify({read_at:new Date().toISOString()})}).then(renderStudentNotices).catch(()=>{});
+      }
+    }
   }
   if(new URLSearchParams(location.search).get('implementacao')==='1')openIntroStep('challenge');
   if(new URLSearchParams(location.search).get('termo')==='1')openIntroStep('terms');

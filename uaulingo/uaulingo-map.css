@@ -45,7 +45,7 @@
 #view-map .world-name{font:900 .62rem monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 #view-map .chapter-number{background:#fff9da!important;color:#154f3a!important;border:3px solid #ffffff9c;border-radius:2px;box-shadow:4px 4px 0 #062e2666;white-space:nowrap}
 #view-map .chapter-date{background:#ffffffec!important;border:2px solid #fff;border-radius:2px;box-shadow:4px 4px 0 #092e2b50;padding:7px 11px;min-width:112px}
-#view-map .chapter-date span{display:block;margin-top:2px;font:900 .62rem monospace;color:#368458}
+#view-map .chapter-date span{display:block;margin-top:2px;font:900 .9rem/1.35 monospace;color:#276b45}
 #view-map .map-stage{height:640px;overflow:hidden;background:var(--world-bg);position:relative}
 #view-map .world-forest .map-stage{background:radial-gradient(circle at 18% 82%,#b4e89c 0 15%,transparent 15.2%),radial-gradient(circle at 85% 14%,#d9f2b1 0 21%,transparent 21.2%),linear-gradient(160deg,#e9f9d3,#d2efba)}
 #view-map .world-formula .map-stage{background-image:linear-gradient(#148b5d17 2px,transparent 2px),linear-gradient(90deg,#148b5d17 2px,transparent 2px),linear-gradient(155deg,#e8fbf1,#c9ede2);background-size:30px 30px,30px 30px,auto}

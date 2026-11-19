@@ -12,8 +12,9 @@
     $('#listStatus').className='notice error';
   }
   function showSuccess(){
-    document.querySelector('.card').innerHTML='<h1 class="attendance-confirmed" role="status">Presença confirmada</h1><a class="btn" href="uaulingo.html">Voltar para o Uau Língo</a>';
-    setTimeout(()=>location.assign('uaulingo.html'),7000);
+    const mapUrl='uaulingo.html?view=map&retomar=1';
+    document.querySelector('.card').innerHTML='<h1 class="attendance-confirmed" role="status">Presença confirmada</h1><a class="btn" href="'+mapUrl+'">Voltar para o Uau Língo</a>';
+    setTimeout(()=>location.assign(mapUrl),7000);
   }
   async function register(){
     if(onboarding&&!listId)listId=await api.rpc('uaulingo_onboarding_attendance_list');

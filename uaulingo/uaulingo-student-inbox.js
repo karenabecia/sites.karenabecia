@@ -1,6 +1,7 @@
 (() => {
   const api=window.UauSupabase;
   const demoKey='uaulingo-demo-notifications-v1';
+  let lastClassNoticeSync=0;
   const previewKey=id=>`uaulingo-preview-notification-reads-${id}`;
   const samples=()=>[
     {id:'demo-1',emoji:'⚡',title:'Pontos recebidos',details:'+10 XP · Teste de pontuação extra',created_at:new Date().toISOString(),read_at:null},
@@ -12,7 +13,13 @@
     const session=await api?.session();
     if(session?.user?.id){
       const own=await api.table('uaulingo_students',`?select=id,full_name&auth_user_id=eq.${encodeURIComponent(session.user.id)}&status=eq.active`);
-      if(own[0])return {mode:'student',studentId:own[0].id,studentName:own[0].full_name,rows:await notifications(own[0].id)};
+      if(own[0]){
+        if(Date.now()-lastClassNoticeSync>=30000){
+          lastClassNoticeSync=Date.now();
+          await api.rpc('uaulingo_sync_live_class_notices').catch(()=>{});
+        }
+        return {mode:'student',studentId:own[0].id,studentName:own[0].full_name,rows:await notifications(own[0].id)};
+      }
       const staff=await api.table('uaulingo_staff',`?select=user_id&user_id=eq.${encodeURIComponent(session.user.id)}`);
       if(staff.length){
         const students=await api.table('uaulingo_students','?select=id,full_name,purchase_email&status=eq.active&order=full_name.asc');
@@ -44,5 +51,11 @@
     const row=box.rows.find(item=>item.id===id);if(row)row.read_at=when;
     if(box.mode==='demo')sessionStorage.setItem(demoKey,JSON.stringify(box.rows));
   }
-  window.UauStudentInbox={load,markRead};
+  function liveClassHref(row){
+    const level=Number(row?.lesson_implementation_number);
+    return row?.category==='announcement'&&row.reason==='Aula ao vivo hoje'&&Number.isInteger(level)&&level>0
+      ? 'uaulingo.html?nivel='+level+'&aviso-aula='+encodeURIComponent(row.id)
+      : '';
+  }
+  window.UauStudentInbox={load,markRead,liveClassHref};
 })();

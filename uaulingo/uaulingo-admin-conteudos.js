@@ -91,7 +91,14 @@
     try { [implementations,achievements]=await Promise.all([api.table('uaulingo_implementations','?select=*&order=implementation_number.asc'),api.table('uaulingo_achievements','?select=id,title&order=title.asc')]); render(); status(''); }
     catch(error) { status('Não foi possível carregar as implementações. Confira se a estrutura desta etapa foi ativada. '+friendly(error),true); }
   }
-  function openEditor(row) {
+  async function openEditor(row) {
+    if(Number(row?.implementation_number)>=2&&row.exercise?.revision){
+      try{
+        const exercise=await api.rpc('uaulingo_etl_quiz_editor',{p_implementation_id:row.id});
+        if(!exercise)throw Error('Quiz indisponível.');
+        row={...row,exercise};
+      }catch(error){status('Não foi possível abrir o quiz. '+friendly(error),true);return;}
+    }
     editingId=row?.id||''; $('#lessonForm').reset(); $('#lessons').replaceChildren(); $('#formError').textContent='';
     $('#editorTitle').textContent=row?'Editar implementação':'Nova implementação';
     $('#implementationNumber').value=row?.implementation_number||Math.max(1,...implementations.map(item=>Number(item.implementation_number)+1));
