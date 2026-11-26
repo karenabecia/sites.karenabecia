@@ -547,7 +547,7 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
-</head>
+<style>.payment-label{margin:20px 0 12px;color:#ddd;font-size:14px}.payment-options{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch}.payment-options .btn{width:100%;min-width:0;height:100%;white-space:normal;line-height:1.4;padding:16px 12px;display:flex;align-items:center;justify-content:center;text-align:center}.payment-options .payment-card{background:#f768f7;color:#111;border-color:#f768f7}.payment-options .payment-card:hover{background:#fb95fb;border-color:#fb95fb}@media(max-width:480px){.payment-options{gap:8px}.payment-options .btn{font-size:13px;padding:14px 8px}}</style></head>
 
 <body>
 
@@ -623,8 +623,6 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
         <div class="total"><em style="font-style:normal">Total</em><span id="total-separado">R$ 8.531</span></div>
         <ul class="nao">
           <li><svg class="ico-s"><use href="#i-x"/></svg>Acesso vitalício</li>
-          <li><svg class="ico-s"><use href="#i-x"/></svg>1h de consultoria individualizada</li>
-          <li><svg class="ico-s"><use href="#i-x"/></svg>Ingresso para o DashDay presencial em São Paulo</li>
           <li data-claude><svg class="ico-s"><use href="#i-x"/></svg>Implementação ao vivo de 6 noites sobre Claude com Dados</li>
         </ul>
       </div>
@@ -640,8 +638,6 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
         </ul>
         <ul class="bon">
           <li class="bon-t"><svg><use href="#i-gift"/></svg>Bônus especiais</li>
-          <li class="mk"><span><b class="q">15 primeiros</b> 1h de consultoria individualizada</span></li>
-          <li class="mk"><span><b class="q">100 primeiros</b> Ingresso para o DashDay presencial em São Paulo</span></li>
           <li class="mk" data-claude><span><b class="q">até sexta 23:59</b> Implementação ao vivo de 6 noites sobre Claude com Dados</span></li>
         </ul>
         <div class="precos" data-precos></div>
@@ -753,40 +749,10 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow bon-eye"><svg><use href="#i-gift"/></svg>Bônus especiais</span>
-      <h2 class="sec-title big">Quem chega primeiro aproveita ainda mais.</h2>
-      <p class="sec-sub" id="bonus-sub">Três presentes para quem garantir a vaga antes. Quando acabar, acabou.</p>
+      <h2 class="sec-title big">Um presente especial para você.</h2>
+      <p class="sec-sub" id="bonus-sub">Confira o bônus disponível dentro do prazo da campanha.</p>
     </div>
     <div id="bonus-grid">
-      <div class="brow">
-        <div class="bdiv"><span>15 primeiros</span></div>
-        <div class="bgrid">
-          <article class="bdet">
-            <div class="bchips"><span class="chip">Para os 15 primeiros</span></div>
-            <h3>1h de consultoria individualizada</h3>
-            <p>Uma hora só sua, com <b>atenção total ao que você precisa.</b></p>
-            <p>É <b>1 sessão individualizada de 1h</b>, para os 15 primeiros matriculados.</p>
-          </article>
-          <div class="bvis">
-            <img src="https://sites.karenabecia.com.br/black26/encontro-individual.png" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/karenabecia/sites.karenabecia/main/black26/encontro-individual.png'" alt="Consultoria individualizada de 1 hora com a Karen" width="1672" height="941" loading="lazy">
-          </div>
-        </div>
-      </div>
-
-      <div class="brow">
-        <div class="bdiv"><span>100 primeiros</span></div>
-        <div class="bgrid">
-          <article class="bdet">
-            <div class="bchips"><span class="chip">Para os 100 primeiros</span></div>
-            <h3>Ingresso para o DashDay presencial em São Paulo</h3>
-            <p>Dois dias de evento presencial, em <b>20 e 21 de fevereiro de 2027.</b></p>
-            <p>É <b>1 ingresso</b>, para os 100 primeiros matriculados. Não inclui viagem, hospedagem ou alimentação.</p>
-          </article>
-          <div class="bvis">
-            <img src="https://sites.karenabecia.com.br/imagens/DashDay.png" alt="Palco do DashDay, evento presencial da Escola Karen Abecia, com a plateia à frente" width="1672" height="941" loading="lazy">
-          </div>
-        </div>
-      </div>
-
       <div class="brow" data-claude>
         <div class="bdiv"><span>Até sexta 23:59</span></div>
         <div class="bgrid">
@@ -802,7 +768,7 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
         </div>
       </div>
     </div>
-    <p class="aviso">Esgotou ou passou do prazo, acabou. A ordem é a da matrícula.</p>
+    <p class="aviso">Bônus válido somente dentro do prazo informado.</p>
     <div class="cta-row" style="margin-top:30px"><button class="btn btn-green" data-go="oferta-final">QUERO GARANTIR MINHA VAGA</button></div>
   </div>
 </section>
@@ -962,7 +928,11 @@ dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(3px)}
           <input type="tel" id="ddi-outro" class="ddi-outro" inputmode="numeric" placeholder="Código do país (DDI), ex.: 61" maxlength="4" hidden>
           <div class="msg" id="msg-tel">Informe DDD e número válidos.</div></div>
         <div class="field" data-f="email"><label for="email">E-mail</label><input type="email" id="email" autocomplete="email" placeholder="voce@email.com"><div class="msg">Informe um e-mail válido.</div></div>
-        <button class="btn btn-green btn-block" type="submit">Ver a minha condição</button>
+        <p class="payment-label">Escolha como deseja pagar:</p>
+        <div class="payment-options">
+          <button class="btn btn-green btn-block" type="submit" name="modalidade" value="sem_limite">Parcelamento sem consumir o limite</button>
+          <button class="btn btn-green btn-block payment-card" type="submit" name="modalidade" value="pix_cartao">Pix ou cartão de crédito</button>
+        </div>
       </form>
     </div>
 
@@ -1018,9 +988,9 @@ const CONFIG = {
   totalSeparado: 8531,
   // valor = preço à vista. Os percentuais de desconto são calculados sobre o total separado.
   ofertas: {
-    nao_aluno: { rotulo: 'Novo aluno', url: 'https://pay.hotmart.com/H108249229G?off=0l0bkglb', valor: 1297, parcela: '12x de R$ 134,14' },
-    dashway:   { rotulo: 'Aluno DashWay', url: 'https://pay.hotmart.com/H108249229G?off=6mc0k0yu', valor: 897, parcela: '12x de R$ 92,77' },
-    vitalicio: { rotulo: 'Aluno vitalício', url: 'https://pay.hotmart.com/H108249229G?off=xvycs1wh', valor: 697, parcela: '12x de R$ 72,09' }
+    nao_aluno: { rotulo: 'Novo aluno', url: 'https://pay.hotmart.com/H108249229G?off=0l0bkglb', urlSemLimite: 'https://pay.hotmart.com/H108249229G?off=yizykt8n&bid=1795731179326', valor: 1297, parcela: '12x de R$ 134,14' },
+    dashway:   { rotulo: 'Aluno DashWay', url: 'https://pay.hotmart.com/H108249229G?off=6mc0k0yu', urlSemLimite: 'https://pay.hotmart.com/H108249229G?off=weq16vzg', valor: 897, parcela: '12x de R$ 92,77' },
+    vitalicio: { rotulo: 'Aluno vitalício', url: 'https://pay.hotmart.com/H108249229G?off=xvycs1wh', urlSemLimite: 'https://pay.hotmart.com/H108249229G?off=j4qdrjyg', valor: 697, parcela: '12x de R$ 72,09' }
   },
 
   // Imagens e vídeos (repositório sites.karenabecia, publicado no GitHub Pages)
@@ -1124,10 +1094,7 @@ const FAQ = [
   ['Sou iniciante. Serve para mim?', 'Serve. O Excel Scout começa do básico, e nas implementações você abre o microfone e pergunta na hora.'],
   ['Os treinamentos têm certificado?', 'Sim. Cada treinamento tem o seu certificado individual.'],
   ['Onde ficam as aulas?', 'Na área de membros da Hotmart. Você assiste pelo computador ou pelo celular.'],
-  ['Como sei se ganhei os bônus dos primeiros?', 'Os bônus seguem a ordem de matrícula. Se você estiver entre os primeiros, a gente te avisa por mensagem no WhatsApp.'],
   ['O que o acesso vitalício inclui?', 'Os 13 treinamentos listados nesta página e os replays das 10 implementações ao vivo. Treinamentos lançados no futuro não fazem parte desta oferta.'],
-  ['Como funciona a consultoria individualizada?', 'É 1 sessão individualizada de 1h, para os 15 primeiros matriculados.'],
-  ['O que inclui o ingresso do DashDay?', 'Inclui 1 ingresso para o DashDay, o evento presencial em São Paulo, para os 100 primeiros matriculados. Não inclui viagem, hospedagem ou alimentação.'],
   ['Como funciona a implementação de Claude com Dados?', 'São 6 noites ao vivo, válidas para matrículas feitas até sexta-feira, 6 de novembro.', true],
   ['E se eu não gostar?', 'Você tem 7 dias para experimentar. Se não for para você, é só pedir o reembolso completo pela Hotmart, dentro do prazo.']
 ];
@@ -1143,8 +1110,7 @@ const ico = (id, cls = '') => `<svg class="ico-s ${cls}"><use href="#${id}"/></s
 const bonusEncerrado = Date.now() > new Date(CONFIG.fimBonusClaude).getTime();
 if (bonusEncerrado) {
   $$('[data-claude]').forEach(el => el.remove());
-  $('#bonus-grid').classList.add('dois');
-  const sub = $('#bonus-sub'); if (sub) sub.textContent = 'Dois presentes para quem garantir a vaga antes. Quando acabar, acabou.';
+  $('#bonus').remove();
 }
 /* Quando uma data da campanha chega com a página aberta, recarrega para entrar na fase nova */
 [window.BLACK_PARCIAL ? CONFIG.faseCompleta : null, bonusEncerrado ? null : CONFIG.fimBonusClaude].forEach(d => {
@@ -1555,30 +1521,39 @@ function montarCheckout(base, d, segmento) {
 const waLink = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
 
 let ultimo = null;
-async function processar(d) {
-  ultimo = d; tela('s-load');
+let ultimaModalidade = null;
+let processando = false;
+async function processar(d, modalidade) {
+  if(processando || !['sem_limite','pix_cartao'].includes(modalidade)) return;
+  processando = true; ultimo = d; ultimaModalidade = modalidade;
+  $('#s-load h2').textContent = 'Conferindo o seu cadastro';
+  tela('s-load');
   try {
     const res = await consultar(d);
     if (res.ja_comprou) {
       $('#bought-title').textContent = `${d.nome.split(' ')[0]}, sua vaga já está garantida`;
       $('#bought-area').href = CONFIG.areaAlunosUrl;
       $('#bought-wa').href = waLink(`Olá! Já comprei a Black 26 com o e-mail ${d.email} e preciso de ajuda para acessar.`);
-      tela('s-bought'); return;
+      tela('s-bought'); processando = false; return;
     }
     const oferta = CONFIG.ofertas[res.segmento];
     if (!oferta || !oferta.url) throw new Error('checkout não configurado para ' + res.segmento);
     $('#s-load h2').textContent = 'Levando você ao checkout';
-    const destino = montarCheckout(oferta.url, d, res.segmento);
+    const baseCheckout = modalidade === 'sem_limite' ? oferta.urlSemLimite : oferta.url;
+    if(!baseCheckout) throw new Error('Modalidade não configurada');
+    const destino = montarCheckout(baseCheckout, d, res.segmento);
     try { fbq('track', 'InitiateCheckout', { content_name: 'black26-' + res.segmento, value: oferta.valor, currency: 'BRL' }); } catch (e) {}
     setTimeout(() => location.replace(destino), 350);
   } catch (err) {
     console.error(err);
     $('#err-wa').href = waLink('Olá! Tive um problema ao consultar minha condição da Black 26.');
+    processando = false;
     tela('s-err');
   }
 }
-$('#form').addEventListener('submit', e => { e.preventDefault(); const d = lerForm(); if (validar(d)) processar(d); });
-$('#err-retry').addEventListener('click', () => ultimo ? processar(ultimo) : tela('s-form'));
+$('#form').addEventListener('submit', e => { e.preventDefault(); const d = lerForm(); if (validar(d)) processar(d, e.submitter?.value || 'pix_cartao'); });
+$('#err-retry').addEventListener('click', () => ultimo ? processar(ultimo, ultimaModalidade) : tela('s-form'));
 </script>
 </body>
 </html>
+
